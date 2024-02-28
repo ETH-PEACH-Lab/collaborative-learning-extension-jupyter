@@ -23,15 +23,15 @@ export class PuzzleDocWidget extends DocumentWidget<
     super.dispose();
   }
 }
-type PuzzleComponentProps = {
+type PuzzleCellComponentProps = {
   initCell: Cell,
   signal: ISignal<any,Cell>
   onCellChanged: CallableFunction;
 };
-type PuzzleComponentState = {
+type PuzzleCellComponentState = {
   cell: Cell
 }
-class PuzzleComponent extends React.Component<PuzzleComponentProps,PuzzleComponentState> {
+class PuzzleCellComponent extends React.Component<PuzzleCellComponentProps,PuzzleCellComponentState> {
   componentDidMount() {
     this.setState({cell:this.props.initCell})
     if(this.props.signal.connect(this._handleSignal.bind(this))){
@@ -69,7 +69,11 @@ class PuzzleComponent extends React.Component<PuzzleComponentProps,PuzzleCompone
 export class PuzzlePanel extends ReactWidget {
   private _signal: Signal<PuzzlePanel, Cell> =new Signal<PuzzlePanel, Cell>(this)
   protected render() {
-    return <PuzzleComponent signal={this._signal} initCell={this._model.cells[0]} onCellChanged={this.onCellChanged.bind(this)}/>;
+    const renderedCells:React.ReactElement[] = [];
+    this._model.cells.forEach(cell =>{
+      renderedCells.push(<PuzzleCellComponent signal={this._signal} initCell={cell} onCellChanged={this.onCellChanged.bind(this)}/>);
+    });
+    return <div>{renderedCells}</div>;
   }
   /**
    * Construct a `PuzzlePanel`.
@@ -92,7 +96,6 @@ export class PuzzlePanel extends ReactWidget {
   }
 
   onCellChanged(value: Cell):void{
-    console.log(value);
     this._model.cells = [value];
   }
   protected onAfterShow(msg: Message): void {
