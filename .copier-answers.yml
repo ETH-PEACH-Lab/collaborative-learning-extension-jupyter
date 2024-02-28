@@ -1,0 +1,19 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.2.5
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: linderp@student.ethz.ch
+author_name: Pascal Linder
+data_format: string
+file_extension: ''
+has_binder: true
+has_settings: false
+kind: frontend
+labextension_name: collab_learning_extension
+mimetype: ''
+mimetype_name: ''
+project_short_description: A Collaborative Learning Extension for Jupyter Notebook
+python_name: collab_learning_extension
+repository: https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter
+test: true
+viewer_name: ''
+
