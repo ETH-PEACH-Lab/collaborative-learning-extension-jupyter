@@ -69,11 +69,7 @@ class PuzzleCellComponent extends React.Component<PuzzleCellComponentProps,Puzzl
 export class PuzzlePanel extends ReactWidget {
   private _signal: Signal<PuzzlePanel, Cell> =new Signal<PuzzlePanel, Cell>(this)
   protected render() {
-    const renderedCells:React.ReactElement[] = [];
-    this._model.cells.forEach(cell =>{
-      renderedCells.push(<PuzzleCellComponent signal={this._signal} initCell={cell} onCellChanged={this.onCellChanged.bind(this)}/>);
-    });
-    return <div>{renderedCells}</div>;
+    return <PuzzleCellComponent signal={this._signal} initCell={this._model.cells[0]} onCellChanged={this.onCellChanged.bind(this)}/>;
   }
   /**
    * Construct a `PuzzlePanel`.
@@ -96,10 +92,8 @@ export class PuzzlePanel extends ReactWidget {
   }
 
   onCellChanged(value: Cell):void{
+    console.log(value);
     this._model.cells = [value];
-  }
-  protected onAfterShow(msg: Message): void {
-      console.log("afterShow");
   }
   /**
    * Dispose of the resources held by the widget.

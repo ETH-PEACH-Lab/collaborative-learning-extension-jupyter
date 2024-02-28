@@ -1,2 +1,2 @@
-jupyter-ydoc<0.4.0,>=0.2.0
-ypy-websocket<0.9.0,>=0.8.2
+jupyter_ydoc<0.4.0,>=0.2.0
+ypy_websocket<0.9.0,>=0.8.2
