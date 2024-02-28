@@ -1,0 +1,2 @@
+jupyter_ydoc>=1.0.1,<2.0.0
+jupyter-collaboration>=1.0.1,<2.0.0

@@ -123,3 +123,8 @@ dmypy.json
 
 # Yarn cache
 .yarn/
+
+
+.Trash-1000/
+.github/
+.jupyter_ystore.db
