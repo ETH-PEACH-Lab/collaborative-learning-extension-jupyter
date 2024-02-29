@@ -19,3 +19,4 @@ dependencies:
   - wheel
   # additional packages for demos
   # - ipywidgets
+  - jupyterlab-link-share=0.2
