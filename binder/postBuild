@@ -3,12 +3,17 @@ set -eux
 
 python -m pip install -e . --ignore-installed --no-deps -vv
 
+jupyter labextension disable jupyter-offlinenotebook || echo "not enabled"
+python -m pip uninstall -y jupyter-offlinenotebook || echo "not installed"
+
+jupyter labextension disable jupyter-resource-usage || echo "not enabled"
+python -m pip uninstall -y jupyter-resource-usage || echo "not installed"
+
 # install our extensions
 jupyter labextension develop --overwrite .
 
 # list all extensions
 jupyter server extension list
-jupyter serverextension list
 jupyter labextension list
 
 # server configuration
