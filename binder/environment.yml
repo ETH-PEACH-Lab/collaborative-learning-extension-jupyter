@@ -1,9 +1,14 @@
-name: jupyterlab-ext
+name: collab-learning-extension-demo
+
 channels:
   - conda-forge
+
 dependencies:
-  - git
-  - jinja2-time
-  - nodejs=18
-  - copier=7
-  - jupyterlab=4
+  # runtime dependencies
+  - python >=3.10,<3.11.0a0
+  - jupyterlab >=4.0.0,<5
+  # labextension build dependencies
+  - nodejs >=18,<19
+  - pip
+  - wheel
+  - jupyter-collaboration 
