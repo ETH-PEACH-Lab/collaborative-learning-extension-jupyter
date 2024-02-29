@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-echo $@
-
-exec jupyter-lab --collaborative "${@:4}"
