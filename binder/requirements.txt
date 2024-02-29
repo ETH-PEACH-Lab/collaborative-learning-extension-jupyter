@@ -1,7 +1,3 @@
-python
-jupyterlab
-nodejs
-pip
-wheel
+jupyterlab ==4.*
 jupyter-collaboration
 jupyterlab-link-share
