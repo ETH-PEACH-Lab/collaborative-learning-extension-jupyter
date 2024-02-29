@@ -34,7 +34,7 @@ _(sys.executable, "-m", "pip", "check")
 # install the labextension
 _(sys.executable, "-m", "pip", "install", ".")
 
-_(sys.executable, "-m","-y","pip","uninstall", "jupyter-server-ydoc")
+_(sys.executable, "-my","pip","uninstall", "jupyter-server-ydoc")
 # verify the environment the extension didn't break anything
 _(sys.executable, "-m", "pip", "check")
 
