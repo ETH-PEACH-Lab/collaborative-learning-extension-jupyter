@@ -19,6 +19,7 @@ class YPuzzleDoc(YBaseDoc):
         :return: Document's content.
         """
         data = json.loads(self._content.to_json())
+
         return json.dumps(data)
 
     def set(self, raw_value: str) -> None:

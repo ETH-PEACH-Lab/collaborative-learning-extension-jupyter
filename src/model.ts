@@ -4,7 +4,7 @@ import { IChangedArgs } from '@jupyterlab/coreutils';
 
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
-import { PartialJSONObject, PartialJSONValue } from '@lumino/coreutils';
+import { PartialJSONValue, UUID } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
@@ -17,14 +17,29 @@ export type SharedObject = {
   cells: Cell[]
 };
 
-export type Cell = {
-  id:string,
-  title: string,
-  description: string,
-  code: string,
+export type Metadata = {
+  id:string
 }
-
-  
+type CellType = "markdown" | "code" | "single_choice";
+type CellBase = {
+  cell_type: CellType
+  metadata: Metadata,
+}
+export interface CodeCell extends CellBase{
+  cell_type: "code",
+  code: string
+  language: string
+}
+export interface MarkdownCell extends CellBase{
+  cell_type: "markdown",
+  markdown: string
+}
+export interface SingleChoiceCell extends CellBase{
+  cell_type: "single_choice",
+  choices: string[]
+  correct: number
+}
+export type Cell = CodeCell | MarkdownCell | SingleChoiceCell
 /**
  * PuzzleDocModel: this Model represents the content of the file
  */
@@ -137,7 +152,13 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return this.sharedModel.get('cells');
   }
   set cells(v: Cell[]) {
-    this.sharedModel.set('cells', v);
+    this.sharedModel.setCells(v);
+  }
+  set cell(v: Cell){
+    this.sharedModel.setCell(v);
+  }
+  addCodeCell():void{
+    this.sharedModel.addCodeCell();
   }
 
   /**
@@ -150,6 +171,12 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return this._contentChanged;
   }
 
+   /**
+   * A signal emitted when a cell changes.
+   */
+   get cellChanged(): ISignal<this, Cell> {
+    return this._cellChanged;
+  }
   /**
    * A signal emitted when the document state changes.
    *
@@ -196,7 +223,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   fromString(data: string): void {
     const obj = JSON.parse(data);
     this.sharedModel.transact(() => {
-      this.sharedModel.set('cells', obj.cells);
+      this.sharedModel.setCells(obj.cells);
     });
   }
 
@@ -244,6 +271,11 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this.dirty = true;
   }
 
+  protected triggerCellChanged(cell: Cell):void{
+    this._cellChanged.emit(cell)
+    this.dirty = true;
+  }
+
 
   /**
    * Callback to listen for changes on the sharedModel. This callback listens
@@ -256,8 +288,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     sender: PuzzleDoc,
     changes: PuzzleDocChange
   ): void => {
-    if (changes.cellsChanges) {
-      this.triggerContentChange();
+    if(changes.cellChanges){
+      this.triggerCellChanged(changes.cellChanges)
     }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
@@ -281,11 +313,12 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _isDisposed = false;
   private _readOnly = false;
   private _contentChanged = new Signal<this, void>(this);
+  private _cellChanged = new Signal<this, Cell>(this);
   private _collaborationEnabled: boolean;
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
 }
 export type PuzzleDocChange = {
-    cellsChanges?: Cell[];
+    cellChanges?: Cell;
   } & DocumentChange;
 
 
@@ -306,8 +339,8 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     if (this.isDisposed) {
       return;
     }
-    this._content.unobserve(this._contentObserver);
     super.dispose();
+    this._content.unobserve(this._contentObserver);
   }
 
   /**
@@ -341,26 +374,35 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
    * @param key The key of the object.
    * @param value New object.
    */
-  set(key: 'cells', value: PartialJSONObject[]): void;
-  set(key: string, value: PartialJSONObject[]): void {
-    this._content.set(key, key === 'cells' ? JSON.stringify(value) : value);
-  }
-
-  /**
-   * Handle a change.
-   *
-   * @param event Model event
-   */
-  private _contentObserver = (event: Y.YMapEvent<any>): void => {
-    const changes: PuzzleDocChange = {};
-    console.log(event);
-    // Checks which object changed and propagates them.
-    if (event.keysChanged.has('cells')) {
-      changes.cellsChanges = JSON.parse(this._content.get('cells'));
+  setCell(value: Cell): void{
+    const tmp = this.get('cells');
+    for(let i = 0; i < tmp.length;i++){
+      if(tmp[i].metadata.id === value.metadata.id){
+        tmp[i] = value
+        this._content.set('working-cell', JSON.stringify(value));
+      }
     }
+    this._content.set('cells', JSON.stringify(tmp));
+  }
+  addCodeCell(): void{
+    const tmp = this.get('cells');
+    const newCell = <CodeCell>{metadata:{id: UUID.uuid4()},code:"",language:"TypeScript", cell_type:'code'};
+    tmp.push(newCell);
+    this._content.set('cells', JSON.stringify(tmp));
+    this._content.set('working-cell',JSON.stringify(newCell));
+  }
+  setCells(value: Cell[]): void{
+    this._content.set('cells', JSON.stringify(value));
+  }
+  private _contentObserver = (event: Y.YMapEvent<any>): void => {
+      const changes: PuzzleDocChange = {};
 
-    this._changed.emit(changes);
+      if (event.keysChanged.has('working-cell') && this._content.has('working-cell')) {
+        changes.cellChanges = JSON.parse(this._content.get('working-cell'));
+        this._content.delete('working-cell');
+      }
+  
+      this._changed.emit(changes);
   };
-
   private _content: Y.Map<any>;
 }

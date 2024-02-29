@@ -1,8 +1,16 @@
 {
   "cells":[{
-    "id":"1",
-    "title":"test",
-    "description":"test desc",
-    "code":"test"
+    "cell_type": "code",
+    "metadata":{
+        "id":"1"
+    },
+    "code":"test",
+    "langugage": "TypeScript"
+  },{
+    "cell_type": "markdown",
+    "metadata":{
+        "id":"2"
+    },
+    "markdown":"# Heading level 1"
   }]
 }
