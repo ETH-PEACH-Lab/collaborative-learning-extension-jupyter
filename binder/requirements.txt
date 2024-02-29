@@ -1,6 +1,6 @@
-python >=3.10,<3.11.0a0
-jupyterlab >=4.0.0,<5
-nodejs >=18,<19
+python==3.10
+jupyterlab==4.0.1
+nodejs==18
 pip
 wheel
 jupyter-collaboration
