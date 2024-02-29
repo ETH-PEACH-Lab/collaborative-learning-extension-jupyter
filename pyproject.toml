@@ -24,7 +24,7 @@ classifiers = [
 ]
 dependencies = [
   "jupyter_server>=2.0.6,<3",
-  "jupyter_ydoc>=2,<3",
+  "jupyter-ydoc<0.4.0,>=0.2.0",
   "jupyter-collaboration>=2,<3",
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
