@@ -1,6 +1,6 @@
 [build-system]
-requires = ["hatchling>=1.5.0,<1.9.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version>=0.3.2"]
 build-backend = "hatchling.build"
+requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version>=0.3.2"]
 
 [project]
 name = "collab_learning_extension"
@@ -23,7 +23,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "jupyter-collaboration>=1.0.1,<2.0.0"
+  "jupyter_server>=2.0.6,<3",
+  "jupyter_ydoc>=2,<3",
+  "jupyter-collaboration>=2,<3",
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
 
