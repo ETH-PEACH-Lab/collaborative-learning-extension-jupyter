@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -eux
 
-jlpm bootstrap
-
 python -m pip install -e . --ignore-installed --no-deps -vv
 
 # install our extensions
