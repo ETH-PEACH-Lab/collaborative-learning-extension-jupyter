@@ -4,7 +4,6 @@ import { Contents } from '@jupyterlab/services';
 import { PuzzleDocWidget, PuzzlePanel } from './widget';
 import { PuzzleDoc, PuzzleDocModel } from './model';
 
-
 /**
  * A widget factory to create new instances of PuzzleDocWidget.
  */
@@ -18,7 +17,7 @@ export class PuzzleWidgetFactory extends ABCWidgetFactory<
    * @param options Constructor options
    */
   constructor(options: DocumentRegistry.IWidgetFactoryOptions) {
-    console.log("creating factory for puzzle doc");
+    console.log('creating factory for puzzle doc');
     super(options);
   }
 

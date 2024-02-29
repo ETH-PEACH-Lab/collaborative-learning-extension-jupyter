@@ -14,8 +14,6 @@ import { PuzzleWidgetFactory, PuzzleDocModelFactory } from './factory';
 import { PuzzleDoc } from './model';
 import { PuzzleDocWidget } from './widget';
 
-
-
 const FACTORY = 'puzzle-editor';
 // Export a token so other extensions can require it
 export const IPuzzleDocTracker = new Token<IWidgetTracker<PuzzleDocWidget>>(
@@ -31,25 +29,27 @@ const plugin: JupyterFrontEndPlugin<void> = {
   requires: [ILayoutRestorer],
   optional: [ICollaborativeDrive],
   provides: IPuzzleDocTracker,
-  activate: (app: JupyterFrontEnd,
+  activate: (
+    app: JupyterFrontEnd,
     restorer: ILayoutRestorer,
-    drive: ICollaborativeDrive | null) => {
+    drive: ICollaborativeDrive | null
+  ) => {
     console.log('JupyterLab extension collab_learning_extension is activated!');
-   // Namespace for the tracker
-   const namespace = 'puzzle-documents';
-   // Creating the tracker for the document
-   const tracker = new WidgetTracker<PuzzleDocWidget>({ namespace });
+    // Namespace for the tracker
+    const namespace = 'puzzle-documents';
+    // Creating the tracker for the document
+    const tracker = new WidgetTracker<PuzzleDocWidget>({ namespace });
 
-   // Handle state restoration.
-   if (restorer) {
-     // When restoring the app, if the document was open, reopen it
-     console.log('reopen files')
-     restorer.restore(tracker, {
-       command: 'docmanager:open',
-       args: widget => ({ path: widget.context.path, factory: FACTORY }),
-       name: widget => widget.context.path
-     });
-   }
+    // Handle state restoration.
+    if (restorer) {
+      // When restoring the app, if the document was open, reopen it
+      console.log('reopen files');
+      restorer.restore(tracker, {
+        command: 'docmanager:open',
+        args: widget => ({ path: widget.context.path, factory: FACTORY }),
+        name: widget => widget.context.path
+      });
+    }
     app.docRegistry.addFileType({
       name: 'puzzle',
       displayName: 'Puzzle',
@@ -58,19 +58,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
       fileFormat: 'json',
       contentType: 'puzzledoc' as any
     });
-    console.log('registerd new doc type: puzzle')
+    console.log('registerd new doc type: puzzle');
     if (drive) {
-      console.log('collaborative mode active')
+      console.log('collaborative mode active');
       const sharedPuzzleFactory = () => {
         return PuzzleDoc.create();
       };
       drive.sharedModelFactory.registerDocumentFactory(
         'puzzledoc',
-        //@ts-ignore
         sharedPuzzleFactory
       );
-    }else{
-      console.log('collaborative mode inactive')
+    } else {
+      console.log('collaborative mode inactive');
     }
     // Creating and registering the model factory for our custom DocumentModel
     const modelFactory = new PuzzleDocModelFactory();

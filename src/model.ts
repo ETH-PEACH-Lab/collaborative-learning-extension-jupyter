@@ -14,32 +14,32 @@ import * as Y from 'yjs';
  * Document structure
  */
 export type SharedObject = {
-  cells: Cell[]
+  cells: Cell[];
 };
 
 export type Metadata = {
-  id:string
-}
-type CellType = "markdown" | "code" | "single_choice";
+  id: string;
+};
+type CellType = 'markdown' | 'code' | 'single_choice';
 type CellBase = {
-  cell_type: CellType
-  metadata: Metadata,
+  cell_type: CellType;
+  metadata: Metadata;
+};
+export interface ICodeCell extends CellBase {
+  cell_type: 'code';
+  code: string;
+  language: string;
 }
-export interface CodeCell extends CellBase{
-  cell_type: "code",
-  code: string
-  language: string
+export interface IMarkdownCell extends CellBase {
+  cell_type: 'markdown';
+  markdown: string;
 }
-export interface MarkdownCell extends CellBase{
-  cell_type: "markdown",
-  markdown: string
+export interface ISingleChoiceCell extends CellBase {
+  cell_type: 'single_choice';
+  choices: string[];
+  correct: number;
 }
-export interface SingleChoiceCell extends CellBase{
-  cell_type: "single_choice",
-  choices: string[]
-  correct: number
-}
-export type Cell = CodeCell | MarkdownCell | SingleChoiceCell
+export type Cell = ICodeCell | IMarkdownCell | ISingleChoiceCell;
 /**
  * PuzzleDocModel: this Model represents the content of the file
  */
@@ -154,10 +154,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   set cells(v: Cell[]) {
     this.sharedModel.setCells(v);
   }
-  set cell(v: Cell){
+  set cell(v: Cell) {
     this.sharedModel.setCell(v);
   }
-  addCodeCell():void{
+  addCodeCell(): void {
     this.sharedModel.addCodeCell();
   }
 
@@ -171,10 +171,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return this._contentChanged;
   }
 
-   /**
+  /**
    * A signal emitted when a cell changes.
    */
-   get cellChanged(): ISignal<this, Cell> {
+  get cellChanged(): ISignal<this, Cell> {
     return this._cellChanged;
   }
   /**
@@ -271,11 +271,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this.dirty = true;
   }
 
-  protected triggerCellChanged(cell: Cell):void{
-    this._cellChanged.emit(cell)
+  protected triggerCellChanged(cell: Cell): void {
+    this._cellChanged.emit(cell);
     this.dirty = true;
   }
-
 
   /**
    * Callback to listen for changes on the sharedModel. This callback listens
@@ -288,8 +287,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     sender: PuzzleDoc,
     changes: PuzzleDocChange
   ): void => {
-    if(changes.cellChanges){
-      this.triggerCellChanged(changes.cellChanges)
+    if (changes.cellChanges) {
+      this.triggerCellChanged(changes.cellChanges);
     }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
@@ -318,9 +317,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
 }
 export type PuzzleDocChange = {
-    cellChanges?: Cell;
-  } & DocumentChange;
-
+  cellChanges?: Cell;
+} & DocumentChange;
 
 export class PuzzleDoc extends YDocument<PuzzleDocChange> {
   constructor() {
@@ -361,11 +359,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
   get(key: 'cells'): Cell[];
   get(key: string): any {
     const data = this._content.get(key);
-    return key === 'cells'
-      ? data
-        ? JSON.parse(data)
-        : []
-      : data ?? '';
+    return key === 'cells' ? (data ? JSON.parse(data) : []) : data ?? '';
   }
 
   /**
@@ -374,35 +368,43 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
    * @param key The key of the object.
    * @param value New object.
    */
-  setCell(value: Cell): void{
+  setCell(value: Cell): void {
     const tmp = this.get('cells');
-    for(let i = 0; i < tmp.length;i++){
-      if(tmp[i].metadata.id === value.metadata.id){
-        tmp[i] = value
+    for (let i = 0; i < tmp.length; i++) {
+      if (tmp[i].metadata.id === value.metadata.id) {
+        tmp[i] = value;
         this._content.set('working-cell', JSON.stringify(value));
       }
     }
     this._content.set('cells', JSON.stringify(tmp));
   }
-  addCodeCell(): void{
+  addCodeCell(): void {
     const tmp = this.get('cells');
-    const newCell = <CodeCell>{metadata:{id: UUID.uuid4()},code:"",language:"TypeScript", cell_type:'code'};
+    const newCell = <CodeCell>{
+      metadata: { id: UUID.uuid4() },
+      code: '',
+      language: 'TypeScript',
+      cell_type: 'code'
+    };
     tmp.push(newCell);
     this._content.set('cells', JSON.stringify(tmp));
-    this._content.set('working-cell',JSON.stringify(newCell));
+    this._content.set('working-cell', JSON.stringify(newCell));
   }
-  setCells(value: Cell[]): void{
+  setCells(value: Cell[]): void {
     this._content.set('cells', JSON.stringify(value));
   }
   private _contentObserver = (event: Y.YMapEvent<any>): void => {
-      const changes: PuzzleDocChange = {};
+    const changes: PuzzleDocChange = {};
 
-      if (event.keysChanged.has('working-cell') && this._content.has('working-cell')) {
-        changes.cellChanges = JSON.parse(this._content.get('working-cell'));
-        this._content.delete('working-cell');
-      }
-  
-      this._changed.emit(changes);
+    if (
+      event.keysChanged.has('working-cell') &&
+      this._content.has('working-cell')
+    ) {
+      changes.cellChanges = JSON.parse(this._content.get('working-cell'));
+      this._content.delete('working-cell');
+    }
+
+    this._changed.emit(changes);
   };
   private _content: Y.Map<any>;
 }

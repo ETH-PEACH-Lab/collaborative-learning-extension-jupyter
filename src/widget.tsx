@@ -1,4 +1,3 @@
-
 import { DocumentRegistry, DocumentWidget } from '@jupyterlab/docregistry';
 
 import { Signal } from '@lumino/signaling';
@@ -14,7 +13,7 @@ export class PuzzleDocWidget extends DocumentWidget<
   PuzzleDocModel
 > {
   constructor(options: DocumentWidget.IOptions<PuzzlePanel, PuzzleDocModel>) {
-    console.log('creating puzzle doc widget')
+    console.log('creating puzzle doc widget');
     super(options);
   }
 
@@ -28,12 +27,19 @@ export class PuzzleDocWidget extends DocumentWidget<
  */
 export class PuzzlePanel extends ReactWidget {
   protected render() {
-    return (<span>
-      <PuzzleToolbarComponent addCodeCell={this.addCodeCell.bind(this)}></PuzzleToolbarComponent>
-      <PuzzleCellContainerComponent
-        cellSignal={this._cellSignal} cellsSignal={this._cellsSignal}
-        cells={this._model.cells} onCellChanged={this.onCellChanged.bind(this)}></PuzzleCellContainerComponent>
-    </span>)
+    return (
+      <span>
+        <PuzzleToolbarComponent
+          addCodeCell={this.addCodeCell.bind(this)}
+        ></PuzzleToolbarComponent>
+        <PuzzleCellContainerComponent
+          cellSignal={this._cellSignal}
+          cellsSignal={this._cellsSignal}
+          cells={this._model.cells}
+          onCellChanged={this.onCellChanged.bind(this)}
+        ></PuzzleCellContainerComponent>
+      </span>
+    );
   }
   /**
    * Construct a `PuzzlePanel`.
@@ -51,7 +57,7 @@ export class PuzzlePanel extends ReactWidget {
       this.update();
       this._cellsSignal.emit(this._model.cells);
     });
-    this.addClass('jp-puzzle-panel')
+    this.addClass('jp-puzzle-panel');
   }
 
   onCellChanged(value: Cell): void {
@@ -72,14 +78,11 @@ export class PuzzlePanel extends ReactWidget {
     super.dispose();
   }
   private _onContentChanged = (): void => {
-    this._cellsSignal.emit(this._model.cells)
+    this._cellsSignal.emit(this._model.cells);
   };
 
-  private _onCellChanged = (
-    sender: PuzzleDocModel,
-    cell: Cell
-  ): void => {
-    this._cellSignal.emit(cell)
+  private _onCellChanged = (sender: PuzzleDocModel, cell: Cell): void => {
+    this._cellSignal.emit(cell);
   };
   private _cellSignal: Signal<PuzzlePanel, Cell>;
   private _cellsSignal: Signal<PuzzlePanel, Cell[]>;
