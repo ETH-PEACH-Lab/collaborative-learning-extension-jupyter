@@ -12,3 +12,4 @@ dependencies:
   - pip
   - wheel
   - jupyter-collaboration 
+  - jupyter-ydoc==0.1.13
