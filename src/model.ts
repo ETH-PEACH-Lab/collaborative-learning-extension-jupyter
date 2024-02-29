@@ -380,7 +380,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
   }
   addCodeCell(): void {
     const tmp = this.get('cells');
-    const newCell = <CodeCell>{
+    const newCell = <ICodeCell>{
       metadata: { id: UUID.uuid4() },
       code: '',
       language: 'TypeScript',

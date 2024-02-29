@@ -1,7 +1,7 @@
 import React from 'react';
 import { Editor } from '@monaco-editor/react';
 import { ISignal } from '@lumino/signaling';
-import { Cell, CodeCell, MarkdownCell } from '../model';
+import { Cell, ICodeCell, IMarkdownCell } from '../model';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { editor } from 'monaco-editor';
@@ -44,7 +44,7 @@ export class PuzzleCellComponent extends React.Component<
 }
 
 type PuzzleCodeCellComponentProps = {
-  cell: CodeCell;
+  cell: ICodeCell;
   onChange: (c: Cell) => void;
 };
 
@@ -97,7 +97,7 @@ class PuzzleCodeCellComponent extends React.Component<PuzzleCodeCellComponentPro
   }
 }
 type PuzzleMarkdownCellComponentProps = {
-  cell: MarkdownCell;
+  cell: IMarkdownCell;
 };
 class PuzzleMarkDownCellComponent extends React.Component<PuzzleMarkdownCellComponentProps> {
   render() {
