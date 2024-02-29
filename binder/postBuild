@@ -5,8 +5,6 @@ python -m pip install -e . --ignore-installed --no-deps -vv
 
 # install our extensions
 jupyter labextension develop --overwrite .
-jupyter serverextension enable --sys-prefix --py collab_learning_extension
-jupyter server extension enable --sys-prefix --py collab_learning_extension
 
 # list all extensions
 jupyter server extension list
