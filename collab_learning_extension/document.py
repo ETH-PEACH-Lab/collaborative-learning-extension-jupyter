@@ -1,12 +1,12 @@
 import json
 from functools import partial
-
 from jupyter_ydoc.ybasedoc import YBaseDoc
+import y_py as Y
 
 class YPuzzleDoc(YBaseDoc):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._content = self._ydoc.get_map('content')
+        self._cells = self._ydoc.get_array('cells')
 
     @property
     def version(self) -> str:
@@ -18,9 +18,10 @@ class YPuzzleDoc(YBaseDoc):
 
         :return: Document's content.
         """
-        data = json.loads(self._content.to_json())
-
-        return json.dumps(data)
+        cells = json.loads(self._cells.to_json())
+        return json.dumps({"cells":cells},
+                indent=2,
+            )
 
     def set(self, raw_value: str) -> None:
         """
@@ -30,13 +31,11 @@ class YPuzzleDoc(YBaseDoc):
         """
         value = json.loads(raw_value)
         with self._ydoc.begin_transaction() as t:
-            # clear document
-            for key in self._content:
-                self._content.pop(t, key)
-            for key in [k for k in self._ystate if k not in ("dirty", "path")]:
-                self._ystate.pop(t, key)
-
-            self._content.set(t, "cells", json.dumps(value["cells"]))
+            newObj = []
+            for obj in value["cells"]:
+                newObj.append(Y.YMap(obj))
+            self._cells.delete_range(t,0,len(self._cells))
+            self._cells.extend(t,newObj)
     #
 
     def observe(self, callback: "Callable[[str, Any], None]") -> None:
@@ -46,6 +45,7 @@ class YPuzzleDoc(YBaseDoc):
         :param callback: Callback that will be called when the document changes.
         """
         self.unobserve()
+
         self._subscriptions[self._ystate] = self._ystate.observe(partial(callback, "state"))
-        self._subscriptions[self._content] = self._content.observe(partial(callback, "content"))
+        self._subscriptions[self._cells] = self._cells.observe_deep(partial(callback, "cells"))
     #

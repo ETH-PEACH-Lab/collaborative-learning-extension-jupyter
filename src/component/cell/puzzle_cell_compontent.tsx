@@ -1,10 +1,9 @@
 import React from 'react';
-import { Editor } from '@monaco-editor/react';
 import { ISignal } from '@lumino/signaling';
-import { Cell, ICodeCell, IMarkdownCell } from '../model';
+import { Cell, ICodeCell, IMarkdownCell } from '../../model';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { editor } from 'monaco-editor';
+import { PuzzleEditorComponent } from '../util/puzzle_editor_component';
 type PuzzleCellComponentProps = {
   initCell: Cell;
   signal: ISignal<any, Cell>;
@@ -49,51 +48,18 @@ type PuzzleCodeCellComponentProps = {
 };
 
 class PuzzleCodeCellComponent extends React.Component<PuzzleCodeCellComponentProps> {
-  private editor: editor.IStandaloneCodeEditor | null = null;
   render() {
     return (
-      <Editor
-        defaultLanguage={this.props?.cell?.language}
-        height={'auto'}
-        options={{
-          wrappingStrategy: 'advanced',
-          wordWrap: 'on',
-          minimap: { enabled: false },
-          scrollBeyondLastLine: false,
-          overviewRulerLanes: 0
-        }}
-        value={this.props?.cell?.code}
-        onChange={this.onCodeChange.bind(this)}
-        theme="vs-dark"
-        onMount={this.onEditorMount.bind(this)}
+      <PuzzleEditorComponent
+        code={this.props.cell.code}
+        language={this.props.cell.language}
+        onCodeChange={this.onCodeChange.bind(this)}
       />
     );
   }
-  onCodeChange(value: string | undefined) {
-    if (value !== undefined) {
-      this.props.cell.code = value;
-      this.props.onChange(this.props.cell);
-    }
-  }
-  onEditorMount(editor: editor.IStandaloneCodeEditor) {
-    this.editor = editor;
-    editor.onDidContentSizeChange(this.updateEditorHeight.bind(this));
-    this.updateEditorHeight();
-  }
-  updateEditorHeight(): void {
-    if (this.editor !== null) {
-      const container = this.editor.getDomNode();
-      if (!container) {
-        return;
-      }
-      const contentHeight = Math.min(1000, this.editor.getContentHeight());
-      container.style.width = '100%';
-      container.style.height = `${contentHeight}px`;
-      this.editor.layout({
-        width: container.getBoundingClientRect().width,
-        height: contentHeight
-      });
-    }
+  onCodeChange(value: string) {
+    this.props.cell.code = value;
+    this.props.onChange(this.props.cell);
   }
 }
 type PuzzleMarkdownCellComponentProps = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cell } from '../model';
+import { Cell } from '../../model';
 import { ISignal, Signal } from '@lumino/signaling';
 import { PuzzleCellComponent } from './puzzle_cell_compontent';
 
@@ -30,7 +30,7 @@ export class PuzzleCellContainerComponent extends React.Component<
     const cellComponents: React.ReactElement[] = [];
     this.state?.cells.forEach(element => {
       const signal = new Signal<this, Cell>(this);
-      this._cellSignals.set(element.metadata.id, signal);
+      this._cellSignals.set(element.id, signal);
       cellComponents.push(
         <PuzzleCellComponent
           signal={signal}
@@ -46,7 +46,7 @@ export class PuzzleCellContainerComponent extends React.Component<
     this.setState({ cells: cells });
   }
   private _handleCellSignal(sender: any, cell: Cell) {
-    const signal = this._cellSignals.get(cell.metadata.id);
+    const signal = this._cellSignals.get(cell.id);
     if (signal !== undefined) {
       signal.emit(cell);
     } else {

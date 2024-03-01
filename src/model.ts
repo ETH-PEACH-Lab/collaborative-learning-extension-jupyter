@@ -10,18 +10,10 @@ import { ISignal, Signal } from '@lumino/signaling';
 
 import * as Y from 'yjs';
 
-/**
- * Document structure
- */
-export type SharedObject = {
-  cells: Cell[];
-};
-
-export type Metadata = {
-  id: string;
-};
+export type Metadata = any;
 type CellType = 'markdown' | 'code' | 'single_choice';
 type CellBase = {
+  id: string;
   cell_type: CellType;
   metadata: Metadata;
 };
@@ -263,14 +255,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this._stateChanged.emit(args);
   }
 
-  /**
-   * Trigger a content changed signal.
-   */
-  protected triggerContentChange(): void {
-    this._contentChanged.emit(void 0);
-    this.dirty = true;
-  }
-
   protected triggerCellChanged(cell: Cell): void {
     this._cellChanged.emit(cell);
     this.dirty = true;
@@ -288,6 +272,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     changes: PuzzleDocChange
   ): void => {
     if (changes.cellChanges) {
+      console.log('shared model: cell changed');
       this.triggerCellChanged(changes.cellChanges);
     }
     if (changes.stateChange) {
@@ -323,9 +308,8 @@ export type PuzzleDocChange = {
 export class PuzzleDoc extends YDocument<PuzzleDocChange> {
   constructor() {
     super();
-    // Creating a new shared object and listen to its changes
-    this._content = this.ydoc.getMap('content');
-    this._content.observe(this._contentObserver);
+    this._cells = this.ydoc.getArray('cells');
+    this._cells.observeDeep(this._cellsObserver);
   }
 
   readonly version: string = '1.0.0';
@@ -338,7 +322,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
       return;
     }
     super.dispose();
-    this._content.unobserve(this._contentObserver);
+    this._cells.unobserveDeep(this._cellsObserver);
   }
 
   /**
@@ -358,8 +342,8 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
    */
   get(key: 'cells'): Cell[];
   get(key: string): any {
-    const data = this._content.get(key);
-    return key === 'cells' ? (data ? JSON.parse(data) : []) : data ?? '';
+    const data = this._cells;
+    return key === 'cells' ? (data ? data.toJSON() : []) : data ?? '';
   }
 
   /**
@@ -369,42 +353,63 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
    * @param value New object.
    */
   setCell(value: Cell): void {
-    const tmp = this.get('cells');
-    for (let i = 0; i < tmp.length; i++) {
-      if (tmp[i].metadata.id === value.metadata.id) {
-        tmp[i] = value;
-        this._content.set('working-cell', JSON.stringify(value));
-      }
+    const yCell = this._getCellAsYMapById(value.id);
+    if (yCell === undefined) {
+      return;
     }
-    this._content.set('cells', JSON.stringify(tmp));
+    this.transact(() => {
+      Object.entries(value).forEach(value => {
+        yCell?.set(value[0], value[1]);
+      });
+    });
   }
   addCodeCell(): void {
-    const tmp = this.get('cells');
     const newCell = <ICodeCell>{
-      metadata: { id: UUID.uuid4() },
+      id: UUID.uuid4(),
       code: '',
       language: 'TypeScript',
       cell_type: 'code'
     };
-    tmp.push(newCell);
-    this._content.set('cells', JSON.stringify(tmp));
-    this._content.set('working-cell', JSON.stringify(newCell));
+    this._cells.push([new Y.Map<any>(Object.entries(newCell))]);
   }
-  setCells(value: Cell[]): void {
-    this._content.set('cells', JSON.stringify(value));
+  setCells(cells: Cell[]): void {
+    this.transact(() => {
+      this._cells.delete(0, this._cells.length);
+      const newYCells: Y.Map<any>[] = [];
+      cells.forEach(cell => {
+        newYCells.push(new Y.Map<any>(Object.entries(cell)));
+      });
+      this._cells.push(newYCells);
+    });
   }
-  private _contentObserver = (event: Y.YMapEvent<any>): void => {
-    const changes: PuzzleDocChange = {};
-
-    if (
-      event.keysChanged.has('working-cell') &&
-      this._content.has('working-cell')
-    ) {
-      changes.cellChanges = JSON.parse(this._content.get('working-cell'));
-      this._content.delete('working-cell');
-    }
-
-    this._changed.emit(changes);
+  private _cellsObserver = (events: Y.YEvent<any>[]): void => {
+    events.forEach(event => {
+      if (event.target.get('id') && event.target.get('cell_type')) {
+        this._changed.emit(<PuzzleDocChange>{
+          cellChanges: event.target.toJSON()
+        });
+      } else {
+        event.delta.forEach(delta => {
+          if (delta.insert !== undefined && delta.insert instanceof Array) {
+            delta.insert.forEach(insert => {
+              this._changed.emit(<PuzzleDocChange>{
+                cellChanges: insert.toJSON()
+              });
+            });
+          }
+        });
+      }
+    });
   };
-  private _content: Y.Map<any>;
+
+  private _getCellAsYMapById(id: string): Y.Map<any> | undefined {
+    for (const cell of this._cells) {
+      if (cell.get('id') === id) {
+        return cell;
+      }
+    }
+    return undefined;
+  }
+
+  private _cells: Y.Array<Y.Map<any>>;
 }

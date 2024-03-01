@@ -6,7 +6,7 @@ import { Cell, PuzzleDocModel } from './model';
 import * as React from 'react';
 import { ReactWidget } from '@jupyterlab/apputils';
 import { PuzzleToolbarComponent } from './component/puzzle_toolbar_component';
-import { PuzzleCellContainerComponent } from './component/puzzle_cell_container_component';
+import { PuzzleCellContainerComponent } from './component/cell/puzzle_cell_container_component';
 
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
