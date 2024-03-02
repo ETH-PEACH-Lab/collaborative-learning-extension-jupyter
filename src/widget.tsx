@@ -1,12 +1,13 @@
 import { DocumentRegistry, DocumentWidget } from '@jupyterlab/docregistry';
 
 import { Signal } from '@lumino/signaling';
-import { Cell, PuzzleDocModel } from './model';
+import {  PuzzleDocModel } from './model';
 
 import * as React from 'react';
 import { ReactWidget } from '@jupyterlab/apputils';
 import { PuzzleToolbarComponent } from './component/puzzle_toolbar_component';
 import { PuzzleCellContainerComponent } from './component/cell/puzzle_cell_container_component';
+import { Cell } from './cell_types';
 
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
@@ -29,15 +30,17 @@ export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
       <span>
-        <PuzzleToolbarComponent
-          addCodeCell={this.addCodeCell.bind(this)}
-        ></PuzzleToolbarComponent>
         <PuzzleCellContainerComponent
           cellSignal={this._cellSignal}
           cellsSignal={this._cellsSignal}
           cells={this._model.cells}
           onCellChanged={this.onCellChanged.bind(this)}
+          onDelete={this._model.deleteCell.bind(this._model)}
         ></PuzzleCellContainerComponent>
+        <PuzzleToolbarComponent
+          addCodeCell={()=>{this._model.addCell('code')}}
+          addMarkdownCell={()=>{this._model.addCell('markdown')}}
+        ></PuzzleToolbarComponent>
       </span>
     );
   }
@@ -59,12 +62,8 @@ export class PuzzlePanel extends ReactWidget {
     });
     this.addClass('jp-puzzle-panel');
   }
-
   onCellChanged(value: Cell): void {
     this._model.cell = value;
-  }
-  addCodeCell(): void {
-    this._model.addCodeCell();
   }
   /**
    * Dispose of the resources held by the widget.
@@ -74,6 +73,7 @@ export class PuzzlePanel extends ReactWidget {
       return;
     }
     this._model.contentChanged.disconnect(this._onContentChanged);
+    this._model.cellChanged.disconnect(this._onCellChanged);
     Signal.clearData(this);
     super.dispose();
   }

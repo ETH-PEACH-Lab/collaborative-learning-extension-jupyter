@@ -1,13 +1,15 @@
 import React from 'react';
 import { ISignal } from '@lumino/signaling';
-import { Cell, ICodeCell, IMarkdownCell } from '../../model';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { PuzzleEditorComponent } from '../util/puzzle_editor_component';
+
+import { PuzzleCodeCellComponent } from './types/puzzle_code_cell_component';
+import { PuzzleMarkDownCellComponent } from './types/puzzle_markdown_cell_component';
+import { Cell } from '../../cell_types';
+
 type PuzzleCellComponentProps = {
   initCell: Cell;
   signal: ISignal<any, Cell>;
   onCellChanged: (c: Cell) => void;
+  onDelete: (c: Cell) => void;
 };
 type PuzzleCellComponentState = {
   cell: Cell;
@@ -28,49 +30,24 @@ export class PuzzleCellComponent extends React.Component<
     this.setState({ cell: value });
   };
   render() {
+    const rendering = [<PuzzleCellSettingsComponent onDelete={this.onDelete.bind(this)}></PuzzleCellSettingsComponent>]
     if (this.state?.cell.cell_type === 'code') {
-      return (
-        <PuzzleCodeCellComponent
-          cell={this.state.cell}
-          onChange={this.props.onCellChanged}
-        />
-      );
+      rendering.push(<PuzzleCodeCellComponent cell={this.state.cell} onChange={this.props.onCellChanged} />);
     }
     if (this.state?.cell.cell_type === 'markdown') {
-      return <PuzzleMarkDownCellComponent cell={this.state.cell} />;
+      rendering.push(<PuzzleMarkDownCellComponent cell={this.state.cell} />);
     }
+    return <div>{rendering}</div>
+  }
+  onDelete = () => {
+    this.props.onDelete(this.state.cell);
   }
 }
-
-type PuzzleCodeCellComponentProps = {
-  cell: ICodeCell;
-  onChange: (c: Cell) => void;
+type PuzzleCellSettingsComponentProps = {
+  onDelete: () => void;
 };
-
-class PuzzleCodeCellComponent extends React.Component<PuzzleCodeCellComponentProps> {
-  render() {
-    return (
-      <PuzzleEditorComponent
-        code={this.props.cell.code}
-        language={this.props.cell.language}
-        onCodeChange={this.onCodeChange.bind(this)}
-      />
-    );
-  }
-  onCodeChange(value: string) {
-    this.props.cell.code = value;
-    this.props.onChange(this.props.cell);
-  }
-}
-type PuzzleMarkdownCellComponentProps = {
-  cell: IMarkdownCell;
-};
-class PuzzleMarkDownCellComponent extends React.Component<PuzzleMarkdownCellComponentProps> {
-  render() {
-    return (
-      <Markdown remarkPlugins={[remarkGfm]}>
-        {this.props.cell.markdown}
-      </Markdown>
-    );
+export class PuzzleCellSettingsComponent extends React.Component<PuzzleCellSettingsComponentProps>{
+  render(): React.ReactNode {
+    return <button onClick={this.props.onDelete}>delete</button>
   }
 }

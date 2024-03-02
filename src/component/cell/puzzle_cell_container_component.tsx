@@ -1,13 +1,14 @@
 import React from 'react';
-import { Cell } from '../../model';
 import { ISignal, Signal } from '@lumino/signaling';
 import { PuzzleCellComponent } from './puzzle_cell_compontent';
+import { Cell } from '../../cell_types';
 
 export type PuzzleCellContainerComponentProps = {
   cells: Cell[];
   cellsSignal: ISignal<any, Cell[]>;
   cellSignal: ISignal<any, Cell>;
   onCellChanged: (c: Cell) => void;
+  onDelete: (c: Cell) => void;
 };
 export type PuzzleCellContainerComponentState = {
   cells: Cell[];
@@ -33,9 +34,11 @@ export class PuzzleCellContainerComponent extends React.Component<
       this._cellSignals.set(element.id, signal);
       cellComponents.push(
         <PuzzleCellComponent
+          key={element.id}
           signal={signal}
           initCell={element}
           onCellChanged={this.props.onCellChanged}
+          onDelete={this.props.onDelete}
         />
       );
     });
@@ -44,6 +47,7 @@ export class PuzzleCellContainerComponent extends React.Component<
 
   private _handleCellsSignal(sender: any, cells: Cell[]) {
     this.setState({ cells: cells });
+    this._cellSignals = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>(); 
   }
   private _handleCellSignal(sender: any, cell: Cell) {
     const signal = this._cellSignals.get(cell.id);
@@ -54,7 +58,5 @@ export class PuzzleCellContainerComponent extends React.Component<
     }
   }
   private _cellSignals: Map<
-    string,
-    Signal<PuzzleCellContainerComponent, Cell>
-  > = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>();
+    string, Signal<PuzzleCellContainerComponent, Cell>> = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>();
 }

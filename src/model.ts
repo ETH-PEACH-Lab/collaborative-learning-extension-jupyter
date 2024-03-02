@@ -4,34 +4,17 @@ import { IChangedArgs } from '@jupyterlab/coreutils';
 
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
-import { PartialJSONValue, UUID } from '@lumino/coreutils';
+import { PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
 import * as Y from 'yjs';
+import { Cell, CellType } from './cell_types';
+import { CellFactory } from './factory/cell_factory';
+import { CodeCellFactory } from './factory/code_cell_factory';
+import { MarkdownCellFactory } from './factory/markdown_cell_factory';
 
-export type Metadata = any;
-type CellType = 'markdown' | 'code' | 'single_choice';
-type CellBase = {
-  id: string;
-  cell_type: CellType;
-  metadata: Metadata;
-};
-export interface ICodeCell extends CellBase {
-  cell_type: 'code';
-  code: string;
-  language: string;
-}
-export interface IMarkdownCell extends CellBase {
-  cell_type: 'markdown';
-  markdown: string;
-}
-export interface ISingleChoiceCell extends CellBase {
-  cell_type: 'single_choice';
-  choices: string[];
-  correct: number;
-}
-export type Cell = ICodeCell | IMarkdownCell | ISingleChoiceCell;
+
 /**
  * PuzzleDocModel: this Model represents the content of the file
  */
@@ -149,8 +132,12 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   set cell(v: Cell) {
     this.sharedModel.setCell(v);
   }
-  addCodeCell(): void {
-    this.sharedModel.addCodeCell();
+
+  addCell(cellType: CellType): void {
+    this.sharedModel.addCell(cellType);
+  }
+  deleteCell(c: Cell): void {
+    this.sharedModel.deleteCell(c);
   }
 
   /**
@@ -254,7 +241,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   protected triggerStateChange(args: IChangedArgs<any>): void {
     this._stateChanged.emit(args);
   }
-
+  protected triggerContentChanged(): void {
+    this._contentChanged.emit();
+    this.dirty = true;
+  }
   protected triggerCellChanged(cell: Cell): void {
     this._cellChanged.emit(cell);
     this.dirty = true;
@@ -272,8 +262,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     changes: PuzzleDocChange
   ): void => {
     if (changes.cellChanges) {
-      console.log('shared model: cell changed');
       this.triggerCellChanged(changes.cellChanges);
+    }
+    if(changes.contentChange){
+      this.triggerContentChanged();
     }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
@@ -303,6 +295,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
 }
 export type PuzzleDocChange = {
   cellChanges?: Cell;
+  contentChange?: Boolean;
 } & DocumentChange;
 
 export class PuzzleDoc extends YDocument<PuzzleDocChange> {
@@ -310,6 +303,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     super();
     this._cells = this.ydoc.getArray('cells');
     this._cells.observeDeep(this._cellsObserver);
+    this._factories.push(new CodeCellFactory(),new MarkdownCellFactory())
   }
 
   readonly version: string = '1.0.0';
@@ -346,6 +340,13 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     return key === 'cells' ? (data ? data.toJSON() : []) : data ?? '';
   }
 
+  deleteCell(value: Cell): void {
+    const yCellIndex = this._getCellIndexById(value.id);
+    if (yCellIndex === undefined) {
+      return;
+    }
+    this._cells.delete(yCellIndex,1);
+  }
   /**
    * Adds new data.
    *
@@ -363,14 +364,11 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
       });
     });
   }
-  addCodeCell(): void {
-    const newCell = <ICodeCell>{
-      id: UUID.uuid4(),
-      code: '',
-      language: 'TypeScript',
-      cell_type: 'code'
-    };
-    this._cells.push([new Y.Map<any>(Object.entries(newCell))]);
+  addCell(type: CellType){
+    this._factories.forEach(factory=>{
+      if(factory.matchCellType(type))
+        this._cells.push([new Y.Map<any>(Object.entries(factory.createCell()))]);
+    })
   }
   setCells(cells: Cell[]): void {
     this.transact(() => {
@@ -397,6 +395,11 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
               });
             });
           }
+          else if(delta.delete){
+            this._changed.emit(<PuzzleDocChange>{
+              contentChange: true
+            });
+          }
         });
       }
     });
@@ -410,6 +413,14 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     }
     return undefined;
   }
-
+  private _getCellIndexById(id: string): number | undefined {
+    for(let i = 0; i < this._cells.length; i++){
+      if(this._cells.get(i).get('id') === id){
+        return i;
+      }
+    }
+    return undefined;
+  }
+  private _factories: Array<CellFactory> = [];
   private _cells: Y.Array<Y.Map<any>>;
 }
