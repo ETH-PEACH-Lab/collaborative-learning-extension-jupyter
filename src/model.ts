@@ -14,7 +14,10 @@ import { CellFactory } from './factory/cell_factory';
 import { CodeCellFactory } from './factory/code_cell_factory';
 import { MarkdownCellFactory } from './factory/markdown_cell_factory';
 
-
+type Position = {
+  x: number;
+  y: number;
+};
 /**
  * PuzzleDocModel: this Model represents the content of the file
  */
@@ -35,6 +38,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
 
     // Listening for changes on the shared model to propagate them
     this.sharedModel.changed.connect(this._onSharedModelChanged);
+    this.sharedModel.awareness.on('change', this._onClientChanged);
   }
 
   /**
@@ -165,7 +169,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
   }
-
+  /**
+   * get the signal clientChanged to listen for changes on the clients sharing
+   * the same document.
+   *
+   * @returns The signal
+   */
+  get clientChanged(): ISignal<this, Map<number, any>> {
+    return this._clientChanged;
+  }
   /**
    * Dispose of the resources held by the model.
    */
@@ -234,7 +246,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   initialize(): void {
     return;
   }
-
+  /**
+   * Sets the mouse's position of the client
+   *
+   * @param pos Mouse position
+   */
+  setCursor(pos: Position | null): void {
+    // Adds the position of the mouse from the client to the shared state.
+    this.sharedModel.awareness.setLocalStateField('mouse', pos);
+  }
   /**
    * Trigger a state change signal.
    */
@@ -249,7 +269,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this._cellChanged.emit(cell);
     this.dirty = true;
   }
-
+  /**
+   * Callback to listen for changes on the sharedModel. This callback listens
+   * to changes on the different clients sharing the document and propagates
+   * them to the DocumentWidget.
+   */
+  private _onClientChanged = () => {
+    const clients = this.sharedModel.awareness.getStates();
+    this._clientChanged.emit(clients);
+  };
   /**
    * Callback to listen for changes on the sharedModel. This callback listens
    * to changes on shared model's content and propagates them to the DocumentWidget.
@@ -264,7 +292,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     if (changes.cellChanges) {
       this.triggerCellChanged(changes.cellChanges);
     }
-    if(changes.contentChange){
+    if (changes.contentChange) {
       this.triggerContentChanged();
     }
     if (changes.stateChange) {
@@ -292,10 +320,11 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _cellChanged = new Signal<this, Cell>(this);
   private _collaborationEnabled: boolean;
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
+  private _clientChanged = new Signal<this, Map<number, any>>(this);
 }
 export type PuzzleDocChange = {
   cellChanges?: Cell;
-  contentChange?: Boolean;
+  contentChange?: boolean;
 } & DocumentChange;
 
 export class PuzzleDoc extends YDocument<PuzzleDocChange> {
@@ -303,7 +332,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     super();
     this._cells = this.ydoc.getArray('cells');
     this._cells.observeDeep(this._cellsObserver);
-    this._factories.push(new CodeCellFactory(),new MarkdownCellFactory())
+    this._factories.push(new CodeCellFactory(), new MarkdownCellFactory());
   }
 
   readonly version: string = '1.0.0';
@@ -345,7 +374,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     if (yCellIndex === undefined) {
       return;
     }
-    this._cells.delete(yCellIndex,1);
+    this._cells.delete(yCellIndex, 1);
   }
   /**
    * Adds new data.
@@ -364,11 +393,14 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
       });
     });
   }
-  addCell(type: CellType){
-    this._factories.forEach(factory=>{
-      if(factory.matchCellType(type))
-        this._cells.push([new Y.Map<any>(Object.entries(factory.createCell()))]);
-    })
+  addCell(type: CellType) {
+    this._factories.forEach(factory => {
+      if (factory.matchCellType(type)) {
+        this._cells.push([
+          new Y.Map<any>(Object.entries(factory.createCell()))
+        ]);
+      }
+    });
   }
   setCells(cells: Cell[]): void {
     this.transact(() => {
@@ -394,8 +426,7 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
                 cellChanges: insert.toJSON()
               });
             });
-          }
-          else if(delta.delete){
+          } else if (delta.delete) {
             this._changed.emit(<PuzzleDocChange>{
               contentChange: true
             });
@@ -414,8 +445,8 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
     return undefined;
   }
   private _getCellIndexById(id: string): number | undefined {
-    for(let i = 0; i < this._cells.length; i++){
-      if(this._cells.get(i).get('id') === id){
+    for (let i = 0; i < this._cells.length; i++) {
+      if (this._cells.get(i).get('id') === id) {
         return i;
       }
     }

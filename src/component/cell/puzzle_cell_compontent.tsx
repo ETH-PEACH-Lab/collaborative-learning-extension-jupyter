@@ -30,24 +30,33 @@ export class PuzzleCellComponent extends React.Component<
     this.setState({ cell: value });
   };
   render() {
-    const rendering = [<PuzzleCellSettingsComponent onDelete={this.onDelete.bind(this)}></PuzzleCellSettingsComponent>]
+    const rendering = [
+      <PuzzleCellSettingsComponent
+        onDelete={this.onDelete.bind(this)}
+      ></PuzzleCellSettingsComponent>
+    ];
     if (this.state?.cell.cell_type === 'code') {
-      rendering.push(<PuzzleCodeCellComponent cell={this.state.cell} onChange={this.props.onCellChanged} />);
+      rendering.push(
+        <PuzzleCodeCellComponent
+          cell={this.state.cell}
+          onChange={this.props.onCellChanged}
+        />
+      );
     }
     if (this.state?.cell.cell_type === 'markdown') {
       rendering.push(<PuzzleMarkDownCellComponent cell={this.state.cell} />);
     }
-    return <div>{rendering}</div>
+    return <div>{rendering}</div>;
   }
   onDelete = () => {
     this.props.onDelete(this.state.cell);
-  }
+  };
 }
 type PuzzleCellSettingsComponentProps = {
   onDelete: () => void;
 };
-export class PuzzleCellSettingsComponent extends React.Component<PuzzleCellSettingsComponentProps>{
+export class PuzzleCellSettingsComponent extends React.Component<PuzzleCellSettingsComponentProps> {
   render(): React.ReactNode {
-    return <button onClick={this.props.onDelete}>delete</button>
+    return <button onClick={this.props.onDelete}>delete</button>;
   }
 }

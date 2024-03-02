@@ -1,12 +1,11 @@
-import { Cell, CellType } from "../cell_types";
+import { Cell, CellType } from '../cell_types';
 
+export abstract class CellFactory {
+  public abstract createCell(): Cell;
 
-export  abstract class CellFactory {
-    public abstract createCell(): Cell
+  protected abstract getCellType(): CellType;
 
-    protected abstract getCellType(): CellType
-
-    public matchCellType(cellType: CellType){
-        return cellType === this.getCellType();
-    }
+  public matchCellType(cellType: CellType) {
+    return cellType === this.getCellType();
+  }
 }

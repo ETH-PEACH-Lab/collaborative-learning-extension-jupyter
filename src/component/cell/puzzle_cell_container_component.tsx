@@ -47,7 +47,10 @@ export class PuzzleCellContainerComponent extends React.Component<
 
   private _handleCellsSignal(sender: any, cells: Cell[]) {
     this.setState({ cells: cells });
-    this._cellSignals = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>(); 
+    this._cellSignals = new Map<
+      string,
+      Signal<PuzzleCellContainerComponent, Cell>
+    >();
   }
   private _handleCellSignal(sender: any, cell: Cell) {
     const signal = this._cellSignals.get(cell.id);
@@ -58,5 +61,7 @@ export class PuzzleCellContainerComponent extends React.Component<
     }
   }
   private _cellSignals: Map<
-    string, Signal<PuzzleCellContainerComponent, Cell>> = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>();
+    string,
+    Signal<PuzzleCellContainerComponent, Cell>
+  > = new Map<string, Signal<PuzzleCellContainerComponent, Cell>>();
 }
