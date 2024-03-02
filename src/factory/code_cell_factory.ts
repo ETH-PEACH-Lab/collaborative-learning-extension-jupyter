@@ -7,7 +7,7 @@ export class CodeCellFactory extends CellFactory {
     return <ICodeCell>{
       id: UUID.uuid4(),
       code: '',
-      language: 'TypeScript',
+      language: 'Python',
       cell_type: 'code'
     };
   }

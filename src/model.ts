@@ -421,10 +421,8 @@ export class PuzzleDoc extends YDocument<PuzzleDocChange> {
       } else {
         event.delta.forEach(delta => {
           if (delta.insert !== undefined && delta.insert instanceof Array) {
-            delta.insert.forEach(insert => {
-              this._changed.emit(<PuzzleDocChange>{
-                cellChanges: insert.toJSON()
-              });
+            this._changed.emit(<PuzzleDocChange>{
+              contentChange: true
             });
           } else if (delta.delete) {
             this._changed.emit(<PuzzleDocChange>{

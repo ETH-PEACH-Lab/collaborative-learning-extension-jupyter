@@ -4,7 +4,7 @@ import { Signal } from '@lumino/signaling';
 import { PuzzleDocModel } from './model';
 
 import * as React from 'react';
-import { ReactWidget } from '@jupyterlab/apputils';
+import { ReactWidget, UseSignal } from '@jupyterlab/apputils';
 import { PuzzleToolbarComponent } from './component/puzzle_toolbar_component';
 import { PuzzleCellContainerComponent } from './component/cell/puzzle_cell_container_component';
 import { Cell } from './cell_types';
@@ -31,13 +31,17 @@ export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
       <span>
-        <PuzzleCellContainerComponent
-          cellSignal={this._cellSignal}
-          cellsSignal={this._cellsSignal}
-          cells={this._model.cells}
-          onCellChanged={this.onCellChanged.bind(this)}
-          onDelete={this._model.deleteCell.bind(this._model)}
-        ></PuzzleCellContainerComponent>
+        <UseSignal signal={this._cellsSignal} initialArgs={this._model.cells}>
+          {(_, cells) => (
+            <PuzzleCellContainerComponent
+              key={'cells-container'}
+              cellSignal={this._cellSignal}
+              cells={cells}
+              onCellChanged={this.onCellChanged.bind(this)}
+              onDelete={this._model.deleteCell.bind(this._model)}
+            ></PuzzleCellContainerComponent>
+          )}
+        </UseSignal>
         <PuzzleToolbarComponent
           addCodeCell={() => {
             this._model.addCell('code');
@@ -90,7 +94,6 @@ export class PuzzlePanel extends ReactWidget {
   private _onCellChanged = (sender: PuzzleDocModel, cell: Cell): void => {
     this._cellSignal.emit(cell);
   };
-
   /**
    * Handle `after-attach` messages sent to the widget.
    *

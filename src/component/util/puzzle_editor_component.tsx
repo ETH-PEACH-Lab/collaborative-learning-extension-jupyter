@@ -13,7 +13,6 @@ export class PuzzleEditorComponent extends React.Component<PuzzleEditorComponent
   render() {
     return (
       <Editor
-        defaultLanguage={this.props?.language}
         height={'auto'}
         options={{
           wrappingStrategy: 'advanced',
@@ -23,6 +22,7 @@ export class PuzzleEditorComponent extends React.Component<PuzzleEditorComponent
           overviewRulerLanes: 0
         }}
         value={this.props?.code}
+        language={this.props.language}
         onChange={this.onCodeChange.bind(this)}
         theme="vs-dark"
         onMount={this.onEditorMount.bind(this)}

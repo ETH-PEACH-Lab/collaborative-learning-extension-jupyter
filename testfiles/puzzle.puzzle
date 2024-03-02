@@ -1,32 +1,10 @@
 {
   "cells": [
     {
-      "cell_type": "markdown",
-      "id": "a0dc7ce8-2a0f-45e8-b13b-807cf04620f9",
-      "markdown": "### New Markdown"
-    },
-    {
-      "code": "dsdss\r\ndsaadsdsa\r\ndsadsadsa",
+      "language": "Python",
+      "id": "4e5fc494-f76b-4af8-acf9-a416ce749259",
       "cell_type": "code",
-      "language": "TypeScript",
-      "id": "9af8f338-9077-4826-b423-ab6697a177a2"
-    },
-    {
-      "id": "396141d9-d540-44db-b11b-20c00b773388",
-      "language": "TypeScript",
-      "code": "eeeeeee",
-      "cell_type": "code"
-    },
-    {
-      "id": "c5bb8354-6dcd-4237-a6ce-0562d2fa98af",
-      "cell_type": "markdown",
-      "markdown": "### New Markdown"
-    },
-    {
-      "code": "",
-      "id": "3bf77831-3b6a-4ec0-ba57-88dc6670a06e",
-      "cell_type": "code",
-      "language": "TypeScript"
+      "code": "w = \"hallo\";\r\nprint(\"w\");"
     }
   ]
 }
