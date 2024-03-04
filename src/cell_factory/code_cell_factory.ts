@@ -1,13 +1,13 @@
 import { UUID } from '@lumino/coreutils';
 import { CellFactory } from './cell_factory';
-import { Cell, CellType, ICodeCell } from '../cell_types';
+import { Cell, CellType, ICodeCell } from '../types/cell_types';
 
 export class CodeCellFactory extends CellFactory {
   public createCell(): Cell {
     return <ICodeCell>{
       id: UUID.uuid4(),
       code: '',
-      language: 'Python',
+      language: 'python',
       cell_type: 'code'
     };
   }

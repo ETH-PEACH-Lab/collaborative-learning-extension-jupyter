@@ -1,13 +1,13 @@
 import { DocumentRegistry, DocumentWidget } from '@jupyterlab/docregistry';
 
 import { Signal } from '@lumino/signaling';
-import { PuzzleDocModel } from './model';
+import { PuzzleDocModel } from '../model/puzzle_doc_model';
 
 import * as React from 'react';
 import { ReactWidget, UseSignal } from '@jupyterlab/apputils';
 import { PuzzleToolbarComponent } from './component/puzzle_toolbar_component';
 import { PuzzleCellContainerComponent } from './component/cell/puzzle_cell_container_component';
-import { Cell } from './cell_types';
+import { Cell } from '../types/cell_types';
 import { Message } from '@lumino/messaging';
 
 export class PuzzleDocWidget extends DocumentWidget<
@@ -37,6 +37,7 @@ export class PuzzlePanel extends ReactWidget {
               key={'cells-container'}
               cellSignal={this._cellSignal}
               cells={cells}
+              onExcuteCell={this._model.executeCell.bind(this._model)}
               onCellChanged={this.onCellChanged.bind(this)}
               onDelete={this._model.deleteCell.bind(this._model)}
             ></PuzzleCellContainerComponent>

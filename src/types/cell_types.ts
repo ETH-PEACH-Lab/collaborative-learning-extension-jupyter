@@ -5,7 +5,7 @@ export type CellBase = {
   cell_type: CellType;
   metadata: Metadata;
 };
-export type Language = 'TypeScript' | 'JavaScript' | 'Python' | 'Markdown';
+export type Language = 'typescript' | 'javascript' | 'python' | 'markdown';
 export interface ICodeCell extends CellBase {
   cell_type: 'code';
   code: string;

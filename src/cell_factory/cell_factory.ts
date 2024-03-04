@@ -1,4 +1,4 @@
-import { Cell, CellType } from '../cell_types';
+import { Cell, CellType } from '../types/cell_types';
 
 export abstract class CellFactory {
   public abstract createCell(): Cell;

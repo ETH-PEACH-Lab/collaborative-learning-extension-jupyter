@@ -1,8 +1,9 @@
 import { ABCWidgetFactory, DocumentRegistry } from '@jupyterlab/docregistry';
 
 import { Contents } from '@jupyterlab/services';
-import { PuzzleDocWidget, PuzzlePanel } from './widget';
-import { PuzzleDoc, PuzzleDocModel } from './model';
+import { PuzzleDocWidget, PuzzlePanel } from './widget/widget';
+import { PuzzleDocModel } from './model/puzzle_doc_model';
+import { PuzzleKernelDoc } from './model/puzzle_kernel_doc';
 
 /**
  * A widget factory to create new instances of PuzzleDocWidget.
@@ -108,7 +109,7 @@ export class PuzzleDocModelFactory
    * @returns The model
    */
   createNew(
-    options: DocumentRegistry.IModelOptions<PuzzleDoc>
+    options: DocumentRegistry.IModelOptions<PuzzleKernelDoc>
   ): PuzzleDocModel {
     return new PuzzleDocModel(options);
   }

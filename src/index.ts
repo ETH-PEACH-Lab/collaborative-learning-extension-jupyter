@@ -6,13 +6,18 @@ import {
   ILayoutRestorer
 } from '@jupyterlab/application';
 
-import { WidgetTracker, IWidgetTracker } from '@jupyterlab/apputils';
+import {
+  WidgetTracker,
+  IWidgetTracker,
+  SessionContext,
+  ISessionContext
+} from '@jupyterlab/apputils';
 
 import { Token } from '@lumino/coreutils';
 
 import { PuzzleWidgetFactory, PuzzleDocModelFactory } from './factory';
-import { PuzzleDoc } from './model';
-import { PuzzleDocWidget } from './widget';
+import { PuzzleDocWidget } from './widget/widget';
+import { PuzzleKernelDoc } from './model/puzzle_kernel_doc';
 
 const FACTORY = 'puzzle-editor';
 // Export a token so other extensions can require it
@@ -58,18 +63,34 @@ const plugin: JupyterFrontEndPlugin<void> = {
       fileFormat: 'json',
       contentType: 'puzzledoc' as any
     });
-    console.log('registerd new doc type: puzzle');
     if (drive) {
-      console.log('collaborative mode active');
+      const sessionContext: SessionContext = new SessionContext({
+        sessionManager: app.serviceManager.sessions,
+        specsManager: app.serviceManager.kernelspecs,
+        kernelPreference: <ISessionContext.IKernelPreference>{
+          autoStartDefault: true,
+          shutdownOnDispose: true
+        },
+        name: 'Puzzle Session Context'
+      });
       const sharedPuzzleFactory = () => {
-        return PuzzleDoc.create();
+        return PuzzleKernelDoc.create(sessionContext);
       };
+      sessionContext
+        .initialize()
+        .then()
+        .catch(reason => {
+          console.error(
+            `Failed to initialize the session in ExamplePanel.\n${reason}`
+          );
+        });
       drive.sharedModelFactory.registerDocumentFactory(
         'puzzledoc',
         sharedPuzzleFactory
       );
     } else {
-      console.log('collaborative mode inactive');
+      console.error('collaborative mode inactive');
+      return;
     }
     // Creating and registering the model factory for our custom DocumentModel
     const modelFactory = new PuzzleDocModelFactory();

@@ -1,10 +1,21 @@
 {
   "cells": [
     {
-      "language": "Python",
-      "id": "4e5fc494-f76b-4af8-acf9-a416ce749259",
+      "code": "y=\"a\"",
+      "id": "7d154097-b426-4018-adc4-7cca26425cbf",
       "cell_type": "code",
-      "code": "w = \"hallo\";\r\nprint(\"w\");"
+      "language": "python"
+    },
+    {
+      "id": "c0bae4af-ebdd-4581-bf2d-3f73fc28ee4c",
+      "cell_type": "code",
+      "code": "print(y)\r\nprint(x)",
+      "language": "python"
+    },
+    {
+      "id": "efbbef3a-9c83-44cc-83d9-b1c82b54daf6",
+      "markdown": "### New Markdown",
+      "cell_type": "markdown"
     }
   ]
 }

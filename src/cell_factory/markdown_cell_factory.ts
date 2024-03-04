@@ -1,5 +1,5 @@
 import { UUID } from '@lumino/coreutils';
-import { CellType, IMarkdownCell } from '../cell_types';
+import { CellType, IMarkdownCell } from '../types/cell_types';
 import { CellFactory } from './cell_factory';
 
 export class MarkdownCellFactory extends CellFactory {
