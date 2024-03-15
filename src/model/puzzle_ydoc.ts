@@ -84,7 +84,7 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     });
   }
 
-  addSolution(value:Cell):void{
+  addSolution(value: Cell): void {
     const yCell = this._getCellAsYMapById(value.id);
     if (yCell === undefined) {
       return;

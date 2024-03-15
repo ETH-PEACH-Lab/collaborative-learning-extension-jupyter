@@ -11,7 +11,7 @@ export function SanitizeHTML(props: SanitizeHTMLProps) {
       ADD_ATTR: ['border'],
       FORBID_TAGS: ['style'],
       FORBID_ATTR: ['style'],
-      USE_PROFILES: {html:true}
+      USE_PROFILES: { html: true }
     })
   });
   return <div dangerouslySetInnerHTML={sanitize(props.html)} />;

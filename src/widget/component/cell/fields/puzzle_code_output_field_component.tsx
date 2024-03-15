@@ -21,7 +21,8 @@ export function PuzzleCodeOutputFieldComponent(
   }
   if (props.output.type === 'image/png') {
     return (
-      <img className='puzzle-field--code-output--image'
+      <img
+        className="puzzle-field--code-output--image"
         src={('data:image/png;base64,' + props.output.output) as string}
       ></img>
     );
