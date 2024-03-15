@@ -1,7 +1,7 @@
-import { Cell } from './cell_types';
+import { PartialJSONObject } from '@lumino/coreutils';
 
-export type CellOutput = {
-  type: 'error' | 'stdout';
-  output: string;
-  cell: Cell;
+export type KernelOutput = {
+  type: 'stream' | 'text/html' | 'image/png' | 'error' | 'application/json';
+  output: string | PartialJSONObject;
+  fieldId: string;
 };

@@ -1,11 +1,11 @@
 import { DocumentChange, YDocument } from '@jupyter/ydoc';
 import { CellFactory } from '../cell_factory/cell_factory';
 import * as Y from 'yjs';
-import { Cell, CellType } from '../types/cell_types';
-import { MarkdownCellFactory } from '../cell_factory/markdown_cell_factory';
-import { CodeCellFactory } from '../cell_factory/code_cell_factory';
+import { Cell, Field } from '../types/cell_types';
+import { JSONExt } from '@lumino/coreutils';
 
 export type PuzzleDocChange = {
+  fieldChange?: Field;
   cellChanges?: Cell;
   contentChange?: boolean;
 } & DocumentChange;
@@ -15,11 +15,9 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     super();
     this._cells = this.ydoc.getArray('cells');
     this._cells.observeDeep(this._cellsObserver);
-    this._factories.push(new CodeCellFactory(), new MarkdownCellFactory());
   }
 
   readonly version: string = '1.0.0';
-
   /**
    * Dispose of the resources.
    */
@@ -31,13 +29,14 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     this._cells.unobserveDeep(this._cellsObserver);
   }
 
-  /**
-   * Returns an the requested object.
-   *
-   * @returns The content
-   */
-  getCells() {
-    return this._cells.toJSON();
+  static create(): PuzzleYDoc {
+    return new PuzzleYDoc();
+  }
+  getCells(): Cell[] {
+    const cells = this._cells.map(cell => {
+      return JSONExt.deepCopy(cell.toJSON()) as Cell;
+    });
+    return cells;
   }
 
   deleteCell(value: Cell): void {
@@ -58,20 +57,22 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
       return;
     }
     this.transact(() => {
-      Object.entries(value).forEach(value => {
-        yCell?.set(value[0], value[1]);
+      Object.entries(value).forEach(v => {
+        if (JSON.stringify(yCell.get(v[0])) !== JSON.stringify(v[1])) {
+          if (typeof v[1] === 'object') {
+            yCell.set(v[0], { ...v[1] });
+          } else {
+            yCell.set(v[0], v[1]);
+          }
+        }
       });
     });
   }
-  addCell(type: CellType) {
-    this._factories.forEach(factory => {
-      if (factory.matchCellType(type)) {
-        this._cells.push([
-          new Y.Map<any>(Object.entries(factory.createCell()))
-        ]);
-      }
-    });
+  addCell() {
+    const cell = new Y.Map<any>(Object.entries(this._cellFactory.createCell()));
+    this._cells.push([cell]);
   }
+
   setCells(cells: Cell[]): void {
     this.transact(() => {
       this._cells.delete(0, this._cells.length);
@@ -83,12 +84,29 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     });
   }
 
+  addSolution(value:Cell):void{
+    const yCell = this._getCellAsYMapById(value.id);
+    if (yCell === undefined) {
+      return;
+    }
+  }
+
   private _cellsObserver = (events: Y.YEvent<any>[]): void => {
     events.forEach(event => {
-      if (event.target.get('id') && event.target.get('cell_type')) {
-        this._changed.emit(<PuzzleDocChange>{
-          cellChanges: event.target.toJSON()
-        });
+      if (event.target.get('id')) {
+        if (event.keys.has('startingCode')) {
+          this._changed.emit(<PuzzleDocChange>{
+            fieldChange: { ...event.target.get('startingCode') }
+          });
+        } else if (event.keys.has('description')) {
+          this._changed.emit(<PuzzleDocChange>{
+            fieldChange: { ...event.target.get('description') }
+          });
+        } else {
+          this._changed.emit(<PuzzleDocChange>{
+            cellChanges: { ...event.target.toJSON() }
+          });
+        }
       } else {
         event.delta.forEach(delta => {
           if (delta.insert !== undefined && delta.insert instanceof Array) {
@@ -120,6 +138,6 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     }
     return undefined;
   }
-  private _factories: Array<CellFactory> = [];
+  private _cellFactory: CellFactory = new CellFactory();
   private _cells: Y.Array<Y.Map<any>>;
 }

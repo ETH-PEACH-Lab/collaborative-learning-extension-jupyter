@@ -5,53 +5,51 @@ import React from 'react';
 type PuzzleEditorComponentProps = {
   language: string;
   code: string;
+  readonly?: boolean;
   onCodeChange: (value: string) => void;
 };
 
-export class PuzzleEditorComponent extends React.Component<PuzzleEditorComponentProps> {
-  private editor: editor.IStandaloneCodeEditor | null = null;
-  render() {
-    return (
-      <Editor
-        height={'auto'}
-        options={{
-          wrappingStrategy: 'advanced',
-          wordWrap: 'on',
-          minimap: { enabled: false },
-          scrollBeyondLastLine: false,
-          overviewRulerLanes: 0
-        }}
-        value={this.props?.code}
-        language={this.props.language}
-        onChange={this.onCodeChange.bind(this)}
-        theme="vs-dark"
-        onMount={this.onEditorMount.bind(this)}
-      />
-    );
-  }
-  onCodeChange(value: string | undefined) {
+export function PuzzleEditorComponent(props: PuzzleEditorComponentProps) {
+  const onCodeChange = (value: string | undefined) => {
     if (value !== undefined) {
-      this.props.onCodeChange(value);
+      props.onCodeChange(value);
     }
-  }
-  onEditorMount(editor: editor.IStandaloneCodeEditor) {
-    this.editor = editor;
-    editor.onDidContentSizeChange(this.updateEditorHeight.bind(this));
-    this.updateEditorHeight();
-  }
-  updateEditorHeight(): void {
-    if (this.editor !== null) {
-      const container = this.editor.getDomNode();
+  };
+  const onEditorMount = (editor: editor.IStandaloneCodeEditor) => {
+    editor.onDidContentSizeChange(() => updateEditorHeight(editor));
+    updateEditorHeight(editor);
+  };
+  const updateEditorHeight = (editor: editor.IStandaloneCodeEditor) => {
+    if (editor !== null) {
+      const container = editor.getDomNode();
       if (!container) {
         return;
       }
-      const contentHeight = Math.min(1000, this.editor.getContentHeight());
+      const contentHeight = Math.min(1000, editor.getContentHeight());
       container.style.width = '100%';
       container.style.height = `${contentHeight}px`;
-      this.editor.layout({
+      editor.layout({
         width: container.getBoundingClientRect().width,
         height: contentHeight
       });
     }
-  }
+  };
+  return (
+    <Editor
+      height={'auto'}
+      options={{
+        wrappingStrategy: 'advanced',
+        wordWrap: 'on',
+        minimap: { enabled: false },
+        scrollBeyondLastLine: false,
+        overviewRulerLanes: 0,
+        readOnly: props.readonly
+      }}
+      theme="light"
+      value={props?.code}
+      language={props.language}
+      onChange={onCodeChange}
+      onMount={onEditorMount}
+    />
+  );
 }

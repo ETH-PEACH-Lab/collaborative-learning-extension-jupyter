@@ -1,18 +1,35 @@
-export type CellType = 'markdown' | 'code' | 'single_choice';
-export type Metadata = any;
-export type CellBase = {
+import { PartialJSONObject } from '@lumino/coreutils';
+
+export type Metadata = PartialJSONObject;
+
+export type Cell = {
   id: string;
-  cell_type: CellType;
+  description: IMarkdownField;
+  startingCode: ICodeField;
   metadata: Metadata;
 };
-export type Language = 'typescript' | 'javascript' | 'python' | 'markdown';
-export interface ICodeCell extends CellBase {
-  cell_type: 'code';
-  code: string;
+export type Solution = {
+  uId: string;
+  solution: ICodeField;
+};
+export type Language = 'python' | 'java';
+
+export type FieldType = 'markdown' | 'code' | 'multiple-choice';
+
+export type Field = {
+  id: string;
+  src: string;
+  type: FieldType;
+};
+export interface IMarkdownField extends Field {
+  type: 'markdown';
+  rendering: boolean;
+}
+export interface ICodeField extends Field {
+  type: 'code';
   language: Language;
 }
-export interface IMarkdownCell extends CellBase {
-  cell_type: 'markdown';
-  markdown: string;
+export interface IMultipleChoiceField extends Field {
+  type: 'multiple-choice';
+  language: Language;
 }
-export type Cell = ICodeCell | IMarkdownCell;

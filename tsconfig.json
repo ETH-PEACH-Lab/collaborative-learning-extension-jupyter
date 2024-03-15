@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "incremental": true,
     "jsx": "react",
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": true,

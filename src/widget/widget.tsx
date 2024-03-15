@@ -6,9 +6,11 @@ import { PuzzleDocModel } from '../model/puzzle_doc_model';
 import * as React from 'react';
 import { ReactWidget, UseSignal } from '@jupyterlab/apputils';
 import { PuzzleToolbarComponent } from './component/puzzle_toolbar_component';
-import { PuzzleCellContainerComponent } from './component/cell/puzzle_cell_container_component';
+import { PuzzleCellContainerComponent } from './component/puzzle_cell_container_component';
 import { Cell } from '../types/cell_types';
 import { Message } from '@lumino/messaging';
+import { UserRoleProvider } from './context/user_role_context';
+import { DocModelContextProvider } from './context/doc_model_context';
 
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
@@ -30,28 +32,34 @@ export class PuzzleDocWidget extends DocumentWidget<
 export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
-      <span>
-        <UseSignal signal={this._cellsSignal} initialArgs={this._model.cells}>
-          {(_, cells) => (
-            <PuzzleCellContainerComponent
-              key={'cells-container'}
-              cellSignal={this._cellSignal}
-              cells={cells}
-              onExcuteCell={this._model.executeCell.bind(this._model)}
-              onCellChanged={this.onCellChanged.bind(this)}
-              onDelete={this._model.deleteCell.bind(this._model)}
-            ></PuzzleCellContainerComponent>
-          )}
-        </UseSignal>
-        <PuzzleToolbarComponent
-          addCodeCell={() => {
-            this._model.addCell('code');
-          }}
-          addMarkdownCell={() => {
-            this._model.addCell('markdown');
-          }}
-        ></PuzzleToolbarComponent>
-      </span>
+      <DocModelContextProvider
+        cellSignal={this._model.cellChanged}
+        fieldSignal={this._model.fieldChanged}
+        fieldOutputSignal={this._model.fieldOutputChanged}
+        executeCell={this._model.executeCell.bind(this._model)}
+        changeCell={this._model.setCell.bind(this._model)}
+        deleteCell={this._model.deleteCell.bind(this._model)}
+      >
+        <UserRoleProvider>
+          <PuzzleToolbarComponent
+            addCell={() => {
+              this._model.addCell();
+            }}
+          ></PuzzleToolbarComponent>
+          <UseSignal
+            signal={this._cellsSignal}
+            initialArgs={this._model.cells}
+            key={'cells_container_signal'}
+          >
+            {(_, cells) => (
+              <PuzzleCellContainerComponent
+                key={'cells_container'}
+                cells={cells}
+              ></PuzzleCellContainerComponent>
+            )}
+          </UseSignal>
+        </UserRoleProvider>
+      </DocModelContextProvider>
     );
   }
   /**
@@ -62,19 +70,14 @@ export class PuzzlePanel extends ReactWidget {
   constructor(context: DocumentRegistry.IContext<PuzzleDocModel>) {
     super();
     this._model = context.model;
-    this._cellSignal = new Signal<PuzzlePanel, Cell>(this);
     this._cellsSignal = new Signal<PuzzlePanel, Cell[]>(this);
     context.ready.then(value => {
       this._model.contentChanged.connect(this._onContentChanged);
-      this._model.cellChanged.connect(this._onCellChanged);
       this._model.clientChanged.connect(this._onClientChanged);
       this.update();
       this._cellsSignal.emit(this._model.cells);
     });
     this.addClass('jp-puzzle-panel');
-  }
-  onCellChanged(value: Cell): void {
-    this._model.cell = value;
   }
   /**
    * Dispose of the resources held by the widget.
@@ -84,7 +87,6 @@ export class PuzzlePanel extends ReactWidget {
       return;
     }
     this._model.contentChanged.disconnect(this._onContentChanged);
-    this._model.cellChanged.disconnect(this._onCellChanged);
     Signal.clearData(this);
     super.dispose();
   }
@@ -92,9 +94,6 @@ export class PuzzlePanel extends ReactWidget {
     this._cellsSignal.emit(this._model.cells);
   };
 
-  private _onCellChanged = (sender: PuzzleDocModel, cell: Cell): void => {
-    this._cellSignal.emit(cell);
-  };
   /**
    * Handle `after-attach` messages sent to the widget.
    *
@@ -172,7 +171,6 @@ export class PuzzlePanel extends ReactWidget {
     });
   };
   private _clients: Map<string, HTMLElement> = new Map<string, HTMLElement>();
-  private _cellSignal: Signal<PuzzlePanel, Cell>;
   private _cellsSignal: Signal<PuzzlePanel, Cell[]>;
   private _model: PuzzleDocModel;
 }

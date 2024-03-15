@@ -15,9 +15,10 @@ import {
 
 import { Token } from '@lumino/coreutils';
 
-import { PuzzleWidgetFactory, PuzzleDocModelFactory } from './factory';
+import { PuzzleDocModelFactory } from './model_factory';
 import { PuzzleDocWidget } from './widget/widget';
-import { PuzzleKernelDoc } from './model/puzzle_kernel_doc';
+import { PuzzleYDoc } from './model/puzzle_ydoc';
+import { PuzzleWidgetFactory } from './widget_factory';
 
 const FACTORY = 'puzzle-editor';
 // Export a token so other extensions can require it
@@ -39,6 +40,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
     restorer: ILayoutRestorer,
     drive: ICollaborativeDrive | null
   ) => {
+    const user = app.serviceManager.user;
+    user.ready.then(() => {
+      console.log('Identity:', user.identity);
+      console.log('Permissions:', user.permissions);
+    });
+
     console.log('JupyterLab extension collab_learning_extension is activated!');
     // Namespace for the tracker
     const namespace = 'puzzle-documents';
@@ -51,8 +58,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
       console.log('reopen files');
       restorer.restore(tracker, {
         command: 'docmanager:open',
-        args: widget => ({ path: widget.context.path, factory: FACTORY }),
-        name: widget => widget.context.path
+        args: (widget: { context: { path: any } }) => ({
+          path: widget.context.path,
+          factory: FACTORY
+        }),
+        name: (widget: { context: { path: any } }) => widget.context.path
       });
     }
     app.docRegistry.addFileType({
@@ -60,30 +70,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
       displayName: 'Puzzle',
       mimeTypes: ['text/json', 'application/json'],
       extensions: ['.puzzle'],
-      fileFormat: 'json',
+      fileFormat: 'text',
       contentType: 'puzzledoc' as any
     });
     if (drive) {
-      const sessionContext: SessionContext = new SessionContext({
-        sessionManager: app.serviceManager.sessions,
-        specsManager: app.serviceManager.kernelspecs,
-        kernelPreference: <ISessionContext.IKernelPreference>{
-          autoStartDefault: true,
-          shutdownOnDispose: true
-        },
-        name: 'Puzzle Session Context'
-      });
       const sharedPuzzleFactory = () => {
-        return PuzzleKernelDoc.create(sessionContext);
+        return PuzzleYDoc.create();
       };
-      sessionContext
-        .initialize()
-        .then()
-        .catch(reason => {
-          console.error(
-            `Failed to initialize the session in ExamplePanel.\n${reason}`
-          );
-        });
       drive.sharedModelFactory.registerDocumentFactory(
         'puzzledoc',
         sharedPuzzleFactory
@@ -92,8 +85,27 @@ const plugin: JupyterFrontEndPlugin<void> = {
       console.error('collaborative mode inactive');
       return;
     }
+    const sessionContext: SessionContext = new SessionContext({
+      sessionManager: app.serviceManager.sessions,
+      specsManager: app.serviceManager.kernelspecs,
+      kernelPreference: <ISessionContext.IKernelPreference>{
+        autoStartDefault: true,
+        shutdownOnDispose: true
+      },
+      name: 'Puzzle Session Context'
+    });
+    sessionContext
+      .initialize()
+      .then()
+      .catch(reason => {
+        console.error(
+          `Failed to initialize the session in ExamplePanel.\n${reason}`
+        );
+      });
     // Creating and registering the model factory for our custom DocumentModel
-    const modelFactory = new PuzzleDocModelFactory();
+    const modelFactory = new PuzzleDocModelFactory(<
+      PuzzleDocModelFactory.IOptions
+    >{ sessionContext: sessionContext });
     app.docRegistry.addModelFactory(modelFactory);
     // Creating the widget factory to register it so the document manager knows about
     // our new DocumentWidget
@@ -103,17 +115,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
       fileTypes: ['puzzle'],
       defaultFor: ['puzzle']
     });
-
     // Add the widget to the tracker when it's created
-    widgetFactory.widgetCreated.connect((sender, widget) => {
-      // Notify the instance tracker if restore data needs to update.
-      widget.context.pathChanged.connect(() => {
-        tracker.save(widget);
-      });
-      tracker.add(widget);
-    });
+    widgetFactory.widgetCreated.connect(
+      (sender: any, widget: PuzzleDocWidget) => {
+        widget.context.pathChanged.connect(() => {
+          tracker.save(widget);
+        });
+        tracker.add(widget);
+      }
+    );
 
-    // Registering the widget factory
     app.docRegistry.addWidgetFactory(widgetFactory);
   }
 };

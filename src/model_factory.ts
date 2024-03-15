@@ -1,49 +1,23 @@
-import { ABCWidgetFactory, DocumentRegistry } from '@jupyterlab/docregistry';
+import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 import { Contents } from '@jupyterlab/services';
-import { PuzzleDocWidget, PuzzlePanel } from './widget/widget';
 import { PuzzleDocModel } from './model/puzzle_doc_model';
-import { PuzzleKernelDoc } from './model/puzzle_kernel_doc';
+import { ISessionContext } from '@jupyterlab/apputils';
 
-/**
- * A widget factory to create new instances of PuzzleDocWidget.
- */
-export class PuzzleWidgetFactory extends ABCWidgetFactory<
-  PuzzleDocWidget,
-  PuzzleDocModel
-> {
-  /**
-   * Constructor of PuzzleWidgetFactory.
-   *
-   * @param options Constructor options
-   */
-  constructor(options: DocumentRegistry.IWidgetFactoryOptions) {
-    console.log('creating factory for puzzle doc');
-    super(options);
-  }
-
-  /**
-   * Create a new widget given a context.
-   *
-   * @param context Contains the information of the file
-   * @returns The widget
-   */
-  protected createNewWidget(
-    context: DocumentRegistry.IContext<PuzzleDocModel>
-  ): PuzzleDocWidget {
-    return new PuzzleDocWidget({
-      context,
-      content: new PuzzlePanel(context)
-    });
+export namespace PuzzleDocModelFactory {
+  export interface IOptions {
+    sessionContext: ISessionContext;
   }
 }
-
 /**
  * A Model factory to create new instances of PuzzleDocModel.
  */
 export class PuzzleDocModelFactory
   implements DocumentRegistry.IModelFactory<PuzzleDocModel>
 {
+  constructor(options: PuzzleDocModelFactory.IOptions) {
+    this._sessionContext = options.sessionContext;
+  }
   /**
    * The name of the model.
    *
@@ -108,11 +82,11 @@ export class PuzzleDocModelFactory
    * @param collaborationEnabled - Whether collaboration is enabled at the application level or not (default `false`).
    * @returns The model
    */
-  createNew(
-    options: DocumentRegistry.IModelOptions<PuzzleKernelDoc>
-  ): PuzzleDocModel {
+  createNew(options: PuzzleDocModel.IOptions): PuzzleDocModel {
+    options.sessionContext = this._sessionContext;
     return new PuzzleDocModel(options);
   }
 
   private _disposed = false;
+  private _sessionContext: ISessionContext;
 }

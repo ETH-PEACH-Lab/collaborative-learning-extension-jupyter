@@ -29,8 +29,8 @@
         "url": "https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter.git"
     },
     "scripts": {
-        "build": "jlpm build:lib && jlpm build:labextension:dev",
-        "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
+        "build": "node-sass scss/ -o style/ && jlpm build:lib && jlpm build:labextension:dev",
+        "build:prod": "jlpm clean && node-sass scss/ -o style/  && jlpm build:lib:prod && jlpm build:labextension",
         "build:labextension": "jupyter labextension build .",
         "build:labextension:dev": "jupyter labextension build --development True .",
         "build:lib": "tsc --sourceMap",
@@ -49,7 +49,7 @@
         "prettier:base": "prettier \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
         "prettier:check": "jlpm prettier:base --check",
         "stylelint": "jlpm stylelint:check --fix",
-        "stylelint:check": "stylelint --cache \"style/**/*.css\"",
+        "stylelint:check": "stylelint --cache \"scss/**/*.scss\"",
         "test": "jest --coverage",
         "watch": "run-p watch:src watch:labextension",
         "watch:src": "tsc -w --sourceMap",
@@ -64,14 +64,19 @@
         "@jupyterlab/docregistry": "^4.0.0",
         "@jupyterlab/nbformat": "^4.1.2",
         "@jupyterlab/services": "^7.0.0",
+        "@jupyterlab/ui-components": "^4.1.4",
         "@lumino/coreutils": "^2.0.0",
         "@lumino/messaging": "^2.0.0",
         "@lumino/signaling": "^2.0.0",
         "@lumino/widgets": "^2.0.0",
         "@monaco-editor/react": "^4.6.0",
+        "@types/dompurify": "^3.0.5",
+        "bootstrap": "^5.3.3",
+        "dompurify": "^3.0.9",
         "monaco-editor": "^0.46.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-json-view": "^1.21.3",
         "react-markdown": "^9.0.1",
         "remark-gfm": "^4.0.0",
         "yjs": "^13.5.6"
@@ -95,13 +100,15 @@
         "rimraf": "^5.0.1",
         "source-map-loader": "^1.0.2",
         "style-loader": "^3.3.1",
-        "stylelint": "^15.10.1",
+        "stylelint": "^16.2.1",
         "stylelint-config-recommended": "^13.0.0",
         "stylelint-config-standard": "^34.0.0",
+        "stylelint-config-standard-scss": "^13.0.0",
         "stylelint-csstree-validator": "^3.0.0",
         "stylelint-prettier": "^4.0.0",
+        "tailwindcss": "^3.4.1",
         "typescript": "~5.0.2",
-        "yjs": "^13.5.0"
+        "yjs": "^13.6.14"
     },
     "sideEffects": [
         "style/*.css",
@@ -128,7 +135,10 @@
         "**/*.d.ts",
         "tests",
         "**/__tests__",
-        "ui-tests"
+        "ui-tests",
+        "**/style/index.js",
+        "**/style/*.css",
+        "scss"
     ],
     "eslintConfig": {
         "extends": [
@@ -200,17 +210,11 @@
     },
     "stylelint": {
         "extends": [
-            "stylelint-config-recommended",
-            "stylelint-config-standard",
-            "stylelint-prettier/recommended"
-        ],
-        "plugins": [
-            "stylelint-csstree-validator"
+            "stylelint-config-standard-scss"
         ],
         "rules": {
-            "csstree/validator": true,
             "property-no-vendor-prefix": null,
-            "selector-class-pattern": "^([a-z][A-z\\d]*)(-[A-z\\d]+)*$",
+            "selector-class-pattern": "^([a-z][A-z\\d]*)((-)+[A-z\\d]+)*$",
             "selector-no-vendor-prefix": null,
             "value-no-vendor-prefix": null
         }

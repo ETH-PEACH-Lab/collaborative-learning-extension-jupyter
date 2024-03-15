@@ -6,14 +6,22 @@ import { PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
-import { Cell, CellType, ICodeCell } from '../types/cell_types';
-import { PuzzleKernelDoc } from './puzzle_kernel_doc';
-import { PuzzleDocChange } from './puzzle_ydoc';
+import { Cell, Field, ICodeField } from '../types/cell_types';
+
+import { PuzzleDocChange, PuzzleYDoc } from './puzzle_ydoc';
+import { KernelMessager } from '../kernel/kernel_messager';
+import { ISessionContext } from '@jupyterlab/apputils';
+import { KernelOutput } from '../types/output_types';
 
 type Position = {
   x: number;
   y: number;
 };
+export namespace PuzzleDocModel {
+  export interface IOptions extends DocumentRegistry.IModelOptions<PuzzleYDoc> {
+    sessionContext: ISessionContext;
+  }
+}
 /**
  * PuzzleDocModel: this Model represents the content of the file
  */
@@ -23,41 +31,25 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    *
    * @param options The options used to create a puzzle doc model.
    */
-  constructor(options: DocumentRegistry.IModelOptions<PuzzleKernelDoc>) {
-    const { collaborationEnabled, sharedModel } = options;
+  constructor(options: PuzzleDocModel.IOptions) {
+    const { collaborationEnabled, sharedModel, sessionContext } = options;
     this._collaborationEnabled = !!collaborationEnabled;
+    this._kernelMessager = new KernelMessager(sessionContext);
     if (sharedModel) {
       this.sharedModel = sharedModel;
     } else {
-      //this.sharedModel = PuzzleDoc.create();
+      this.sharedModel = PuzzleYDoc.create();
     }
 
-    // Listening for changes on the shared model to propagate them
     this.sharedModel.changed.connect(this._onSharedModelChanged);
     this.sharedModel.awareness.on('change', this._onClientChanged);
   }
 
-  /**
-   * Whether the model is collaborative or not.
-   */
   get collaborative(): boolean {
     return this._collaborationEnabled;
   }
 
-  /**
-   * The default kernel name of the document.
-   *
-   * #### Notes
-   * Only used if a document has associated kernel.
-   */
   readonly defaultKernelName = '';
-
-  /**
-   * The default kernel language of the document.
-   *
-   * #### Notes
-   * Only used if a document has associated kernel.
-   */
   readonly defaultKernelLanguage = '';
 
   /**
@@ -107,7 +99,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   /**
    * The shared document model.
    */
-  readonly sharedModel: PuzzleKernelDoc = PuzzleKernelDoc.create(null);
+  readonly sharedModel: PuzzleYDoc = PuzzleYDoc.create();
 
   /**
    * The client ID from the document
@@ -119,7 +111,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   get clientId(): number {
     return this.sharedModel.awareness.clientID;
   }
-
   /**
    * Shared object content
    */
@@ -129,50 +120,36 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   set cells(v: Cell[]) {
     this.sharedModel.setCells(v);
   }
-  set cell(v: Cell) {
+  setCell(v: Cell) {
     this.sharedModel.setCell(v);
   }
-  executeCell(c: ICodeCell) {
-    this.sharedModel.executeCell(c);
+  executeCell(c: ICodeField) {
+    this._kernelMessager.executeCode(c);
   }
-  addCell(cellType: CellType): void {
-    this.sharedModel.addCell(cellType);
+  addCell(): void {
+    this.sharedModel.addCell();
   }
   deleteCell(c: Cell): void {
     this.sharedModel.deleteCell(c);
   }
 
-  /**
-   * A signal emitted when the document content changes.
-   *
-   * ### Notes
-   * The content refers to the data stored in the model
-   */
   get contentChanged(): ISignal<this, void> {
     return this._contentChanged;
   }
-
-  /**
-   * A signal emitted when a cell changes.
-   */
   get cellChanged(): ISignal<this, Cell> {
     return this._cellChanged;
   }
-  /**
-   * A signal emitted when the document state changes.
-   *
-   * ### Notes
-   * The state refers to the metadata and attributes of the model.
-   */
+  get fieldChanged(): ISignal<this, Field> {
+    return this._fieldChanged;
+  }
+  get fieldOutputChanged(): ISignal<any, KernelOutput> {
+    return this._kernelMessager.fieldOutputChanged;
+  }
+
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
   }
-  /**
-   * get the signal clientChanged to listen for changes on the clients sharing
-   * the same document.
-   *
-   * @returns The signal
-   */
+
   get clientChanged(): ISignal<this, Map<number, any>> {
     return this._clientChanged;
   }
@@ -267,6 +244,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this._cellChanged.emit(cell);
     this.dirty = true;
   }
+  protected triggerFieldChanged(field: Field): void {
+    this._fieldChanged.emit(field);
+    this.dirty = true;
+  }
   /**
    * Callback to listen for changes on the sharedModel. This callback listens
    * to changes on the different clients sharing the document and propagates
@@ -284,7 +265,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    * @param changes The changes on the sharedModel.
    */
   private _onSharedModelChanged = (
-    sender: PuzzleKernelDoc,
+    sender: PuzzleYDoc,
     changes: PuzzleDocChange
   ): void => {
     if (changes.cellChanges) {
@@ -292,6 +273,9 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     }
     if (changes.contentChange) {
       this.triggerContentChanged();
+    }
+    if (changes.fieldChange) {
+      this.triggerFieldChanged(changes.fieldChange);
     }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
@@ -310,13 +294,16 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
       });
     }
   };
-
   private _dirty = false;
   private _isDisposed = false;
   private _readOnly = false;
+
   private _contentChanged = new Signal<this, void>(this);
   private _cellChanged = new Signal<this, Cell>(this);
+  private _fieldChanged = new Signal<this, Field>(this);
   private _collaborationEnabled: boolean;
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
   private _clientChanged = new Signal<this, Map<number, any>>(this);
+
+  private _kernelMessager: KernelMessager;
 }
