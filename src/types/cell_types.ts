@@ -6,10 +6,12 @@ export type Cell = {
   id: string;
   description: IMarkdownField;
   startingCode: ICodeField;
+  solutions: Map<string, string>;
   metadata: Metadata;
 };
 export type Solution = {
-  uId: string;
+  clientId: string;
+  cellId: string;
   solution: ICodeField;
 };
 export type Language = 'python' | 'java';

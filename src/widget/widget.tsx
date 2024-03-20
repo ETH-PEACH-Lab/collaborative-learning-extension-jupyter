@@ -11,6 +11,8 @@ import { Cell } from '../types/cell_types';
 import { Message } from '@lumino/messaging';
 import { UserRoleProvider } from './context/user_role_context';
 import { DocModelContextProvider } from './context/doc_model_context';
+import { LanguageCompleter } from '../monaco/language_completer';
+import { KernelMessager } from '../Kernel/kernel_messager';
 
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
@@ -35,8 +37,10 @@ export class PuzzlePanel extends ReactWidget {
       <DocModelContextProvider
         cellSignal={this._model.cellChanged}
         fieldSignal={this._model.fieldChanged}
-        fieldOutputSignal={this._model.fieldOutputChanged}
-        executeCell={this._model.executeCell.bind(this._model)}
+        fieldOutputSignal={this._kernelMessager.fieldOutputChanged}
+        executeCell={this._kernelMessager.executeCode.bind(
+          this._kernelMessager
+        )}
         changeCell={this._model.setCell.bind(this._model)}
         deleteCell={this._model.deleteCell.bind(this._model)}
       >
@@ -69,8 +73,10 @@ export class PuzzlePanel extends ReactWidget {
    */
   constructor(context: DocumentRegistry.IContext<PuzzleDocModel>) {
     super();
+    new LanguageCompleter(null);
     this._model = context.model;
     this._cellsSignal = new Signal<PuzzlePanel, Cell[]>(this);
+    this._kernelMessager = new KernelMessager(context.sessionContext);
     context.ready.then(value => {
       this._model.contentChanged.connect(this._onContentChanged);
       this._model.clientChanged.connect(this._onClientChanged);
@@ -173,4 +179,5 @@ export class PuzzlePanel extends ReactWidget {
   private _clients: Map<string, HTMLElement> = new Map<string, HTMLElement>();
   private _cellsSignal: Signal<PuzzlePanel, Cell[]>;
   private _model: PuzzleDocModel;
+  private _kernelMessager: KernelMessager;
 }

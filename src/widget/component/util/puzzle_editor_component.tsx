@@ -38,6 +38,12 @@ export function PuzzleEditorComponent(props: PuzzleEditorComponentProps) {
     <Editor
       height={'auto'}
       options={{
+        quickSuggestions: {
+          other: 'inline',
+          comments: true,
+          strings: true
+        },
+        cursorBlinking: 'smooth',
         wrappingStrategy: 'advanced',
         wordWrap: 'on',
         minimap: { enabled: false },

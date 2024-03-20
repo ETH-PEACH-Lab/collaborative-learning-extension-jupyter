@@ -19,11 +19,6 @@ class YPuzzleDoc(YBaseDoc):
         :return: Document's content.
         """
         cells = json.loads(self._cells.to_json())
-        for cell in cells:
-            solutions = {}
-            for key, value in cell["solutions"].items():
-                solutions[key] = YPuzzleSolutionDoc(content=value)  # Share the subdocument
-            cell["solutions"] = solutions
         return json.dumps({"cells": cells}, indent=2)
 
     def set(self, raw_value: str) -> None:
@@ -33,13 +28,10 @@ class YPuzzleDoc(YBaseDoc):
         :param raw_value: The content of the document.
         """
         value = json.loads(raw_value)
+        print(raw_value)
         with self._ydoc.begin_transaction() as t:
             newObj = []
             for cell in value["cells"]:
-                new_solutions = {}
-                for key, solution in cell["solutions"].items():
-                    new_solutions[key] = solution.toJSON()  # Convert subdoc to JSON string
-                cell['solutions']=new_solutions;
                 newObj.append(Y.YMap(cell))
             self._cells.delete_range(t,0,len(self._cells))
             self._cells.extend(t,newObj)

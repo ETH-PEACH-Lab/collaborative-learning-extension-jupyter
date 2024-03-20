@@ -1,3 +1,5 @@
 jupyterlab ==4.*
 jupyter-collaboration==1.2.1
 jupyterlab-link-share
+pandas
+matplotlib

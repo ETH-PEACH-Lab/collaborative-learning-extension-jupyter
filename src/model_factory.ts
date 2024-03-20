@@ -2,11 +2,11 @@ import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 import { Contents } from '@jupyterlab/services';
 import { PuzzleDocModel } from './model/puzzle_doc_model';
-import { ISessionContext } from '@jupyterlab/apputils';
+import { IDocumentManager } from '@jupyterlab/docmanager';
 
 export namespace PuzzleDocModelFactory {
   export interface IOptions {
-    sessionContext: ISessionContext;
+    docManager: IDocumentManager;
   }
 }
 /**
@@ -16,7 +16,7 @@ export class PuzzleDocModelFactory
   implements DocumentRegistry.IModelFactory<PuzzleDocModel>
 {
   constructor(options: PuzzleDocModelFactory.IOptions) {
-    this._sessionContext = options.sessionContext;
+    this._docManager = options.docManager;
   }
   /**
    * The name of the model.
@@ -83,10 +83,10 @@ export class PuzzleDocModelFactory
    * @returns The model
    */
   createNew(options: PuzzleDocModel.IOptions): PuzzleDocModel {
-    options.sessionContext = this._sessionContext;
+    options.docManager = this._docManager;
     return new PuzzleDocModel(options);
   }
 
   private _disposed = false;
-  private _sessionContext: ISessionContext;
+  private _docManager: IDocumentManager;
 }

@@ -66,6 +66,7 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
           }
         }
       });
+      this.addSolution(value.id);
     });
   }
   addCell() {
@@ -84,12 +85,7 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     });
   }
 
-  addSolution(value: Cell): void {
-    const yCell = this._getCellAsYMapById(value.id);
-    if (yCell === undefined) {
-      return;
-    }
-  }
+  addSolution(cellId: string): void {}
 
   private _cellsObserver = (events: Y.YEvent<any>[]): void => {
     events.forEach(event => {

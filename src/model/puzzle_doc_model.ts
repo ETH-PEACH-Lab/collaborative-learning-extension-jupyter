@@ -1,17 +1,17 @@
 import { IChangedArgs } from '@jupyterlab/coreutils';
 
-import { DocumentRegistry } from '@jupyterlab/docregistry';
+import { DocumentRegistry, IDocumentWidget } from '@jupyterlab/docregistry';
 
 import { PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
-import { Cell, Field, ICodeField } from '../types/cell_types';
+import { Cell, Field } from '../types/cell_types';
 
 import { PuzzleDocChange, PuzzleYDoc } from './puzzle_ydoc';
-import { KernelMessager } from '../kernel/kernel_messager';
-import { ISessionContext } from '@jupyterlab/apputils';
-import { KernelOutput } from '../types/output_types';
+import { IDocumentManager } from '@jupyterlab/docmanager';
+
+import { ReactWidget } from '@jupyterlab/ui-components';
 
 type Position = {
   x: number;
@@ -19,7 +19,7 @@ type Position = {
 };
 export namespace PuzzleDocModel {
   export interface IOptions extends DocumentRegistry.IModelOptions<PuzzleYDoc> {
-    sessionContext: ISessionContext;
+    docManager: IDocumentManager;
   }
 }
 /**
@@ -32,9 +32,9 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    * @param options The options used to create a puzzle doc model.
    */
   constructor(options: PuzzleDocModel.IOptions) {
-    const { collaborationEnabled, sharedModel, sessionContext } = options;
+    const { collaborationEnabled, sharedModel, docManager } = options;
+    this._docManager = docManager;
     this._collaborationEnabled = !!collaborationEnabled;
-    this._kernelMessager = new KernelMessager(sessionContext);
     if (sharedModel) {
       this.sharedModel = sharedModel;
     } else {
@@ -123,9 +123,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   setCell(v: Cell) {
     this.sharedModel.setCell(v);
   }
-  executeCell(c: ICodeField) {
-    this._kernelMessager.executeCode(c);
-  }
   addCell(): void {
     this.sharedModel.addCell();
   }
@@ -142,9 +139,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   get fieldChanged(): ISignal<this, Field> {
     return this._fieldChanged;
   }
-  get fieldOutputChanged(): ISignal<any, KernelOutput> {
-    return this._kernelMessager.fieldOutputChanged;
-  }
 
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
@@ -152,6 +146,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
 
   get clientChanged(): ISignal<this, Map<number, any>> {
     return this._clientChanged;
+  }
+
+  loadSolution(): IDocumentWidget<ReactWidget> | undefined {
+    const path = 'testfiles/output-support.puzzle';
+    const documentWidget = this._docManager.open(
+      path
+    ) as IDocumentWidget<ReactWidget>;
+    documentWidget.close();
+    return documentWidget;
   }
   /**
    * Dispose of the resources held by the model.
@@ -305,5 +308,5 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
   private _clientChanged = new Signal<this, Map<number, any>>(this);
 
-  private _kernelMessager: KernelMessager;
+  private _docManager: IDocumentManager;
 }
