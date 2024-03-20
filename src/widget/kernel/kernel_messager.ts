@@ -1,10 +1,10 @@
 import { ISessionContext } from '@jupyterlab/apputils';
-import { ICodeField } from '../types/cell_types';
+import { ICodeField } from '../../types/cell_types';
 import { IOutput } from '@jupyterlab/nbformat';
 import { KernelMessage } from '@jupyterlab/services';
 import { IOPubMessageType } from '@jupyterlab/services/lib/kernel/messages';
 import { Signal } from '@lumino/signaling';
-import { KernelOutput } from '../types/output_types';
+import { KernelOutput } from '../../types/output_types';
 import { PartialJSONObject } from '@lumino/coreutils';
 
 export class KernelMessager {

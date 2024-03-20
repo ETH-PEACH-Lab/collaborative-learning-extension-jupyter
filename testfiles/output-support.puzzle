@@ -1,13 +1,6 @@
 {
   "cells": [
     {
-      "id": "6dcb5a57-c9b1-4444-bb20-bcbfd83a4925",
-      "startingCode": {
-        "src": "import pandas as pdd\r\ndata = [[1, 2], [3, 4]]\r\npd.DataFrame(data, columns=[\"Foo\", \"Bar\"])",
-        "type": "code",
-        "id": "60ab43ff-8e17-4737-b44a-2fc0cdf30e02",
-        "language": "python"
-      },
       "solutions": {},
       "description": {
         "language": "markdown",
@@ -16,10 +9,19 @@
         "id": "0766cd85-9d4f-484b-89a9-14308a7e9721",
         "rendering": false
       },
-      "metadata": {}
+      "metadata": {},
+      "id": "6dcb5a57-c9b1-4444-bb20-bcbfd83a4925",
+      "startingCode": {
+        "src": "import pandas as pdd\r\ndata = [[1, 2], [3, 4]]\r\npd.DataFrame(data, columns=[\"Foo\", \"Bar\"])",
+        "type": "code",
+        "id": "60ab43ff-8e17-4737-b44a-2fc0cdf30e02",
+        "language": "python"
+      }
     },
     {
       "metadata": {},
+      "solutions": {},
+      "id": "45e1d27a-08ac-4707-9d1b-6d7490f54d46",
       "description": {
         "rendering": false,
         "type": "markdown",
@@ -27,24 +29,16 @@
         "language": "markdown",
         "src": "### Print some stuff\r\nPrint \"test\""
       },
-      "id": "45e1d27a-08ac-4707-9d1b-6d7490f54d46",
       "startingCode": {
         "language": "python",
         "type": "code",
         "src": "x = \"test\"\r\nprint(x);\r\nprint(x);",
         "id": "17ced7e1-847f-4680-9142-7e325e4901db"
-      },
-      "solutions": {}
+      }
     },
     {
-      "startingCode": {
-        "language": "python",
-        "type": "code",
-        "src": "print(y)",
-        "id": "f8965a51-f3d1-4d43-b1fc-0c6827a63c3b"
-      },
+      "solutions": {},
       "metadata": {},
-      "id": "037ec424-c1b6-42b6-aff6-fd14413ceda8",
       "description": {
         "src": "### Error\r\nCause an error",
         "type": "markdown",
@@ -52,34 +46,33 @@
         "rendering": false,
         "language": "markdown"
       },
-      "solutions": {}
+      "startingCode": {
+        "language": "python",
+        "type": "code",
+        "src": "print(y)",
+        "id": "f8965a51-f3d1-4d43-b1fc-0c6827a63c3b"
+      },
+      "id": "037ec424-c1b6-42b6-aff6-fd14413ceda8"
     },
     {
-      "description": {
-        "rendering": false,
-        "language": "markdown",
-        "type": "markdown",
-        "id": "0a960189-ea6d-4709-8c08-c65ae76b560c",
-        "src": "### Plots\r\nShow nice plot as image/png"
-      },
-      "solutions": {},
-      "metadata": {},
       "startingCode": {
         "type": "code",
         "language": "python",
         "src": "import matplotlib.pyplot as plt\r\n\r\nplt.plot([1, 2, 3, 4])\r\nplt.ylabel('some numbers')\r\nplt.show()",
         "id": "14872805-ad84-4ca9-ab8d-3cf9bf182a41"
       },
-      "id": "163c72d6-b631-49c1-bc3b-2a4b01fd7419"
+      "solutions": {},
+      "metadata": {},
+      "id": "163c72d6-b631-49c1-bc3b-2a4b01fd7419",
+      "description": {
+        "rendering": false,
+        "language": "markdown",
+        "type": "markdown",
+        "id": "0a960189-ea6d-4709-8c08-c65ae76b560c",
+        "src": "### Plots\r\nShow nice plot as image/png"
+      }
     },
     {
-      "metadata": {},
-      "startingCode": {
-        "language": "python",
-        "id": "3f1eb66a-c6e4-494f-a207-81b160ad218e",
-        "type": "code",
-        "src": "from IPython.display import display, JSON\r\nmy_dict={\"test\":{\"sub_test\":\"hello world\"}}\r\ndisplay(JSON(my_dict))"
-      },
       "description": {
         "id": "1a9ca37e-7c62-4bd7-8098-2cd4ee06a25b",
         "rendering": false,
@@ -87,25 +80,14 @@
         "language": "markdown",
         "src": "### JSON\r\nJSON inspection"
       },
-      "solutions": {},
-      "id": "76e5c669-d40a-4e98-a75e-cbf7d1859b57"
-    },
-    {
-      "id": "8a65f3e7-b8d9-40dd-a44c-e61f2ea80803",
-      "description": {
-        "src": "### Description",
-        "id": "1f4702a0-291c-4e74-bd6e-a893bc826e28",
-        "rendering": false,
-        "language": "markdown",
-        "type": "markdown"
-      },
-      "solutions": {},
+      "id": "76e5c669-d40a-4e98-a75e-cbf7d1859b57",
       "metadata": {},
+      "solutions": {},
       "startingCode": {
-        "src": "",
-        "type": "code",
         "language": "python",
-        "id": "4a110403-8642-45da-9d6c-5ed59a0fb6f4"
+        "id": "3f1eb66a-c6e4-494f-a207-81b160ad218e",
+        "type": "code",
+        "src": "from IPython.display import display, JSON\r\nmy_dict={\"test\":{\"sub_test\":\"hello world\"}}\r\ndisplay(JSON(my_dict))"
       }
     }
   ]

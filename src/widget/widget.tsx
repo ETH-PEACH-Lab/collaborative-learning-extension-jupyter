@@ -11,8 +11,7 @@ import { Cell } from '../types/cell_types';
 import { Message } from '@lumino/messaging';
 import { UserRoleProvider } from './context/user_role_context';
 import { DocModelContextProvider } from './context/doc_model_context';
-import { LanguageCompleter } from '../monaco/language_completer';
-import { KernelMessager } from '../Kernel/kernel_messager';
+import { KernelMessager } from './kernel/kernel_messager';
 
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
@@ -73,7 +72,6 @@ export class PuzzlePanel extends ReactWidget {
    */
   constructor(context: DocumentRegistry.IContext<PuzzleDocModel>) {
     super();
-    new LanguageCompleter(null);
     this._model = context.model;
     this._cellsSignal = new Signal<PuzzlePanel, Cell[]>(this);
     this._kernelMessager = new KernelMessager(context.sessionContext);
