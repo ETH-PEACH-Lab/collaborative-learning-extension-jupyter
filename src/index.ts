@@ -1,5 +1,5 @@
 import { ICollaborativeDrive } from '@jupyter/docprovider';
-
+import 'bootstrap/dist/js/bootstrap.min.js';
 import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin,
@@ -14,14 +14,13 @@ import {
 
 import { Token } from '@lumino/coreutils';
 import { ILauncher } from '@jupyterlab/launcher';
-import { PuzzleDocModelFactory } from './model_factory';
-import { PuzzleDocWidget } from './widget/widget';
-import { PuzzleYDoc } from './model/puzzle_ydoc';
-import { PuzzleWidgetFactory } from './widget_factory';
+import { PuzzleYDoc } from './model/puzzleYDoc/PuzzleYDoc';
+import PuzzleWidgetFactory from './factory/PuzzleWidgetFactory';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { fileIcon } from '@jupyterlab/ui-components';
-import { PuzzleSolutionYDoc } from './model/puzzle_solution_ydoc';
 import { IDocumentManager } from '@jupyterlab/docmanager';
+import PuzzleDocWidget from './widget/PuzzleDocWidget';
+import PuzzleDocModelFactory from './factory/PuzzleDocModelFactory';
 export const FACTORY = 'puzzle-editor';
 // Export a token so other extensions can require it
 export const IPuzzleDocTracker = new Token<IWidgetTracker<PuzzleDocWidget>>(
@@ -57,11 +56,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
     drive: ICollaborativeDrive | null
   ) => {
     const user = app.serviceManager.user;
-    user.ready.then(() => {
-      console.log('Identity:', user.identity);
-      console.log('Permissions:', user.permissions);
-    });
-
     console.log('JupyterLab extension collab_learning_extension is activated!');
     // Namespace for the tracker
     const namespace = 'puzzle-documents';
@@ -122,18 +116,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       fileFormat: 'text',
       contentType: 'puzzledoc' as any
     });
-    app.docRegistry.addFileType({
-      name: 'spuzzle',
-      displayName: 'Solution Puzzle',
-      mimeTypes: ['text/json', 'application/json'],
-      extensions: ['.spuzzle'],
-      fileFormat: 'text',
-      contentType: 'spuzzledoc' as any
-    });
     if (drive) {
-      const sharedPuzzleSolutionFactory = () => {
-        return PuzzleSolutionYDoc.create();
-      };
       const sharedPuzzleFactory = () => {
         return PuzzleYDoc.create();
       };
@@ -141,20 +124,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
         'puzzledoc',
         sharedPuzzleFactory
       );
-      drive.sharedModelFactory.registerDocumentFactory(
-        'spuzzledoc',
-        sharedPuzzleSolutionFactory
-      );
     } else {
       console.error('collaborative mode inactive');
       return;
     }
-
-    // Creating and registering the model factory for our custom DocumentModel
-    const modelFactory = new PuzzleDocModelFactory(<
-      PuzzleDocModelFactory.IOptions
-    >{ docManager: docMangager });
+    const modelFactory = new PuzzleDocModelFactory({
+      docManager: docMangager,
+      identity: user.identity
+    });
     app.docRegistry.addModelFactory(modelFactory);
+    // Creating and registering the model factory for our custom DocumentMode
     // Creating the widget factory to register it so the document manager knows about
     // our new DocumentWidget
     const widgetFactory = new PuzzleWidgetFactory({

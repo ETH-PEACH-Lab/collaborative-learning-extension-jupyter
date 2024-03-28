@@ -3265,6 +3265,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: e5c69fdebf52a4012f6a1f14817ca8e9599cb1be73dd1387e1785e2ed5e5f0862ff817f420a87c7fc532add1f88a12e25aeb010ffcbdc98eace3d55ce2139cf0
+  languageName: node
+  linkType: hard
+
 "@rjsf/core@npm:^5.13.4":
   version: 5.17.1
   resolution: "@rjsf/core@npm:5.17.1"
@@ -4924,6 +4931,7 @@ __metadata:
     "@lumino/signaling": ^2.0.0
     "@lumino/widgets": ^2.0.0
     "@monaco-editor/react": ^4.6.0
+    "@popperjs/core": ^2.11.8
     "@types/dompurify": ^3.0.5
     "@types/jest": ^29.2.0
     "@types/json-schema": ^7.0.11

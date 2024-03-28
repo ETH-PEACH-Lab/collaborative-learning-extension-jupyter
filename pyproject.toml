@@ -30,7 +30,6 @@ dynamic = ["version", "description", "authors", "urls", "keywords"]
 
 [project.entry-points.jupyter_ydoc]
 puzzledoc = "collab_learning_extension.document:YPuzzleDoc"
-spuzzledoc = "collab_learning_extension.document:YPuzzleSolutionDoc"
 
 [tool.hatch.version]
 source = "nodejs"
