@@ -32,7 +32,7 @@ class YPuzzleDoc(YBaseDoc):
             newObj = []
             for cell in value["cells"]:
                 cell['description'] = Y.YMap(cell['description'])
-                if cell['type'] == 'code':
+                if cell['type'] == 'code-cell':
                     newTestingCode = []
                     for testingCode in cell['testingCode']:
                         newTestingCode.append(Y.YMap(testingCode))

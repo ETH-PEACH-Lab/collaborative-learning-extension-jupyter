@@ -37,7 +37,7 @@ export function CellComponent(props: CellComponentProps) {
             }}
           </UseFieldSignal>
         </div>
-        {props.cell.type === 'code' && (
+        {props.cell.type === 'code-cell' && (
           <CodeCell cell={props.cell as ICodeCell}></CodeCell>
         )}
       </div>

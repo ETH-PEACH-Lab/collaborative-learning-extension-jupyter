@@ -4,8 +4,7 @@ import { PuzzleDocChange } from '../PuzzleYDoc';
 export default interface IDocObserverRegister {
   registerCellYArrayFieldObserver(
     propertyName: string,
-    arrayChange: (data: IField[]) => PuzzleDocChange,
-    arrayFieldChange: (data: IField) => PuzzleDocChange
+    arrayChange: (parentId: string, data: any[])  => PuzzleDocChange
   ): void;
   registerCellFieldObserver(
     propertyName: string,

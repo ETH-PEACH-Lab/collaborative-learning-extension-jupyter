@@ -8,13 +8,14 @@ import { DocModelContext, IDocModelContext } from '../context/docModelContext';
 import { UseSignal } from '@jupyterlab/ui-components';
 import React from 'react';
 
-type UseFieldSignalProps<T extends IField> = {
+type UseArrayFieldSignalProps<T extends IField> = {
+  parentId: string,
   children: (fields: T[]) => JSX.Element;
   fields: T[];
   propertyName: ArrayFieldProperty;
 };
 export default function UseArrayFieldSignal<T extends IField>(
-  props: UseFieldSignalProps<T>
+  props: UseArrayFieldSignalProps<T>
 ) {
   const { arrayFieldSignal, shouldUpdateArrayField } = useContext(
     DocModelContext
@@ -22,8 +23,8 @@ export default function UseArrayFieldSignal<T extends IField>(
   return (
     <UseSignal
       signal={arrayFieldSignal}
-      initialArgs={{ propertyName: props.propertyName, fields: props.fields }}
-      shouldUpdate={shouldUpdateArrayField(props.propertyName)}
+      initialArgs={{ parentId: props.parentId, propertyName: props.propertyName, fields: props.fields }}
+      shouldUpdate={shouldUpdateArrayField(props.parentId,props.propertyName)}
     >
       {(_: any, arrayFieldSignaling: IArrayFieldSignaling | undefined) => (
         <>

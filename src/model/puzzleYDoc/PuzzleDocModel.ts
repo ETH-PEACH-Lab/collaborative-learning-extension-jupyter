@@ -270,8 +270,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     if (changes.fieldChange) {
       this.triggerFieldChanged(changes.fieldChange);
     }
-    if (changes.arrayFildChanges) {
-      this.triggerArrayFieldChanged(changes.arrayFildChanges);
+    if (changes.arrayFieldChanges) {
+      this.triggerArrayFieldChanged(changes.arrayFieldChanges);
     }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {

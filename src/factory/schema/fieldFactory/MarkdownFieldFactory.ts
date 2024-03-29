@@ -3,9 +3,9 @@ import FieldFactory from './FieldFactory';
 
 export default class MarkdownFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
-    return 'markdown';
+    return 'markdown-field';
   }
   public createSpecific(): IMarkdownField {
-    return { ...this.createField(), type: 'markdown' };
+    return { ...this.createField(), src:'', type: 'markdown-field' };
   }
 }

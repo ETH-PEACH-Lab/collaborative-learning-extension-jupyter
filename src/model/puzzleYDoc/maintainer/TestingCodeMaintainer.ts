@@ -12,7 +12,7 @@ export default class TestingCodeMaintainer extends ArrayFieldMaintainer {
   }
 
   addTestCode(yCell: Y.Map<any>, identity: User.IIdentity) {
-    const testCode = FieldFactoryService.instance.create('test-code');
+    const testCode = FieldFactoryService.instance.create('test-code-field');
     testCode.set('createdBy', identity.username);
     this.addField(yCell, testCode);
   }

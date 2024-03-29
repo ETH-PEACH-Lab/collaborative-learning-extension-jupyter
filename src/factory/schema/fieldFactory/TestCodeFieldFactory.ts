@@ -3,12 +3,13 @@ import FieldFactory from './FieldFactory';
 
 export default class TestCodeFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
-    return 'test-code';
+    return 'test-code-field';
   }
   public createSpecific(): ITestCodeField {
     return {
       ...this.createField(),
-      type: 'test-code',
+      src:'',
+      type: 'test-code-field',
       language: 'python',
       name: '',
       verified: false,

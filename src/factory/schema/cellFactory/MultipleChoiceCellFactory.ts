@@ -15,12 +15,12 @@ export default class MultipleChoiceCellFactory extends CellFactory {
     return 'Multiple choice';
   }
   public get identifier(): CellType {
-    return 'multiple-choice';
+    return 'multiple-choice-cell';
   }
   public createSpecific() {
     return {
       ...this._createCell(),
-      type: 'multiple-choice',
+      type: 'multiple-choice-cell',
       options: [],
       solutionOptions: []
     };

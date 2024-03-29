@@ -1,77 +1,89 @@
 import { PartialJSONObject } from '@lumino/coreutils';
 export type Metadata = PartialJSONObject;
 export type Language = 'python' | 'java';
-export type FieldType =
-  | 'markdown'
-  | 'code'
-  | 'test-code'
-  | 'multiple-choice-option';
-export type CellType = 'text' | 'code' | 'multiple-choice';
-export interface IField {
+export type SrcFieldType =
+  | 'markdown-field'
+  | 'code-field'
+  | 'test-code-field'
+  | 'multiple-choice-option-field'
+export type SolutionType = 
+  | 'code-solution'
+  | 'test-solution'
+  | 'multiple-choice-solution'
+export type CellType = 'text-cell' | 'code-cell' | 'multiple-choice-cell';
+export type FieldType = SrcFieldType | SolutionType |CellType
+
+
+export interface IYObject{
   id: string;
+}
+export interface IField extends IYObject{
   type?: FieldType;
+}
+export interface ISrcField extends IField {
   src: string;
 }
-export interface IMarkdownField extends IField {
-  type: 'markdown';
+export interface IMarkdownField extends ISrcField {
+  type: 'markdown-field';
+  src: string;
 }
-export interface ICodeField extends IField {
-  type: 'code';
+export interface ICodeField extends ISrcField {
+  type: 'code-field';
   language: Language;
 }
-export interface ITestCodeField extends IField {
+export interface ITestCodeField extends ISrcField {
   name: string;
-  type: 'test-code';
+  type: 'test-code-field';
   language: Language;
   verified: boolean;
   createdBy: string;
 }
-export interface IMultipleChoiceOptionField extends IField {
-  type: 'multiple-choice-option';
+export interface IMultipleChoiceOptionField extends ISrcField {
+  type: 'multiple-choice-option-field';
 }
 
-export type Solution = {
-  id: string;
+export interface ISolution extends IField {
+  type: SolutionType
   grade: number;
   comment: string;
 };
 
-export interface ICodeSolution extends Solution {
+export interface ICodeSolution extends ISolution {
   src: ICodeField;
 }
-export interface ITextSolution extends Solution {
+export interface ITextSolution extends ISolution {
   src: IMarkdownField;
 }
-export interface IMultipleChoiceSolution extends Solution {
+export interface IMultipleChoiceSolution extends ISolution {
   choice: number[];
 }
-export interface ICell {
-  id: string;
-  type?: CellType;
+export interface ICell extends IField{
+  type: CellType
   description: IMarkdownField;
   metadata: Metadata;
-  solutions: Map<string, Solution>;
+  studentCode: Map<string, ISolution>;
 }
 
 export interface ICodeCell extends ICell {
   startingCode: ICodeField;
   solutionCode: ICodeField;
   testingCode: ITestCodeField[];
-  type: 'code';
+  type: 'code-cell';
 }
 export interface ITextCell extends ICell {
-  type: 'text';
+  type: 'text-cell';
 }
 
 export interface IMulitpleChoiceCell extends ICell {
   options: IMultipleChoiceOptionField[];
   solutionOptions: number[];
-  type: 'multiple-choice';
+  type: 'multiple-choice-cell';
 }
 export type FieldProperty = 'startingCode' | 'solutionCode' | 'description';
-export type ArrayFieldProperty = 'testingCode';
+export type ArrayFieldProperty = 'cells' | 'testingCode';
 
 export interface IArrayFieldSignaling {
+  parentId:string;
   propertyName: ArrayFieldProperty;
   fields: IField[];
 }

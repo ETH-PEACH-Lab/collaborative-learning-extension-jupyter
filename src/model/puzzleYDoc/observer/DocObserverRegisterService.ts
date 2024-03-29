@@ -2,8 +2,7 @@ import { IField } from '../../../types/schemaTypes';
 import { PuzzleDocChange } from '../PuzzleYDoc';
 import IDocObserverRegister from './IDocObserverRegister';
 export type ArrayFieldObserver = {
-  arrayChange: (data: IField[]) => PuzzleDocChange;
-  arrayFieldChange: (data: IField) => PuzzleDocChange;
+  arrayChange: (parentId: string, data: IField[]) => PuzzleDocChange
 };
 export type FieldObserver = {
   fieldChange: (data: IField) => PuzzleDocChange;
@@ -19,13 +18,11 @@ export default class DocObserverRegisterService
   private constructor() {}
   registerCellYArrayFieldObserver(
     propertyName: string,
-    arrayChange: (data: IField[]) => PuzzleDocChange,
-    arrayFieldChange: (data: IField) => PuzzleDocChange
+    arrayChange: (parentId: string,data: IField[]) => PuzzleDocChange
   ) {
     if (!this._cellArrayFieldObservers.has(propertyName)) {
       this._cellArrayFieldObservers.set(propertyName, {
-        arrayChange,
-        arrayFieldChange
+        arrayChange
       });
     }
   }

@@ -14,15 +14,15 @@ export default class CodeCellFactory extends CellFactory {
     return 'Coding Exercise';
   }
   public get identifier(): CellType {
-    return 'code';
+    return 'code-cell';
   }
 
   protected createSpecific() {
     return {
       ...this._createCell(),
-      type: 'code',
-      startingCode: FieldFactoryService.instance.create('code'),
-      solutionCode: FieldFactoryService.instance.create('code'),
+      type: 'code-cell',
+      startingCode: FieldFactoryService.instance.create('code-field'),
+      solutionCode: FieldFactoryService.instance.create('code-field'),
       testingCode: this.toYArray([])
     };
   }

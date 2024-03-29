@@ -26,7 +26,7 @@ export default class CellFactoryService extends FactorySerivce<
     this.factories.push(new MultipleChoiceCellFactory());
   }
   load(cell: ICell): Y.Map<any> {
-    return this.findFactory(cell.type ?? 'code').load(cell);
+    return this.findFactory(cell.type ?? 'code-cell').load(cell);
   }
   getFactoryNamings(): FactoryNaming[] {
     return this.factories.map(

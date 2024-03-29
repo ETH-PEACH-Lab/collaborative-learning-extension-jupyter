@@ -3,9 +3,9 @@ import FieldFactory from './FieldFactory';
 
 export default class CodeFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
-    return 'code';
+    return 'code-field';
   }
   public createSpecific(): ICodeField {
-    return { ...this.createField(), type: 'code', language: 'python' };
+    return { ...this.createField(), src:'', type: 'code-field', language: 'python' };
   }
 }

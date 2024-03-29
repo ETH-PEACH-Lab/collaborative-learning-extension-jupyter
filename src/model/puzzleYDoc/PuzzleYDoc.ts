@@ -20,7 +20,7 @@ import ArrayFieldMaintainer from './maintainer/ArrayFieldMaintainer';
 
 export type PuzzleDocChange = {
   fieldChange?: IField;
-  arrayFildChanges?: IArrayFieldSignaling;
+  arrayFieldChanges?: IArrayFieldSignaling;
   cellChanges?: ICell;
   cellsChange?: ICell[];
 } & DocumentChange;
@@ -28,6 +28,7 @@ export type PuzzleDocChange = {
 export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
   constructor() {
     super();
+
     const cells = this.ydoc.getArray('cells') as Y.Array<Y.Map<any>>;
     this._cellsMaintainer = new CellsMaintainer(
       cells,
@@ -37,17 +38,18 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     this._arrayFieldMaintainer = [
       new TestingCodeMaintainer(this.transact.bind(this))
     ];
+
     const emitChanges = (change: PuzzleDocChange) => {
       console.debug('Change occured: ' + JSON.stringify(change));
       this._changed.emit(change);
     };
     this._docObserver = new DocObserver(
-      cells,
-      emitChanges.bind(this),
-      (data: ICell[]) => {
-        return <PuzzleDocChange>{ cellsChange: data };
-      }
+      emitChanges.bind(this)
     );
+    this._docObserver.init('cells',  (parentId: string, data: any[]) =>
+    <PuzzleDocChange>{
+      arrayFieldChanges: { parentId: parentId, propertyName: "cells", fields: data }
+    }, cells);
     KernelMessagerService.instance.verifiedTestSignal.connect(
       (_: any, value: IKernelTestVerified) => {
         this.getArrayFieldMaintainer<TestingCodeMaintainer>(

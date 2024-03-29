@@ -5,8 +5,7 @@ import Factory from '../Factory';
 export default abstract class FieldFactory extends Factory<FieldType> {
   protected createField(): IField {
     return {
-      id: UUID.uuid4(),
-      src: ''
+      id: UUID.uuid4()
     };
   }
 }

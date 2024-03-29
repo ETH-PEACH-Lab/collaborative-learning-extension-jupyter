@@ -1,65 +1,74 @@
 {
   "cells": [
     {
-      "id": "8d3fe9c6-af66-4e60-b860-72647ee000ef",
-      "type": "code",
       "solutionCode": {
         "src": "    if n == 0:\r\n        return 1\r\n    else:\r\n        return n * factorial(n - 1)",
         "language": "python",
-        "type": "code",
+        "type": "code-field",
         "id": "550a064a-9376-4c05-a813-8d87e3cb0b12"
       },
-      "description": {
-        "type": "markdown",
-        "id": "acf91bfc-3c2f-4042-be21-39e4ee25fe41",
-        "src": "### Factorial\r\nCalculate the factorial of a non-negative integer n.  \r\nHint: use recursion"
-      },
-      "metadata": {},
-      "startingCode": {
-        "type": "code",
-        "id": "2fff0549-6be0-4ab6-a888-783921f955ab",
-        "language": "python",
-        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\""
-      },
+      "type": "code-cell",
+      "id": "8d3fe9c6-af66-4e60-b860-72647ee000ef",
       "solutions": {},
       "testingCode": [
         {
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "src": "assert factorial(1) == 1",
           "id": "e0fd2236-7785-490f-aeb6-140fefa83200",
           "language": "python",
+          "verified": true,
           "name": "factorial(1)",
-          "type": "test-code",
-          "verified": true
+          "type": "test-code-field",
+          "createdBy": "fe75d70098604ffab02499e3cd486527",
+          "src": "assert factorial(1) == 1"
         },
         {
           "src": "assert factorial(2) == 2",
+          "verified": true,
+          "name": "factorial(2)",
+          "language": "python",
           "id": "ca94c8f8-b1db-4f5b-8893-b68927106b5a",
           "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "name": "factorial(2)",
-          "verified": true,
-          "type": "test-code",
-          "language": "python"
+          "type": "test-code-field"
         },
         {
           "src": "",
-          "name": "dsd",
-          "id": "63bdfc53-2dc3-4988-9fa1-14adc6297844",
-          "verified": false,
-          "type": "test-code",
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "language": "python"
-        },
-        {
-          "name": "",
-          "src": "",
-          "type": "test-code",
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "id": "03c10a45-852e-44ba-856e-2c6bc8fe77f7",
           "language": "python",
+          "verified": false,
+          "name": "",
+          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
+          "type": "test-code-field",
+          "id": "f7173ee7-62e4-4a64-8206-00df555c33eb"
+        },
+        {
+          "type": "test-code-field",
+          "verified": false,
+          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
+          "src": "",
+          "language": "python",
+          "id": "d7addc70-f89d-4929-b709-77fd955666d6",
+          "name": ""
+        },
+        {
+          "name": "ddddd",
+          "src": "",
+          "id": "69d8a136-124d-4289-8d3e-37b38514583a",
+          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
+          "language": "python",
+          "type": "test-code-field",
           "verified": false
         }
-      ]
+      ],
+      "metadata": {},
+      "description": {
+        "src": "### Factorial\r\nCalculate the factorial of a non-negative integer n.  \r\nHint: use recursion",
+        "type": "markdown-field",
+        "id": "acf91bfc-3c2f-4042-be21-39e4ee25fe41"
+      },
+      "startingCode": {
+        "language": "python",
+        "id": "2fff0549-6be0-4ab6-a888-783921f955ab",
+        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\"",
+        "type": "code-field"
+      }
     }
   ]
 }

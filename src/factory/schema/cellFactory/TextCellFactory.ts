@@ -15,12 +15,12 @@ export default class TextCellFactory extends CellFactory {
     return 'Text response';
   }
   public get identifier(): CellType {
-    return 'text';
+    return 'text-cell';
   }
   public createSpecific() {
     return {
       ...this._createCell(),
-      type: 'text'
+      type: 'text-cell'
     };
   }
 }

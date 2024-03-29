@@ -4,7 +4,7 @@ import { Signal } from '@lumino/signaling';
 import { PuzzleDocModel } from '../model/puzzleYDoc/PuzzleDocModel';
 
 import * as React from 'react';
-import { ISessionContext, ReactWidget, UseSignal } from '@jupyterlab/apputils';
+import { ISessionContext, ReactWidget } from '@jupyterlab/apputils';
 import { TopBarComponent } from './component/TopBarComponent';
 import { CellContainerComponent } from './component/CellContainerComponent';
 import { UserRoleProvider } from './context/userRoleContext';
@@ -17,6 +17,7 @@ import {
   IKernelTestVerification
 } from '../types/kernelTypes';
 import { ICell } from '../types/schemaTypes';
+import UseArrayFieldSignal from './signal/UseArrayFieldSignal';
 /**
  * Widget that contains the main view of the PuzzleWidget.
  */
@@ -58,18 +59,14 @@ export class PuzzlePanel extends ReactWidget {
         >
           <UserRoleProvider identity={this._model.getIdentity()}>
             <TopBarComponent />
-            <UseSignal
-              signal={this._cellsSignal}
-              initialArgs={this._model.cells}
-              key={'cells_container_signal'}
-            >
-              {(_, cells) => (
-                <CellContainerComponent
-                  key={'cells_container'}
-                  cells={cells}
-                ></CellContainerComponent>
-              )}
-            </UseSignal>
+            <UseArrayFieldSignal parentId='root' propertyName='cells' fields={this._model.cells}>
+              {cells =>
+                  <CellContainerComponent
+                    key={'cells_container'}
+                    cells={cells}
+                  ></CellContainerComponent>
+              }
+            </UseArrayFieldSignal>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
           </UserRoleProvider>
         </KernelContextProvider>

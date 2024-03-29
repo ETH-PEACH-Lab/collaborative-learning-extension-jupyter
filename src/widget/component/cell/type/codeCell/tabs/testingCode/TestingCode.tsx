@@ -28,6 +28,7 @@ export function TestingCode(props: TestingCodeProps) {
       <UseMultiFieldSignal fields={[props.solutionCode, props.startingCode]}>
         {([solutionCode, startingCode]) => (
           <UseArrayFieldSignal
+            parentId={props.cellId}
             fields={props.testingCode}
             propertyName="testingCode"
           >

@@ -66,7 +66,7 @@ export class KernelMessagerService {
       this._testResultSignal.emit({
         referenceId: execution.referenceId,
         result: successful
-      });
+      })
     });
   }
   private _onIOPubExecution = (

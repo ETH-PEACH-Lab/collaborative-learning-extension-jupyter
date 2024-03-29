@@ -11,20 +11,23 @@ export default abstract class CellFactory extends Factory<CellType> {
     super();
     this.fieldNames.forEach(fieldName =>
       DocObserverRegisterService.instance.registerCellFieldObserver(
-        fieldName,
+        "cells.entry."+fieldName,
         this.fieldChange
       )
     );
-    this.arrayFieldNames.forEach(arrayFieldName =>
+    this.arrayFieldNames.forEach(arrayFieldName => {
       DocObserverRegisterService.instance.registerCellYArrayFieldObserver(
-        arrayFieldName,
-        (data: IField[]) =>
+        "cells.entry."+arrayFieldName,
+        (parentId: string, data: any[]) =>
           <PuzzleDocChange>{
-            arrayFildChanges: { propertyName: arrayFieldName, fields: data }
-          },
+            arrayFieldChanges: { parentId: parentId,propertyName: arrayFieldName, fields: data }
+          }
+      )
+      DocObserverRegisterService.instance.registerCellFieldObserver(
+        "cells.entry."+arrayFieldName + ".entry",
         this.fieldChange
       )
-    );
+    });
   }
   protected fieldChange(field: IField) {
     return <PuzzleDocChange>{ fieldChange: field };
@@ -35,7 +38,7 @@ export default abstract class CellFactory extends Factory<CellType> {
     this.fieldNames.forEach(fieldName =>
       obj.set(fieldName, this.toYMap(c[fieldName as keyof ICell]))
     );
-    this.relevantArrayFieldNames.forEach(arrayFieldName => {
+    this.arrayFieldNames.forEach(arrayFieldName => {
       const array = c[arrayFieldName as keyof ICell];
       if (Array.isArray(array)) {
         obj.set(arrayFieldName, this.toYArray(array));
@@ -49,16 +52,17 @@ export default abstract class CellFactory extends Factory<CellType> {
   protected _createCell() {
     return {
       id: UUID.uuid4(),
-      description: FieldFactoryService.instance.create('markdown'),
+      description: FieldFactoryService.instance.create('markdown-field'),
       metadata: {},
-      solutions: {}
+      solutions: {},
+      studentCode: this.toYArray([])
     };
   }
-  public get fieldNames(): string[] {
+  private get fieldNames(): string[] {
     return [...this.relevantFieldNames, 'description'];
   }
-  public get arrayFieldNames(): string[] {
-    return [...this.relevantArrayFieldNames, 'studentSolutions'];
+  private get arrayFieldNames(): string[] {
+    return this.relevantArrayFieldNames;
   }
   protected abstract get relevantFieldNames(): string[];
   protected abstract get relevantArrayFieldNames(): string[];
