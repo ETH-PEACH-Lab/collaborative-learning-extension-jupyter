@@ -6,6 +6,11 @@ export default class CodeFieldFactory extends FieldFactory {
     return 'code-field';
   }
   public createSpecific(): ICodeField {
-    return { ...this.createField(), src:'', type: 'code-field', language: 'python' };
+    return {
+      ...this.createField(),
+      src: '',
+      type: 'code-field',
+      language: 'python'
+    };
   }
 }

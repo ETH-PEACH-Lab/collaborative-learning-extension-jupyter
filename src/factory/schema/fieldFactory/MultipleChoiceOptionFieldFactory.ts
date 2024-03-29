@@ -9,6 +9,10 @@ export default class MultipleChoiceOptionFieldFactory extends FieldFactory {
     return 'multiple-choice-option-field';
   }
   public createSpecific(): IMultipleChoiceOptionField {
-    return { ...this.createField(), src:'', type: 'multiple-choice-option-field' };
+    return {
+      ...this.createField(),
+      src: '',
+      type: 'multiple-choice-option-field'
+    };
   }
 }

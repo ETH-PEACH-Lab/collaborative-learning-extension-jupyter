@@ -11,22 +11,26 @@ export default abstract class CellFactory extends Factory<CellType> {
     super();
     this.fieldNames.forEach(fieldName =>
       DocObserverRegisterService.instance.registerCellFieldObserver(
-        "cells.entry."+fieldName,
+        'cells.entry.' + fieldName,
         this.fieldChange
       )
     );
     this.arrayFieldNames.forEach(arrayFieldName => {
       DocObserverRegisterService.instance.registerCellYArrayFieldObserver(
-        "cells.entry."+arrayFieldName,
+        'cells.entry.' + arrayFieldName,
         (parentId: string, data: any[]) =>
           <PuzzleDocChange>{
-            arrayFieldChanges: { parentId: parentId,propertyName: arrayFieldName, fields: data }
+            arrayFieldChanges: {
+              parentId: parentId,
+              propertyName: arrayFieldName,
+              fields: data
+            }
           }
-      )
+      );
       DocObserverRegisterService.instance.registerCellFieldObserver(
-        "cells.entry."+arrayFieldName + ".entry",
+        'cells.entry.' + arrayFieldName + '.entry',
         this.fieldChange
-      )
+      );
     });
   }
   protected fieldChange(field: IField) {

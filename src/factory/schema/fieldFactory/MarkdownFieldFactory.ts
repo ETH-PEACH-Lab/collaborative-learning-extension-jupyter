@@ -6,6 +6,6 @@ export default class MarkdownFieldFactory extends FieldFactory {
     return 'markdown-field';
   }
   public createSpecific(): IMarkdownField {
-    return { ...this.createField(), src:'', type: 'markdown-field' };
+    return { ...this.createField(), src: '', type: 'markdown-field' };
   }
 }

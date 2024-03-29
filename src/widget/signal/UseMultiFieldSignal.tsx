@@ -12,8 +12,8 @@ export default function UseMultiFieldSignal<T extends IField>(
   const signaledFields: React.MutableRefObject<T[]> = useRef([]);
 
   const renderFieldSignals = (fields: T[], index: number = 0): JSX.Element => {
-    if(!fields.length){
-      return <></>
+    if (!fields.length) {
+      return <></>;
     }
     const [firstField, ...remainingFields] = fields;
     return (

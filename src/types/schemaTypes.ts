@@ -5,19 +5,18 @@ export type SrcFieldType =
   | 'markdown-field'
   | 'code-field'
   | 'test-code-field'
-  | 'multiple-choice-option-field'
-export type SolutionType = 
+  | 'multiple-choice-option-field';
+export type SolutionType =
   | 'code-solution'
   | 'test-solution'
-  | 'multiple-choice-solution'
+  | 'multiple-choice-solution';
 export type CellType = 'text-cell' | 'code-cell' | 'multiple-choice-cell';
-export type FieldType = SrcFieldType | SolutionType |CellType
+export type FieldType = SrcFieldType | SolutionType | CellType;
 
-
-export interface IYObject{
+export interface IYObject {
   id: string;
 }
-export interface IField extends IYObject{
+export interface IField extends IYObject {
   type?: FieldType;
 }
 export interface ISrcField extends IField {
@@ -43,10 +42,10 @@ export interface IMultipleChoiceOptionField extends ISrcField {
 }
 
 export interface ISolution extends IField {
-  type: SolutionType
+  type: SolutionType;
   grade: number;
   comment: string;
-};
+}
 
 export interface ICodeSolution extends ISolution {
   src: ICodeField;
@@ -57,8 +56,8 @@ export interface ITextSolution extends ISolution {
 export interface IMultipleChoiceSolution extends ISolution {
   choice: number[];
 }
-export interface ICell extends IField{
-  type: CellType
+export interface ICell extends IField {
+  type: CellType;
   description: IMarkdownField;
   metadata: Metadata;
   studentCode: Map<string, ISolution>;
@@ -83,7 +82,7 @@ export type FieldProperty = 'startingCode' | 'solutionCode' | 'description';
 export type ArrayFieldProperty = 'cells' | 'testingCode';
 
 export interface IArrayFieldSignaling {
-  parentId:string;
+  parentId: string;
   propertyName: ArrayFieldProperty;
   fields: IField[];
 }

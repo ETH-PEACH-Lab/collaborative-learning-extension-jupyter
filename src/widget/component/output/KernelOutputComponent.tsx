@@ -37,9 +37,11 @@ export function KernelOutputComponent(props: KernelOutputComponentProps) {
     return <div className="alert alert-secondary">No output</div>;
   }
   if (props.output.output) {
-    return <div className="alert alert-secondary" style={{ whiteSpace: 'pre-wrap' }}>
-      {props.output.output as string}
-    </div>;
+    return (
+      <div className="alert alert-secondary" style={{ whiteSpace: 'pre-wrap' }}>
+        {props.output.output as string}
+      </div>
+    );
   }
   return <></>;
 }

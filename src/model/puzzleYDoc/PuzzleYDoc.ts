@@ -43,13 +43,19 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
       console.debug('Change occured: ' + JSON.stringify(change));
       this._changed.emit(change);
     };
-    this._docObserver = new DocObserver(
-      emitChanges.bind(this)
+    this._docObserver = new DocObserver(emitChanges.bind(this));
+    this._docObserver.init(
+      'cells',
+      (parentId: string, data: any[]) =>
+        <PuzzleDocChange>{
+          arrayFieldChanges: {
+            parentId: parentId,
+            propertyName: 'cells',
+            fields: data
+          }
+        },
+      cells
     );
-    this._docObserver.init('cells',  (parentId: string, data: any[]) =>
-    <PuzzleDocChange>{
-      arrayFieldChanges: { parentId: parentId, propertyName: "cells", fields: data }
-    }, cells);
     KernelMessagerService.instance.verifiedTestSignal.connect(
       (_: any, value: IKernelTestVerified) => {
         this.getArrayFieldMaintainer<TestingCodeMaintainer>(

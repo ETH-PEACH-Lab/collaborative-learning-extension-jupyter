@@ -39,9 +39,15 @@ const shouldUpdateField = (id: string) => {
     return field.id === id;
   };
 };
-const shouldUpdateArrayField = (parentId:string, propertyName: ArrayFieldProperty) => {
+const shouldUpdateArrayField = (
+  parentId: string,
+  propertyName: ArrayFieldProperty
+) => {
   return (_: any, arrayFieldSignaling: IArrayFieldSignaling) => {
-    return arrayFieldSignaling.propertyName === propertyName && arrayFieldSignaling.parentId === parentId;
+    return (
+      arrayFieldSignaling.propertyName === propertyName &&
+      arrayFieldSignaling.parentId === parentId
+    );
   };
 };
 export const DocModelContextProvider = (
@@ -78,7 +84,7 @@ export interface IDocModelContext {
   fieldSignal: ISignal<any, IField>;
   arrayFieldSignal: ISignal<any, IArrayFieldSignaling>;
   shouldUpdateArrayField: (
-    parentId:string,
+    parentId: string,
     propertyName: ArrayFieldProperty
   ) => (_: any, arrayFieldSignaling: IArrayFieldSignaling) => boolean;
   shouldUpdateField: (id: string) => (_: any, field: IField) => boolean;

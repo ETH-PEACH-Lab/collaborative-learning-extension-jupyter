@@ -9,7 +9,7 @@ import { UseSignal } from '@jupyterlab/ui-components';
 import React from 'react';
 
 type UseArrayFieldSignalProps<T extends IField> = {
-  parentId: string,
+  parentId: string;
   children: (fields: T[]) => JSX.Element;
   fields: T[];
   propertyName: ArrayFieldProperty;
@@ -23,8 +23,12 @@ export default function UseArrayFieldSignal<T extends IField>(
   return (
     <UseSignal
       signal={arrayFieldSignal}
-      initialArgs={{ parentId: props.parentId, propertyName: props.propertyName, fields: props.fields }}
-      shouldUpdate={shouldUpdateArrayField(props.parentId,props.propertyName)}
+      initialArgs={{
+        parentId: props.parentId,
+        propertyName: props.propertyName,
+        fields: props.fields
+      }}
+      shouldUpdate={shouldUpdateArrayField(props.parentId, props.propertyName)}
     >
       {(_: any, arrayFieldSignaling: IArrayFieldSignaling | undefined) => (
         <>

@@ -59,13 +59,17 @@ export class PuzzlePanel extends ReactWidget {
         >
           <UserRoleProvider identity={this._model.getIdentity()}>
             <TopBarComponent />
-            <UseArrayFieldSignal parentId='root' propertyName='cells' fields={this._model.cells}>
-              {cells =>
-                  <CellContainerComponent
-                    key={'cells_container'}
-                    cells={cells}
-                  ></CellContainerComponent>
-              }
+            <UseArrayFieldSignal
+              parentId="root"
+              propertyName="cells"
+              fields={this._model.cells}
+            >
+              {cells => (
+                <CellContainerComponent
+                  key={'cells_container'}
+                  cells={cells}
+                ></CellContainerComponent>
+              )}
             </UseArrayFieldSignal>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
           </UserRoleProvider>

@@ -8,7 +8,7 @@ export default class TestCodeFieldFactory extends FieldFactory {
   public createSpecific(): ITestCodeField {
     return {
       ...this.createField(),
-      src:'',
+      src: '',
       type: 'test-code-field',
       language: 'python',
       name: '',
