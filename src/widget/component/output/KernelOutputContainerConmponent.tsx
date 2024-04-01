@@ -1,6 +1,6 @@
 import { UseSignal } from '@jupyterlab/ui-components';
 import { useContext } from 'react';
-import { IKernelOutput } from '../../../types/kernelTypes';
+import { IKernelExecutionResult } from '../../../types/kernelTypes';
 import React from 'react';
 import { KernelOutputComponent } from './KernelOutputComponent';
 import { IKernelContext, KernelContext } from '../../context/kernelContext';
@@ -13,7 +13,7 @@ export default function KernelOutputContainerComponent(
 ) {
   const { kernelOutputSignal } = useContext(KernelContext) as IKernelContext;
 
-  const shouldUpdateOutput = (_: any, output: IKernelOutput) => {
+  const shouldUpdateOutput = (_: any, output: IKernelExecutionResult) => {
     return output.referenceId === props.id;
   };
   return (
@@ -23,17 +23,25 @@ export default function KernelOutputContainerComponent(
         initialArgs={undefined}
         shouldUpdate={shouldUpdateOutput}
       >
-        {(_: any, output: IKernelOutput | undefined) => {
-          if (output === undefined) {
+        {(_: any, result: IKernelExecutionResult | undefined) => {
+          if (result === undefined) {
             return <></>;
           }
+          if (!result.outputs.length) {
+            return (
+              <div className="puzzle-field--code-output">
+                <div className="alert alert-secondary">No output</div>
+              </div>
+            );
+          }
+          const outputComponents = result.outputs.map(output => (
+            <KernelOutputComponent
+              output={output}
+              disableNoOutput={props.disableNoOutput}
+            ></KernelOutputComponent>
+          ));
           return (
-            <div className="puzzle-field--code-output">
-              <KernelOutputComponent
-                output={output}
-                disableNoOutput={props.disableNoOutput}
-              ></KernelOutputComponent>
-            </div>
+            <div className="puzzle-field--code-output">{outputComponents}</div>
           );
         }}
       </UseSignal>

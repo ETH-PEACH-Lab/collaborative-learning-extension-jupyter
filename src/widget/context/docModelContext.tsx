@@ -65,7 +65,8 @@ export const DocModelContextProvider = (
     props.setField(cellId, 'startingCode', field);
   const setTestCodeField = (cellId: string, field: ITestCodeField) =>
     props.setArrayField(cellId, 'testingCode', field);
-  const removeTestCodeField = (cellId: string, id: string) => props.removeArrayField(cellId, 'testingCode', id)
+  const removeTestCodeField = (cellId: string, id: string) =>
+    props.removeArrayField(cellId, 'testingCode', id);
   return (
     <DocModelContext.Provider
       value={{

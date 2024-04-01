@@ -14,12 +14,17 @@ export default function CodeCellTabContent(props: ICodeCellTabContentProps) {
   if (!permitted(props)) {
     return <></>;
   }
-  return <div
-    className={'tab-pane fade' + (props.index === props.activeIndex ? " active show" : "")}
-    id={props.targetIdentifier + '-' + props.cellId}
-    role="tabpanel"
-    aria-labelledby={props.id + '-' + props.cellId}
-  >
-    {props.children}
-  </div>;
+  return (
+    <div
+      className={
+        'tab-pane fade' +
+        (props.index === props.activeIndex ? ' active show' : '')
+      }
+      id={props.targetIdentifier + '-' + props.cellId}
+      role="tabpanel"
+      aria-labelledby={props.id + '-' + props.cellId}
+    >
+      {props.children}
+    </div>
+  );
 }

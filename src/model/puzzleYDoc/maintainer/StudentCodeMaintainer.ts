@@ -1,5 +1,3 @@
-import MapFieldMaintainer from "./MapFieldMaintainer";
+import MapFieldMaintainer from './MapFieldMaintainer';
 
-export default class StudentCodeMaintainer extends MapFieldMaintainer{
-    
-}
+export default class StudentCodeMaintainer extends MapFieldMaintainer {}

@@ -1,4 +1,3 @@
-
 import { IField } from '../../../../types/schemaTypes';
 import { PuzzleDocChange } from '../../PuzzleYDoc';
 import IDocObserverRegister from './IDocObserverableRegisterService';
@@ -42,6 +41,10 @@ export default class DocObserverableRegisterService
   get arrayFieldObservers() {
     return this._cellArrayFieldObservers;
   }
-  private _cellFieldObservers: Map<string, FieldObserverRegistration> = new Map();
-  private _cellArrayFieldObservers: Map<string, ArrayFieldObserverRegistration> = new Map();
+  private _cellFieldObservers: Map<string, FieldObserverRegistration> =
+    new Map();
+  private _cellArrayFieldObservers: Map<
+    string,
+    ArrayFieldObserverRegistration
+  > = new Map();
 }

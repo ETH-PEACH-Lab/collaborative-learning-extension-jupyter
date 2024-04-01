@@ -1,39 +1,29 @@
 import { IOutput } from '@jupyterlab/nbformat';
 import { PartialJSONObject } from '@lumino/coreutils';
 import { IKernelOutput } from '../../types/kernelTypes';
-import { ISignal, Signal } from '@lumino/signaling';
 
 export default class ExecutionOutputHelper {
-  clear = (referenceId: string) => {
-    console.debug('clear: ' + referenceId);
-    this._outputChanged.emit(<IKernelOutput>{
-      referenceId: referenceId,
-      type: 'clear'
-    });
-  };
-  onStreamMessage = (referenceId: string, output: IOutput) => {
-    this._outputChanged.emit(<IKernelOutput>{
-      referenceId: referenceId,
+  onStreamMessage = (output: IOutput) => {
+    return <IKernelOutput>{
       output: output.text,
       type: 'stream'
-    });
+    };
   };
   getErrorMessage = (output: IOutput) =>
     output.ename + (output.evalue ? ': ' + output.evalue : '');
-  onError = (referenceId: string, output: string) => {
-    this._outputChanged.emit(<IKernelOutput>{
-      referenceId: referenceId,
+  onError = (output: string) => {
+    return <IKernelOutput>{
       output: output,
       type: 'error'
-    });
+    };
   };
-  onOutputObject = (referenceId: string, output: IOutput) => {
+  onOutputObject = (output: IOutput): IKernelOutput | null => {
     if (typeof output.data === 'object') {
-      this._outputChanged.emit(<IKernelOutput>{
-        referenceId: referenceId,
+      return <IKernelOutput>{
         ...this.getDataObjectOutputValue(output)
-      });
+      };
     }
+    return null;
   };
   getDataObjectOutputValue(_output: IOutput) {
     const jsonObject = _output.data as PartialJSONObject;
@@ -55,8 +45,4 @@ export default class ExecutionOutputHelper {
     }
     return { output: 'Output type not supported', type: 'error' };
   }
-  get outputChanged(): ISignal<any, IKernelOutput> {
-    return this._outputChanged;
-  }
-  private _outputChanged: Signal<any, IKernelOutput> = new Signal(this);
 }

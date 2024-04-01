@@ -133,7 +133,11 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   setField(cellId: string, propertyName: FieldProperty, field: IField) {
     this.sharedModel.setField(cellId, propertyName, field);
   }
-  removeArrayField(cellId: string, propertyName: ArrayFieldProperty, id: string) {
+  removeArrayField(
+    cellId: string,
+    propertyName: ArrayFieldProperty,
+    id: string
+  ) {
     this.sharedModel.removeArrayField(cellId, propertyName, id);
   }
   setArrayField(

@@ -33,9 +33,6 @@ export function KernelOutputComponent(props: KernelOutputComponentProps) {
       </div>
     );
   }
-  if (props.output.type === 'clear' && !props.disableNoOutput) {
-    return <div className="alert alert-secondary">No output</div>;
-  }
   if (props.output.output) {
     return (
       <div className="alert alert-secondary" style={{ whiteSpace: 'pre-wrap' }}>

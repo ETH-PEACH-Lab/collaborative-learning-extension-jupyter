@@ -18,26 +18,30 @@ export function StartingCode(props: StartingCodeProps) {
   const { setStartingCodeField } = useContext(
     DocModelContext
   ) as IDocModelContext;
-  return <div className="puzzle-field puzzle-field--code">
+  return (
+    <div className="puzzle-field puzzle-field--code">
       <UseFieldSignal field={props.startingCode}>
         {startingCode => {
-            const setStartingCode = (value: string) =>
+          const setStartingCode = (value: string) =>
             setStartingCodeField(props.cellId, { ...startingCode, src: value });
-            return <>
-            <PuzzleCodeFieldComponent
-              field={startingCode}
-              onChange={setStartingCode}
-            ></PuzzleCodeFieldComponent>
-            <div className="puzzle-field--code-actions">
-              <KernelExecuteCodeButton
-                input={createKernelExecution(startingCode.id, startingCode)}
-              ></KernelExecuteCodeButton>
-            </div>
-            <KernelOutputContainerComponent
-              id={startingCode.id}
-            ></KernelOutputContainerComponent>
-          </>
+          return (
+            <>
+              <PuzzleCodeFieldComponent
+                field={startingCode}
+                onChange={setStartingCode}
+              ></PuzzleCodeFieldComponent>
+              <div className="puzzle-field--code-actions">
+                <KernelExecuteCodeButton
+                  input={createKernelExecution(startingCode.id, startingCode)}
+                ></KernelExecuteCodeButton>
+              </div>
+              <KernelOutputContainerComponent
+                id={startingCode.id}
+              ></KernelOutputContainerComponent>
+            </>
+          );
         }}
       </UseFieldSignal>
     </div>
+  );
 }

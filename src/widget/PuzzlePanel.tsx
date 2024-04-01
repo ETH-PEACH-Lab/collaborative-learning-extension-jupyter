@@ -34,9 +34,7 @@ export class PuzzlePanel extends ReactWidget {
           removeArrayField={this._model.removeArrayField.bind(this._model)}
         >
           <KernelContextProvider
-            kernelOutputSignal={
-              KernelMessagerService.instance.kernelOutputChanged
-            }
+            kernelOutputSignal={KernelMessagerService.instance.outputChanged}
             testResultSignal={KernelMessagerService.instance.testResultSignal}
             executeCode={(execution: IKernelExecution) =>
               KernelMessagerService.instance.executeCode(
@@ -57,21 +55,13 @@ export class PuzzlePanel extends ReactWidget {
               )
             }
           >
-
             <TopBarComponent />
-            <UseArrayFieldSignal
-              parentId=""
-              propertyName="cells"
-              fields={[]}
-            >
+            <UseArrayFieldSignal parentId="" propertyName="cells" fields={[]}>
               {cells => (
-                <CellContainerComponent
-                  cells={cells}
-                ></CellContainerComponent>
+                <CellContainerComponent cells={cells}></CellContainerComponent>
               )}
             </UseArrayFieldSignal>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
-
           </KernelContextProvider>
         </DocModelContextProvider>
       </UserRoleProvider>

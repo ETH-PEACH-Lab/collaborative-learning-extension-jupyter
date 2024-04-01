@@ -9,11 +9,19 @@ type KernelButtonProps = {
   icon: LabIcon;
 };
 export default function KernelButton(props: KernelButtonProps) {
-  const onExecute = useMemo(() =>() => {
-    props.input.forEach(execution => {
-      props.execute(execution);
-    });
-  },[props.input, props.execute]);
-  return <BaseButton additionalLabel={props.additionalLabel} icon={props.icon} onClick={onExecute}></BaseButton>
-
+  const onExecute = useMemo(
+    () => () => {
+      props.input.forEach(execution => {
+        props.execute(execution);
+      });
+    },
+    [props.input, props.execute]
+  );
+  return (
+    <BaseButton
+      additionalLabel={props.additionalLabel}
+      icon={props.icon}
+      onClick={onExecute}
+    ></BaseButton>
+  );
 }

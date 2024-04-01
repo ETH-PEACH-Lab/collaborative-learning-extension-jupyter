@@ -27,10 +27,10 @@ export default class ArrayFieldMaintainer extends Maintainer {
     const yMap = yCell?.get(this._property) as Y.Array<Y.Map<any>>;
     yMap.push([field]);
   }
-  removeField(yCell: Y.Map<any>,id: string){
-    const index = this._getArrayFieldIndexById(id,yCell);
+  removeField(yCell: Y.Map<any>, id: string) {
+    const index = this._getArrayFieldIndexById(id, yCell);
     const yArray = yCell.get(this._property) as Y.Array<Y.Map<any>>;
-    yArray.delete(index,1)
+    yArray.delete(index, 1);
   }
   protected _getArrayFieldByIdAsYMap(
     id: string,
@@ -53,7 +53,6 @@ export default class ArrayFieldMaintainer extends Maintainer {
     }
     throw Error('Cell with id: ' + id + ' does not exist');
   }
-
 
   protected _property: string;
 }

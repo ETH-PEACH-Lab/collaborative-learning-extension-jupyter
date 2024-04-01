@@ -16,7 +16,10 @@ type TestingCodeAccordionContainerProps = {
 export default function TestingCodeAccordionContainer(
   props: TestingCodeAccordionContainerProps
 ) {
-  const relevantTests = useMemo(()=>useRelevantTests(props.testingCode),[props.testingCode]);
+  const relevantTests = useMemo(
+    () => useRelevantTests(props.testingCode),
+    [props.testingCode]
+  );
   return (
     <div className="accordion" id={'test-code-accordion-' + props.cellId}>
       {relevantTests.map(relevantTest => (

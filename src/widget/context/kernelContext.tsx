@@ -2,14 +2,14 @@ import { ISignal } from '@lumino/signaling';
 import { createContext } from 'react';
 import {
   IKernelExecution,
-  IKernelOutput,
+  IKernelExecutionResult,
   IKernelTestResult,
   IKernelTestVerification
 } from '../../types/kernelTypes';
 import React from 'react';
 type KernelContextProviderProps = {
   children: React.ReactNode;
-  kernelOutputSignal: ISignal<any, IKernelOutput>;
+  kernelOutputSignal: ISignal<any, IKernelExecutionResult>;
   testResultSignal: ISignal<any, IKernelTestResult>;
 
   executeTest: (execution: IKernelExecution) => void;
@@ -25,7 +25,7 @@ export const KernelContextProvider = (props: KernelContextProviderProps) => {
   );
 };
 export interface IKernelContext {
-  kernelOutputSignal: ISignal<any, IKernelOutput>;
+  kernelOutputSignal: ISignal<any, IKernelExecutionResult>;
   testResultSignal: ISignal<any, IKernelTestResult>;
 
   executeTest: (execution: IKernelExecution) => void;

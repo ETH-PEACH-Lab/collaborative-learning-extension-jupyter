@@ -1,29 +1,129 @@
 {
   "cells": [
     {
-      "id": "5deda571-af2c-45e0-b7b1-5621523f1f54",
-      "metadata": {},
-      "description": {
-        "src": "### JSON",
-        "id": "cc3155e9-8aec-452d-8f94-218d14b44e7c",
-        "type": "markdown-field"
-      },
-      "type": "code-cell",
-      "solutions": {},
-      "solutionCode": {
-        "id": "ea9a20df-9c15-4501-9e8a-ae1279178af3",
-        "src": "",
-        "language": "python",
-        "type": "code-field"
-      },
-      "studentCode": [],
-      "testingCode": [],
       "startingCode": {
         "type": "code-field",
         "id": "2048dcb7-bdd5-468c-9b75-ad806c458f34",
         "src": "from IPython.display import display, JSON\r\nmy_dict={\"test\":{\"sub_test\":\"hello world\"}}\r\ndisplay(JSON(my_dict))",
         "language": "python"
+      },
+      "solutionCode": {
+        "src": "",
+        "id": "ea9a20df-9c15-4501-9e8a-ae1279178af3",
+        "language": "python",
+        "type": "code-field"
+      },
+      "testingCode": [],
+      "type": "code-cell",
+      "metadata": {},
+      "studentCode": [],
+      "solutions": {},
+      "id": "5deda571-af2c-45e0-b7b1-5621523f1f54",
+      "description": {
+        "type": "markdown-field",
+        "id": "cc3155e9-8aec-452d-8f94-218d14b44e7c",
+        "src": "### JSON"
       }
+    },
+    {
+      "solutions": {},
+      "metadata": {},
+      "solutionCode": {
+        "id": "7373f380-8214-4e10-bbd6-1fa882c5888e",
+        "type": "code-field",
+        "src": "",
+        "language": "python"
+      },
+      "id": "9046dd30-2ab7-47a5-bde3-98dc512de591",
+      "startingCode": {
+        "src": "print(\"Hello World\")\r\nprint(\"Puzzle rocks\")",
+        "id": "2576c8ec-500d-4808-8b19-819b434538a6",
+        "language": "python",
+        "type": "code-field"
+      },
+      "description": {
+        "type": "markdown-field",
+        "src": "### Print ",
+        "id": "80c96eb4-9726-4134-9a1c-e28fe5302620"
+      },
+      "studentCode": [],
+      "testingCode": [],
+      "type": "code-cell"
+    },
+    {
+      "startingCode": {
+        "type": "code-field",
+        "src": "y = x",
+        "language": "python",
+        "id": "b018e508-f17d-4dbc-9de7-1740fea5852c"
+      },
+      "solutionCode": {
+        "id": "af36e7d2-81d1-4d86-85ce-ff66d0e9fe50",
+        "language": "python",
+        "src": "",
+        "type": "code-field"
+      },
+      "metadata": {},
+      "testingCode": [],
+      "id": "3b86b853-e990-4d84-b68e-b64914cbfd49",
+      "type": "code-cell",
+      "solutions": {},
+      "studentCode": [],
+      "description": {
+        "src": "### Error",
+        "id": "12e721a1-8543-4283-9cd2-ceecfe6580d9",
+        "type": "markdown-field"
+      }
+    },
+    {
+      "type": "code-cell",
+      "studentCode": [],
+      "startingCode": {
+        "src": "import matplotlib.pyplot as plt\r\n\r\nplt.plot([1, 2, 3, 4])\r\nplt.ylabel('some numbers')\r\nplt.show()",
+        "id": "689e5a76-e404-47ac-bacd-a2e9376fdcd4",
+        "language": "python",
+        "type": "code-field"
+      },
+      "metadata": {},
+      "solutions": {},
+      "description": {
+        "type": "markdown-field",
+        "id": "5e3402cd-73a1-44e4-bf65-b4a75bbf2f8a",
+        "src": "### Plot"
+      },
+      "solutionCode": {
+        "id": "f0d3193c-2e1b-44f9-8761-15bf534af599",
+        "type": "code-field",
+        "src": "",
+        "language": "python"
+      },
+      "testingCode": [],
+      "id": "9bca2266-61bd-412c-9e63-8a3335a2c8e2"
+    },
+    {
+      "solutions": {},
+      "description": {
+        "id": "d4c821d1-0763-4330-87f8-18d9e0979ceb",
+        "type": "markdown-field",
+        "src": "### Multiple Output"
+      },
+      "testingCode": [],
+      "metadata": {},
+      "type": "code-cell",
+      "startingCode": {
+        "type": "code-field",
+        "language": "python",
+        "src": "from IPython.display import display, JSON\r\nimport matplotlib.pyplot as plt\r\n\r\nmy_dict={\"test\":{\"sub_test\":\"hello world\"}}\r\ndisplay(JSON(my_dict))\r\nprint(\"Hello World\")\r\nplt.plot([1, 2, 3, 4])\r\nplt.ylabel('some numbers')\r\nplt.show()",
+        "id": "ff789ae5-878f-4346-b792-a90214faccfb"
+      },
+      "solutionCode": {
+        "language": "python",
+        "src": "",
+        "type": "code-field",
+        "id": "cde205f6-1dfb-4680-852d-8cca20331e5f"
+      },
+      "id": "f551bfd6-3af7-480e-bab6-c057439e1f76",
+      "studentCode": []
     }
   ]
 }

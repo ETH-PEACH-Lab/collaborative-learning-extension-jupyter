@@ -1,5 +1,8 @@
 import { PartialJSONObject, PartialJSONValue } from '@lumino/coreutils';
-
+export interface IKernelExecutionResult {
+  referenceId: string;
+  outputs: IKernelOutput[];
+}
 export interface IKernelOutput {
   type:
     | 'stream'
@@ -7,10 +10,8 @@ export interface IKernelOutput {
     | 'text/plain'
     | 'image/png'
     | 'error'
-    | 'application/json'
-    | 'clear';
+    | 'application/json';
   output?: string | PartialJSONObject | PartialJSONValue;
-  referenceId: string;
 }
 export interface IKernelExecution {
   referenceId: string;

@@ -9,9 +9,7 @@ type CellContainerComponentProps = {
 export function CellContainerComponent(props: CellContainerComponentProps) {
   const cellComponents = props.cells?.map(element => {
     return (
-      <UseFieldSignal
-        field={element}
-      >
+      <UseFieldSignal field={element}>
         {cell => <CellComponent cell={cell as ICell}></CellComponent>}
       </UseFieldSignal>
     );
