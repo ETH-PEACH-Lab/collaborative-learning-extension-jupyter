@@ -1,73 +1,28 @@
 {
   "cells": [
     {
-      "solutionCode": {
-        "src": "    if n == 0:\r\n        return 1\r\n    else:\r\n        return n * factorial(n - 1)",
-        "language": "python",
-        "type": "code-field",
-        "id": "550a064a-9376-4c05-a813-8d87e3cb0b12"
-      },
-      "type": "code-cell",
-      "id": "8d3fe9c6-af66-4e60-b860-72647ee000ef",
-      "solutions": {},
-      "testingCode": [
-        {
-          "id": "e0fd2236-7785-490f-aeb6-140fefa83200",
-          "language": "python",
-          "verified": true,
-          "name": "factorial(1)",
-          "type": "test-code-field",
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "src": "assert factorial(1) == 1"
-        },
-        {
-          "src": "assert factorial(2) == 2",
-          "verified": true,
-          "name": "factorial(2)",
-          "language": "python",
-          "id": "ca94c8f8-b1db-4f5b-8893-b68927106b5a",
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "type": "test-code-field"
-        },
-        {
-          "src": "",
-          "language": "python",
-          "verified": false,
-          "name": "",
-          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
-          "type": "test-code-field",
-          "id": "f7173ee7-62e4-4a64-8206-00df555c33eb"
-        },
-        {
-          "type": "test-code-field",
-          "verified": false,
-          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
-          "src": "",
-          "language": "python",
-          "id": "d7addc70-f89d-4929-b709-77fd955666d6",
-          "name": ""
-        },
-        {
-          "name": "ddddd",
-          "src": "",
-          "id": "69d8a136-124d-4289-8d3e-37b38514583a",
-          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
-          "language": "python",
-          "type": "test-code-field",
-          "verified": false
-        }
-      ],
+      "id": "5deda571-af2c-45e0-b7b1-5621523f1f54",
       "metadata": {},
       "description": {
-        "src": "### Factorial\r\nCalculate the factorial of a non-negative integer n.  \r\nHint: use recursion",
-        "type": "markdown-field",
-        "id": "acf91bfc-3c2f-4042-be21-39e4ee25fe41"
+        "src": "### JSON",
+        "id": "cc3155e9-8aec-452d-8f94-218d14b44e7c",
+        "type": "markdown-field"
       },
-      "startingCode": {
+      "type": "code-cell",
+      "solutions": {},
+      "solutionCode": {
+        "id": "ea9a20df-9c15-4501-9e8a-ae1279178af3",
+        "src": "",
         "language": "python",
-        "id": "2fff0549-6be0-4ab6-a888-783921f955ab",
-        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\"",
         "type": "code-field"
+      },
+      "studentCode": [],
+      "testingCode": [],
+      "startingCode": {
+        "type": "code-field",
+        "id": "2048dcb7-bdd5-468c-9b75-ad806c458f34",
+        "src": "from IPython.display import display, JSON\r\nmy_dict={\"test\":{\"sub_test\":\"hello world\"}}\r\ndisplay(JSON(my_dict))",
+        "language": "python"
       }
     }
   ]

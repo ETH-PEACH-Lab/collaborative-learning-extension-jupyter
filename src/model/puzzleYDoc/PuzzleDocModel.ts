@@ -133,6 +133,9 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   setField(cellId: string, propertyName: FieldProperty, field: IField) {
     this.sharedModel.setField(cellId, propertyName, field);
   }
+  removeArrayField(cellId: string, propertyName: ArrayFieldProperty, id: string) {
+    this.sharedModel.removeArrayField(cellId, propertyName, id);
+  }
   setArrayField(
     cellId: string,
     propertyName: ArrayFieldProperty,
@@ -158,12 +161,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   }
   get arrayFieldChanged(): ISignal<this, IArrayFieldSignaling> {
     return this._arrayFieldChanged;
-  }
-  get cellsChanged(): ISignal<this, ICell[]> {
-    return this._cellsChanged;
-  }
-  get cellChanged(): ISignal<this, ICell> {
-    return this._cellChanged;
   }
   get fieldChanged(): ISignal<this, IField> {
     return this._fieldChanged;
@@ -222,16 +219,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   protected triggerStateChange(args: IChangedArgs<any>): void {
     this._stateChanged.emit(args);
   }
-  protected triggerCellsChanged(cells: ICell[]): void {
-    this._cellsChanged.emit(cells);
-    this.dirty = true;
-  }
   protected triggerArrayFieldChanged(arrayField: IArrayFieldSignaling): void {
     this._arrayFieldChanged.emit(arrayField);
-    this.dirty = true;
-  }
-  protected triggerCellChanged(cell: ICell): void {
-    this._cellChanged.emit(cell);
     this.dirty = true;
   }
   protected triggerFieldChanged(field: IField): void {
@@ -261,12 +250,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     if (!changes.stateChange) {
       this._contentChanged.emit();
     }
-    if (changes.cellChanges) {
-      this.triggerCellChanged(changes.cellChanges);
-    }
-    if (changes.cellsChange) {
-      this.triggerCellsChanged(changes.cellsChange);
-    }
     if (changes.fieldChange) {
       this.triggerFieldChanged(changes.fieldChange);
     }
@@ -295,8 +278,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _readOnly = false;
   private _contentChanged = new Signal<this, void>(this);
   private _arrayFieldChanged = new Signal<this, IArrayFieldSignaling>(this);
-  private _cellChanged = new Signal<this, ICell>(this);
-  private _cellsChanged = new Signal<this, ICell[]>(this);
   private _fieldChanged = new Signal<this, IField>(this);
   private _collaborationEnabled: boolean;
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);

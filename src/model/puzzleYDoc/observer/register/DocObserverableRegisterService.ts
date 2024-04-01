@@ -1,17 +1,18 @@
-import { IField } from '../../../types/schemaTypes';
-import { PuzzleDocChange } from '../PuzzleYDoc';
-import IDocObserverRegister from './IDocObserverRegister';
-export type ArrayFieldObserver = {
+
+import { IField } from '../../../../types/schemaTypes';
+import { PuzzleDocChange } from '../../PuzzleYDoc';
+import IDocObserverRegister from './IDocObserverableRegisterService';
+export type ArrayFieldObserverRegistration = {
   arrayChange: (parentId: string, data: IField[]) => PuzzleDocChange;
 };
-export type FieldObserver = {
+export type FieldObserverRegistration = {
   fieldChange: (data: IField) => PuzzleDocChange;
 };
-export default class DocObserverRegisterService
+export default class DocObserverableRegisterService
   implements IDocObserverRegister
 {
-  private static _instance: DocObserverRegisterService =
-    new DocObserverRegisterService();
+  private static _instance: DocObserverableRegisterService =
+    new DocObserverableRegisterService();
   public static get instance() {
     return this._instance;
   }
@@ -35,12 +36,12 @@ export default class DocObserverRegisterService
       this._cellFieldObservers.set(propertyName, { fieldChange });
     }
   }
-  get cellFieldObservers() {
+  get fieldObservers() {
     return this._cellFieldObservers;
   }
-  get cellArrayFieldObservers() {
+  get arrayFieldObservers() {
     return this._cellArrayFieldObservers;
   }
-  private _cellFieldObservers: Map<string, FieldObserver> = new Map();
-  private _cellArrayFieldObservers: Map<string, ArrayFieldObserver> = new Map();
+  private _cellFieldObservers: Map<string, FieldObserverRegistration> = new Map();
+  private _cellArrayFieldObservers: Map<string, ArrayFieldObserverRegistration> = new Map();
 }

@@ -14,7 +14,6 @@ import {
 
 type DocModelContextProviderProps = {
   children: React.ReactNode;
-  cellSignal: ISignal<any, ICell>;
   fieldSignal: ISignal<any, IField>;
   arrayFieldSignal: ISignal<any, IArrayFieldSignaling>;
 
@@ -30,6 +29,11 @@ type DocModelContextProviderProps = {
     cellId: string,
     propertyName: ArrayFieldProperty,
     field: ITestCodeField
+  ) => void;
+  removeArrayField: (
+    cellId: string,
+    propertyName: ArrayFieldProperty,
+    id: string
   ) => void;
   addTestCode: (cellId: string) => void;
 };
@@ -61,7 +65,7 @@ export const DocModelContextProvider = (
     props.setField(cellId, 'startingCode', field);
   const setTestCodeField = (cellId: string, field: ITestCodeField) =>
     props.setArrayField(cellId, 'testingCode', field);
-
+  const removeTestCodeField = (cellId: string, id: string) => props.removeArrayField(cellId, 'testingCode', id)
   return (
     <DocModelContext.Provider
       value={{
@@ -71,7 +75,8 @@ export const DocModelContextProvider = (
         setSolutionCodeField,
         setStartingCodeField,
         setTestCodeField,
-        shouldUpdateArrayField
+        shouldUpdateArrayField,
+        removeTestCodeField
       }}
     >
       {props.children}
@@ -80,7 +85,6 @@ export const DocModelContextProvider = (
 };
 
 export interface IDocModelContext {
-  cellSignal: ISignal<any, ICell>;
   fieldSignal: ISignal<any, IField>;
   arrayFieldSignal: ISignal<any, IArrayFieldSignaling>;
   shouldUpdateArrayField: (
@@ -96,5 +100,6 @@ export interface IDocModelContext {
   deleteCell: (c: ICell) => void;
 
   setTestCodeField: (cellId: string, field: ITestCodeField) => void;
+  removeTestCodeField: (cellId: string, id: string) => void;
   addTestCode: (cellId: string) => void;
 }

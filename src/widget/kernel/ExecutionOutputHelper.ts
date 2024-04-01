@@ -38,12 +38,6 @@ export default class ExecutionOutputHelper {
   getDataObjectOutputValue(_output: IOutput) {
     const jsonObject = _output.data as PartialJSONObject;
     jsonObject;
-    if (jsonObject['text/plain'] !== undefined) {
-      return { output: jsonObject['text/plain'], type: 'text/plain' };
-    }
-    if (jsonObject['text/html'] !== undefined) {
-      return { output: jsonObject['text/html'], type: 'text/html' };
-    }
     if (jsonObject['application/json'] !== undefined) {
       return {
         output: jsonObject['application/json'],
@@ -52,6 +46,12 @@ export default class ExecutionOutputHelper {
     }
     if (jsonObject['image/png'] !== undefined) {
       return { output: jsonObject['image/png'], type: 'image/png' };
+    }
+    if (jsonObject['text/html'] !== undefined) {
+      return { output: jsonObject['text/html'], type: 'text/html' };
+    }
+    if (jsonObject['text/plain'] !== undefined) {
+      return { output: jsonObject['text/plain'], type: 'text/plain' };
     }
     return { output: 'Output type not supported', type: 'error' };
   }

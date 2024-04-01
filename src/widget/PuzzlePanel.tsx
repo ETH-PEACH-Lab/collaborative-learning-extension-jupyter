@@ -16,7 +16,6 @@ import {
   IKernelExecution,
   IKernelTestVerification
 } from '../types/kernelTypes';
-import { ICell } from '../types/schemaTypes';
 import UseArrayFieldSignal from './signal/UseArrayFieldSignal';
 /**
  * Widget that contains the main view of the PuzzleWidget.
@@ -24,57 +23,58 @@ import UseArrayFieldSignal from './signal/UseArrayFieldSignal';
 export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
-      <DocModelContextProvider
-        cellSignal={this._model.cellChanged}
-        fieldSignal={this._model.fieldChanged}
-        arrayFieldSignal={this._model.arrayFieldChanged}
-        setField={this._model.setField.bind(this._model)}
-        deleteCell={this._model.deleteCell.bind(this._model)}
-        setArrayField={this._model.setArrayField.bind(this._model)}
-        addTestCode={this._model.addTestCode.bind(this._model)}
-      >
-        <KernelContextProvider
-          kernelOutputSignal={
-            KernelMessagerService.instance.kernelOutputChanged
-          }
-          testResultSignal={KernelMessagerService.instance.testResultSignal}
-          executeCode={(execution: IKernelExecution) =>
-            KernelMessagerService.instance.executeCode(
-              execution,
-              this._sessionContext
-            )
-          }
-          executeTest={(execution: IKernelExecution) =>
-            KernelMessagerService.instance.executeTest(
-              execution,
-              this._sessionContext
-            )
-          }
-          verifyTest={(execution: IKernelTestVerification) =>
-            KernelMessagerService.instance.verifyTest(
-              execution,
-              this._sessionContext
-            )
-          }
+      <UserRoleProvider identity={this._model.getIdentity()}>
+        <DocModelContextProvider
+          fieldSignal={this._model.fieldChanged}
+          arrayFieldSignal={this._model.arrayFieldChanged}
+          setField={this._model.setField.bind(this._model)}
+          deleteCell={this._model.deleteCell.bind(this._model)}
+          setArrayField={this._model.setArrayField.bind(this._model)}
+          addTestCode={this._model.addTestCode.bind(this._model)}
+          removeArrayField={this._model.removeArrayField.bind(this._model)}
         >
-          <UserRoleProvider identity={this._model.getIdentity()}>
+          <KernelContextProvider
+            kernelOutputSignal={
+              KernelMessagerService.instance.kernelOutputChanged
+            }
+            testResultSignal={KernelMessagerService.instance.testResultSignal}
+            executeCode={(execution: IKernelExecution) =>
+              KernelMessagerService.instance.executeCode(
+                execution,
+                this._sessionContext
+              )
+            }
+            executeTest={(execution: IKernelExecution) =>
+              KernelMessagerService.instance.executeTest(
+                execution,
+                this._sessionContext
+              )
+            }
+            verifyTest={(execution: IKernelTestVerification) =>
+              KernelMessagerService.instance.verifyTest(
+                execution,
+                this._sessionContext
+              )
+            }
+          >
+
             <TopBarComponent />
             <UseArrayFieldSignal
-              parentId="root"
+              parentId=""
               propertyName="cells"
-              fields={this._model.cells}
+              fields={[]}
             >
               {cells => (
                 <CellContainerComponent
-                  key={'cells_container'}
                   cells={cells}
                 ></CellContainerComponent>
               )}
             </UseArrayFieldSignal>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
-          </UserRoleProvider>
-        </KernelContextProvider>
-      </DocModelContextProvider>
+
+          </KernelContextProvider>
+        </DocModelContextProvider>
+      </UserRoleProvider>
     );
   }
   /**
@@ -88,10 +88,6 @@ export class PuzzlePanel extends ReactWidget {
     this._model = context.model;
     this.addClass('jp-puzzle-panel');
     context.ready.then(() => {
-      this._model.cellsChanged.connect((_, cells) =>
-        this._cellsSignal.emit(cells)
-      );
-      this._cellsSignal.emit(this._model.cells);
       this.update();
     });
   }
@@ -108,5 +104,4 @@ export class PuzzlePanel extends ReactWidget {
 
   private _model: PuzzleDocModel;
   private _sessionContext: ISessionContext;
-  private _cellsSignal: Signal<any, ICell[]> = new Signal(this);
 }

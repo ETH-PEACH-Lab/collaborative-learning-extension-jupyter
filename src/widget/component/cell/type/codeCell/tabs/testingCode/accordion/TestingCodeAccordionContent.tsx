@@ -12,6 +12,9 @@ import {
 import useKernel from '../../../hooks/useKernel';
 import KernelExecuteTestButton from '../../../button/KernelExecuteTestButton';
 import KernelVerifyTestButton from '../../../button/KernelVerifyTestButton';
+import BaseButton from '../../../../../../util/BaseButton';
+import { deleteIcon } from '@jupyterlab/ui-components';
+import { DocModelContext, IDocModelContext } from '../../../../../../../context/docModelContext';
 
 type TestingCodeAccordionContentProps = {
   cellId: string;
@@ -24,7 +27,8 @@ type TestingCodeAccordionContentProps = {
 export default function TestingCodeAccordionContent(
   props: TestingCodeAccordionContentProps
 ) {
-  const { identity } = useContext(UserRoleContext) as IUserRoleContext;
+  const { removeTestCodeField } = useContext(DocModelContext) as IDocModelContext;
+  const { identity, isInstructor } = useContext(UserRoleContext) as IUserRoleContext;
   const { createKernelExecution, createKernelTestVerification } = useKernel();
   return (
     <div
@@ -79,6 +83,8 @@ export default function TestingCodeAccordionContent(
               )}
             ></KernelExecuteTestButton>
           )}
+          {((isInstructor || !props.testingCode.verified)) &&
+           <BaseButton icon={deleteIcon} onClick={()=> removeTestCodeField(props.cellId,props.testingCode.id)}></BaseButton>}
         </div>
         <KernelOutputContainerComponent
           id={props.testingCode.id}

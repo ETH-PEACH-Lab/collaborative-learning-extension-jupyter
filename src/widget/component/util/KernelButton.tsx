@@ -1,6 +1,7 @@
 import { LabIcon } from '@jupyterlab/ui-components';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { IKernelExecution } from '../../../types/kernelTypes';
+import BaseButton from './BaseButton';
 type KernelButtonProps = {
   input: IKernelExecution[];
   additionalLabel?: string;
@@ -8,15 +9,11 @@ type KernelButtonProps = {
   icon: LabIcon;
 };
 export default function KernelButton(props: KernelButtonProps) {
-  const onExecute = () => {
+  const onExecute = useMemo(() =>() => {
     props.input.forEach(execution => {
       props.execute(execution);
     });
-  };
-  return (
-    <button onClick={onExecute} className="btn btn-light btn-sm">
-      {props.additionalLabel}{' '}
-      <LabIcon.resolveReact className="d-inline" icon={props.icon} />
-    </button>
-  );
+  },[props.input, props.execute]);
+  return <BaseButton additionalLabel={props.additionalLabel} icon={props.icon} onClick={onExecute}></BaseButton>
+
 }

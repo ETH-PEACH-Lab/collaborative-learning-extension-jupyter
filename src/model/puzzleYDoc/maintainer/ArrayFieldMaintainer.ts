@@ -15,17 +15,22 @@ export default class ArrayFieldMaintainer extends Maintainer {
     return this._property;
   }
   setField(yCell: Y.Map<any>, value: IField) {
-    const testingCodeAsYMap = this._getArrayFieldByIdAsYMap(value.id, yCell);
+    const yMap = this._getArrayFieldByIdAsYMap(value.id, yCell);
     this._transact(() => {
       Object.entries(value).forEach(v => {
-        testingCodeAsYMap.set(v[0], JSONExt.deepCopy(v[1]));
+        yMap.set(v[0], JSONExt.deepCopy(v[1]));
       });
     });
   }
 
   addField(yCell: Y.Map<any>, field: Y.Map<any>) {
-    const testingCode = yCell?.get(this._property) as Y.Array<Y.Map<any>>;
-    testingCode.push([field]);
+    const yMap = yCell?.get(this._property) as Y.Array<Y.Map<any>>;
+    yMap.push([field]);
+  }
+  removeField(yCell: Y.Map<any>,id: string){
+    const index = this._getArrayFieldIndexById(id,yCell);
+    const yArray = yCell.get(this._property) as Y.Array<Y.Map<any>>;
+    yArray.delete(index,1)
   }
   protected _getArrayFieldByIdAsYMap(
     id: string,
@@ -39,6 +44,16 @@ export default class ArrayFieldMaintainer extends Maintainer {
     }
     throw Error('Field with id: ' + id + 'does not exist');
   }
+  private _getArrayFieldIndexById(id: string, yCell: Y.Map<any>): number {
+    const yArray = yCell.get(this._property) as Y.Array<Y.Map<any>>;
+    for (let i = 0; i < yArray.length; i++) {
+      if (yArray.get(i).get('id') === id) {
+        return i;
+      }
+    }
+    throw Error('Cell with id: ' + id + ' does not exist');
+  }
+
 
   protected _property: string;
 }

@@ -11,18 +11,15 @@ interface ICodeCellTabContentProps extends Tab {
 
 export default function CodeCellTabContent(props: ICodeCellTabContentProps) {
   const { permitted } = useTabPermisions();
-
-  if (!permitted(props) || props.index !== props.activeIndex) {
+  if (!permitted(props)) {
     return <></>;
   }
-  return (
-    <div
-      className={'tab-pane fade active show'}
-      id={props.targetIdentifier + '-' + props.cellId}
-      role="tabpanel"
-      aria-labelledby={props.id + '-' + props.cellId}
-    >
-      {props.children}
-    </div>
-  );
+  return <div
+    className={'tab-pane fade' + (props.index === props.activeIndex ? " active show" : "")}
+    id={props.targetIdentifier + '-' + props.cellId}
+    role="tabpanel"
+    aria-labelledby={props.id + '-' + props.cellId}
+  >
+    {props.children}
+  </div>;
 }

@@ -20,6 +20,7 @@ export interface IField extends IYObject {
   type?: FieldType;
 }
 export interface ISrcField extends IField {
+  type: SrcFieldType;
   src: string;
 }
 export interface IMarkdownField extends ISrcField {
@@ -45,16 +46,21 @@ export interface ISolution extends IField {
   type: SolutionType;
   grade: number;
   comment: string;
+  solution: any;
 }
 
 export interface ICodeSolution extends ISolution {
-  src: ICodeField;
+  solution: string;
+  type: 'code-solution';
+  language: Language;
 }
 export interface ITextSolution extends ISolution {
-  src: IMarkdownField;
+  solution: string;
+  type: 'test-solution';
 }
 export interface IMultipleChoiceSolution extends ISolution {
-  choice: number[];
+  type: 'multiple-choice-solution';
+  solution: number[];
 }
 export interface ICell extends IField {
   type: CellType;
@@ -80,6 +86,7 @@ export interface IMulitpleChoiceCell extends ICell {
 }
 export type FieldProperty = 'startingCode' | 'solutionCode' | 'description';
 export type ArrayFieldProperty = 'cells' | 'testingCode';
+export type MapFieldProperty = 'studentCode';
 
 export interface IArrayFieldSignaling {
   parentId: string;

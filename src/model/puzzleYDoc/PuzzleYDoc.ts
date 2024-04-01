@@ -17,12 +17,11 @@ import FieldMaintainer from './maintainer/FieldMaintainer';
 import TestingCodeMaintainer from './maintainer/TestingCodeMaintainer';
 import IDocObserver from './observer/IDocObsever';
 import ArrayFieldMaintainer from './maintainer/ArrayFieldMaintainer';
+import DocObserverableRegisterService from './observer/register/DocObserverableRegisterService';
 
 export type PuzzleDocChange = {
   fieldChange?: IField;
   arrayFieldChanges?: IArrayFieldSignaling;
-  cellChanges?: ICell;
-  cellsChange?: ICell[];
 } & DocumentChange;
 
 export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
@@ -44,16 +43,13 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
       this._changed.emit(change);
     };
     this._docObserver = new DocObserver(emitChanges.bind(this));
+    DocObserverableRegisterService.instance.registerCellYArrayFieldObserver("cells",(parentId,data)=><PuzzleDocChange>{arrayFieldChanges:{
+      parentId:parentId,
+      propertyName: "cells",
+      fields: data
+    }})
     this._docObserver.init(
-      'cells',
-      (parentId: string, data: any[]) =>
-        <PuzzleDocChange>{
-          arrayFieldChanges: {
-            parentId: parentId,
-            propertyName: 'cells',
-            fields: data
-          }
-        },
+      "cells",
       cells
     );
     KernelMessagerService.instance.verifiedTestSignal.connect(
@@ -104,6 +100,12 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
     this.getArrayFieldMaintainer(property).setField(
       this._cellsMaintainer.getCellAsYMapById(cellId),
       value
+    );
+  }
+  removeArrayField(cellId:string, property: ArrayFieldProperty, id: string){
+    this.getArrayFieldMaintainer(property).removeField(
+      this._cellsMaintainer.getCellAsYMapById(cellId),
+      id
     );
   }
 

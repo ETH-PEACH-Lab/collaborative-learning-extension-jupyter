@@ -1,0 +1,83 @@
+{
+  "cells": [
+    {
+      "solutions": {},
+      "solutionCode": {
+        "id": "550a064a-9376-4c05-a813-8d87e3cb0b12",
+        "language": "python",
+        "src": "    if n == 0:\r\n        return 1\r\n    else:\r\n        return n * factorial(n - 1)",
+        "type": "code-field"
+      },
+      "type": "code-cell",
+      "testingCode": [
+        {
+          "createdBy": "fe75d70098604ffab02499e3cd486527",
+          "name": "factorial(1)",
+          "type": "test-code-field",
+          "id": "e0fd2236-7785-490f-aeb6-140fefa83200",
+          "src": "assert factorial(1) == 1",
+          "language": "python",
+          "verified": true
+        },
+        {
+          "name": "factorial(2)",
+          "src": "assert factorial(2) == 2",
+          "id": "ca94c8f8-b1db-4f5b-8893-b68927106b5a",
+          "type": "test-code-field",
+          "verified": true,
+          "language": "python",
+          "createdBy": "fe75d70098604ffab02499e3cd486527"
+        },
+        {
+          "language": "python",
+          "id": "f7173ee7-62e4-4a64-8206-00df555c33eb",
+          "src": "",
+          "verified": false,
+          "type": "test-code-field",
+          "name": "",
+          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3"
+        },
+        {
+          "language": "python",
+          "name": "",
+          "id": "d7addc70-f89d-4929-b709-77fd955666d6",
+          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
+          "type": "test-code-field",
+          "verified": false,
+          "src": ""
+        },
+        {
+          "type": "test-code-field",
+          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
+          "src": "assert factorial(3) == 6",
+          "id": "ee7f2715-6d97-4b67-94fe-03ede0e5b729",
+          "verified": true,
+          "name": "factorial(3)",
+          "language": "python"
+        },
+        {
+          "verified": true,
+          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
+          "language": "python",
+          "src": "assert factorial(4) == 24",
+          "id": "0f282c47-25e4-40b0-961e-32b43695ef35",
+          "name": "factorial(4)",
+          "type": "test-code-field"
+        }
+      ],
+      "id": "8d3fe9c6-af66-4e60-b860-72647ee000ef",
+      "startingCode": {
+        "language": "python",
+        "id": "2fff0549-6be0-4ab6-a888-783921f955ab",
+        "type": "code-field",
+        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\""
+      },
+      "metadata": {},
+      "description": {
+        "type": "markdown-field",
+        "src": "### Factorial\r\nCalculate the factorial of a non-negative integer n.  \r\nHint: use recursion",
+        "id": "acf91bfc-3c2f-4042-be21-39e4ee25fe41"
+      }
+    }
+  ]
+}

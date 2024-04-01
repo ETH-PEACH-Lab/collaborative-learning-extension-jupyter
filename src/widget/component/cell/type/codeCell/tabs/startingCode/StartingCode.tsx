@@ -18,13 +18,12 @@ export function StartingCode(props: StartingCodeProps) {
   const { setStartingCodeField } = useContext(
     DocModelContext
   ) as IDocModelContext;
-  const setStartingCode = (value: string) =>
-    setStartingCodeField(props.cellId, { ...props.startingCode, src: value });
-  return (
-    <div className="puzzle-field puzzle-field--code">
+  return <div className="puzzle-field puzzle-field--code">
       <UseFieldSignal field={props.startingCode}>
-        {startingCode => (
-          <>
+        {startingCode => {
+            const setStartingCode = (value: string) =>
+            setStartingCodeField(props.cellId, { ...startingCode, src: value });
+            return <>
             <PuzzleCodeFieldComponent
               field={startingCode}
               onChange={setStartingCode}
@@ -38,8 +37,7 @@ export function StartingCode(props: StartingCodeProps) {
               id={startingCode.id}
             ></KernelOutputContainerComponent>
           </>
-        )}
+        }}
       </UseFieldSignal>
     </div>
-  );
 }

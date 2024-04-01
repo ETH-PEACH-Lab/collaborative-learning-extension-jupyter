@@ -1,5 +1,5 @@
-import { IField } from '../../../types/schemaTypes';
-import { PuzzleDocChange } from '../PuzzleYDoc';
+import { IField } from '../../../../types/schemaTypes';
+import { PuzzleDocChange } from '../../PuzzleYDoc';
 
 export default interface IDocObserverRegister {
   registerCellYArrayFieldObserver(

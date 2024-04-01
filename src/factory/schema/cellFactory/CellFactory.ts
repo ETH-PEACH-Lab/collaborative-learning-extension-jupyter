@@ -4,19 +4,19 @@ import FieldFactoryService from '../../../services/FieldFactoryService';
 import Factory from '../Factory';
 import { PuzzleDocChange } from '../../../model/puzzleYDoc/PuzzleYDoc';
 import * as Y from 'yjs';
-import DocObserverRegisterService from '../../../model/puzzleYDoc/observer/DocObserverRegisterService';
+import DocObserverableRegisterService from '../../../model/puzzleYDoc/observer/register/DocObserverableRegisterService';
 
 export default abstract class CellFactory extends Factory<CellType> {
   constructor() {
     super();
     this.fieldNames.forEach(fieldName =>
-      DocObserverRegisterService.instance.registerCellFieldObserver(
+      DocObserverableRegisterService.instance.registerCellFieldObserver(
         'cells.entry.' + fieldName,
         this.fieldChange
       )
     );
     this.arrayFieldNames.forEach(arrayFieldName => {
-      DocObserverRegisterService.instance.registerCellYArrayFieldObserver(
+      DocObserverableRegisterService.instance.registerCellYArrayFieldObserver(
         'cells.entry.' + arrayFieldName,
         (parentId: string, data: any[]) =>
           <PuzzleDocChange>{
@@ -27,7 +27,7 @@ export default abstract class CellFactory extends Factory<CellType> {
             }
           }
       );
-      DocObserverRegisterService.instance.registerCellFieldObserver(
+      DocObserverableRegisterService.instance.registerCellFieldObserver(
         'cells.entry.' + arrayFieldName + '.entry',
         this.fieldChange
       );
