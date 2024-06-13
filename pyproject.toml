@@ -22,9 +22,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dependencies = [
-  "jupyter-collaboration==1.2.1",
-]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
 
 [project.entry-points.jupyter_ydoc]
