@@ -177,30 +177,35 @@ export const WithAbsoluteToolbarButtonsSwitchAndContent: Story = {
   }
 };
 
-export const WithAbsoluteToolbarButtonsSwitchAndContentWithHoverBorder: Story = {
-  name: 'With absolute toolbar and buttons and toogle switch and some Indicator + hover border',
-  args: {
-    children: 'text'
-  },
-  render: args => {
-    return (
-      <Content borderOnHover>
-        <Toolbar absolute>
-          <ToolbarToggle label="Show Solution" onChange={fn()} checked={true} />
-          <ToolbarToggle label="Visibility" onChange={fn()} checked={true} />
-          <ToolbarButton icon={addAboveIcon.svgstr} onClick={fn} />
-          <ToolbarButton icon={addBelowIcon.svgstr} onClick={fn} />
-          <ToolbarButton icon={deleteIcon.svgstr} onClick={fn} />
-        </Toolbar>
-        <ContentBody>
-          <Indicator label={'test'}>
-            <MarkdownEditor onChange={fn} src={'test'}></MarkdownEditor>
-          </Indicator>
+export const WithAbsoluteToolbarButtonsSwitchAndContentWithHoverBorder: Story =
+  {
+    name: 'With absolute toolbar and buttons and toogle switch and some Indicator + hover border',
+    args: {
+      children: 'text'
+    },
+    render: args => {
+      return (
+        <Content borderOnHover>
+          <Toolbar absolute>
+            <ToolbarToggle
+              label="Show Solution"
+              onChange={fn()}
+              checked={true}
+            />
+            <ToolbarToggle label="Visibility" onChange={fn()} checked={true} />
+            <ToolbarButton icon={addAboveIcon.svgstr} onClick={fn} />
+            <ToolbarButton icon={addBelowIcon.svgstr} onClick={fn} />
+            <ToolbarButton icon={deleteIcon.svgstr} onClick={fn} />
+          </Toolbar>
+          <ContentBody>
+            <Indicator label={'test'}>
+              <MarkdownEditor onChange={fn} src={'test'}></MarkdownEditor>
+            </Indicator>
 
-          <br />
-          <Indicator> {args.children}</Indicator>
-        </ContentBody>
-      </Content>
-    );
-  }
-};
+            <br />
+            <Indicator> {args.children}</Indicator>
+          </ContentBody>
+        </Content>
+      );
+    }
+  };
