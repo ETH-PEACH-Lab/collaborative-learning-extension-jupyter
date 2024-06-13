@@ -40,7 +40,7 @@ jobs:
         set -eux
         python -m pip install .[test]
 
-        jupyter labextension list --verbose
+        jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "collab_learning_extension.*OK"
         python -m jupyterlab.browser_check
 
@@ -79,7 +79,7 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install "jupyterlab>=4.0.0,<5" collab_learning_extension*.whl
+        pip install "jupyterlab>=4.0.0,<4.2.0" collab_learning_extension*.whl
 
 
         jupyter labextension list
