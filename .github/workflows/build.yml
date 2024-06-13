@@ -40,7 +40,7 @@ jobs:
         set -eux
         python -m pip install .[test]
 
-        jupyter labextension list
+        jupyter labextension list --verbose
         jupyter labextension list 2>&1 | grep -ie "collab_learning_extension.*OK"
         python -m jupyterlab.browser_check
 
