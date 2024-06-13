@@ -20,6 +20,7 @@ module.exports = {
   automock: false,
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
+    '!src/ui/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/.ipynb_checkpoints/*'
   ],

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="97.508">
+  <testsuite name="collab_learning_extension" errors="0" failures="0" skipped="0" timestamp="2024-06-13T15:42:27" time="47.982" tests="1">
+    <testcase classname="collab_learning_extension should be tested" name="collab_learning_extension should be tested" time="0.019">
+    </testcase>
+  </testsuite>
+</testsuites>
