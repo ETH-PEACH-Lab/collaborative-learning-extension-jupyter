@@ -1,35 +1,26 @@
-import React, { useContext } from 'react';
 import CellFactoryService from '../../services/CellFactoryService';
-import { IUserRoleContext, UserRoleContext } from '../context/userRoleContext';
-import { CellType } from '../../types/schemaTypes';
+import { CellType } from '../../types';
+import { useSelector } from 'react-redux';
+import { RootState, selectUserRole } from '../../state';
+import React from 'react';
+
 type FooterComponentProps = {
   addCell: (type: CellType) => void;
 };
 export default function FooterComponent(props: FooterComponentProps) {
-  const { isInstructor } = useContext(UserRoleContext) as IUserRoleContext;
+  const isInstructor =
+    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
   const cellButtons = CellFactoryService.instance
     .getFactoryNamings()
     .map(factory => (
       <button
         type="button"
-        className="btn btn-outline-secondary"
+        className="btn join-item grow"
         onClick={() => props.addCell(factory.id)}
       >
         {factory.name}
       </button>
     ));
 
-  return (
-    <>
-      {isInstructor && (
-        <div
-          className="btn-group btn-group-justified puzzle-footer-btn-group"
-          role="group"
-          aria-label="Basic example"
-        >
-          {cellButtons}
-        </div>
-      )}
-    </>
-  );
+  return <>{isInstructor && <div className="join flex">{cellButtons}</div>}</>;
 }

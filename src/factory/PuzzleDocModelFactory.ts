@@ -71,7 +71,7 @@ export default class PuzzleDocModelFactory
    * @param path path of the file represented by this document model
    * @returns The preferred language
    */
-  preferredLanguage(path: string): string {
+  preferredLanguage(_: string): string {
     return '';
   }
 

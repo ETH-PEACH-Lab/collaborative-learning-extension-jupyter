@@ -1,8 +1,7 @@
 export type Tab = {
-  id: string;
+  label: string;
   name: string;
-  index: number;
-  targetIdentifier: string;
   studentOnly?: boolean;
   instructorOnly?: boolean;
+  whenShowSolutionOnly?: boolean;
 };

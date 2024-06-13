@@ -1,9 +1,7 @@
 import { Tab } from '../types';
 
 export const startingCodeTabModel: Tab = {
-  id: 'starting-code-tab',
-  index: 1,
-  targetIdentifier: 'starting-code',
-  name: 'Starting Code',
+  name: 'code-tab',
+  label: 'Starting Code',
   instructorOnly: true
 };

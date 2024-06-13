@@ -1,11 +1,8 @@
 import {
   IKernelExecution,
   IKernelTestVerification
-} from '../../../../../../types/kernelTypes';
-import {
-  ICodeField,
-  ITestCodeField
-} from '../../../../../../types/schemaTypes';
+} from '../../../../../../types/app/kernel.types';
+import { ICodeField, ITestCodeField } from '../../../../../../types';
 
 export default function useKernel() {
   const createKernelTestVerification = (

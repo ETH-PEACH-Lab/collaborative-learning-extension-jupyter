@@ -1,83 +1,360 @@
 {
-  "cells": [
-    {
-      "solutions": {},
-      "solutionCode": {
-        "id": "550a064a-9376-4c05-a813-8d87e3cb0b12",
-        "language": "python",
-        "src": "    if n == 0:\r\n        return 1\r\n    else:\r\n        return n * factorial(n - 1)",
-        "type": "code-field"
+  "cells": {
+    "byId": {
+      "6637b553-e305-4cc6-a670-89c21716aa80": {
+        "random": false,
+        "options": [
+          "dcd8596e-2777-461d-9597-5ff738feb737",
+          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6",
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ],
+        "id": "6637b553-e305-4cc6-a670-89c21716aa80",
+        "solutionOptions": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ],
+        "studentSolutionIds": [
+          "7614f829-8cad-4fac-9e37-480814844c4b",
+          "333f30b3-c134-4b1e-a261-e30bada51b81",
+          "73092a3b-6ff9-457f-9e93-3e676d0996fb",
+          "ff1eda50-3094-47a4-b450-49da5e519992",
+          "0722bd18-ebc9-4829-8749-a43feeb51566"
+        ],
+        "showSolution": true,
+        "randomOrder": false,
+        "multi": false,
+        "type": "multiple-choice-cell",
+        "showEvaluation": true,
+        "visible": true,
+        "descriptionId": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4"
       },
-      "type": "code-cell",
-      "testingCode": [
-        {
-          "createdBy": "fe75d70098604ffab02499e3cd486527",
-          "name": "factorial(1)",
-          "type": "test-code-field",
-          "id": "e0fd2236-7785-490f-aeb6-140fefa83200",
-          "src": "assert factorial(1) == 1",
-          "language": "python",
-          "verified": true
-        },
-        {
-          "name": "factorial(2)",
-          "src": "assert factorial(2) == 2",
-          "id": "ca94c8f8-b1db-4f5b-8893-b68927106b5a",
-          "type": "test-code-field",
-          "verified": true,
-          "language": "python",
-          "createdBy": "fe75d70098604ffab02499e3cd486527"
-        },
-        {
-          "language": "python",
-          "id": "f7173ee7-62e4-4a64-8206-00df555c33eb",
-          "src": "",
-          "verified": false,
-          "type": "test-code-field",
-          "name": "",
-          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3"
-        },
-        {
-          "language": "python",
-          "name": "",
-          "id": "d7addc70-f89d-4929-b709-77fd955666d6",
-          "createdBy": "2496aec6ba344cb0a4c0cf3ddc0934b3",
-          "type": "test-code-field",
-          "verified": false,
-          "src": ""
-        },
-        {
-          "type": "test-code-field",
-          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
-          "src": "assert factorial(3) == 6",
-          "id": "ee7f2715-6d97-4b67-94fe-03ede0e5b729",
-          "verified": true,
-          "name": "factorial(3)",
-          "language": "python"
-        },
-        {
-          "verified": true,
-          "createdBy": "52ee7d84bb254f84afc7fa29090e92c7",
-          "language": "python",
-          "src": "assert factorial(4) == 24",
-          "id": "0f282c47-25e4-40b0-961e-32b43695ef35",
-          "name": "factorial(4)",
-          "type": "test-code-field"
-        }
-      ],
-      "id": "8d3fe9c6-af66-4e60-b860-72647ee000ef",
-      "startingCode": {
-        "language": "python",
-        "id": "2fff0549-6be0-4ab6-a888-783921f955ab",
-        "type": "code-field",
-        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\""
+      "1fa4a887-9c8a-4920-8cbd-25044fb05d97": {
+        "showSolution": true,
+        "id": "1fa4a887-9c8a-4920-8cbd-25044fb05d97",
+        "solutionId": "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00",
+        "descriptionId": "90a292c2-d270-4eaa-aa00-e63ef5f96149",
+        "studentSolutionIds": [
+          "2573a988-2200-4c69-8a92-8dd6a70753c1",
+          "734978b4-1def-4de9-8909-6616ab2ff21f",
+          "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf",
+          "26886c96-25af-4afd-8937-c9c1e9a39f09",
+          "e0aa62d4-7f62-49f7-b78b-565326aad40b"
+        ],
+        "visible": true,
+        "type": "text-cell"
       },
-      "metadata": {},
-      "description": {
-        "type": "markdown-field",
-        "src": "### Factorial\r\nCalculate the factorial of a non-negative integer n.  \r\nHint: use recursion",
-        "id": "acf91bfc-3c2f-4042-be21-39e4ee25fe41"
+      "51c3d333-505d-42b3-b4df-d2e88d7756ed": {
+        "testingCodeIds": [
+          "7625a651-8f4d-400b-b28b-e537cfd30ccb",
+          "0b003363-6b89-4528-af7a-c56ae9638309",
+          "3fe2332f-0784-4810-98bc-470a86f9f610"
+        ],
+        "studentSolutionIds": [
+          "82caec78-ae23-46e3-a62c-0f27f9af6579",
+          "27cc648b-ddc0-465f-8cb2-d86435ade87b",
+          "82b51f5f-7811-4ca4-93b8-e9f61afe5855",
+          "aef6080e-2b13-4573-9122-a5a6e9c771bd"
+        ],
+        "solutionCodeId": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
+        "visible": true,
+        "showSolution": true,
+        "type": "code-cell",
+        "descriptionId": "064fa4e4-338c-40b9-b39f-2e04da03f2c4",
+        "startingCodeId": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
+        "id": "51c3d333-505d-42b3-b4df-d2e88d7756ed"
+      }
+    },
+    "allIds": [
+      "51c3d333-505d-42b3-b4df-d2e88d7756ed",
+      "6637b553-e305-4cc6-a670-89c21716aa80",
+      "1fa4a887-9c8a-4920-8cbd-25044fb05d97"
+    ]
+  },
+  "fields": {
+    "allIds": [
+      "73092a3b-6ff9-457f-9e93-3e676d0996fb",
+      "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf",
+      "82b51f5f-7811-4ca4-93b8-e9f61afe5855",
+      "ff1eda50-3094-47a4-b450-49da5e519992",
+      "26886c96-25af-4afd-8937-c9c1e9a39f09",
+      "0b003363-6b89-4528-af7a-c56ae9638309",
+      "aef6080e-2b13-4573-9122-a5a6e9c771bd",
+      "0722bd18-ebc9-4829-8749-a43feeb51566",
+      "e0aa62d4-7f62-49f7-b78b-565326aad40b",
+      "3fe2332f-0784-4810-98bc-470a86f9f610"
+    ],
+    "byId": {
+      "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "$a^2*x+b*x+c = 0$",
+        "id": "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
+      },
+      "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "The **R\u00fctli Oath** is the legendary oath taken at the foundation of the Old Swiss Confederacy (traditionally dated to _1307_) by the representatives of the three founding cantons, Uri, Schwyz and Unterwalden, It is named after the site of the oath taking, the R\u00fctli, a meadow above Lake Uri near Seelisberg",
+        "type": "markdown",
+        "id": "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00"
+      },
+      "90a292c2-d270-4eaa-aa00-e63ef5f96149": {
+        "type": "markdown",
+        "src": "## History of Switzerland\r\nWhat is the R\u00fctli Oath?",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "id": "90a292c2-d270-4eaa-aa00-e63ef5f96149"
+      },
+      "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f": {
+        "language": "python",
+        "id": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
+        "type": "code",
+        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)"
+      },
+      "20915ede-b1ce-4d0f-bdc5-2ac973049219": {
+        "src": "$a*b*x + b*x +c = 0$",
+        "id": "20915ede-b1ce-4d0f-bdc5-2ac973049219",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab"
+      },
+      "0d44f4f9-dd35-4c40-a36d-31e3d8093064": {
+        "submitted": false,
+        "comment": "",
+        "src": "",
+        "id": "0d44f4f9-dd35-4c40-a36d-31e3d8093064",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "grade": -1,
+        "language": "python",
+        "type": "code-solution"
+      },
+      "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d": {
+        "comment": "",
+        "language": "python",
+        "id": "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d",
+        "grade": -1,
+        "src": "",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "type": "code-solution",
+        "submitted": false
+      },
+      "0b003363-6b89-4528-af7a-c56ae9638309": {
+        "name": "dsd",
+        "src": "assert factorial(2) == 2",
+        "id": "0b003363-6b89-4528-af7a-c56ae9638309",
+        "verified": true,
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "language": "python",
+        "type": "test-code"
+      },
+      "2573a988-2200-4c69-8a92-8dd6a70753c1": {
+        "id": "2573a988-2200-4c69-8a92-8dd6a70753c1",
+        "src": "## R\u00fctli Oath ",
+        "grade": -1,
+        "comment": "",
+        "submitted": true,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "type": "text-solution"
+      },
+      "d6c90312-23ff-4ebe-9954-0b9dfe220691": {
+        "src": "",
+        "comment": "",
+        "grade": -1,
+        "submitted": false,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "type": "text-solution",
+        "id": "d6c90312-23ff-4ebe-9954-0b9dfe220691"
+      },
+      "dcd8596e-2777-461d-9597-5ff738feb737": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "$a*x^2+b*x+c = 0$   ",
+        "id": "dcd8596e-2777-461d-9597-5ff738feb737"
+      },
+      "3fe2332f-0784-4810-98bc-470a86f9f610": {
+        "id": "3fe2332f-0784-4810-98bc-470a86f9f610",
+        "type": "test-code",
+        "language": "python",
+        "name": "r",
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "verified": false,
+        "src": "rrr"
+      },
+      "aef6080e-2b13-4573-9122-a5a6e9c771bd": {
+        "submitted": false,
+        "src": "",
+        "id": "aef6080e-2b13-4573-9122-a5a6e9c771bd",
+        "type": "code-solution",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
+        "grade": -1,
+        "comment": "",
+        "language": "python"
+      },
+      "0722bd18-ebc9-4829-8749-a43feeb51566": {
+        "type": "multiple-choice-solution",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
+        "id": "0722bd18-ebc9-4829-8749-a43feeb51566",
+        "src": [],
+        "comment": "",
+        "submitted": false,
+        "grade": -1
+      },
+      "333f30b3-c134-4b1e-a261-e30bada51b81": {
+        "type": "multiple-choice-solution",
+        "grade": -1,
+        "id": "333f30b3-c134-4b1e-a261-e30bada51b81",
+        "submitted": true,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "src": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ],
+        "comment": ""
+      },
+      "82caec78-ae23-46e3-a62c-0f27f9af6579": {
+        "id": "82caec78-ae23-46e3-a62c-0f27f9af6579",
+        "comment": "",
+        "submitted": false,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "grade": -1,
+        "language": "python",
+        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
+        "type": "code-solution"
+      },
+      "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf": {
+        "submitted": false,
+        "comment": "",
+        "id": "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf",
+        "type": "text-solution",
+        "grade": -1,
+        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
+        "src": ""
+      },
+      "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d": {
+        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\"",
+        "id": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
+        "type": "code",
+        "language": "python"
+      },
+      "e0aa62d4-7f62-49f7-b78b-565326aad40b": {
+        "submitted": false,
+        "src": "",
+        "id": "e0aa62d4-7f62-49f7-b78b-565326aad40b",
+        "comment": "",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
+        "grade": -1,
+        "type": "text-solution"
+      },
+      "c019188a-b934-4f22-b9f3-d22a55f7d790": {
+        "src": "",
+        "id": "c019188a-b934-4f22-b9f3-d22a55f7d790",
+        "comment": "",
+        "language": "python",
+        "grade": -1,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "type": "code-solution",
+        "submitted": false
+      },
+      "32571122-15bd-4858-86fe-3303404406a6": {
+        "src": "",
+        "language": "python",
+        "comment": "",
+        "submitted": false,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "type": "code-solution",
+        "id": "32571122-15bd-4858-86fe-3303404406a6",
+        "grade": -1
+      },
+      "7625a651-8f4d-400b-b28b-e537cfd30ccb": {
+        "src": "assert factorial(3) == 6",
+        "verified": true,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "name": "factorial(3)",
+        "type": "test-code",
+        "id": "7625a651-8f4d-400b-b28b-e537cfd30ccb",
+        "language": "python"
+      },
+      "734978b4-1def-4de9-8909-6616ab2ff21f": {
+        "grade": -1,
+        "submitted": false,
+        "src": "",
+        "type": "text-solution",
+        "id": "734978b4-1def-4de9-8909-6616ab2ff21f",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "comment": ""
+      },
+      "ff1eda50-3094-47a4-b450-49da5e519992": {
+        "comment": "",
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "id": "ff1eda50-3094-47a4-b450-49da5e519992",
+        "grade": -1,
+        "type": "multiple-choice-solution",
+        "submitted": true,
+        "src": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ]
+      },
+      "26886c96-25af-4afd-8937-c9c1e9a39f09": {
+        "comment": "",
+        "src": "test",
+        "id": "26886c96-25af-4afd-8937-c9c1e9a39f09",
+        "grade": -1,
+        "submitted": true,
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "type": "text-solution"
+      },
+      "27cc648b-ddc0-465f-8cb2-d86435ade87b": {
+        "src": "",
+        "submitted": false,
+        "type": "code-solution",
+        "language": "python",
+        "grade": -1,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "id": "27cc648b-ddc0-465f-8cb2-d86435ade87b",
+        "comment": ""
+      },
+      "82b51f5f-7811-4ca4-93b8-e9f61afe5855": {
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "submitted": false,
+        "grade": -1,
+        "id": "82b51f5f-7811-4ca4-93b8-e9f61afe5855",
+        "src": "",
+        "comment": "",
+        "type": "code-solution",
+        "language": "python"
+      },
+      "73092a3b-6ff9-457f-9e93-3e676d0996fb": {
+        "grade": -1,
+        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
+        "type": "multiple-choice-solution",
+        "comment": "",
+        "id": "73092a3b-6ff9-457f-9e93-3e676d0996fb",
+        "src": [],
+        "submitted": false
+      },
+      "064fa4e4-338c-40b9-b39f-2e04da03f2c4": {
+        "type": "markdown",
+        "src": "## Factorial\r\nAdd the missing code to the function such that it calculates the factorial of ``n``",
+        "id": "064fa4e4-338c-40b9-b39f-2e04da03f2c4"
+      },
+      "7614f829-8cad-4fac-9e37-480814844c4b": {
+        "type": "multiple-choice-solution",
+        "id": "7614f829-8cad-4fac-9e37-480814844c4b",
+        "src": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ],
+        "grade": -1,
+        "submitted": true,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "comment": ""
+      },
+      "e82f1132-bc79-4090-9173-09af4dd3d566": {
+        "submitted": false,
+        "id": "e82f1132-bc79-4090-9173-09af4dd3d566",
+        "comment": "",
+        "grade": -1,
+        "type": "code-solution",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "src": "",
+        "language": "python"
+      },
+      "dcb5f760-45a6-4a85-9e27-c776a5a5ece4": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "type": "markdown",
+        "id": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4",
+        "src": "## Quadratic equation\r\nSelect the correct formulas"
       }
     }
-  ]
+  }
 }

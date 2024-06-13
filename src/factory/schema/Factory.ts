@@ -1,16 +1,11 @@
-import * as Y from 'yjs';
-export default abstract class Factory<T extends string> {
+import { FieldType, YObject } from '../../types';
+export default abstract class Factory<T extends string, P extends YObject> {
   public abstract get identifier(): T;
-  protected toYMap(data: any) {
-    return new Y.Map<any>(Object.entries(data));
+
+  public create(fieldCreation: (type: FieldType) => string): P {
+    return this.createSpecific(fieldCreation);
   }
-  protected toYArray(data: any[]): Y.Array<Y.Map<any>> {
-    const yArray = new Y.Array<Y.Map<any>>();
-    data.forEach(entry => yArray.push([this.toYMap(entry)]));
-    return yArray;
-  }
-  public create() {
-    return this.toYMap(this.createSpecific());
-  }
-  protected abstract createSpecific(): any;
+  protected abstract createSpecific(
+    fieldCreation: (type: FieldType) => string
+  ): P;
 }

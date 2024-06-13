@@ -1,36 +1,93 @@
-import { PuzzleCodeFieldComponent } from '../../../../../fields/CodeFieldComponent';
-import KernelOutputContainerComponent from '../../../../../output/KernelOutputContainerConmponent';
-import { ICodeField } from '../../../../../../../types/schemaTypes';
-import React from 'react';
+import {
+  ICodeCell,
+  ICodeField,
+  ICodeSolution
+} from '../../../../../../../types';
+import React, { useContext } from 'react';
 import useKernel from '../../hooks/useKernel';
-import UseFieldSignal from '../../../../../../signal/UseFieldSignal';
 import KernelExecuteCodeButton from '../../button/KernelExecuteCodeButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../../../state/store';
+import {
+  selectField,
+  selectStudentSolutionField
+} from '../../../../../../../state/slice/yjs/fieldSlice';
+import { selectCell } from '../../../../../../../state/slice/yjs/cellsSlice';
+import { DocModelContext, IDocModelContext } from '../../../../../../context';
+import {
+  CodingComponent,
+  ICodingAnswer,
+  readonlyAdjustableHeightCodeOptions
+} from 'react-quiz-ui';
+import { selectKernelExecutionResult } from '../../../../../../../state';
+import {
+  KernelOutputContainer,
+  KernelOutputObject,
+  RightAlignedToolbar
+} from '../../../../../../../ui';
 type StudentCodeProps = {
-  startingCode: ICodeField;
-  studentCode?: ICodeField;
+  cellId: string;
 };
 export function StudentCode(props: StudentCodeProps) {
   const { createKernelExecution } = useKernel();
+  const { addStudentSolutionField, changeField } = useContext(
+    DocModelContext
+  ) as IDocModelContext;
+  const startingCode = useSelector((state: RootState) =>
+    selectField(
+      state,
+      (selectCell(state, props.cellId) as ICodeCell).startingCodeId
+    )
+  ) as ICodeField;
+
+  const username = useSelector(
+    (state: RootState) => state.user.identity?.username
+  ) as string;
+  const studentCode = useSelector((state: RootState) =>
+    selectStudentSolutionField(state, props.cellId, username)
+  ) as ICodeSolution;
+  const setStudentSolution = (answer: ICodingAnswer) =>
+    changeField({ ...studentCode, src: answer.answer.src });
+  const execution = useSelector((state: RootState) =>
+    selectKernelExecutionResult(state, studentCode.id)
+  );
+  if (studentCode === undefined || startingCode === undefined) {
+    if (startingCode !== undefined) {
+      addStudentSolutionField(props.cellId, 'code-solution');
+    }
+    return <></>;
+  }
   return (
     <div className="puzzle-field puzzle-field--code">
-      <UseFieldSignal field={props.startingCode}>
-        {startingCode => (
-          <>
-            <PuzzleCodeFieldComponent
-              field={startingCode}
-              readonly={true}
-            ></PuzzleCodeFieldComponent>
-            <div className="puzzle-field--code-actions">
-              <KernelExecuteCodeButton
-                input={createKernelExecution(startingCode.id, startingCode)}
-              ></KernelExecuteCodeButton>
-            </div>
-            <KernelOutputContainerComponent
-              id={startingCode.id}
-            ></KernelOutputContainerComponent>
-          </>
-        )}
-      </UseFieldSignal>
+      <CodingComponent
+        exerciseObject={{
+          startingCode: startingCode,
+          metadata: {
+            startingCodeConfig: {
+              options: readonlyAdjustableHeightCodeOptions
+            }
+          }
+        }}
+        initialAnswer={{ answer: studentCode }}
+        onAnswerChanges={setStudentSolution}
+      ></CodingComponent>
+      <RightAlignedToolbar>
+        <KernelExecuteCodeButton
+          input={createKernelExecution(startingCode.id, startingCode)}
+        ></KernelExecuteCodeButton>
+      </RightAlignedToolbar>
+      <KernelOutputContainer
+        objects={
+          execution
+            ? execution.outputs.map(o => {
+                return {
+                  output: o.output,
+                  type: o.type
+                } satisfies KernelOutputObject;
+              })
+            : []
+        }
+      ></KernelOutputContainer>
     </div>
   );
 }

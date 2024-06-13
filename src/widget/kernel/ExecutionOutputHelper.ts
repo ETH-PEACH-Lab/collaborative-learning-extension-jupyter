@@ -1,6 +1,6 @@
 import { IOutput } from '@jupyterlab/nbformat';
 import { PartialJSONObject } from '@lumino/coreutils';
-import { IKernelOutput } from '../../types/kernelTypes';
+import { IKernelOutput } from '../../types/app/kernel.types';
 
 export default class ExecutionOutputHelper {
   onStreamMessage = (output: IOutput) => {

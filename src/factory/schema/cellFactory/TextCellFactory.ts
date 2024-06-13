@@ -1,26 +1,18 @@
-import { CellType, ITextCell } from '../../../types/schemaTypes';
+import { CellType, FieldType, ITextCell } from '../../../types';
 import CellFactory from './CellFactory';
 
 export default class TextCellFactory extends CellFactory {
-  protected get relevantFieldNames(): string[] {
-    return [];
-  }
-  protected get relevantArrayFieldNames(): string[] {
-    return [];
-  }
-  public loadSpecific(c: ITextCell) {
-    return this.toYMap(c);
-  }
   public get text(): string {
     return 'Text response';
   }
   public get identifier(): CellType {
     return 'text-cell';
   }
-  public createSpecific() {
+  public createSpecific(fieldCreation: (type: FieldType) => string): ITextCell {
     return {
-      ...this._createCell(),
-      type: 'text-cell'
+      ...this._createCell(fieldCreation),
+      type: 'text-cell',
+      solutionId: fieldCreation('markdown')
     };
   }
 }

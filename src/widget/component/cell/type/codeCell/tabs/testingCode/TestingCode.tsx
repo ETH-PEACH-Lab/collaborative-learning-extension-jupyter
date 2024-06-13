@@ -1,7 +1,8 @@
 import {
+  ICodeCell,
   ICodeField,
   ITestCodeField
-} from '../../../../../../../types/schemaTypes';
+} from '../../../../../../../types';
 import React, { useContext } from 'react';
 import {
   DocModelContext,
@@ -10,65 +11,79 @@ import {
 import { LabIcon, addIcon } from '@jupyterlab/ui-components';
 import useKernel from '../../hooks/useKernel';
 import TestingCodeAccordionContainer from './accordion/TestingCodeAccordionContainer';
-import UseMultiFieldSignal from '../../../../../../signal/UseMultiFieldSignal';
-import UseArrayFieldSignal from '../../../../../../signal/UseArrayFieldSignal';
 import KernelExecuteTestButton from '../../button/KernelExecuteTestButton';
+import { useSelector } from 'react-redux';
+import {
+  RootState,
+  selectCell,
+  selectField,
+  selectStudentSolutionField,
+  selectUserRole
+} from '../../../../../../../state';
+import { createSelector } from '@reduxjs/toolkit';
+import { RightAlignedToolbar } from '../../../../../../../ui';
 
 type TestingCodeProps = {
   cellId: string;
-  startingCode: ICodeField;
-  solutionCode: ICodeField;
-  testingCode: ITestCodeField[];
 };
 export function TestingCode(props: TestingCodeProps) {
-  const { addTestCode } = useContext(DocModelContext) as IDocModelContext;
+  const { addTestCodeField } = useContext(DocModelContext) as IDocModelContext;
   const { createMultipleKernelExecution } = useKernel();
+
+  const username = useSelector(
+    (state: RootState) => state.user.identity?.username
+  ) as string;
+  const startingCode = useSelector((state: RootState) =>
+    selectField(
+      state,
+      (selectCell(state, props.cellId) as ICodeCell).startingCodeId
+    )
+  ) as ICodeField;
+
+  const solutionCode = useSelector((state: RootState) =>
+    selectField(
+      state,
+      (selectCell(state, props.cellId) as ICodeCell).solutionCodeId
+    )
+  ) as ICodeField;
+  const studentCode = useSelector((state: RootState) =>
+    selectStudentSolutionField(state, props.cellId, username)
+  ) as ICodeField;
+  const selectTestingCode = createSelector(
+    [selectCell, (state: RootState) => state, (_, cellId) => cellId],
+    (cell, state) => {
+      return (cell as ICodeCell).testingCodeIds.map(id =>
+        selectField(state, id)
+      );
+    }
+  );
+  const testingCode = useSelector((state: RootState) =>
+    selectTestingCode(state, props.cellId)
+  ) as ITestCodeField[];
+  const isInstructor = useSelector(
+    (state: RootState) => selectUserRole(state) === 'instructor'
+  );
   return (
     <>
-      <UseMultiFieldSignal fields={[props.solutionCode, props.startingCode]}>
-        {([solutionCode, startingCode]) => (
-          <UseArrayFieldSignal
-            parentId={props.cellId}
-            fields={props.testingCode}
-            propertyName="testingCode"
-          >
-            {testingCode => (
-              <>
-                <TestingCodeAccordionContainer
-                  cellId={props.cellId}
-                  startingCode={startingCode}
-                  solutionCode={solutionCode}
-                  testingCode={testingCode}
-                ></TestingCodeAccordionContainer>
-                <div className="puzzle-field--code-actions">
-                  <button
-                    onClick={() => addTestCode(props.cellId)}
-                    className="btn btn-light btn-sm"
-                  >
-                    <LabIcon.resolveReact icon={addIcon}></LabIcon.resolveReact>
-                  </button>
-                  <UseMultiFieldSignal fields={testingCode}>
-                    {testingCodeArray => (
-                      <>
-                        {testingCodeArray.length && (
-                          <KernelExecuteTestButton
-                            input={createMultipleKernelExecution(
-                              testingCodeArray,
-                              startingCode,
-                              solutionCode
-                            )}
-                            additionalLabel="All tests"
-                          ></KernelExecuteTestButton>
-                        )}
-                      </>
-                    )}
-                  </UseMultiFieldSignal>
-                </div>
-              </>
-            )}
-          </UseArrayFieldSignal>
-        )}
-      </UseMultiFieldSignal>
+      <TestingCodeAccordionContainer
+        cellId={props.cellId}
+      ></TestingCodeAccordionContainer>
+      <RightAlignedToolbar>
+        <button
+          onClick={() => addTestCodeField(props.cellId)}
+          className="btn btn-light btn-sm"
+        >
+          <LabIcon.resolveReact icon={addIcon}></LabIcon.resolveReact>
+        </button>
+        <KernelExecuteTestButton
+          input={createMultipleKernelExecution(
+            testingCode,
+            startingCode,
+            isInstructor ? solutionCode : studentCode
+          )}
+          additionalLabel="All tests"
+        ></KernelExecuteTestButton>
+      </RightAlignedToolbar>
     </>
   );
 }

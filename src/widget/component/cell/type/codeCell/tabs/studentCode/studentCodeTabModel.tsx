@@ -1,9 +1,7 @@
 import { Tab } from '../types';
 
 export const studentCodeTabModel: Tab = {
-  id: 'student-code-tab',
-  index: 0,
-  targetIdentifier: 'student-code',
-  name: 'Student Code',
+  name: 'code-tab',
+  label: 'Your Code',
   studentOnly: true
 };

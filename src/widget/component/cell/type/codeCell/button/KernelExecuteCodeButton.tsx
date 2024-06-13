@@ -5,8 +5,8 @@ import {
   IKernelContext,
   KernelContext
 } from '../../../../../context/kernelContext';
-import { IKernelExecution } from '../../../../../../types/kernelTypes';
-import KernelButton from '../../../../util/KernelButton';
+import { IKernelExecution } from '../../../../../../types/app/kernel.types';
+import KernelButton from './KernelButton';
 
 type KernelExecuteCodeButtonProps = {
   input: IKernelExecution[];

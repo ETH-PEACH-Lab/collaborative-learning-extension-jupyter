@@ -1,59 +1,101 @@
-import { PuzzleCodeFieldComponent } from '../../../../../fields/CodeFieldComponent';
-import KernelOutputContainerComponent from '../../../../../output/KernelOutputContainerConmponent';
-import { ICodeField } from '../../../../../../../types/schemaTypes';
+import { ICodeCell, ICodeField } from '../../../../../../../types';
 import React, { useContext } from 'react';
 import useKernel from '../../hooks/useKernel';
-import UseFieldSignal from '../../../../../../signal/UseFieldSignal';
+import KernelExecuteCodeButton from '../../button/KernelExecuteCodeButton';
+import { useSelector } from 'react-redux';
+import { selectCell } from '../../../../../../../state/slice/yjs/cellsSlice';
+import { RootState } from '../../../../../../../state/store';
+import { selectField } from '../../../../../../../state/slice/yjs/fieldSlice';
 import {
   DocModelContext,
   IDocModelContext
 } from '../../../../../../context/docModelContext';
-import KernelExecuteCodeButton from '../../button/KernelExecuteCodeButton';
+import {
+  CodingComponent,
+  readonlyAdjustableHeightCodeOptions,
+  adjustableHeightCodeOptions,
+  ICodingAnswer
+} from 'react-quiz-ui';
+import {
+  selectKernelExecutionResult,
+  selectUserRole
+} from '../../../../../../../state';
+import {
+  KernelOutputContainer,
+  KernelOutputObject,
+  RightAlignedToolbar
+} from '../../../../../../../ui';
 type SolutionCodeProps = {
   cellId: string;
-  startingCode: ICodeField;
-  solutionCode: ICodeField;
 };
 export function SolutionCode(props: SolutionCodeProps) {
   const { createKernelExecution } = useKernel();
-  const { setSolutionCodeField } = useContext(
-    DocModelContext
-  ) as IDocModelContext;
-  const setSolutionCode = (value: string) =>
-    setSolutionCodeField(props.cellId, { ...props.solutionCode, src: value });
+  const { changeField } = useContext(DocModelContext) as IDocModelContext;
+  const isInstructor =
+    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const startingCode = useSelector((state: RootState) =>
+    selectField(
+      state,
+      (selectCell(state, props.cellId) as ICodeCell).startingCodeId
+    )
+  ) as ICodeField;
+
+  const solutionCode = useSelector((state: RootState) =>
+    selectField(
+      state,
+      (selectCell(state, props.cellId) as ICodeCell).solutionCodeId
+    )
+  ) as ICodeField;
+
+  const setSolutionCode = (value: ICodingAnswer) => {
+    changeField({ ...solutionCode, src: value.answer.src });
+  };
+  const execution = useSelector((state: RootState) =>
+    selectKernelExecutionResult(state, solutionCode.id)
+  );
+  if (startingCode === undefined || solutionCode === undefined) {
+    return <></>;
+  }
   return (
-    <div className="puzzle-field puzzle-field--code">
-      <UseFieldSignal field={props.startingCode}>
-        {startingCode => (
-          <UseFieldSignal field={props.solutionCode}>
-            {solutionCode => (
-              <>
-                <PuzzleCodeFieldComponent
-                  field={startingCode}
-                  readonly={true}
-                ></PuzzleCodeFieldComponent>
-                <PuzzleCodeFieldComponent
-                  field={solutionCode}
-                  onChange={setSolutionCode}
-                  readonly={false}
-                ></PuzzleCodeFieldComponent>
-                <div className="puzzle-field--code-actions">
-                  <KernelExecuteCodeButton
-                    input={createKernelExecution(
-                      solutionCode.id,
-                      startingCode,
-                      solutionCode
-                    )}
-                  ></KernelExecuteCodeButton>
-                </div>
-                <KernelOutputContainerComponent
-                  id={solutionCode.id}
-                ></KernelOutputContainerComponent>
-              </>
-            )}
-          </UseFieldSignal>
-        )}
-      </UseFieldSignal>
-    </div>
+    <>
+      <CodingComponent
+        exerciseObject={{
+          startingCode: startingCode,
+          metadata: {
+            startingCodeConfig: {
+              options: readonlyAdjustableHeightCodeOptions
+            },
+            answerCodeConfig: {
+              options: isInstructor
+                ? adjustableHeightCodeOptions
+                : readonlyAdjustableHeightCodeOptions
+            }
+          }
+        }}
+        onAnswerChanges={setSolutionCode}
+        initialAnswer={{ answer: { ...solutionCode } }}
+      ></CodingComponent>
+      <RightAlignedToolbar>
+        <KernelExecuteCodeButton
+          input={createKernelExecution(
+            solutionCode.id,
+            startingCode,
+            solutionCode
+          )}
+        ></KernelExecuteCodeButton>
+      </RightAlignedToolbar>
+      <KernelOutputContainer
+        objects={
+          execution
+            ? execution.outputs.map(o => {
+                return {
+                  output: o.output,
+                  type: o.type
+                } satisfies KernelOutputObject;
+              })
+            : []
+        }
+      ></KernelOutputContainer>
+    </>
   );
 }

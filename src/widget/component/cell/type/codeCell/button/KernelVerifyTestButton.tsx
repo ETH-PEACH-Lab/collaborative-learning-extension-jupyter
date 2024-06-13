@@ -5,8 +5,8 @@ import {
   IKernelContext,
   KernelContext
 } from '../../../../../context/kernelContext';
-import { IKernelTestVerification } from '../../../../../../types/kernelTypes';
-import KernelButton from '../../../../util/KernelButton';
+import { IKernelTestVerification } from '../../../../../../types/app/kernel.types';
+import KernelButton from './KernelButton';
 
 type KernelVerifyTestButtonProps = {
   input: IKernelTestVerification;

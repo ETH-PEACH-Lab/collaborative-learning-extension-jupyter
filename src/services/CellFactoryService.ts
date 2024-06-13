@@ -2,15 +2,15 @@ import CellFactory from '../factory/schema/cellFactory/CellFactory';
 import CodeCellFactory from '../factory/schema/cellFactory/CodeCellFactory';
 import TextCellFactory from '../factory/schema/cellFactory/TextCellFactory';
 import MultipleChoiceCellFactory from '../factory/schema/cellFactory/MultipleChoiceCellFactory';
-import * as Y from 'yjs';
-import { CellType, ICell } from '../types/schemaTypes';
-import FactorySerivce from './FactoryService';
+import { CellType, ICell } from '../types';
+import FactoryService from './FactoryService';
 type FactoryNaming = {
   name: string;
   id: CellType;
 };
-export default class CellFactoryService extends FactorySerivce<
+export default class CellFactoryService extends FactoryService<
   CellType,
+  ICell,
   CellFactory
 > {
   private static _instance: CellFactoryService = new CellFactoryService();
@@ -24,9 +24,6 @@ export default class CellFactoryService extends FactorySerivce<
     this.factories.push(new CodeCellFactory());
     this.factories.push(new TextCellFactory());
     this.factories.push(new MultipleChoiceCellFactory());
-  }
-  load(cell: ICell): Y.Map<any> {
-    return this.findFactory(cell.type ?? 'code-cell').load(cell);
   }
   getFactoryNamings(): FactoryNaming[] {
     return this.factories.map(

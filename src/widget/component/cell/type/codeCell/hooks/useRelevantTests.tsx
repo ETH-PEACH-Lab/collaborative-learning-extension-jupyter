@@ -1,12 +1,9 @@
-import { useContext } from 'react';
-import { ITestCodeField } from '../../../../../../types/schemaTypes';
-import {
-  IUserRoleContext,
-  UserRoleContext
-} from '../../../../../context/userRoleContext';
-
+import { useSelector } from 'react-redux';
+import { ITestCodeField } from '../../../../../../types';
+import { RootState, selectIdentity } from '../../../../../../state';
 export default function useRelevantTests(tests: ITestCodeField[]) {
-  const { identity } = useContext(UserRoleContext) as IUserRoleContext;
+  const identity = useSelector((state: RootState) => selectIdentity(state));
+
   return tests.filter(
     testField =>
       testField.verified || testField.createdBy === identity?.username

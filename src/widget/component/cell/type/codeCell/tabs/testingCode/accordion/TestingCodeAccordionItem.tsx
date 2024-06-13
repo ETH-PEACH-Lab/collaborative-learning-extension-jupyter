@@ -2,38 +2,49 @@ import React, { useContext } from 'react';
 import TestingCodeAccordionHeader from './TestingCodeAccordionHeader';
 import TestingCodeAccordionContent from './TestingCodeAccordionContent';
 import {
-  ICodeField,
-  ITestCodeField
-} from '../../../../../../../../types/schemaTypes';
-import {
   DocModelContext,
   IDocModelContext
 } from '../../../../../../../context/docModelContext';
+import { RootState, selectField } from '../../../../../../../../state';
+import { useSelector } from 'react-redux';
+import { ITestCodeField } from '../../../../../../../../types';
 
 type TestingCodeAccordionItemProps = {
-  cellId: string;
-  testingCode: ITestCodeField;
-  startingCode: ICodeField;
-  solutionCode: ICodeField;
+  name: string;
+  startingCodeId: string;
+  solutionCodeId: string;
+  testingCodeId: string;
 };
 export default function TestingCodeAccordionItem(
   props: TestingCodeAccordionItemProps
 ) {
-  const { setTestCodeField } = useContext(DocModelContext) as IDocModelContext;
-  const setName = (name: string) =>
-    setTestCodeField(props.cellId, { ...props.testingCode, name: name });
-  const setSrc = (src: string) =>
-    setTestCodeField(props.cellId, { ...props.testingCode, src: src });
-  return (
-    <div className="accordion-item">
+  const { changeField } = useContext(DocModelContext) as IDocModelContext;
+
+  const testingCode = useSelector((state: RootState) =>
+    selectField(state, props.testingCodeId)
+  ) as ITestCodeField;
+
+  const username = useSelector((state: RootState) => state.user.identity);
+
+  const setName = (name: string) => changeField({ ...testingCode, name: name });
+  const setSrc = (src: string) => changeField({ ...testingCode, src: src });
+  return testingCode.verified ||
+    testingCode.createdBy === username?.username ? (
+    <div className="collapse collapse-arrow mb-2">
       <TestingCodeAccordionHeader
-        testingCode={props.testingCode}
+        name={props.name}
+        testingCode={testingCode}
       ></TestingCodeAccordionHeader>
       <TestingCodeAccordionContent
-        {...props}
+        solutionCodeId={props.solutionCodeId}
+        testingCode={testingCode}
+        startingCodeId={props.startingCodeId}
+        cellId={props.name}
         changeName={setName}
         changeSrc={setSrc}
       ></TestingCodeAccordionContent>
     </div>
+  ) : (
+    <></>
   );
 }

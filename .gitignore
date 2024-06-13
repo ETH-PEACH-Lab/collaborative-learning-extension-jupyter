@@ -128,5 +128,6 @@ dmypy.json
 .Trash-1000/
 .github/
 .jupyter_ystore.db
-style/*.css
 static
+*storybook.log
+tsconfig.json

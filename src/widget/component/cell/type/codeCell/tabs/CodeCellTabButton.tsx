@@ -1,37 +1,26 @@
 import React from 'react';
 import { Tab } from './types';
-import useTabPermisions from '../hooks/useTabPermissions';
-
-interface ICodeCellTabProps extends Tab {
+import useTabPermissions from '../hooks/useTabPermissions';
+interface ICodeCellTabButtonProps extends Tab {
+  checked?: boolean;
   cellId: string;
-  index: number;
-  activeIndex: number;
-  handleTabClick: (index: number) => void;
 }
-export default function CodeCellTabButton(props: ICodeCellTabProps) {
-  const { permitted } = useTabPermisions();
+export default function CodeCellTabButton(props: ICodeCellTabButtonProps) {
+  const { permitted } = useTabPermissions(props.cellId);
 
   if (!permitted(props)) {
     return <></>;
   }
 
   return (
-    <li className="nav-item" role="presentation">
-      <button
-        className={
-          'nav-link ' + (props.activeIndex === props.index ? 'active' : '')
-        }
-        id={props.id + '-' + props.cellId}
-        data-bs-toggle="tab"
-        data-bs-target={'#' + props.targetIdentifier + '-' + props.id}
-        type="button"
-        role="tab"
-        aria-controls={props.targetIdentifier + '-' + props.cellId}
-        aria-selected="true"
-        onClick={() => props.handleTabClick(props.index)}
-      >
-        {props.name}
-      </button>
-    </li>
+    <input
+      type="radio"
+      name={props.cellId + '-' + props.name}
+      role="tab"
+      className="tab"
+      style={{ width: 'max-content' }}
+      aria-label={props.label}
+      defaultChecked={props.checked}
+    />
   );
 }

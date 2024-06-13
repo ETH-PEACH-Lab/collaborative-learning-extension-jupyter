@@ -1,27 +1,19 @@
 import { IChangedArgs } from '@jupyterlab/coreutils';
 
-import { DocumentRegistry, IDocumentWidget } from '@jupyterlab/docregistry';
+import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 import { PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
-import {
-  ICell,
-  IField,
-  ITestCodeField,
-  CellType,
-  FieldProperty,
-  ArrayFieldProperty,
-  IArrayFieldSignaling
-} from '../../types/schemaTypes';
+import { IField, CellType, ICell, FieldType } from '../../types';
 
-import { PuzzleDocChange, PuzzleYDoc } from './PuzzleYDoc';
+import { PuzzleYDoc } from './PuzzleYDoc';
 import { IDocumentManager } from '@jupyterlab/docmanager';
 
-import { ReactWidget } from '@jupyterlab/ui-components';
 import { User } from '@jupyterlab/services';
-
+import { DocumentChange } from '@jupyter/ydoc';
+import { setIdentity, store } from '../../state';
 export namespace PuzzleDocModel {
   export interface IOptions extends DocumentRegistry.IModelOptions<PuzzleYDoc> {
     docManager: IDocumentManager;
@@ -38,18 +30,16 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    * @param options The options used to create a puzzle doc model.
    */
   constructor(options: PuzzleDocModel.IOptions) {
-    const { collaborationEnabled, sharedModel, docManager, identity } = options;
-    this._docManager = docManager;
+    const { collaborationEnabled, sharedModel, identity } = options;
     this._identity = identity;
+    store.dispatch(setIdentity(identity));
     this._collaborationEnabled = !!collaborationEnabled;
     if (sharedModel) {
       this.sharedModel = sharedModel;
     } else {
       this.sharedModel = PuzzleYDoc.create();
     }
-
     this.sharedModel.changed.connect(this._onSharedModelChanged);
-    this.sharedModel.awareness.on('change', this._onClientChanged);
   }
 
   get collaborative(): boolean {
@@ -118,69 +108,60 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   get clientId(): number {
     return this.sharedModel.awareness.clientID;
   }
-  /**
-   * Shared object content
-   */
-  get cells(): ICell[] {
-    return this.sharedModel.cells;
-  }
-  set cells(v: ICell[]) {
-    this.sharedModel.setCells(v);
-  }
+
   addCell(type: CellType): void {
-    this.sharedModel.addCell(type);
+    this.sharedModel.addCell(type, this._identity?.username ?? '');
   }
-  setField(cellId: string, propertyName: FieldProperty, field: IField) {
-    this.sharedModel.setField(cellId, propertyName, field);
+  changeField(field: IField) {
+    this.sharedModel.changeField(field);
   }
-  removeArrayField(
+  deleteCell(id: string): void {
+    this.sharedModel.deleteCell(id);
+  }
+  changeCell(cell: ICell): void {
+    this.sharedModel.changeCell(cell);
+  }
+  swapCellPosition(fromIndex: number, toIndex: number): void {
+    this.sharedModel.swapCellPosition(fromIndex, toIndex);
+  }
+  addFieldToPropertyArray(
     cellId: string,
-    propertyName: ArrayFieldProperty,
+    propertyName: string,
+    fieldType: FieldType
+  ): void {
+    this.sharedModel.addFieldToPropertyArray(
+      cellId,
+      propertyName,
+      fieldType,
+      this._identity?.username ?? ''
+    );
+  }
+  removeFieldFromPropertyArray(
+    cellId: string,
+    propertyName: string,
     id: string
-  ) {
-    this.sharedModel.removeArrayField(cellId, propertyName, id);
+  ): void {
+    this.sharedModel.removeFieldFromPropertyArray(cellId, propertyName, id);
   }
-  setArrayField(
+  swapInPropertyArray(
     cellId: string,
-    propertyName: ArrayFieldProperty,
-    field: ITestCodeField
-  ) {
-    this.sharedModel.setArrayField(cellId, propertyName, field);
-  }
-  deleteCell(c: ICell): void {
-    this.sharedModel.deleteCell(c);
-  }
-  addTestCode(cellId: string): void {
-    if (!this._identity) {
-      return;
-    }
-    this.sharedModel.addTestCodeField(cellId, this._identity);
+    propertyName: string,
+    fromIndex: number,
+    toIndex: number
+  ): void {
+    this.sharedModel.swapInPropertyArray(
+      cellId,
+      propertyName,
+      fromIndex,
+      toIndex
+    );
   }
   getIdentity(): User.IIdentity | null {
     return this._identity;
   }
 
-  get contentChanged(): ISignal<this, void> {
-    return this._contentChanged;
-  }
-  get arrayFieldChanged(): ISignal<this, IArrayFieldSignaling> {
-    return this._arrayFieldChanged;
-  }
-  get fieldChanged(): ISignal<this, IField> {
-    return this._fieldChanged;
-  }
-
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
-  }
-
-  loadSolution(): IDocumentWidget<ReactWidget> | undefined {
-    const path = 'testfiles/output-support.puzzle';
-    const documentWidget = this._docManager.open(
-      path
-    ) as IDocumentWidget<ReactWidget>;
-    documentWidget.close();
-    return documentWidget;
   }
 
   dispose(): void {
@@ -199,12 +180,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return JSON.stringify(obj, null, 2);
   }
 
-  fromString(data: string): void {
-    const obj = JSON.parse(data);
-    this.sharedModel.transact(() => {
-      this.sharedModel.setCells(obj.cells);
-    });
-  }
+  fromString(_: string): void {}
 
   toJSON(): PartialJSONValue {
     return JSON.parse(this.toString() || 'null');
@@ -217,49 +193,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   initialize(): void {
     return;
   }
-  /**
-   * Trigger a state change signal.
-   */
-  protected triggerStateChange(args: IChangedArgs<any>): void {
-    this._stateChanged.emit(args);
-  }
-  protected triggerArrayFieldChanged(arrayField: IArrayFieldSignaling): void {
-    this._arrayFieldChanged.emit(arrayField);
-    this.dirty = true;
-  }
-  protected triggerFieldChanged(field: IField): void {
-    this._fieldChanged.emit(field);
-    this.dirty = true;
-  }
-  /**
-   * Callback to listen for changes on the sharedModel. This callback listens
-   * to changes on the different clients sharing the document and propagates
-   * them to the DocumentWidget.
-   */
-  private _onClientChanged = () => {
-    const clients = this.sharedModel.awareness.getStates();
-    this._clientChanged.emit(clients);
-  };
-  /**
-   * Callback to listen for changes on the sharedModel. This callback listens
-   * to changes on shared model's content and propagates them to the DocumentWidget.
-   *
-   * @param sender The sharedModel that triggers the changes.
-   * @param changes The changes on the sharedModel.
-   */
   private _onSharedModelChanged = (
-    sender: PuzzleYDoc,
-    changes: PuzzleDocChange
+    _: PuzzleYDoc,
+    changes: DocumentChange
   ): void => {
-    if (!changes.stateChange) {
-      this._contentChanged.emit();
-    }
-    if (changes.fieldChange) {
-      this.triggerFieldChanged(changes.fieldChange);
-    }
-    if (changes.arrayFieldChanges) {
-      this.triggerArrayFieldChanged(changes.arrayFieldChanges);
-    }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
         if (value.name === 'dirty') {
@@ -277,16 +214,19 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
       });
     }
   };
+  /**
+   * Trigger a state change signal.
+   */
+  protected triggerStateChange(args: IChangedArgs<any>): void {
+    this._stateChanged.emit(args);
+  }
+
   private _dirty = false;
   private _isDisposed = false;
   private _readOnly = false;
-  private _contentChanged = new Signal<this, void>(this);
-  private _arrayFieldChanged = new Signal<this, IArrayFieldSignaling>(this);
-  private _fieldChanged = new Signal<this, IField>(this);
   private _collaborationEnabled: boolean;
-  private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
-  private _clientChanged = new Signal<this, Map<number, any>>(this);
 
-  private _docManager: IDocumentManager;
+  private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
+  contentChanged: ISignal<this, void> = new Signal<this, void>(this);
   private _identity: User.IIdentity | null;
 }

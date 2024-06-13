@@ -1,68 +1,46 @@
 import { DocumentChange, YDocument } from '@jupyter/ydoc';
-import * as Y from 'yjs';
 import {
-  ArrayFieldProperty,
-  IArrayFieldSignaling,
-  CellType,
-  FieldProperty,
   ICell,
-  IField
-} from '../../types/schemaTypes';
-import { User } from '@jupyterlab/services';
-import { KernelMessagerService } from '../../widget/kernel/KernelMessagerService';
-import { IKernelTestVerified } from '../../types/kernelTypes';
+  IField,
+  FieldType,
+  CellType,
+  ITestCodeField,
+  IKernelTestVerified
+} from '../../types';
+import FieldsMaintainer from './maintainer/FieldMaintainer';
 import CellsMaintainer from './maintainer/CellsMaintainer';
-import DocObserver from './observer/DocObserver';
-import FieldMaintainer from './maintainer/FieldMaintainer';
-import TestingCodeMaintainer from './maintainer/TestingCodeMaintainer';
-import IDocObserver from './observer/IDocObsever';
-import ArrayFieldMaintainer from './maintainer/ArrayFieldMaintainer';
-import DocObserverableRegisterService from './observer/register/DocObserverableRegisterService';
+import { CellsObserver } from './observer/CellsObserver';
+import { FieldsObserver } from './observer/FieldsObserver';
+import FieldFactoryService from '../../services/FieldFactoryService';
+import CellFactoryService from '../../services/CellFactoryService';
+import { KernelMessengerService } from '../../widget/kernel/KernelMessengerService';
+import { RootObserver } from 'yjs-normalized';
 
-export type PuzzleDocChange = {
-  fieldChange?: IField;
-  arrayFieldChanges?: IArrayFieldSignaling;
-} & DocumentChange;
-
-export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
+export class PuzzleYDoc extends YDocument<DocumentChange> {
   constructor() {
     super();
+    const cells = this.ydoc.getMap('cells');
+    const fields = this.ydoc.getMap('fields');
 
-    const cells = this.ydoc.getArray('cells') as Y.Array<Y.Map<any>>;
     this._cellsMaintainer = new CellsMaintainer(
       cells,
       this.transact.bind(this)
     );
-    this._fieldMaintainer = new FieldMaintainer(this.transact.bind(this));
-    this._arrayFieldMaintainer = [
-      new TestingCodeMaintainer(this.transact.bind(this))
-    ];
 
-    const emitChanges = (change: PuzzleDocChange) => {
-      console.debug('Change occured: ' + JSON.stringify(change));
-      this._changed.emit(change);
-    };
-    this._docObserver = new DocObserver(emitChanges.bind(this));
-    DocObserverableRegisterService.instance.registerCellYArrayFieldObserver(
-      'cells',
-      (parentId, data) =>
-        <PuzzleDocChange>{
-          arrayFieldChanges: {
-            parentId: parentId,
-            propertyName: 'cells',
-            fields: data
-          }
-        }
+    this._fieldsMaintainer = new FieldsMaintainer(
+      fields,
+      this.transact.bind(this)
     );
-    this._docObserver.init('cells', cells);
-    KernelMessagerService.instance.verifiedTestSignal.connect(
-      (_: any, value: IKernelTestVerified) => {
-        this.getArrayFieldMaintainer<TestingCodeMaintainer>(
-          'testingCode'
-        ).setTestToVerified(
-          this._cellsMaintainer.getCellAsYMapById(value.cellId),
-          value.referenceId
-        );
+    this._cellsObserver = new CellsObserver(cells);
+    this._fieldsObserver = new FieldsObserver(fields);
+
+    KernelMessengerService.instance.verifiedTestSignal.connect(
+      (_, verification: IKernelTestVerified) => {
+        const clone = this._fieldsMaintainer.getObjectAsJson(
+          verification.referenceId
+        ) as ITestCodeField;
+        clone.verified = true;
+        this._fieldsMaintainer.changeObject(clone);
       }
     );
   }
@@ -76,60 +54,90 @@ export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
       return;
     }
     super.dispose();
-    this._docObserver.dispose();
+    this._fieldsObserver.dispose();
+    this._cellsObserver.dispose();
   }
 
   static create(): PuzzleYDoc {
     return new PuzzleYDoc();
   }
   get cells(): ICell[] {
-    return this._cellsMaintainer.cells;
+    return [];
   }
-
-  deleteCell(value: ICell): void {
-    this._cellsMaintainer.deleteCell(value);
+  addCell(identifier: CellType, createdBy: string): void {
+    this.transact(() => {
+      this._cellsMaintainer.addObject(
+        CellFactoryService.instance.create(identifier, (type: FieldType) =>
+          this.fieldCreation(type, createdBy)
+        )
+      );
+    });
   }
-  addCell(type: CellType) {
-    this._cellsMaintainer.addCell(type);
+  deleteCell(id: string): void {
+    this._cellsMaintainer.deleteObject(id, (_, value) => {
+      this._fieldsMaintainer.deleteObject(value);
+    });
   }
-  setField(cellId: string, property: FieldProperty, value: IField) {
-    this._fieldMaintainer.setField(
-      this._cellsMaintainer.getCellAsYMapById(cellId),
-      property,
-      value
+  changeCell(cell: ICell): void {
+    this._cellsMaintainer.changeObject(cell);
+  }
+  swapCellPosition(fromIndex: number, toIndex: number): void {
+    this._cellsMaintainer.swapObjectPosition(fromIndex, toIndex);
+  }
+  changeField(field: IField): void {
+    this._fieldsMaintainer.changeObject(field);
+  }
+  addFieldToPropertyArray(
+    cellId: string,
+    propertyName: string,
+    fieldType: FieldType,
+    createdBy: string
+  ): void {
+    this.transact(() => {
+      this._cellsMaintainer.addToPropertyArray(
+        cellId,
+        propertyName,
+        this.fieldCreation(fieldType, createdBy)
+      );
+    });
+  }
+  removeFieldFromPropertyArray(
+    cellId: string,
+    propertyName: string,
+    fieldId: string
+  ): void {
+    this._cellsMaintainer.removeFromPropertyArray(
+      cellId,
+      propertyName,
+      fieldId,
+      () => {
+        this._fieldsMaintainer.deleteObject(fieldId);
+      }
     );
   }
-  setArrayField(cellId: string, property: ArrayFieldProperty, value: IField) {
-    this.getArrayFieldMaintainer(property).setField(
-      this._cellsMaintainer.getCellAsYMapById(cellId),
-      value
+  swapInPropertyArray(
+    cellId: string,
+    propertyName: string,
+    fromIndex: number,
+    toIndex: number
+  ): void {
+    this._cellsMaintainer.swapInPropertyArray(
+      cellId,
+      propertyName,
+      fromIndex,
+      toIndex
     );
   }
-  removeArrayField(cellId: string, property: ArrayFieldProperty, id: string) {
-    this.getArrayFieldMaintainer(property).removeField(
-      this._cellsMaintainer.getCellAsYMapById(cellId),
-      id
+  private fieldCreation(type: FieldType, createdBy: string): string {
+    const field = FieldFactoryService.instance.create(type, (type: FieldType) =>
+      this.fieldCreation(type, createdBy)
     );
-  }
-
-  addTestCodeField(cellId: string, identity: User.IIdentity) {
-    this.getArrayFieldMaintainer<TestingCodeMaintainer>(
-      'testingCode'
-    ).addTestCode(this._cellsMaintainer.getCellAsYMapById(cellId), identity);
-  }
-
-  setCells(cells: ICell[]): void {
-    this._cellsMaintainer.setCells(cells);
-  }
-  private getArrayFieldMaintainer<T extends ArrayFieldMaintainer>(
-    property: ArrayFieldProperty
-  ) {
-    return this._arrayFieldMaintainer.find(
-      maintainer => maintainer.property === property
-    ) as T;
+    field.createdBy = createdBy;
+    this._fieldsMaintainer.addObject(field);
+    return field.id;
   }
   private _cellsMaintainer: CellsMaintainer;
-  private _fieldMaintainer: FieldMaintainer;
-  private _arrayFieldMaintainer: ArrayFieldMaintainer[] = [];
-  private _docObserver: IDocObserver;
+  private _fieldsMaintainer: FieldsMaintainer;
+  private _fieldsObserver: RootObserver<IField>;
+  private _cellsObserver: RootObserver<ICell>;
 }

@@ -1,18 +1,16 @@
 import React from 'react';
 import { CellComponent } from './cell/CellComponent';
-import { ICell } from '../../types/schemaTypes';
-import UseFieldSignal from '../signal/UseFieldSignal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import { selectCellIds } from '../../state/slice/yjs/cellsSlice';
 
-type CellContainerComponentProps = {
-  cells: ICell[] | undefined;
-};
-export function CellContainerComponent(props: CellContainerComponentProps) {
-  const cellComponents = props.cells?.map(element => {
-    return (
-      <UseFieldSignal field={element}>
-        {cell => <CellComponent cell={cell as ICell}></CellComponent>}
-      </UseFieldSignal>
-    );
-  });
-  return <>{cellComponents}</>;
+export function CellContainerComponent() {
+  const cellIds = useSelector((state: RootState) => selectCellIds(state));
+  return (
+    <>
+      {cellIds?.map((id, index) => (
+        <CellComponent cellId={id} index={index}></CellComponent>
+      ))}
+    </>
+  );
 }

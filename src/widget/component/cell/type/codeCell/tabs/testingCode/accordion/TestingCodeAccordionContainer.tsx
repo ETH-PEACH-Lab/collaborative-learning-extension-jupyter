@@ -1,38 +1,36 @@
-import React, { useMemo } from 'react';
-import {
-  ICodeField,
-  ITestCodeField
-} from '../../../../../../../../types/schemaTypes';
-import useRelevantTests from '../../../hooks/useRelevantTests';
+import React from 'react';
+import { ICodeCell } from '../../../../../../../../types';
 import TestingCodeAccordionItem from './TestingCodeAccordionItem';
-import UseFieldSignal from '../../../../../../../signal/UseFieldSignal';
+import { useSelector } from 'react-redux';
+import { RootState, selectCell } from '../../../../../../../../state';
 
 type TestingCodeAccordionContainerProps = {
   cellId: string;
-  testingCode: ITestCodeField[];
-  startingCode: ICodeField;
-  solutionCode: ICodeField;
 };
 export default function TestingCodeAccordionContainer(
   props: TestingCodeAccordionContainerProps
 ) {
-  const relevantTests = useMemo(
-    () => useRelevantTests(props.testingCode),
-    [props.testingCode]
+  const testingCodeIds = useSelector(
+    (state: RootState) =>
+      (selectCell(state, props.cellId) as ICodeCell).testingCodeIds
+  );
+  const solutionCodeId = useSelector(
+    (state: RootState) =>
+      (selectCell(state, props.cellId) as ICodeCell).solutionCodeId
+  );
+  const startingCodeId = useSelector(
+    (state: RootState) =>
+      (selectCell(state, props.cellId) as ICodeCell).startingCodeId
   );
   return (
-    <div className="accordion" id={'test-code-accordion-' + props.cellId}>
-      {relevantTests.map(relevantTest => (
-        <UseFieldSignal field={relevantTest}>
-          {testCodeField => (
-            <TestingCodeAccordionItem
-              cellId={props.cellId}
-              testingCode={testCodeField}
-              solutionCode={props.solutionCode}
-              startingCode={props.startingCode}
-            ></TestingCodeAccordionItem>
-          )}
-        </UseFieldSignal>
+    <div className="accordion">
+      {testingCodeIds.map(testId => (
+        <TestingCodeAccordionItem
+          name={props.cellId}
+          testingCodeId={testId}
+          solutionCodeId={solutionCodeId}
+          startingCodeId={startingCodeId}
+        ></TestingCodeAccordionItem>
       ))}
     </div>
   );

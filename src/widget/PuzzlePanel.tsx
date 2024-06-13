@@ -7,64 +7,64 @@ import * as React from 'react';
 import { ISessionContext, ReactWidget } from '@jupyterlab/apputils';
 import { TopBarComponent } from './component/TopBarComponent';
 import { CellContainerComponent } from './component/CellContainerComponent';
-import { UserRoleProvider } from './context/userRoleContext';
 import { DocModelContextProvider } from './context/docModelContext';
 import FooterComponent from './component/FooterComponent';
 import { KernelContextProvider } from './context/kernelContext';
-import { KernelMessagerService } from './kernel/KernelMessagerService';
+import { KernelMessengerService } from './kernel/KernelMessengerService';
 import {
   IKernelExecution,
   IKernelTestVerification
-} from '../types/kernelTypes';
-import UseArrayFieldSignal from './signal/UseArrayFieldSignal';
+} from '../types/app/kernel.types';
+import { Provider } from 'react-redux';
+import { store } from '../state/store';
 /**
  * Widget that contains the main view of the PuzzleWidget.
  */
 export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
-      <UserRoleProvider identity={this._model.getIdentity()}>
+      <Provider store={store}>
         <DocModelContextProvider
-          fieldSignal={this._model.fieldChanged}
-          arrayFieldSignal={this._model.arrayFieldChanged}
-          setField={this._model.setField.bind(this._model)}
+          changeField={this._model.changeField.bind(this._model)}
           deleteCell={this._model.deleteCell.bind(this._model)}
-          setArrayField={this._model.setArrayField.bind(this._model)}
-          addTestCode={this._model.addTestCode.bind(this._model)}
-          removeArrayField={this._model.removeArrayField.bind(this._model)}
+          addFieldToPropertyArray={this._model.addFieldToPropertyArray.bind(
+            this._model
+          )}
+          removeFieldFromPropertyArray={this._model.removeFieldFromPropertyArray.bind(
+            this._model
+          )}
+          changeCell={this._model.changeCell.bind(this._model)}
+          swapCellPosition={this._model.swapCellPosition.bind(this._model)}
+          swapInPropertyArray={this._model.swapInPropertyArray.bind(
+            this._model
+          )}
         >
           <KernelContextProvider
-            kernelOutputSignal={KernelMessagerService.instance.outputChanged}
-            testResultSignal={KernelMessagerService.instance.testResultSignal}
             executeCode={(execution: IKernelExecution) =>
-              KernelMessagerService.instance.executeCode(
+              KernelMessengerService.instance.executeCode(
                 execution,
                 this._sessionContext
               )
             }
             executeTest={(execution: IKernelExecution) =>
-              KernelMessagerService.instance.executeTest(
+              KernelMessengerService.instance.executeTest(
                 execution,
                 this._sessionContext
               )
             }
             verifyTest={(execution: IKernelTestVerification) =>
-              KernelMessagerService.instance.verifyTest(
+              KernelMessengerService.instance.verifyTest(
                 execution,
                 this._sessionContext
               )
             }
           >
             <TopBarComponent />
-            <UseArrayFieldSignal parentId="" propertyName="cells" fields={[]}>
-              {cells => (
-                <CellContainerComponent cells={cells}></CellContainerComponent>
-              )}
-            </UseArrayFieldSignal>
+            <CellContainerComponent></CellContainerComponent>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
           </KernelContextProvider>
         </DocModelContextProvider>
-      </UserRoleProvider>
+      </Provider>
     );
   }
   /**

@@ -1,50 +1,35 @@
-import { UseSignal } from '@jupyterlab/ui-components';
-import React, { useContext } from 'react';
-import { IKernelTestResult } from '../../../../../../../../types/kernelTypes';
-import { ITestCodeField } from '../../../../../../../../types/schemaTypes';
+import React from 'react';
+import { ITestCodeField } from '../../../../../../../../types';
+import { useSelector } from 'react-redux';
 import {
-  IKernelContext,
-  KernelContext
-} from '../../../../../../../context/kernelContext';
+  RootState,
+  selectKernelTestResult
+} from '../../../../../../../../state';
 type TestingCodeAccordionHeaderProps = {
+  name: string;
   testingCode: ITestCodeField;
 };
 export default function TestingCodeAccordionHeader(
   props: TestingCodeAccordionHeaderProps
 ) {
-  const { testResultSignal } = useContext(KernelContext) as IKernelContext;
-
+  const testResult = useSelector((state: RootState) =>
+    selectKernelTestResult(state, props.testingCode.id)
+  );
   return (
-    <h2
-      className="accordion-header"
-      id={'accordion-header-' + props.testingCode.id}
-    >
-      <UseSignal
-        signal={testResultSignal}
-        initialArgs={undefined}
-        shouldUpdate={(_: any, output: IKernelTestResult) =>
-          output.referenceId === props.testingCode.id
+    <>
+      <input type="radio" name="my-accordion-3" />
+      <div
+        className={
+          'collapse-title text-xl font-medium ' +
+          (testResult === undefined
+            ? 'bg-base-200'
+            : testResult?.result
+              ? 'bg-success'
+              : 'bg-error')
         }
       >
-        {(_: any, output: IKernelTestResult | undefined) => (
-          <button
-            className={
-              'accordion-button collapsed ' +
-              (output !== undefined && output?.result ? 'bg-success' : '') +
-              (output !== undefined && !output?.result ? 'bg-danger' : '')
-            }
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target={'#collapse-' + props.testingCode.id}
-            aria-expanded="false"
-            aria-controls={'collapse-' + props.testingCode.id}
-          >
-            {props.testingCode.name === ''
-              ? 'New Test'
-              : props.testingCode.name}
-          </button>
-        )}
-      </UseSignal>
-    </h2>
+        {props.testingCode.name === '' ? 'New Test' : props.testingCode.name}
+      </div>
+    </>
   );
 }

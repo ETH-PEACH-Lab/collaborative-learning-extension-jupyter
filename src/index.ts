@@ -21,6 +21,9 @@ import { fileIcon } from '@jupyterlab/ui-components';
 import { IDocumentManager } from '@jupyterlab/docmanager';
 import PuzzleDocWidget from './widget/PuzzleDocWidget';
 import PuzzleDocModelFactory from './factory/PuzzleDocModelFactory';
+
+import '../style/index.css';
+
 export const FACTORY = 'puzzle-editor';
 // Export a token so other extensions can require it
 export const IPuzzleDocTracker = new Token<IWidgetTracker<PuzzleDocWidget>>(
@@ -93,7 +96,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
           ...model,
           format: 'text',
           size: undefined,
-          content: '{\n\t"cells": []}'
+          content:
+            '{"cells": {"allIds": [],"byId": {}},"fields": { "byId": {},"allIds": []}}'
         });
         // Open the newly created file with the 'Editor'
         return app.commands.execute('docmanager:open', {
@@ -147,14 +151,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
       autoStartDefault: true
     });
     // Add the widget to the tracker when it's created
-    widgetFactory.widgetCreated.connect(
-      (sender: any, widget: PuzzleDocWidget) => {
-        widget.context.pathChanged.connect(() => {
-          tracker.save(widget);
-        });
-        tracker.add(widget);
-      }
-    );
+    widgetFactory.widgetCreated.connect((_: any, widget: PuzzleDocWidget) => {
+      widget.context.pathChanged.connect(() => {
+        tracker.save(widget);
+      });
+      tracker.add(widget);
+    });
 
     app.docRegistry.addWidgetFactory(widgetFactory);
   }
