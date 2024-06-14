@@ -2,16 +2,17 @@ import json
 from functools import partial
 from jupyter_ydoc.ybasedoc import YBaseDoc
 import y_py as Y
+from pycrdt import Map, Array
 
 class YPuzzleDoc(YBaseDoc):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._cells = self._ydoc.get_map('cells')
-        self._fields = self._ydoc.get_map('fields')
+        self._ydoc["cells"] = self._cells = Map()
+        self._ydoc["fields"] = self._fields = Map()
 
     @property
     def version(self) -> str:
-        return '0.1.1'
+        return '0.1.3'
 
     def get(self) -> str:
         """
@@ -19,9 +20,9 @@ class YPuzzleDoc(YBaseDoc):
 
         :return: Document's content.
         """
-        cells = json.loads(self._cells.to_json())
-        fields = json.loads(self._fields.to_json())
-        return json.dumps({"cells": cells, "fields": fields}, indent=2)
+        cells = self._cells.to_py()
+        fields = self._fields.to_py()
+        return json.dumps(dict(cells= cells, fields= fields), indent=2)
 
     def set(self, raw_value: str) -> None:
         """
@@ -30,20 +31,16 @@ class YPuzzleDoc(YBaseDoc):
         :param raw_value: The content of the document.
         """
         value = json.loads(raw_value)
-        print(value)
-        with self._ydoc.begin_transaction() as t:
-            for key in [k for k in self._ystate if k not in ("dirty", "path")]:
-                self._ystate.pop(t, key)
 
-            self._cells.set(t,"byId", Y.YMap(value["cells"]["byId"]))
-            for key in value["cells"]["byId"]:
-                self._cells.get('byId').set(t,key, Y.YMap(value["cells"]["byId"][key]))
-            self._cells.set(t,"allIds", Y.YArray(value["cells"]["allIds"]))
+        self._cells["byId"] = Map(value["cells"]["byId"])
+        for key in value["cells"]["byId"]:
+            self._cells["byId"][key]= Map(value["cells"]["byId"][key])
+        self._cells["allIds"] = Array(value["cells"]["allIds"])
 
-            self._fields.set(t,"byId", Y.YMap(value["fields"]["byId"]))
-            for key in value["fields"]["byId"]:
-                self._fields.get('byId').set(t,key, Y.YMap(value["fields"]["byId"][key]))
-            self._fields.set(t,"allIds", Y.YArray(value["fields"]["allIds"]))
+        self._fields["byId"] = Map(value["fields"]["byId"])
+        for key in value["fields"]["byId"]:
+            self._fields['byId'][key]= Map(value["fields"]["byId"][key])
+        self._fields["allIds"] = Array(value["fields"]["allIds"])
     #
 
     def observe(self, callback: "Callable[[str, Any], None]") -> None:

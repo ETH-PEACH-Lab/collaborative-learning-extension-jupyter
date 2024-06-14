@@ -48,15 +48,15 @@ export function StudentCode(props: StudentCodeProps) {
   ) as ICodeSolution;
   const setStudentSolution = (answer: ICodingAnswer) =>
     changeField({ ...studentCode, src: answer.answer.src });
-  const execution = useSelector((state: RootState) =>
-    selectKernelExecutionResult(state, studentCode.id)
-  );
   if (studentCode === undefined || startingCode === undefined) {
     if (startingCode !== undefined) {
       addStudentSolutionField(props.cellId, 'code-solution');
     }
     return <></>;
   }
+  const execution = useSelector((state: RootState) =>
+    selectKernelExecutionResult(state, studentCode.id)
+  );
   return (
     <div className="puzzle-field puzzle-field--code">
       <CodingComponent

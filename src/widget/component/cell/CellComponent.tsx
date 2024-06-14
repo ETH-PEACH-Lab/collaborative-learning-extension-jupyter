@@ -27,7 +27,7 @@ export function CellComponent(props: CellComponentProps) {
   const isInstructor =
     useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
   return cellVisibility || isInstructor ? (
-    <Content className="ml-2 mr-2">
+    <Content className="ml-2 mr-2" borderOnHover={true}>
       <CellToolbarComponent cellId={props.cellId} index={props.index} />
       <ContentBody>
         <CellMarkdownDescriptionComponent fieldId={cellDescriptionId} />

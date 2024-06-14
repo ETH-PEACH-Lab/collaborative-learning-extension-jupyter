@@ -15,8 +15,9 @@ export const Content: React.FC<CellProps> = ({
         'relative transition-all ease-in-out duration-300 group mt-2 ' +
         className +
         (borderOnHover
-          ? ' hover:border-solid hover:border-base-200 border-2 border-base-100'
-          : 'border-solid border-base-200 border-2')
+          ? ' focus-within:border-solid hover:border-solid hover:focus-within:border-base-300 focus-within:border-base-300 '
+           + ' hover:border-base-200 border-2 border-base-100'
+          : ' border-solid border-base-200 border-2')
       }
       style={{ minHeight: '24px' }}
     >
