@@ -22,5 +22,5 @@ export default function FooterComponent(props: FooterComponentProps) {
       </button>
     ));
 
-  return <>{isInstructor && <div className="join flex mt-2">{cellButtons}</div>}</>;
+  return <>{isInstructor && <div className="join flex">{cellButtons}</div>}</>;
 }
