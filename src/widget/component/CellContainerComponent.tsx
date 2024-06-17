@@ -3,9 +3,15 @@ import { CellComponent } from './cell/CellComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { selectCellIds } from '../../state/slice/yjs/cellsSlice';
-
-export function CellContainerComponent() {
-  const cellIds = useSelector((state: RootState) => selectCellIds(state));
+type CellContainerComponentProps = {
+  docId: string;
+};
+export const CellContainerComponent: React.FC<CellContainerComponentProps> = ({
+  docId
+}: CellContainerComponentProps) => {
+  const cellIds = useSelector((state: RootState) =>
+    selectCellIds(state, docId)
+  );
   return (
     <>
       {cellIds?.map((id, index) => (
@@ -13,4 +19,4 @@ export function CellContainerComponent() {
       ))}
     </>
   );
-}
+};

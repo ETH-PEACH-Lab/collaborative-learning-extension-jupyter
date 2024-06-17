@@ -40,7 +40,14 @@ export const Secondary: Story = {
   },
   render: Template.render
 };
-
+export const Forth: Story = {
+  name: 'Label example',
+  args: {
+    ...Template.args,
+    label: 'Add'
+  },
+  render: Template.render
+};
 export const Third: Story = {
   name: 'Hidden example',
   args: {

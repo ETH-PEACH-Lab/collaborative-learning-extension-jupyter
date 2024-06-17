@@ -6,15 +6,16 @@ import { ISignal, Signal } from '@lumino/signaling';
 import {
   IKernelExecution,
   IKernelOutput,
-  IKernelTestVerification,
   IKernelTestVerified
 } from '../../types/app/kernel.types';
 import ExecutionOutputHelper from './ExecutionOutputHelper';
 import {
+  removeKernelExecutionResult,
   setKernelExecutionResult,
   setKernelTestResult,
   store
 } from '../../state';
+import { ICodeCell, ICodeField } from '../../types';
 
 export class KernelMessengerService {
   private static _instance: KernelMessengerService =
@@ -29,10 +30,11 @@ export class KernelMessengerService {
     execution: IKernelExecution,
     sessionContext: ISessionContext | null
   ): void {
+    store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
     this._executeCode(execution, sessionContext).then(outputs =>
       store.dispatch(
         setKernelExecutionResult({
-          referenceId: execution.referenceId,
+          referenceId: execution.assertionCodeId,
           outputs
         })
       )
@@ -42,28 +44,30 @@ export class KernelMessengerService {
     execution: IKernelExecution,
     sessionContext: ISessionContext | null
   ) {
+    store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
     this._executeTest(execution, sessionContext).then(successful =>
       store.dispatch(
         setKernelTestResult({
-          referenceId: execution.referenceId,
+          referenceId: execution.assertionCodeId,
           result: successful
         })
       )
     );
   }
   verifyTest(
-    execution: IKernelTestVerification,
+    execution: IKernelExecution,
     sessionContext: ISessionContext | null
   ): void {
+    store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
     this._executeTest(execution, sessionContext).then(successful => {
       if (successful) {
         this._verifiedTestSignal.emit(<IKernelTestVerified>{
-          referenceId: execution.referenceId
+          referenceId: execution.assertionCodeId
         });
       }
       store.dispatch(
         setKernelTestResult({
-          referenceId: execution.referenceId,
+          referenceId: execution.assertionCodeId,
           result: successful
         })
       );
@@ -79,13 +83,10 @@ export class KernelMessengerService {
         return;
       }
       const future = sessionContext.session?.kernel?.requestExecute({
-        code: execution.src
+        code: this._extractSrc(execution)
       });
       future.onIOPub = (msg: KernelMessage.IIOPubMessage<IOPubMessageType>) => {
         const msgType = msg.header.msg_type;
-        console.debug(
-          'message type: ' + msgType + ' for: ' + execution.referenceId
-        );
         const _output = msg.content as IOutput;
         switch (msgType) {
           case 'execute_result': {
@@ -131,14 +132,15 @@ export class KernelMessengerService {
     sessionContext: ISessionContext | null
   ): Promise<boolean> {
     return new Promise<boolean>((resolve, _) => {
+      const src = this._extractSrc(execution);
       if (
-        !execution.src.includes('assert') ||
+        !src.includes('assert') ||
         !sessionContext ||
         !sessionContext.session?.kernel
       ) {
         store.dispatch(
           setKernelExecutionResult({
-            referenceId: execution.referenceId,
+            referenceId: execution.assertionCodeId,
             outputs: [
               this._executionOutputHelper.onError(
                 'No asserts were found in the test code'
@@ -149,7 +151,7 @@ export class KernelMessengerService {
         return resolve(false);
       }
       const future = sessionContext.session?.kernel?.requestExecute({
-        code: execution.src
+        code: src
       });
       future.onIOPub = (msg: KernelMessage.IIOPubMessage<IOPubMessageType>) => {
         const msgType = msg.header.msg_type;
@@ -163,7 +165,7 @@ export class KernelMessengerService {
           case 'error':
             store.dispatch(
               setKernelExecutionResult({
-                referenceId: execution.referenceId,
+                referenceId: execution.assertionCodeId,
                 outputs: [
                   this._executionOutputHelper.onError(
                     this._executionOutputHelper.getErrorMessage(_output)
@@ -175,6 +177,20 @@ export class KernelMessengerService {
         }
       };
     });
+  }
+  private _extractSrc(execution: IKernelExecution): string {
+    const codeCell = store.getState().cells.byId[execution.cellId] as ICodeCell;
+    const fields: ICodeField[] = [];
+    fields.push(
+      store.getState().fields.byId[codeCell.startingCodeId] as ICodeField
+    );
+    fields.push(
+      store.getState().fields.byId[execution.codeBodyId] as ICodeField
+    );
+    fields.push(
+      store.getState().fields.byId[execution.assertionCodeId] as ICodeField
+    );
+    return fields.map(field => field.src).join('\r\n');
   }
   private _executionOutputHelper: ExecutionOutputHelper =
     new ExecutionOutputHelper();

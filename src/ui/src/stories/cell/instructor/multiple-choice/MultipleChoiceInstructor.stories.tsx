@@ -38,6 +38,7 @@ const Template = {
         onSelectionChange={fn()}
         swapPosition={fn()}
         optionId={'id' + index}
+        parentId="parentId"
         remove={fn()}
       ></MultipleChoiceInstructorItem>
     ));

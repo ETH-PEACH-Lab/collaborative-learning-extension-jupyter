@@ -4,7 +4,7 @@ import {
   adjustableHeightCodeOptions,
   readonlyAdjustableHeightCodeOptions
 } from 'react-quiz-ui';
-type CodeProps = {
+export type CodeProps = {
   src: string;
   language: string;
   readonly?: boolean;

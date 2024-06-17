@@ -31,7 +31,7 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
       fields,
       this.transact.bind(this)
     );
-    this._cellsObserver = new CellsObserver(cells);
+    this._cellsObserver = new CellsObserver(cells, this.ydoc.guid);
     this._fieldsObserver = new FieldsObserver(fields);
 
     KernelMessengerService.instance.verifiedTestSignal.connect(

@@ -1,1 +1,1 @@
-export * from './assertion';
+export * from '../../common/coding/part/assertion';

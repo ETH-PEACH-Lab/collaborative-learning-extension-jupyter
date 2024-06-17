@@ -58,3 +58,63 @@ export const Secondary: Story = {
   },
   render: Template.render
 };
+export const Third: Story = {
+  name: 'Six tabs',
+  args: {
+    ...Template.args,
+    tabCount: 6
+  },
+  render: Template.render
+};
+export const Forth: Story = {
+  name: 'Seven tabs',
+  args: {
+    ...Template.args,
+    tabCount: 7
+  },
+  render: Template.render
+};
+export const Fifth: Story = {
+  name: 'Hundred tabs',
+  args: {
+    ...Template.args,
+    tabCount: 100
+  },
+  render: Template.render
+};
+
+export const Sixth: Story = {
+  name: 'Hundred tabs with long names',
+  args: {
+    ...Template.args,
+    tabCount: 100
+  },
+  render: args => {
+    const items = Array.from(Array(args.tabCount).keys()).map(n => {
+      return {
+        label: 'Tab ' + n + ': dsaddddds addssd',
+        content: 'Tab Content ' + n
+      };
+    });
+    return (
+      <Tabs {...args}>
+        {items.map((item, index) => {
+          return (
+            <Tab key={index} label={item.label}>
+              {item.content}
+            </Tab>
+          );
+        })}
+      </Tabs>
+    );
+  }
+};
+export const Seventh: Story = {
+  name: 'Hundred tabs + page size = 3',
+  args: {
+    ...Template.args,
+    tabCount: 100,
+    pageSize: 3
+  },
+  render: Template.render
+};

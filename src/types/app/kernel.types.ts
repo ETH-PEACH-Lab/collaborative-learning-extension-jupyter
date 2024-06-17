@@ -13,11 +13,9 @@ export interface IKernelOutput {
   output?: string | object;
 }
 export interface IKernelExecution {
-  referenceId: string;
-  src: string;
-}
-export interface IKernelTestVerification extends IKernelExecution {
   cellId: string;
+  assertionCodeId: string;
+  codeBodyId: string;
 }
 export interface IKernelTestVerified {
   referenceId: string;

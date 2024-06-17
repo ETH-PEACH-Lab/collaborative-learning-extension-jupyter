@@ -1,14 +1,11 @@
 import { createContext } from 'react';
-import {
-  IKernelExecution,
-  IKernelTestVerification
-} from '../../types/app/kernel.types';
+import { IKernelExecution } from '../../types/app/kernel.types';
 import React from 'react';
 type KernelContextProviderProps = {
   children: React.ReactNode;
   executeTest: (execution: IKernelExecution) => void;
   executeCode: (execution: IKernelExecution) => void;
-  verifyTest: (execution: IKernelTestVerification) => void;
+  verifyTest: (execution: IKernelExecution) => void;
 };
 export const KernelContext = createContext<IKernelContext | null>(null);
 export const KernelContextProvider = (props: KernelContextProviderProps) => {
@@ -21,5 +18,5 @@ export const KernelContextProvider = (props: KernelContextProviderProps) => {
 export interface IKernelContext {
   executeTest: (execution: IKernelExecution) => void;
   executeCode: (execution: IKernelExecution) => void;
-  verifyTest: (execution: IKernelTestVerification) => void;
+  verifyTest: (execution: IKernelExecution) => void;
 }

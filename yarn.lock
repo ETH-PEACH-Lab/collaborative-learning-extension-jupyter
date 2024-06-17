@@ -8286,7 +8286,7 @@ __metadata:
     react-dom: ^18.2.0
     react-json-view-lite: ^1.4.0
     react-markdown: ^9.0.1
-    react-quiz-ui: ^0.2.8
+    react-quiz-ui: ^0.2.9
     react-redux: ^9.1.1
     rehype-mathjax: ^6.0.0
     remark-math: ^6.0.0
@@ -8298,6 +8298,7 @@ __metadata:
     style-loader: ^4.0.0
     stylelint: ^16.2.1
     stylelint-prettier: ^4.0.0
+    svg-inline-loader: ^0.8.2
     tailwindcss: ^3.4.3
     typescript: ~5.0.2
     vite: ^5.2.10
@@ -8305,7 +8306,7 @@ __metadata:
     vite-svg-loader: ^5.1.0
     vitest: ^1.5.0
     yjs: ^13.6.14
-    yjs-normalized: ^0.0.3
+    yjs-normalized: ^0.0.5
   languageName: unknown
   linkType: soft
 
@@ -13283,6 +13284,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json5@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "json5@npm:1.0.2"
+  dependencies:
+    minimist: ^1.2.0
+  bin:
+    json5: lib/cli.js
+  checksum: 866458a8c58a95a49bef3adba929c625e82532bcff1fe93f01d29cb02cac7c3fe1f4b79951b7792c2da9de0b32871a8401a6e3c5b36778ad852bf5b8a61165d7
+  languageName: node
+  linkType: hard
+
 "json5@npm:^2.1.2, json5@npm:^2.2.2, json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
@@ -13600,6 +13612,17 @@ __metadata:
   version: 4.3.0
   resolution: "loader-runner@npm:4.3.0"
   checksum: a90e00dee9a16be118ea43fec3192d0b491fe03a32ed48a4132eb61d498f5536a03a1315531c19d284392a8726a4ecad71d82044c28d7f22ef62e029bf761569
+  languageName: node
+  linkType: hard
+
+"loader-utils@npm:^1.1.0":
+  version: 1.4.2
+  resolution: "loader-utils@npm:1.4.2"
+  dependencies:
+    big.js: ^5.2.2
+    emojis-list: ^3.0.0
+    json5: ^1.0.1
+  checksum: eb6fb622efc0ffd1abdf68a2022f9eac62bef8ec599cf8adb75e94d1d338381780be6278534170e99edc03380a6d29bc7eb1563c89ce17c5fed3a0b17f1ad804
   languageName: node
   linkType: hard
 
@@ -14673,7 +14696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.5, minimist@npm:^1.2.6, minimist@npm:~1.2.0":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6, minimist@npm:~1.2.0":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
@@ -16791,9 +16814,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-quiz-ui@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "react-quiz-ui@npm:0.2.8"
+"react-quiz-ui@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "react-quiz-ui@npm:0.2.9"
   dependencies:
     "@monaco-editor/react": ^4.6.0
     monaco-editor: ^0.47.0
@@ -16804,7 +16827,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.4.5
-  checksum: f5a6e24010ef6c12ea95dcb382d9727fda137f21da93ff8f8f86179fb7986e29ce249cd0e12b99e69dd52d1afdcc2aa43a78c56baf40c77c40ae20500530e513
+  checksum: d09df7b8f0662f6f682956c72556f3e3ec7c2ec5154d651dd37a6307844c1cbc4369a0158b9cbcd4ee7ff252cdbfebbc038dd82786250f2434d5544b44bcb3cc
   languageName: node
   linkType: hard
 
@@ -17828,6 +17851,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-html-tokenizer@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "simple-html-tokenizer@npm:0.1.1"
+  checksum: 20978069be4830d3d986227c48243c14495359ec65f6ddc97affdf462d249d43522163d2747728f8d15534464aa0dc0ed61f322112b5d229b8f1506f9660a951
+  languageName: node
+  linkType: hard
+
 "simulate-event@npm:~1.4.0":
   version: 1.4.0
   resolution: "simulate-event@npm:1.4.0"
@@ -18595,6 +18625,17 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"svg-inline-loader@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "svg-inline-loader@npm:0.8.2"
+  dependencies:
+    loader-utils: ^1.1.0
+    object-assign: ^4.0.1
+    simple-html-tokenizer: ^0.1.1
+  checksum: 7cf165cd55149ae48197eac543909e72327c26a406e3068657cce796ad70f8f893f9a83e06707bbffd96a9ccd2e36f9a3cca6cc00dd40fdd0cab47b785df413e
   languageName: node
   linkType: hard
 
@@ -20699,14 +20740,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yjs-normalized@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "yjs-normalized@npm:0.0.3"
+"yjs-normalized@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "yjs-normalized@npm:0.0.5"
   dependencies:
     yjs: ^13.6.15
   peerDependencies:
     yjs: "*"
-  checksum: f829b9f18ac56c2f203300a2e68a3fffbd4b45ee70730737992ba26c7f6c3c79bcfd824f36e9bffd949767ef88ea0f2f9ad72e97f843c1ae5483b0e9db3a4033
+  checksum: 246b2af0cf655e8e0cf63ae819ccaadc914cd29cbef42a4b84c80a0b58e50b6134cf7aa81ed85a278bf1e6d0f23893022158d599c88eccc995110138a0a2c17b
   languageName: node
   linkType: hard
 

@@ -13,7 +13,7 @@ type MultipleChoiceInstructorItemProps = {
   maxIndex: number;
   selected?: boolean;
   optionId: string;
-
+  parentId: string;
   options: {
     multi?: boolean;
     randomOrder?: boolean;
@@ -28,6 +28,7 @@ export const MultipleChoiceInstructorItem: React.FC<
   MultipleChoiceInstructorItemProps
 > = ({
   content,
+  parentId,
   optionId,
   index,
   maxIndex,
@@ -86,7 +87,7 @@ export const MultipleChoiceInstructorItem: React.FC<
               ) : (
                 <input
                   type="radio"
-                  name={'radio-' + optionId}
+                  name={'radio-' + parentId}
                   className="radio radio-sm"
                   defaultChecked={selected}
                   onChange={value =>

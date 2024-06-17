@@ -17,7 +17,9 @@ const kernelExecutionResultSlice = createSlice({
       action: PayloadAction<IKernelExecutionResult>
     ) {
       state.byId[action.payload.referenceId] = action.payload;
-      state.allIds.push(action.payload.referenceId);
+      if (state.allIds.find(id => id !== action.payload.referenceId)) {
+        state.allIds.push(action.payload.referenceId);
+      }
     },
     removeKernelExecutionResult(state, action: PayloadAction<string>) {
       if (state.byId[action.payload]) {

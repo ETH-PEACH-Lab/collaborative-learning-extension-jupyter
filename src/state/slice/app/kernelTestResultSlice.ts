@@ -27,7 +27,9 @@ const kernelTestResultSlice = createSlice({
 export const { setKernelTestResult, removeKernelTestResult } =
   kernelTestResultSlice.actions;
 
-export const selectKernelTestResult = (state: RootState, referenceId: string) =>
-  state.kernelTestResult.byId[referenceId];
+export const selectKernelTestResult = (
+  state: RootState,
+  referenceId: string
+): IKernelTestResult | undefined => state.kernelTestResult.byId[referenceId];
 
 export default kernelTestResultSlice.reducer;

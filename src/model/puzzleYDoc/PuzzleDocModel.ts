@@ -109,6 +109,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return this.sharedModel.awareness.clientID;
   }
 
+  get docId(): string {
+    return this.sharedModel.ydoc.guid;
+  }
+
   addCell(type: CellType): void {
     this.sharedModel.addCell(type, this._identity?.username ?? '');
   }

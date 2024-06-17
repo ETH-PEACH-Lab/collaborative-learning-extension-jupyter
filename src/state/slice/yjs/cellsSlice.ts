@@ -1,7 +1,15 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { ICell } from '../../../types';
-import { ByIdState, INormalizedState } from 'yjs-normalized';
+import {
+  AddDispatch,
+  AllIdsDispatch,
+  ByIdState,
+  DeleteDispatch,
+  INormalizedState,
+  RootDispatch,
+  UpdatePropertyDispatch
+} from 'yjs-normalized';
 
 const initialState: INormalizedState<ICell> = {
   byId: {},
@@ -11,27 +19,29 @@ const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
-    addCell(state, action: PayloadAction<ICell>) {
-      state.byId[action.payload.id] = action.payload;
-      state.allIds.push(action.payload.id);
+    addCell(state, action: PayloadAction<AddDispatch<ICell>>) {
+      state.byId[action.payload.item.id] = action.payload.item;
+      state.byId[action.payload.item.id].documentId =
+        action.payload.documentIdentifier;
+      state.allIds.push(action.payload.item.id);
     },
-    deleteCell(state, action: PayloadAction<string>) {
-      delete state.byId[action.payload];
-      state.allIds = state.allIds.filter(id => id !== action.payload);
+    deleteCell(state, action: PayloadAction<DeleteDispatch>) {
+      delete state.byId[action.payload.id];
+      state.allIds = state.allIds.filter(id => id !== action.payload.id);
     },
-    setCells(state, action: PayloadAction<INormalizedState<ICell>>) {
-      state.byId = action.payload.byId;
-      state.allIds = action.payload.allIds;
+    setCells(state, action: PayloadAction<RootDispatch<ICell>>) {
+      state.byId = action.payload.state.byId;
+      action.payload.state.allIds.forEach(
+        id => (state.byId[id].documentId = action.payload.documentIdentifier)
+      );
+      state.allIds = action.payload.state.allIds;
     },
-    updateCellProperty(
-      state,
-      action: PayloadAction<{ id: string; key: string; value: any }>
-    ) {
+    updateCellProperty(state, action: PayloadAction<UpdatePropertyDispatch>) {
       state.byId[action.payload.id][action.payload.key as keyof ICell] =
         action.payload.value;
     },
-    updateCellsAllIds(state, action: PayloadAction<string[]>) {
-      state.allIds = action.payload;
+    updateCellsAllIds(state, action: PayloadAction<AllIdsDispatch>) {
+      state.allIds = action.payload.ids;
     }
   }
 });
@@ -44,14 +54,19 @@ export const {
   updateCellsAllIds
 } = cellsSlice.actions;
 
-export const selectCellIds: (state: RootState) => string[] = (
-  state: RootState
-) => state.cells.allIds;
+export const selectCellIds: (state: RootState, docId: string) => string[] =
+  createSelector(
+    [
+      (state: RootState, _: string) => state,
+      (_: RootState, docId: string) => docId
+    ],
+    (state: RootState, docId: string) =>
+      state.cells.allIds.filter(id => state.cells.byId[id].documentId === docId)
+  );
 
 const selectById = (state: RootState) =>
   (state.cells as INormalizedState<ICell>).byId;
 
-// New selector with memoization
 export const selectCell = createSelector(
   [selectById, (_: RootState, cellId: string) => cellId],
   (byId: ByIdState<ICell>, cellId: string) => byId[cellId]

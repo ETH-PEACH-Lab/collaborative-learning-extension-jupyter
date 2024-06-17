@@ -81,12 +81,12 @@
         "react-dom": "^18.2.0",
         "react-json-view-lite": "^1.4.0",
         "react-markdown": "^9.0.1",
-        "react-quiz-ui": "^0.2.8",
+        "react-quiz-ui": "^0.2.9",
         "react-redux": "^9.1.1",
         "rehype-mathjax": "^6.0.0",
         "remark-math": "^6.0.0",
         "yjs": "^13.5.6",
-        "yjs-normalized": "^0.0.3"
+        "yjs-normalized": "^0.0.5"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.24.1",
@@ -145,6 +145,7 @@
         "style-loader": "^4.0.0",
         "stylelint": "^16.2.1",
         "stylelint-prettier": "^4.0.0",
+        "svg-inline-loader": "^0.8.2",
         "tailwindcss": "^3.4.3",
         "typescript": "~5.0.2",
         "vite": "^5.2.10",

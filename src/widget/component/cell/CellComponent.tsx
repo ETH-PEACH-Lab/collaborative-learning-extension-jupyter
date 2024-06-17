@@ -30,7 +30,10 @@ export function CellComponent(props: CellComponentProps) {
     <Content className="ml-2 mr-2" borderOnHover={true}>
       <CellToolbarComponent cellId={props.cellId} index={props.index} />
       <ContentBody>
-        <CellMarkdownDescriptionComponent fieldId={cellDescriptionId} />
+        <div className="mb-2">
+          <CellMarkdownDescriptionComponent fieldId={cellDescriptionId} />
+        </div>
+
         {cellType === 'code-cell' && (
           <CodeCell cellId={props.cellId}></CodeCell>
         )}

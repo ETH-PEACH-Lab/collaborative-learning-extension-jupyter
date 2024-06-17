@@ -52,6 +52,8 @@ export default function MultipleChoiceInstructorComponent(
     <MultipleChoiceInstructorItem
       content={option.src}
       index={index}
+      selected={cell.solutionOptions.includes(option.id)}
+      parentId={props.cellId}
       maxIndex={cell.options.length - 1}
       onItemContentChange={value => changeField({ ...option, src: value })}
       optionId={option.id}
@@ -77,7 +79,7 @@ export default function MultipleChoiceInstructorComponent(
         <MultipleChoiceInstructorConfigItem
           label="Random Order"
           onChange={value => changeCell({ ...cell, random: value })}
-          value={cell.randomOrder}
+          value={cell.random}
         />
       </MultipleChoiceInstructorConfigContainer>
       {Items}

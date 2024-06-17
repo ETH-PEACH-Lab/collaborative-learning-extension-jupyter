@@ -2,16 +2,18 @@ import React from 'react';
 import { KernelOutput } from './KernelOutput';
 import { KernelOutputObject } from './type/KernelOutputObject';
 
-type KernelOutputContainerProps = {
+export type KernelOutputContainerProps = {
   objects: KernelOutputObject[];
+  className?: string;
   showIndex?: boolean;
 };
 export const KernelOutputContainer: React.FC<KernelOutputContainerProps> = ({
-  objects,
+  objects = [],
+  className,
   showIndex = true
 }: KernelOutputContainerProps) => {
   const outputComponents = objects.map((object, index) => (
-    <div className="flex">
+    <div className={'flex ' + className}>
       {showIndex && <span className="pr-2">[{index + 1}]</span>}
       <KernelOutput key={index} object={object}></KernelOutput>
     </div>

@@ -7,6 +7,8 @@ export type TabProps = {
   children: React.ReactNode;
   label: string;
   hide?: boolean;
+  className?: string;
+  classNameContent?: string;
 };
 export const Tab: React.FC<TabProps> = (props: TabProps) => {
   return (
@@ -18,16 +20,27 @@ export const Tab: React.FC<TabProps> = (props: TabProps) => {
             type="radio"
             name={props._id}
             role="tab"
-            className={'tab ' + (props._isActive ? 'tab-active' : '')}
+            className={
+              'inline-block tab ' +
+              (props._isActive ? 'tab-active' : '') +
+              ' ' +
+              props.className
+            }
             aria-label={props.label}
-            style={{ width: 'max-content' }}
+            style={{
+              width: '100%',
+              wordBreak: 'break-all',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden'
+            }}
             onClick={() =>
               props._setActiveTab && props._setActiveTab(props._index ?? 0)
             }
           />
           <div
             role="tabpanel"
-            className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+            className={'tab-content bg-base-100 ' + props.classNameContent}
           >
             {props.children}
           </div>

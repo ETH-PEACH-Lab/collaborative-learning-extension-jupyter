@@ -8,6 +8,7 @@ export interface ICell extends YObject {
   descriptionId: string;
   studentSolutionIds: string[];
   showSolution: boolean;
+  documentId?: string;
   [key: string]: any;
 }
 

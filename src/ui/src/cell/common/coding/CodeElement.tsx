@@ -1,26 +1,19 @@
 import React from 'react';
-import { CodeComponent } from 'react-quiz-ui';
-import { CodingIndicator } from '../../../common';
-type CodeElement = {
+import { Code, CodingIndicator } from '../../../common';
+export type CodeElementProps = {
   label?: string;
-  code: string;
+  src: string;
   language: string;
-  onCodeChange: (value: string) => void;
+  readonly?: boolean;
+  onChange: (value: string) => void;
 };
-export const CodeElement: React.FC<CodeElement> = ({
-  label,
-  code,
-  language,
-  onCodeChange
-}: CodeElement) => {
+export const CodeElement: React.FC<CodeElementProps> = (
+  props: CodeElementProps
+) => {
   return (
     <>
-      <CodingIndicator label={label}>
-        <CodeComponent
-          language={language}
-          src={code}
-          onCodeChange={onCodeChange}
-        />
+      <CodingIndicator label={props.label}>
+        <Code {...props}></Code>
       </CodingIndicator>
     </>
   );

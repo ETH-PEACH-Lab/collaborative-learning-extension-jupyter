@@ -11,10 +11,7 @@ import { DocModelContextProvider } from './context/docModelContext';
 import FooterComponent from './component/FooterComponent';
 import { KernelContextProvider } from './context/kernelContext';
 import { KernelMessengerService } from './kernel/KernelMessengerService';
-import {
-  IKernelExecution,
-  IKernelTestVerification
-} from '../types/app/kernel.types';
+import { IKernelExecution } from '../types/app/kernel.types';
 import { Provider } from 'react-redux';
 import { store } from '../state/store';
 /**
@@ -52,7 +49,7 @@ export class PuzzlePanel extends ReactWidget {
                 this._sessionContext
               )
             }
-            verifyTest={(execution: IKernelTestVerification) =>
+            verifyTest={(execution: IKernelExecution) =>
               KernelMessengerService.instance.verifyTest(
                 execution,
                 this._sessionContext
@@ -60,7 +57,9 @@ export class PuzzlePanel extends ReactWidget {
             }
           >
             <TopBarComponent />
-            <CellContainerComponent></CellContainerComponent>
+            <CellContainerComponent
+              docId={this._model.docId}
+            ></CellContainerComponent>
             <FooterComponent addCell={this._model.addCell.bind(this._model)} />
           </KernelContextProvider>
         </DocModelContextProvider>

@@ -1,4 +1,11 @@
-import { INormalizedState, RootObserver } from 'yjs-normalized';
+import {
+  AddDispatch,
+  AllIdsDispatch,
+  DeleteDispatch,
+  RootDispatch,
+  RootObserver,
+  UpdatePropertyDispatch
+} from 'yjs-normalized';
 import {
   addField,
   deleteField,
@@ -10,24 +17,22 @@ import { store } from '../../../state/store';
 import { IField } from '../../../types';
 
 export class FieldsObserver extends RootObserver<IField> {
-  protected rootDispatcher: (payload: INormalizedState<IField>) => void =
+  protected rootDispatcher: (payload: RootDispatch<IField>) => void =
     payload => {
       store.dispatch(setFields(payload));
     };
-  protected addDispatcher: (payload: IField) => void = payload => {
+  protected addDispatcher: (payload: AddDispatch<IField>) => void = payload => {
     store.dispatch(addField(payload));
   };
-  protected deleteDispatcher: (payload: string) => void = payload => {
+  protected deleteDispatcher: (payload: DeleteDispatch) => void = payload => {
     store.dispatch(deleteField(payload));
   };
-  protected updatePropertyDispatcher: (payload: {
-    id: string;
-    key: string;
-    value: any;
-  }) => void = payload => {
+  protected updatePropertyDispatcher: (
+    payload: UpdatePropertyDispatch
+  ) => void = payload => {
     store.dispatch(updateFieldProperty(payload));
   };
-  protected allIdsDispatcher: (payload: string[]) => void = payload => {
+  protected allIdsDispatcher: (payload: AllIdsDispatch) => void = payload => {
     store.dispatch(updateFieldsAllIds(payload));
   };
 }
