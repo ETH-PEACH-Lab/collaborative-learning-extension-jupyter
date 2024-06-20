@@ -41,7 +41,7 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
-          build_dir: docs-build
+          build_dir: page/dist
           commit_message: 'chore(deploy): Product Page'
           keep_history: false
           jekyll: false
