@@ -171,6 +171,7 @@
     "eslintIgnore": [
         "node_modules",
         "dist",
+        "page",
         "coverage",
         "**/*.d.ts",
         "tests",

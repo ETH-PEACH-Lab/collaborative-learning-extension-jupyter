@@ -22,5 +22,6 @@
     "module": "ESNext", // Defines the module system to use for code generation.
     "skipLibCheck": true // Skips type checking of declaration files.
   },
-  "include": ["src/**/*", "src/project-page"]
+  "include": ["src/**/*"],
+  "exclude": ["page"]
 }
