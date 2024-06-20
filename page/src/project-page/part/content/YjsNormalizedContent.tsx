@@ -4,7 +4,7 @@ import {
   readonlyAdjustableHeightCodeOptions
 } from 'react-quiz-ui';
 
-export const YjsNormalizedContent = () => {
+export const YjsNormalizedContent: React.FC<null> = () => {
   return (
     <>
       <p>
