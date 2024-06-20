@@ -126,7 +126,6 @@ dmypy.json
 
 
 .Trash-1000/
-.github/
 .jupyter_ystore.db
 static
 *storybook.log
