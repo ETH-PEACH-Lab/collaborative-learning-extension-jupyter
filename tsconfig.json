@@ -20,7 +20,7 @@
     "useDefineForClassFields": true, // Enables the use of 'define' for class fields.
     "lib": ["ES2020", "DOM", "DOM.Iterable"], // Specifies the libraries available for the code.
     "module": "ESNext", // Defines the module system to use for code generation.
-    "skipLibCheck": true, // Skips type checking of declaration files.
+    "skipLibCheck": true // Skips type checking of declaration files.
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src/project-page"]
 }

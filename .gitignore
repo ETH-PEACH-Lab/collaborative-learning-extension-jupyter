@@ -130,4 +130,3 @@ dmypy.json
 .jupyter_ystore.db
 static
 *storybook.log
-tsconfig.json
