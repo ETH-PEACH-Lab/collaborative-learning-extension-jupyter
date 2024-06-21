@@ -1,6 +1,6 @@
 jupyterlab ==4.1.*
-jupyter_ydoc==2.*
-jupyter_server==2.*
+jupyter_ydoc==1.*
+ypy-websocket >=0.12.*
 jupyter-collaboration==2.0.*
 jupyterlab-link-share
 pandas

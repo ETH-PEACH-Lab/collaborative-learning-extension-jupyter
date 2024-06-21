@@ -12,7 +12,7 @@ class YPuzzleDoc(YBaseDoc):
 
     @property
     def version(self) -> str:
-        return '0.1.3'
+        return '0.1.6'
 
     def get(self) -> str:
         """
