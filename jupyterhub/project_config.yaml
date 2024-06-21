@@ -4,6 +4,7 @@ projects:
       - vex
       - vax
       - pike
+      - linderp
   mighty:
     members:
       - fjord

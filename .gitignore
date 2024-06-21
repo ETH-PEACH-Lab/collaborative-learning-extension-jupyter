@@ -129,3 +129,4 @@ dmypy.json
 .jupyter_ystore.db
 static
 *storybook.log
+jupyterhub-data

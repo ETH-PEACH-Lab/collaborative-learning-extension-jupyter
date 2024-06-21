@@ -1,8 +1,5 @@
-FROM quay.io/jupyter/base-notebook:latest
-RUN conda create -n jupyterlab-ext --override-channels --strict-channel-priority -c conda-forge -c nodefaults jupyterlab=4 nodejs=18 git copier=7 jinja2-time -y
-RUN conda run -n jupyterlab-ext
-USER root
-COPY . /extension
-WORKDIR /extension
-RUN pip install -ve .
-CMD ["jupyterhub-singleuser","--LabApp.collaborative=True"]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+FROM quay.io/jupyter/minimal-notebook:x86_64-lab-4.1.8
+RUN  python3 -m pip install -U 'collab_learning_extension==0.1.4'
+EXPOSE 8000
+EXPOSE 8888
+CMD ["jupyterhub-singleuser"]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

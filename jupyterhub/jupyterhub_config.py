@@ -22,21 +22,20 @@ network_name = os.environ["DOCKER_NETWORK_NAME"]
 c.DockerSpawner.use_internal_ip = True
 c.DockerSpawner.network_name = network_name
 
-# Explicitly set notebook directory because we'll be mounting a volume to it.
-# Most `jupyter/docker-stacks` *-notebook images run the Notebook server as
-# user `jovyan`, and set the notebook directory to `/home/jovyan/work`.
-# We follow the same convention.
-notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR", "/home/jovyan/work")
-
-c.DockerSpawner.notebook_dir = notebook_dir
 def pre_spawn_hook(spawner):
     group_names = {group.name for group in spawner.user.groups}
     if "collaborative" in group_names:
         spawner.log.info(f"Enabling RTC for user {spawner.user.name}")
         spawner.args.append("--LabApp.collaborative=True")
-
-
 c.DockerSpawner.pre_spawn_hook = pre_spawn_hook
+c.Spawner.ip = '0.0.0.0'
+
+c.DockerSpawner.ip = c.Spawner.ip
+
+c.Spawner.env_keep = [
+    'JUPYTER_CONFIG_DIR'
+]
+c.DockerSpawner.env_keep = c.Spawner.env_keep
 
 # Remove containers once they are stopped
 c.DockerSpawner.remove = True
@@ -57,7 +56,6 @@ c.JupyterHub.authenticator_class = "nativeauthenticator.NativeAuthenticator"
 c.JupyterHub.load_roles = []
 
 c.JupyterHub.load_groups = {
-    "instructor":[],
     "collaborative": [],
 }
 for project_name, project in project_config["projects"].items():
