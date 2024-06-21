@@ -26,7 +26,6 @@ def pre_spawn_hook(spawner):
     group_names = {group.name for group in spawner.user.groups}
     if "collaborative" in group_names:
         spawner.log.info(f"Enabling RTC for user {spawner.user.name}")
-        spawner.args.append("--LabApp.collaborative=True")
 c.DockerSpawner.pre_spawn_hook = pre_spawn_hook
 c.Spawner.ip = '0.0.0.0'
 
