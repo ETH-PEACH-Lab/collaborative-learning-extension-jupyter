@@ -24,7 +24,7 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
       <div className="mt-2">
         <MultipleChoiceComponent
           exerciseObject={{
-            correctAnswers: [ 'item-1'],
+            correctAnswers: ['item-1'],
             items: [
               { id: 'item-1', src: 'Minimizing user errors' },
               { id: 'item-2', src: 'Reducing maintenance overhead' },
@@ -43,10 +43,7 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
         ></MultipleChoiceComponent>
       </div>
       <div className="flex justify-end gap-2">
-        <button
-          className={'btn btn-sm '}
-          onClick={() => setMulti(!multi)}
-        >
+        <button className={'btn btn-sm '} onClick={() => setMulti(!multi)}>
           {multi ? 'Single' : 'Multiple'}-Select
         </button>
         <button

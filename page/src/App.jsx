@@ -1,11 +1,10 @@
-
 import './App.css';
 import ProjectPage from './project-page/ProjectPage';
 import { AbstractContent } from './project-page/part/content/AbstractContent';
 import { QuizUiContent } from './project-page/part/content/quiz-ui/QuizUiContent';
 import { YjsNormalizedContent } from './project-page/part/content/YjsNormalizedContent';
 import { UserFeedbackContent } from './project-page/part/content/UserFeedbackContent';
-import {JupyterNotebookExtensionContent } from './project-page/part/content/jupyter-extension/JupyterNotebookExtensionContent';
+import { JupyterNotebookExtensionContent } from './project-page/part/content/jupyter-extension/JupyterNotebookExtensionContent';
 function App() {
   return (
     <>
@@ -24,10 +23,13 @@ function App() {
         >
           <YjsNormalizedContent></YjsNormalizedContent>
         </ProjectPage.Page>
-        <ProjectPage.Page containerSize='md' header='Jupyter Notebook extension'>
+        <ProjectPage.Page
+          containerSize="md"
+          header="Jupyter Notebook extension"
+        >
           <JupyterNotebookExtensionContent />
         </ProjectPage.Page>
-        <ProjectPage.Page containerSize='md' grey header='User Feedback Data'>
+        <ProjectPage.Page containerSize="md" grey header="User Feedback Data">
           <UserFeedbackContent />
         </ProjectPage.Page>
       </ProjectPage>

@@ -46,8 +46,8 @@ export const YjsNormalizedContent: React.FC<null> = () => {
       </div>
       <p className="mt-4">
         The library offers helper classes for efficiently working with
-        normalized data structures within a yjs application, including manipulation and change
-        observation.
+        normalized data structures within a yjs application, including
+        manipulation and change observation.
       </p>
     </>
   );
