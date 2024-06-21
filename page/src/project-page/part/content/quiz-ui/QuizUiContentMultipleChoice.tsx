@@ -9,6 +9,7 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
   const [answer, setAnswer] = useState<Array<string>>([]);
   const [showEvaluation, setEvaluation] = useState<boolean>(false);
   const [randomizedOrder, setRandomizedOrder] = useState<boolean>(false);
+  const [multi, setMulti] = useState<boolean>(false);
   return (
     <>
       <h3 className="text-center mt-2">Multiple Choice exercise</h3>
@@ -23,15 +24,14 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
       <div className="mt-2">
         <MultipleChoiceComponent
           exerciseObject={{
-            correctAnswers: ['item-0', 'item-1'],
+            correctAnswers: [ 'item-1'],
             items: [
-              { id: 'item-0', src: 'Streamlining user workflows' },
               { id: 'item-1', src: 'Minimizing user errors' },
               { id: 'item-2', src: 'Reducing maintenance overhead' },
               { id: 'item-3', src: 'Enhancing data encryption' }
             ],
             metadata: {
-              multi: true,
+              multi: multi,
               showEvaluation: showEvaluation,
               random: randomizedOrder
             }
@@ -43,6 +43,12 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
         ></MultipleChoiceComponent>
       </div>
       <div className="flex justify-end gap-2">
+        <button
+          className={'btn btn-sm '}
+          onClick={() => setMulti(!multi)}
+        >
+          {multi ? 'Single' : 'Multiple'}-Select
+        </button>
         <button
           className={'btn btn-sm '}
           onClick={() => setRandomizedOrder(!randomizedOrder)}

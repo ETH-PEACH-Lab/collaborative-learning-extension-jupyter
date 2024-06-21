@@ -13,7 +13,7 @@ export const QuizUiContentCoding: React.FC = () => {
     <>
       <h3 className="text-center mt-2">Coding exercise</h3>
       <p>
-        The coding component encapsulates the monaco code editor and allows to
+        The coding component encapsulates the Monaco code editor and allows to
         include a starting code snippet.
       </p>
       <div className="mt-4">
