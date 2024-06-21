@@ -1,0 +1,10 @@
+name: jupyterlab-ext
+channels:
+  - defaults
+dependencies:
+  - git
+  - jinja2-time
+  - nodejs=18
+  - copier=7
+  - jupyterhub
+  - jupyterlab=4.1

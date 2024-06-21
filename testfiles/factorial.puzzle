@@ -69,7 +69,8 @@
         "testingCodeIds": [
           "7625a651-8f4d-400b-b28b-e537cfd30ccb",
           "96b676ef-9d8f-485f-aade-782405ee298e",
-          "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2"
+          "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2",
+          "9953d713-f97e-47c2-834c-b996de84f2a0"
         ],
         "documentId": "ce6da618-238e-4638-a7ed-85afdddb70b4",
         "solutionCodeId": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
@@ -96,7 +97,8 @@
       "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2",
       "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d",
       "7f01c784-6c56-4730-94cc-5597b549c6f7",
-      "9c6039db-5d0b-4c98-9e0b-bf8af921c86b"
+      "9c6039db-5d0b-4c98-9e0b-bf8af921c86b",
+      "9953d713-f97e-47c2-834c-b996de84f2a0"
     ],
     "byId": {
       "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00": {
@@ -309,6 +311,15 @@
         "comment": "",
         "type": "multiple-choice-solution",
         "id": "ff1eda50-3094-47a4-b450-49da5e519992"
+      },
+      "9953d713-f97e-47c2-834c-b996de84f2a0": {
+        "src": "",
+        "language": "python",
+        "id": "9953d713-f97e-47c2-834c-b996de84f2a0",
+        "type": "test-code",
+        "name": "",
+        "verified": false,
+        "createdBy": "e44934b9abd546b78b41908a05e135f2"
       },
       "734978b4-1def-4de9-8909-6616ab2ff21f": {
         "id": "734978b4-1def-4de9-8909-6616ab2ff21f",

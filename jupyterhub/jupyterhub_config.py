@@ -17,6 +17,7 @@ c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
 
 # Spawn containers from this image
 c.DockerSpawner.image = os.environ["DOCKER_NOTEBOOK_IMAGE"]
+c.DockerSpawner.cmd = None
 # Connect containers to this Docker network
 network_name = os.environ["DOCKER_NETWORK_NAME"]
 c.DockerSpawner.use_internal_ip = True
@@ -26,11 +27,14 @@ def pre_spawn_hook(spawner):
     group_names = {group.name for group in spawner.user.groups}
     if "collaborative" in group_names:
         spawner.log.info(f"Enabling RTC for user {spawner.user.name}")
+        spawner.args.append("--LabApp.collaborative=True")
+
 c.DockerSpawner.pre_spawn_hook = pre_spawn_hook
 c.Spawner.ip = '0.0.0.0'
 
 c.DockerSpawner.ip = c.Spawner.ip
-
+c.Spawner.environment.update({"JUPYTERHUB_SINGLEUSER_APP": "jupyter-server"})
+c.DockerSpawner.environment = c.Spawner.environment
 c.Spawner.env_keep = [
     'JUPYTER_CONFIG_DIR'
 ]
