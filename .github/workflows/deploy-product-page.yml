@@ -27,7 +27,11 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-      - name: Install dependencies
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Install dependencies in root
+        run: jlpm install
+      - name: Install dependencies in pageproduct
         run: npm install
         working-directory: ./page
       - name: Build
