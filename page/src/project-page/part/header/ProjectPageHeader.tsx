@@ -8,7 +8,7 @@ export type ProjectPageHeaderProps = {};
 export const ProjectPageHeader: React.FC<ProjectPageHeaderProps> = () => {
   return (
     <header className="text-center p-6">
-      <h1>Collaborative Learning Extension for Jupyter Notebook</h1>
+      <h1>A Collaborative Learning Extension for Jupyter Notebook</h1>
       <h4>
         Author:{' '}
         <a
