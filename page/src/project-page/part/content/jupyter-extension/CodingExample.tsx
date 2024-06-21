@@ -53,10 +53,6 @@ export const CodingExample: React.FC = () => {
               <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
             </AssertionCodeTab>
             <AssertionCodeTab label="factorial(-1)" success={false}>
-              <AssertionCodeTab.CodeName
-                name="test2"
-                onNameChange={() => {}}
-              ></AssertionCodeTab.CodeName>
               <AssertionCodeTab.Code
                 src="assert factorial(-1) == 1"
                 language="python"
@@ -68,10 +64,6 @@ export const CodingExample: React.FC = () => {
               ></AssertionCodeTab.Output>
             </AssertionCodeTab>
             <AssertionCodeTab label="factorial(3)" success>
-              <AssertionCodeTab.CodeName
-                name="test2"
-                onNameChange={() => {}}
-              ></AssertionCodeTab.CodeName>
               <AssertionCodeTab.Code
                 src="assert factorial(3) == 6"
                 language="python"
@@ -81,10 +73,6 @@ export const CodingExample: React.FC = () => {
               <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
             </AssertionCodeTab>
             <AssertionCodeTab label="factorial(4)" success>
-              <AssertionCodeTab.CodeName
-                name="test2"
-                onNameChange={() => {}}
-              ></AssertionCodeTab.CodeName>
               <AssertionCodeTab.Code
                 src="assert factorial(4) == 24"
                 language="python"
