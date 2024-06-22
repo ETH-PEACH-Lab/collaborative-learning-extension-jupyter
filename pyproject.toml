@@ -40,7 +40,7 @@ fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
 artifacts = ["collab_learning_extension/labextension"]
-exclude = [".github", "binder"]
+exclude = [".github", "binder","node_modules"]
 
 [tool.hatch.build.targets.wheel.shared-data]
 "collab_learning_extension/labextension" = "share/jupyter/labextensions/collab_learning_extension"

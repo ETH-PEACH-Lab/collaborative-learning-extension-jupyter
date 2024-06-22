@@ -12,9 +12,9 @@
     "noUnusedLocals": true,
     "preserveWatchOutput": true,
     "resolveJsonModule": true,
+    "strict": true,
     "outDir": "lib",
     "rootDir": "src",
-    "strict": true,
     "strictNullChecks": true,
     "target": "ES2018",
     "useDefineForClassFields": true, // Enables the use of 'define' for class fields.
