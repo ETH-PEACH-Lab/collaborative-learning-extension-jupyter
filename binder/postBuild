@@ -9,9 +9,6 @@ python -m pip uninstall -y jupyter-offlinenotebook || echo "not installed"
 jupyter labextension disable jupyter-resource-usage || echo "not enabled"
 python -m pip uninstall -y jupyter-resource-usage || echo "not installed"
 
-# install our extensions
-jupyter labextension develop --overwrite .
-
 # list all extensions
 jupyter server extension list
 jupyter labextension list
