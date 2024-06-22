@@ -14,7 +14,9 @@ c = get_config()  # noqa: F821
 
 # Spawn single-user servers as Docker containers
 c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
-
+c.NotebookApp.server_extensions = [
+    'extension'
+]
 # Spawn containers from this image
 c.DockerSpawner.image = os.environ["DOCKER_NOTEBOOK_IMAGE"]
 c.DockerSpawner.cmd = None
@@ -22,6 +24,7 @@ c.DockerSpawner.cmd = None
 network_name = os.environ["DOCKER_NETWORK_NAME"]
 c.DockerSpawner.use_internal_ip = True
 c.DockerSpawner.network_name = network_name
+c.DockerSpawner.extra_host_config = {'network_mode': network_name}
 
 def pre_spawn_hook(spawner):
     group_names = {group.name for group in spawner.user.groups}

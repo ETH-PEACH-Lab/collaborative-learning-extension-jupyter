@@ -1,5 +1,6 @@
 jupyterlab ==4.1.*
-jupyter_ydoc==2.*
-jupyter_collaboration
+collab_learning_extension==2.1.1
+y_py
+jupyterlab-link-share
 pandas
 matplotlib

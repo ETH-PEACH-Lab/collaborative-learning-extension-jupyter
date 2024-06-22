@@ -1,12 +1,9 @@
-FROM quay.io/jupyter/minimal-notebook:lab-4.1.5
-RUN python3 -m pip install --no-cache-dir collab_learning_extension && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-RUN python3 -m pip install --no-cache-dir jupyter-collaboration  && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-RUN conda install -c conda-forge nb_conda_kernels
-RUN jupyter labextension list
+FROM quay.io/jupyter/minimal-notebook:hub-4.1.3
+USER root
+RUN pip install jupyter-collaboration 
+RUN pip install y_py
+RUN pip install collab_learning_extension
 EXPOSE 8000
 EXPOSE 8888
+USER ${NB_USER}
 CMD ["/bin/bash","-c", "jupyterhub-singleuser"]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
