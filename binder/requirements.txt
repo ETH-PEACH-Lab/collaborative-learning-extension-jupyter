@@ -1,5 +1,5 @@
 jupyterlab ==4.1.*
-collab_learning_extension==2.1.1
+jupyter-collaboration ==2.1.1
 y_py
 jupyterlab-link-share
 pandas
