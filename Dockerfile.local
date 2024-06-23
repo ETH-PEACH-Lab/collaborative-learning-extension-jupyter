@@ -1,0 +1,10 @@
+FROM quay.io/jupyter/minimal-notebook:hub-4.1.3
+USER root
+RUN pip install jupyter-collaboration 
+RUN pip install y_py
+ADD ./dist/*.whl ./dist/collab_learning_extension-1.0.0-py3-none-any.whl
+RUN pip install ./dist/collab_learning_extension-1.0.0-py3-none-any.whl
+EXPOSE 8000
+EXPOSE 8888
+USER ${NB_USER}
+CMD ["/bin/bash","-c", "jupyterhub-singleuser"]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

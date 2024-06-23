@@ -1,13 +1,13 @@
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
-import { Contents, User } from '@jupyterlab/services';
+import { Contents } from '@jupyterlab/services';
 import { PuzzleDocModel } from '../model/puzzleYDoc/PuzzleDocModel';
-import { IDocumentManager } from '@jupyterlab/docmanager';
+import { UserInformation } from '../types';
 
 export namespace PuzzleDocModelFactory {
   export interface IOptions {
-    docManager: IDocumentManager;
-    identity: User.IIdentity | null;
+    userInformation: UserInformation;
+    jupyterHubSetup: boolean;
   }
 }
 /**
@@ -17,8 +17,8 @@ export default class PuzzleDocModelFactory
   implements DocumentRegistry.IModelFactory<PuzzleDocModel>
 {
   constructor(options: PuzzleDocModelFactory.IOptions) {
-    this._docManager = options.docManager;
-    this._identity = options.identity;
+    this._userInformation = options.userInformation;
+    this._jupyterHubSetup = options.jupyterHubSetup;
   }
   /**
    * The name of the model.
@@ -85,11 +85,11 @@ export default class PuzzleDocModelFactory
    * @returns The model
    */
   createNew(options: PuzzleDocModel.IOptions): PuzzleDocModel {
-    options.docManager = this._docManager;
-    options.identity = this._identity;
+    options.userInformation = this._userInformation;
+    options.jupyterHubSetup = this._jupyterHubSetup;
     return new PuzzleDocModel(options);
   }
-  private _identity: User.IIdentity | null;
+  private _userInformation: UserInformation;
+  private _jupyterHubSetup: boolean;
   private _disposed = false;
-  private _docManager: IDocumentManager;
 }

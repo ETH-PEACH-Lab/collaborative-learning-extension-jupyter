@@ -2,22 +2,28 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,
-  selectUserRole,
+  selectGroups,
   setToInstructor,
   setToStudent
 } from '../../state';
-export const TopBarComponent: React.FC<unknown> = () => {
-  const userRole = useSelector((state: RootState) => selectUserRole(state));
+import { InstructorsGroupName } from '../../types';
+type TopBarComponentProps = {
+  hide: boolean;
+};
+export const TopBarComponent: React.FC<TopBarComponentProps> = ({ hide }) => {
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
   const dispatch = useDispatch();
 
-  return (
+  return !hide ? (
     <div className="form-control items-end">
       <label className="label cursor-pointer">
         <span className="label-text mr-2">Instructor</span>
         <input
           type="checkbox"
           className="checkbox checkbox-sm"
-          defaultChecked={userRole === 'instructor'}
+          defaultChecked={isInstructor}
           onChange={event => {
             event.target.checked
               ? dispatch(setToInstructor())
@@ -26,5 +32,7 @@ export const TopBarComponent: React.FC<unknown> = () => {
         />
       </label>
     </div>
+  ) : (
+    <></>
   );
 };

@@ -5,17 +5,19 @@ import {
 } from '@jupyterlab/ui-components';
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, selectCell, selectUserRole } from '../../../state';
+import { RootState, selectCell, selectGroups } from '../../../state';
 import { DocModelContext, IDocModelContext } from '../../context';
 import { Toolbar, ToolbarButton, ToolbarToggle } from '../../../ui';
+import { InstructorsGroupName } from '../../../types';
 
 type CellToolbarComponentProps = {
   index: number;
   cellId: string;
 };
 export function CellToolbarComponent(props: CellToolbarComponentProps) {
-  const isInstructor =
-    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
   const allIdsLength = useSelector(
     (state: RootState) => state.cells.allIds.length
   );

@@ -7,8 +7,9 @@ import { selectCell } from '../../../state/slice/yjs/cellsSlice';
 import { RootState } from '../../../state/store';
 import { MultipleChoiceCell } from './type/multipleChoiceCell/MultipleChoiceCell';
 import TextCell from './type/textCell/TextCell';
-import { selectUserRole } from '../../../state';
 import { Content, ContentBody } from '../../../ui';
+import { selectGroups } from '../../../state';
+import { InstructorsGroupName } from '../../../types';
 type CellComponentProps = {
   cellId: string;
   index: number;
@@ -24,8 +25,9 @@ export function CellComponent(props: CellComponentProps) {
   const cellVisibility = useSelector(
     (state: RootState) => selectCell(state, props.cellId).visible
   );
-  const isInstructor =
-    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
   return cellVisibility || isInstructor ? (
     <Content className="ml-2 mr-2" borderOnHover={true}>
       <CellToolbarComponent cellId={props.cellId} index={props.index} />

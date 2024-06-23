@@ -6,18 +6,22 @@ import { PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
-import { IField, CellType, ICell, FieldType } from '../../types';
+import {
+  IField,
+  CellType,
+  ICell,
+  FieldType,
+  UserInformation
+} from '../../types';
 
 import { PuzzleYDoc } from './PuzzleYDoc';
-import { IDocumentManager } from '@jupyterlab/docmanager';
 
-import { User } from '@jupyterlab/services';
 import { DocumentChange } from '@jupyter/ydoc';
-import { setIdentity, store } from '../../state';
+import { setUserInformation, store } from '../../state';
 export namespace PuzzleDocModel {
   export interface IOptions extends DocumentRegistry.IModelOptions<PuzzleYDoc> {
-    docManager: IDocumentManager;
-    identity: User.IIdentity | null;
+    userInformation: UserInformation;
+    jupyterHubSetup: boolean;
   }
 }
 /**
@@ -30,9 +34,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    * @param options The options used to create a puzzle doc model.
    */
   constructor(options: PuzzleDocModel.IOptions) {
-    const { collaborationEnabled, sharedModel, identity } = options;
-    this._identity = identity;
-    store.dispatch(setIdentity(identity));
+    const { collaborationEnabled, sharedModel, userInformation } = options;
+    this._userInformation = userInformation;
+    this._jupyterHubSetup = options.jupyterHubSetup;
+    store.dispatch(setUserInformation(userInformation));
     this._collaborationEnabled = !!collaborationEnabled;
     if (sharedModel) {
       this.sharedModel = sharedModel;
@@ -113,8 +118,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     return this.sharedModel.ydoc.guid;
   }
 
+  get jupyterHubSetup(): boolean {
+    return this._jupyterHubSetup;
+  }
+
   addCell(type: CellType): void {
-    this.sharedModel.addCell(type, this._identity?.username ?? '');
+    this.sharedModel.addCell(
+      type,
+      this._userInformation.identity?.username ?? ''
+    );
   }
   changeField(field: IField) {
     this.sharedModel.changeField(field);
@@ -137,7 +149,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
       cellId,
       propertyName,
       fieldType,
-      this._identity?.username ?? ''
+      this._userInformation.identity?.username ?? ''
     );
   }
   removeFieldFromPropertyArray(
@@ -160,8 +172,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
       toIndex
     );
   }
-  getIdentity(): User.IIdentity | null {
-    return this._identity;
+  getUserInformation(): UserInformation {
+    return this._userInformation;
   }
 
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
@@ -232,5 +244,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
 
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
   contentChanged: ISignal<this, void> = new Signal<this, void>(this);
-  private _identity: User.IIdentity | null;
+  private _userInformation: UserInformation;
+  private _jupyterHubSetup: boolean;
 }

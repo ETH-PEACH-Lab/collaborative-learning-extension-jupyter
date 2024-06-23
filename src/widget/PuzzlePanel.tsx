@@ -56,7 +56,7 @@ export class PuzzlePanel extends ReactWidget {
               )
             }
           >
-            <TopBarComponent />
+            <TopBarComponent hide={this._model.jupyterHubSetup} />
             <CellContainerComponent
               docId={this._model.docId}
             ></CellContainerComponent>

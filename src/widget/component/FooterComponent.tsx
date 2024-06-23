@@ -1,15 +1,16 @@
 import CellFactoryService from '../../services/CellFactoryService';
-import { CellType } from '../../types';
+import { CellType, InstructorsGroupName } from '../../types';
 import { useSelector } from 'react-redux';
-import { RootState, selectUserRole } from '../../state';
+import { RootState, selectGroups } from '../../state';
 import React from 'react';
 
 type FooterComponentProps = {
   addCell: (type: CellType) => void;
 };
 export default function FooterComponent(props: FooterComponentProps) {
-  const isInstructor =
-    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
   const cellButtons = CellFactoryService.instance
     .getFactoryNamings()
     .map(factory => (

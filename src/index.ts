@@ -18,7 +18,6 @@ import { PuzzleYDoc } from './model/puzzleYDoc/PuzzleYDoc';
 import PuzzleWidgetFactory from './factory/PuzzleWidgetFactory';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { fileIcon } from '@jupyterlab/ui-components';
-import { IDocumentManager } from '@jupyterlab/docmanager';
 import PuzzleDocWidget from './widget/PuzzleDocWidget';
 import PuzzleDocModelFactory from './factory/PuzzleDocModelFactory';
 
@@ -40,25 +39,33 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: 'collab_learning_extension:plugin',
   description: 'A Collaborative Learning Extension for Jupyter Notebook',
   autoStart: true,
-  requires: [
-    ILayoutRestorer,
-    IFileBrowserFactory,
-    ICommandPalette,
-    ILauncher,
-    IDocumentManager
-  ],
+  requires: [ILayoutRestorer, IFileBrowserFactory, ICommandPalette, ILauncher],
   optional: [ICollaborativeDrive],
   provides: IPuzzleDocTracker,
-  activate: (
+  activate: async (
     app: JupyterFrontEnd,
     restorer: ILayoutRestorer,
     browserFactory: IFileBrowserFactory,
     palette: ICommandPalette,
     launcher: ILauncher,
-    docMangager: IDocumentManager,
     drive: ICollaborativeDrive | null
   ) => {
     const user = app.serviceManager.user;
+    let jupyterHubSetup = true;
+    const result: { groups: string[] } | undefined = await fetch(
+      '/hub/api/users/' + user.identity?.name,
+      {
+        headers: {
+          Authorization: 'token ' + app.serviceManager.serverSettings.token
+        }
+      }
+    )
+      .then(response => response.json())
+      .catch(_ => {
+        jupyterHubSetup = false;
+        return { groups: [] };
+      });
+
     console.log('JupyterLab extension collab_learning_extension is activated!');
     // Namespace for the tracker
     const namespace = 'puzzle-documents';
@@ -133,8 +140,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
       return;
     }
     const modelFactory = new PuzzleDocModelFactory({
-      docManager: docMangager,
-      identity: user.identity
+      userInformation: {
+        identity: user.identity,
+        groups: result?.groups ?? []
+      },
+      jupyterHubSetup
     });
     app.docRegistry.addModelFactory(modelFactory);
     // Creating and registering the model factory for our custom DocumentMode

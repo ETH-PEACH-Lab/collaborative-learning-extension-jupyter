@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, selectUserRole } from '../../../../../state';
+import { RootState, selectGroups } from '../../../../../state';
 import { Coding } from '../../../../../ui';
 import {
   CodeCellAssertionCode,
@@ -9,13 +9,15 @@ import {
   CodeCellStudentCode,
   CodeCellToolbar
 } from './part';
+import { InstructorsGroupName } from '../../../../../types';
 type CodeCellProps = {
   cellId: string;
 };
 
 export default function CodeCell({ cellId }: CodeCellProps) {
-  const isInstructor =
-    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
   const [assertionCodeIndex, setAssertionCodeIndex] = React.useState(0);
 
   return (

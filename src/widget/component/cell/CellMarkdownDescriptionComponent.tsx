@@ -6,9 +6,9 @@ import {
   DocModelContext,
   IDocModelContext
 } from '../../context/docModelContext';
-import { IMarkdownField } from '../../../types';
-import { selectUserRole } from '../../../state';
+import { IMarkdownField, InstructorsGroupName } from '../../../types';
 import { CellDescription } from '../../../ui';
+import { selectGroups } from '../../../state';
 type CellMarkdownDescriptionComponentProps = {
   fieldId: string;
 };
@@ -18,8 +18,9 @@ export function CellMarkdownDescriptionComponent({
   const field = useSelector((state: RootState) =>
     selectField(state, fieldId)
   ) as IMarkdownField;
-  const isInstructor =
-    useSelector((state: RootState) => selectUserRole(state)) === 'instructor';
+  const isInstructor = useSelector((state: RootState) =>
+    selectGroups(state)
+  ).includes(InstructorsGroupName);
 
   const { changeField } = useContext(DocModelContext) as IDocModelContext;
 
