@@ -31,6 +31,21 @@ export default function MultipleChoiceInstructorComponent(
   const options = useSelector((state: RootState) =>
     selectFields(state, cell.options)
   ) as IMultipleChoiceItem[];
+
+  const studentSolutions = useSelector((state: RootState) =>
+    selectFields(state, cell.studentSolutionIds)
+  ) as IMultipleChoiceItem[];
+
+  const studentSolutionDistribution = options.map(option => {
+    return (
+      (100 *
+        studentSolutions.filter(
+          solution =>
+            solution.src.length > 0 && solution.src.includes(option.id)
+        ).length) /
+      (studentSolutions.length === 0 ? 1 : studentSolutions.length)
+    );
+  });
   const onCorrectAnswerChange = (optionId: string, correct: boolean) => {
     if (correct) {
       if (cell.multi) {
@@ -58,6 +73,7 @@ export default function MultipleChoiceInstructorComponent(
       onItemContentChange={value => changeField({ ...option, src: value })}
       optionId={option.id}
       onSelectionChange={onCorrectAnswerChange}
+      studentDistribution={studentSolutionDistribution[index]}
       options={{ multi: cell.multi, randomOrder: cell.random }}
       remove={() => removeMultipleChoiceOption(props.cellId, option.id)}
       swapPosition={(from, to) =>

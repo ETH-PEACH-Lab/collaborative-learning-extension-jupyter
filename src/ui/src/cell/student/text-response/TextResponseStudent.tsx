@@ -50,7 +50,6 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
         showBadgeOnSubmitted={true}
         submitted={options.submitted}
         onSubmit={() => setSubmit(true)}
-        onUndo={() => setSubmit(false)}
       />
     </>
   );

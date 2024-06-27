@@ -19,7 +19,6 @@ type Story = DeepStoryObj<typeof meta>;
 const Template = {
   args: {
     onSubmit: fn(),
-    onUndo: fn(),
     finalized: false,
     submitted: false,
     showBadgeOnSubmitted: false,

@@ -20,7 +20,7 @@ const OutputComponents: {
   'image/png': ({ output }) => <img src={`data:image/png;base64,${output}`} />,
   error: ({ output }) => (
     <div
-      className="alert alert-error rounded-none"
+      className="alert alert-error rounded-none border border-[#f5c6cb]"
       style={{ whiteSpace: 'pre-wrap' }}
     >
       {output as string}
@@ -28,7 +28,7 @@ const OutputComponents: {
   ),
   default: ({ output }) => (
     <div
-      className="alert alert-base-200 rounded-none"
+      className="alert alert-base-200 rounded-none border border-[#d6d8db]"
       style={{ whiteSpace: 'pre-wrap' }}
     >
       {output as string}

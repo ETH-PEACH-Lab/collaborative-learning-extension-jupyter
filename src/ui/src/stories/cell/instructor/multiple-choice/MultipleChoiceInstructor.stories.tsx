@@ -33,6 +33,7 @@ const Template = {
         content={'content ' + index}
         index={index}
         maxIndex={args.numberOfItems - 1}
+        selected={index === 0}
         options={{ multi: true, randomOrder: true }}
         onItemContentChange={fn()}
         onSelectionChange={fn()}
@@ -40,6 +41,7 @@ const Template = {
         optionId={'id' + index}
         parentId="parentId"
         remove={fn()}
+        studentDistribution={100 / args.numberOfItems}
       ></MultipleChoiceInstructorItem>
     ));
     return (

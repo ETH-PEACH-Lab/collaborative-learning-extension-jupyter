@@ -30,7 +30,8 @@ const Template = {
       multi: false,
       random: false,
       showSolution: false,
-      submitted: false
+      submitted: false,
+      distributionPerItem: [0, 0, 0]
     }
   },
   render: args => {
@@ -50,7 +51,8 @@ export const Primary: Story = {
     ...Template.args,
     answer: ['id1'],
     options: {
-      submitted: true
+      submitted: true,
+      distributionPerItem: [100, 0, 0]
     }
   },
   render: Template.render
@@ -63,7 +65,8 @@ export const Secondary: Story = {
     options: {
       showSolution: true,
       submitted: true,
-      multi: true
+      multi: true,
+      distributionPerItem: [100, 0, 0]
     }
   },
   render: Template.render
@@ -76,7 +79,8 @@ export const Forth: Story = {
     answer: ['id1'],
     options: {
       showSolution: true,
-      submitted: true
+      submitted: true,
+      distributionPerItem: [40, 30, 30]
     }
   },
   render: args => {

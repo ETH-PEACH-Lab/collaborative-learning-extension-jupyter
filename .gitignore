@@ -1,5 +1,4 @@
 *.bundle.*
-lib/
 node_modules/
 *.log
 .eslintcache
@@ -128,4 +127,3 @@ dmypy.json
 .Trash-1000/
 .jupyter_ystore.db
 *storybook.log
-jupyterhub-data

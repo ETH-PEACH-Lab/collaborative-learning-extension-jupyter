@@ -1,0 +1,136 @@
+{
+  "cells": {
+    "byId": {
+      "90317574-11d0-43c3-aa44-980a44066af1": {
+        "studentSolutionIds": [
+          "d59563c9-0518-4d03-ad65-c767c4992dc0"
+        ],
+        "id": "90317574-11d0-43c3-aa44-980a44066af1",
+        "type": "multiple-choice-cell",
+        "visible": true,
+        "showSolution": false,
+        "documentId": "3f537c34-bd5c-406d-8384-92b099d281ae",
+        "solutionOptions": [
+          "abf6fb26-465b-48f7-8add-6ef44f30a6d5"
+        ],
+        "options": [
+          "abf6fb26-465b-48f7-8add-6ef44f30a6d5",
+          "f5bbc193-2715-4b08-a977-8caf59236257",
+          "8ae66e41-c84e-4ee7-be3e-4b6e02a5b53f"
+        ],
+        "multi": true,
+        "descriptionId": "27202b1f-117e-4d06-91a5-044a43a7be98",
+        "random": true
+      }
+    },
+    "allIds": [
+      "90317574-11d0-43c3-aa44-980a44066af1"
+    ]
+  },
+  "fields": {
+    "allIds": [
+      "becd60db-af3a-471d-bee2-0d988b62c53c",
+      "83070208-602b-45a1-adfd-251f8104f41c",
+      "affd1e8c-b781-4080-9b73-ffe4c74268fb",
+      "dc1fa16f-3b89-44d2-a63f-4022d7d9169b",
+      "a37d1f23-2104-48cc-b468-1b875e117213",
+      "5493335b-3c1e-4f1a-9b0c-32dd2364426c",
+      "27202b1f-117e-4d06-91a5-044a43a7be98",
+      "abf6fb26-465b-48f7-8add-6ef44f30a6d5",
+      "f5bbc193-2715-4b08-a977-8caf59236257",
+      "8ae66e41-c84e-4ee7-be3e-4b6e02a5b53f",
+      "d59563c9-0518-4d03-ad65-c767c4992dc0"
+    ],
+    "byId": {
+      "affd1e8c-b781-4080-9b73-ffe4c74268fb": {
+        "submitted": false,
+        "grade": -1.0,
+        "src": [],
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "comment": "",
+        "type": "multiple-choice-solution",
+        "id": "affd1e8c-b781-4080-9b73-ffe4c74268fb"
+      },
+      "a37d1f23-2104-48cc-b468-1b875e117213": {
+        "grade": -1.0,
+        "language": "python",
+        "type": "code-solution",
+        "comment": "",
+        "src": "",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "submitted": false,
+        "id": "a37d1f23-2104-48cc-b468-1b875e117213"
+      },
+      "becd60db-af3a-471d-bee2-0d988b62c53c": {
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "id": "becd60db-af3a-471d-bee2-0d988b62c53c",
+        "type": "multiple-choice-solution",
+        "grade": -1.0,
+        "src": [],
+        "comment": "",
+        "submitted": false
+      },
+      "5493335b-3c1e-4f1a-9b0c-32dd2364426c": {
+        "language": "python",
+        "comment": "",
+        "id": "5493335b-3c1e-4f1a-9b0c-32dd2364426c",
+        "type": "code-solution",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "grade": -1.0,
+        "submitted": false,
+        "src": ""
+      },
+      "d59563c9-0518-4d03-ad65-c767c4992dc0": {
+        "comment": "",
+        "submitted": true,
+        "id": "d59563c9-0518-4d03-ad65-c767c4992dc0",
+        "grade": -1.0,
+        "src": [
+          "abf6fb26-465b-48f7-8add-6ef44f30a6d5",
+          "f5bbc193-2715-4b08-a977-8caf59236257"
+        ],
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "type": "multiple-choice-solution"
+      },
+      "27202b1f-117e-4d06-91a5-044a43a7be98": {
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "id": "27202b1f-117e-4d06-91a5-044a43a7be98",
+        "type": "markdown",
+        "src": "sdsaads"
+      },
+      "abf6fb26-465b-48f7-8add-6ef44f30a6d5": {
+        "src": "sddassd",
+        "id": "abf6fb26-465b-48f7-8add-6ef44f30a6d5",
+        "createdBy": "06357e968abf495f9679abaadf966701"
+      },
+      "8ae66e41-c84e-4ee7-be3e-4b6e02a5b53f": {
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "src": "ererwrerr",
+        "id": "8ae66e41-c84e-4ee7-be3e-4b6e02a5b53f"
+      },
+      "f5bbc193-2715-4b08-a977-8caf59236257": {
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "id": "f5bbc193-2715-4b08-a977-8caf59236257",
+        "src": "dsaddsdsds"
+      },
+      "dc1fa16f-3b89-44d2-a63f-4022d7d9169b": {
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "src": "",
+        "type": "text-solution",
+        "comment": "",
+        "id": "dc1fa16f-3b89-44d2-a63f-4022d7d9169b",
+        "submitted": false,
+        "grade": -1.0
+      },
+      "83070208-602b-45a1-adfd-251f8104f41c": {
+        "submitted": false,
+        "grade": -1.0,
+        "comment": "",
+        "id": "83070208-602b-45a1-adfd-251f8104f41c",
+        "src": "",
+        "type": "text-solution",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a"
+      }
+    }
+  }
+}

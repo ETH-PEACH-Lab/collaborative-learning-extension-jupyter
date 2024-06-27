@@ -7,7 +7,7 @@
     "incremental": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "noEmitOnError": true,
+    "noEmit": false,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "preserveWatchOutput": true,
@@ -18,10 +18,12 @@
     "strictNullChecks": true,
     "target": "ES2018",
     "useDefineForClassFields": true, // Enables the use of 'define' for class fields.
-    "lib": ["ES2020", "DOM", "DOM.Iterable"], // Specifies the libraries available for the code.
     "module": "ESNext", // Defines the module system to use for code generation.
     "skipLibCheck": true // Skips type checking of declaration files.
   },
-  "include": ["src/**/*"],
-  "exclude": ["page"]
+  "watchOptions": {
+    "fallbackPolling": "fixedInterval"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

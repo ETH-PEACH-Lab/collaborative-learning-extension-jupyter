@@ -16,8 +16,8 @@ export const AssertionCodeTab: React.FC<AssertionCodeTabProps> & {
       className={
         (props.success !== undefined
           ? !props.success
-            ? 'bg-error/50 '
-            : 'bg-success/50 '
+            ? 'bg-error '
+            : 'bg-success '
           : '') + props.className
       }
       classNameContent="mt-4"

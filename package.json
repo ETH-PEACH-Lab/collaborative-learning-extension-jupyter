@@ -18,10 +18,11 @@
     },
     "files": [
         "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf,css}",
-        "src/**/*.{ts,tsx}"
+        "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
     ],
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
+    "style": "style/index.css",
     "repository": {
         "type": "git",
         "url": "https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter.git"
@@ -49,7 +50,7 @@
         "stylelint": "jlpm stylelint:check --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
         "test": "jest --coverage",
-        "watch": "run-p watch:src watch:labextension",
+        "watch": "run-p watch:labextension",
         "watch:src": "tsc -w --sourceMap",
         "watch:labextension": "jupyter labextension watch ."
     },
@@ -81,7 +82,7 @@
         "react-dom": "^18.2.0",
         "react-json-view-lite": "^1.4.0",
         "react-markdown": "^9.0.1",
-        "react-quiz-ui": "^0.2.9",
+        "react-quiz-ui": "^0.3.3",
         "react-redux": "^9.1.1",
         "rehype-mathjax": "^6.0.0",
         "remark-math": "^6.0.0",

@@ -40,6 +40,8 @@ export const MultipleChoiceExample: React.FC = () => {
   };
   const MultipleChoiceItems = items.map((item, index) => (
     <MultipleChoiceInstructorItem
+      key={item.id}
+      studentDistribution={answer.includes(String(item.id)) ? 100 : 0}
       content={item.src}
       index={index}
       maxIndex={items.length - 1}
@@ -128,7 +130,10 @@ export const MultipleChoiceExample: React.FC = () => {
               multi: multi,
               random: random,
               showSolution: showSolution,
-              submitted: submit
+              submitted: submit,
+              distributionPerItem: items.map(item =>
+                answer.includes(String(item.id)) ? 100 : 0
+              )
             }}
             setSubmit={value => setSubmit(value)}
             solutionOptions={selected}

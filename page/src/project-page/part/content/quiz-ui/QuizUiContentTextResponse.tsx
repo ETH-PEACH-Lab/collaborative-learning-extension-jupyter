@@ -49,6 +49,7 @@ export const QuizUiContentTextResponse: React.FC = () => {
       </div>
       <div className="flex justify-end gap-2 mt-2">
         <select
+          defaultValue={'jupyter'}
           className="select text-left select-bordered"
           onChange={event => {
             if (event.target.value == 'jupyter') {
@@ -68,7 +69,7 @@ export const QuizUiContentTextResponse: React.FC = () => {
             }
           }}
         >
-          <option value="jupyter" disabled={jupyter} selected>
+          <option value="jupyter" disabled={jupyter}>
             Jupyter mode
           </option>
           <option value="tabs" disabled={tabs}>

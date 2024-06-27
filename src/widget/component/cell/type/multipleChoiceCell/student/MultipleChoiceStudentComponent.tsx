@@ -39,23 +39,42 @@ export const MultipleChoiceStudentComponent = (
     selectFields(state, cell.options)
   ) as IMultipleChoiceItem[];
 
+  const studentSolutions = useSelector((state: RootState) =>
+    selectFields(state, cell.studentSolutionIds)
+  ) as IMultipleChoiceItem[];
+
+  const studentSolutionDistribution = items.map(option => {
+    return (
+      (100 *
+        studentSolutions.filter(
+          solution =>
+            solution.src.length > 0 && solution.src.includes(option.id)
+        ).length) /
+      (studentSolutions.length === 0 ? 1 : studentSolutions.length)
+    );
+  });
+
   if (studentSelection === undefined) {
     addStudentSolutionField(props.cellId, 'multiple-choice-solution');
     return <></>;
   }
+
   return (
-    <MultipleChoiceStudent
-      answer={studentSelection.src}
-      onAnswerChanges={setStudentSolution}
-      items={items}
-      options={{
-        multi: cell.multi,
-        random: cell.random,
-        showSolution: cell.showSolution,
-        submitted: studentSelection.submitted
-      }}
-      setSubmit={submitted => changeField({ ...studentSelection, submitted })}
-      solutionOptions={cell.solutionOptions}
-    />
+    <>
+      <MultipleChoiceStudent
+        answer={studentSelection.src}
+        onAnswerChanges={setStudentSolution}
+        items={items}
+        options={{
+          multi: cell.multi,
+          random: cell.random,
+          showSolution: cell.showSolution,
+          submitted: studentSelection.submitted,
+          distributionPerItem: studentSolutionDistribution
+        }}
+        setSubmit={submitted => changeField({ ...studentSelection, submitted })}
+        solutionOptions={cell.solutionOptions}
+      />
+    </>
   );
 };

@@ -7,11 +7,13 @@ import { MarkdownEditor, Toolbar, ToolbarButton } from '../../../../common';
 import { Content } from '../../../../common/content/Content';
 import { ContentBody } from '../../../../common/content/ContentBody';
 import React from 'react';
+import { MultipleChoiceItemDistribution } from 'react-quiz-ui';
 type MultipleChoiceInstructorItemProps = {
   content: string;
   index: number;
   maxIndex: number;
-  selected?: boolean;
+  studentDistribution: number;
+  selected: boolean;
   optionId: string;
   parentId: string;
   options: {
@@ -32,6 +34,7 @@ export const MultipleChoiceInstructorItem: React.FC<
   optionId,
   index,
   maxIndex,
+  studentDistribution,
   selected,
   options,
   onItemContentChange,
@@ -98,6 +101,10 @@ export const MultipleChoiceInstructorItem: React.FC<
             </div>
           </label>
         </div>
+        <MultipleChoiceItemDistribution
+          correct={selected}
+          distribution={studentDistribution}
+        />
       </ContentBody>
     </Content>
   );

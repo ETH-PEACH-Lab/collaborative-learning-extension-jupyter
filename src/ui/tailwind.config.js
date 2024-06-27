@@ -8,7 +8,15 @@ module.exports = {
     extend: {}
   },
   daisyui: {
-    themes: ['light']
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['light'],
+          error: '#f8d7da',
+          success: '#d4edda'
+        }
+      }
+    ]
   },
   plugins: [require('daisyui')]
 };

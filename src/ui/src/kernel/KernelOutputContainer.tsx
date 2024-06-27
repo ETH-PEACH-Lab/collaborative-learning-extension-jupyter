@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { KernelOutput } from './KernelOutput';
 import { KernelOutputObject } from './type/KernelOutputObject';
 
@@ -12,10 +12,11 @@ export const KernelOutputContainer: React.FC<KernelOutputContainerProps> = ({
   className,
   showIndex = true
 }: KernelOutputContainerProps) => {
+  const id = useId();
   const outputComponents = objects.map((object, index) => (
-    <div className={'flex ' + className}>
+    <div className={'flex ' + className} key={id + '-' + index}>
       {showIndex && <span className="pr-2">[{index + 1}]</span>}
-      <KernelOutput key={index} object={object}></KernelOutput>
+      <KernelOutput object={object}></KernelOutput>
     </div>
   ));
   return <div className="flex flex-col space-y-4">{outputComponents}</div>;

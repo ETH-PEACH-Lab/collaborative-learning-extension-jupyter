@@ -65,13 +65,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
         jupyterHubSetup = false;
         return { groups: [] };
       });
-
     console.log('JupyterLab extension collab_learning_extension is activated!');
     // Namespace for the tracker
     const namespace = 'puzzle-documents';
     // Creating the tracker for the document
     const tracker = new WidgetTracker<PuzzleDocWidget>({ namespace });
-
     // Handle state restoration.
     if (restorer) {
       // When restoring the app, if the document was open, reopen it
@@ -167,7 +165,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
       });
       tracker.add(widget);
     });
-
     app.docRegistry.addWidgetFactory(widgetFactory);
   }
 };
