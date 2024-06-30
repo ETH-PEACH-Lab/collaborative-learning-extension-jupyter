@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AssertionCodeTab,
   CellDescription,
   Coding,
   Content,
   ContentBody,
-  ToolbarButton,
-  runAllIcon
+  ToolbarToggle
 } from '../../../../../../src/ui';
-import { checkIcon, deleteIcon, runIcon } from '@jupyterlab/ui-components';
 
 export const CodingExample: React.FC = () => {
+  const [showSolution, setShowSolution] = useState(false);
+  const [testingMode, setTestingMode] = useState('tests');
   return (
     <Content>
       <ContentBody>
@@ -29,8 +29,10 @@ export const CodingExample: React.FC = () => {
             readonly={true}
             onChange={() => {}}
           />
-          <Coding.StudentCode
-            src="# Your code here
+          {showSolution ? (
+            <Coding.DiffCode
+              language="python"
+              modified="# Your code here
     if n == 0 or n == 1:
         return 1
     else:
@@ -38,76 +40,102 @@ export const CodingExample: React.FC = () => {
         for i in range(2, n + 1):
             result *= i
         return result"
-            language="python"
-            readonly={true}
-            onChange={() => {}}
-          />
-          <Coding.AssertionCode>
-            <AssertionCodeTab label="factorial(1)" success>
-              <AssertionCodeTab.Code
-                src="assert factorial(1) == 1"
-                language="python"
-                readonly={true}
-                onChange={() => {}}
-              ></AssertionCodeTab.Code>
-              <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-            </AssertionCodeTab>
-            <AssertionCodeTab label="factorial(-1)" success={false}>
-              <AssertionCodeTab.Code
-                src="assert factorial(-1) == 1"
-                language="python"
-                readonly={true}
-                onChange={() => {}}
-              ></AssertionCodeTab.Code>
-              <AssertionCodeTab.Output
-                objects={[{ output: 'Assertion error', type: 'error' }]}
-              ></AssertionCodeTab.Output>
-            </AssertionCodeTab>
-            <AssertionCodeTab label="factorial(3)" success>
-              <AssertionCodeTab.Code
-                src="assert factorial(3) == 6"
-                language="python"
-                readonly={true}
-                onChange={() => {}}
-              ></AssertionCodeTab.Code>
-              <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-            </AssertionCodeTab>
-            <AssertionCodeTab label="factorial(4)" success>
-              <AssertionCodeTab.Code
-                src="assert factorial(4) == 24"
-                language="python"
-                readonly={true}
-                onChange={() => {}}
-              ></AssertionCodeTab.Code>
-              <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-            </AssertionCodeTab>
-          </Coding.AssertionCode>
+              modifiedLabel="Your Code"
+              original="# Your code here
+    if n <= 0 or n == 1:
+        return 1
+    else:
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result"
+              originalLabel="Solution"
+            ></Coding.DiffCode>
+          ) : (
+            <Coding.StudentCode
+              src="# Your code here
+    if n == 0 or n == 1:
+        return 1
+    else:
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result"
+              language="python"
+              readonly={true}
+              onChange={() => {}}
+            />
+          )}
+          {(testingMode === 'tests' || testingMode === 'one-test-required') && (
+            <Coding.AssertionCode>
+              <AssertionCodeTab label="factorial(1)" success>
+                <AssertionCodeTab.Code
+                  src="assert factorial(1) == 1"
+                  language="python"
+                  readonly={true}
+                  onChange={() => {}}
+                ></AssertionCodeTab.Code>
+                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
+              </AssertionCodeTab>
+              <AssertionCodeTab label="factorial(-1)" success={false}>
+                <AssertionCodeTab.Code
+                  src="assert factorial(-1) == 1"
+                  language="python"
+                  readonly={true}
+                  onChange={() => {}}
+                ></AssertionCodeTab.Code>
+                <AssertionCodeTab.Output
+                  objects={[{ output: 'Assertion error', type: 'error' }]}
+                ></AssertionCodeTab.Output>
+              </AssertionCodeTab>
+              <AssertionCodeTab label="factorial(3)" success>
+                <AssertionCodeTab.Code
+                  src="assert factorial(3) == 6"
+                  language="python"
+                  readonly={true}
+                  onChange={() => {}}
+                ></AssertionCodeTab.Code>
+                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
+              </AssertionCodeTab>
+              <AssertionCodeTab label="factorial(4)" success>
+                <AssertionCodeTab.Code
+                  src="assert factorial(4) == 24"
+                  language="python"
+                  readonly={true}
+                  onChange={() => {}}
+                ></AssertionCodeTab.Code>
+                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
+              </AssertionCodeTab>
+            </Coding.AssertionCode>
+          )}
           <Coding.Toolbar>
-            <ToolbarButton
-              icon={checkIcon.svgstr}
-              onClick={() => {}}
-              label="Verify"
-            ></ToolbarButton>
-            <ToolbarButton
-              icon={runAllIcon.svgstr}
-              onClick={() => {}}
-              label="Run all"
-            ></ToolbarButton>
-            <ToolbarButton
-              icon={runIcon.svgstr}
-              onClick={() => {}}
-              label="Run"
-            ></ToolbarButton>
-            <ToolbarButton
-              icon={deleteIcon.svgstr}
-              onClick={() => {}}
-              label="Delete"
-            ></ToolbarButton>
+            <select
+              defaultValue={testingMode}
+              className="select text-left select-bordered w-full"
+              onChange={event => {
+                setTestingMode(event.target.value);
+              }}
+            >
+              <option value="tests" disabled={testingMode === 'tests'}>
+                Tests are active and no tests are required
+              </option>
+              <option
+                value="one-test-required"
+                disabled={testingMode === 'one-test-required'}
+              >
+                Tests are active and one test per student is required
+              </option>
+              <option value="no-tests" disabled={testingMode === 'no-tests'}>
+                Tests are deactivated
+              </option>
+            </select>
+            <ToolbarToggle
+              checked={showSolution}
+              onChange={setShowSolution}
+              label="Show Solution"
+            ></ToolbarToggle>
           </Coding.Toolbar>
         </Coding>
-        <p className="text-xs text-right mr-4">
-          Note: These buttons do not work
-        </p>
       </ContentBody>
     </Content>
   );

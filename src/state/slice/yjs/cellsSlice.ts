@@ -1,6 +1,6 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { ICell } from '../../../types';
+import { ICell, ICodeCell, IField, ITestCodeField } from '../../../types';
 import {
   AddDispatch,
   AllIdsDispatch,
@@ -70,5 +70,25 @@ const selectById = (state: RootState) =>
 export const selectCell = createSelector(
   [selectById, (_: RootState, cellId: string) => cellId],
   (byId: ByIdState<ICell>, cellId: string) => byId[cellId]
+);
+
+export const selectVerifiedTestFieldsIds = createSelector(
+  [
+    selectById,
+    (state: RootState) => state.fields.byId,
+    (_: RootState, cellId: string) => cellId,
+    (_: RootState, __: string, username: string) => username
+  ],
+  (
+    byCellId: ByIdState<ICell>,
+    byFieldId: ByIdState<IField>,
+    cellId: string,
+    username: string
+  ) =>
+    (byCellId[cellId] as ICodeCell).testingCodeIds.filter(
+      fieldId =>
+        (byFieldId[fieldId] as ITestCodeField)?.verified ||
+        byFieldId[fieldId]?.createdBy === username
+    )
 );
 export default cellsSlice.reducer;

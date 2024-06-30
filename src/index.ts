@@ -1,5 +1,4 @@
 import { ICollaborativeDrive } from '@jupyter/docprovider';
-import 'bootstrap/dist/js/bootstrap.min.js';
 import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin,
@@ -31,7 +30,6 @@ export const IPuzzleDocTracker = new Token<IWidgetTracker<PuzzleDocWidget>>(
 namespace CommandIDs {
   export const createNew = 'jupyterpuzzle:create-new-puzzle-file';
 }
-
 /**
  * Initialization data for the collab_learning_extension extension.
  */

@@ -16,6 +16,9 @@ export interface ICodeCell extends ICell {
   startingCodeId: string;
   solutionCodeId: string;
   testingCodeIds: string[];
+  metadata: {
+    testingMode: 'tests' | 'no-tests' | 'one-test-required';
+  };
   type: 'code-cell';
 }
 export interface ITextCell extends ICell {

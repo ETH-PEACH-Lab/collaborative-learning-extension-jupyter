@@ -1,5 +1,5 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
-import { ICell, IField } from '../../../types';
+import { ICell, ICodeCell, IField, ITestCodeField } from '../../../types';
 import { RootState } from '../../store';
 import { removeKernelExecutionResult } from '../app';
 import {
@@ -57,6 +57,44 @@ export const selectField = createSelector(
 export const selectFields = createSelector(
   [selectById, (_: RootState, fieldIds: string[]) => fieldIds],
   (byId: ByIdState<IField>, fieldIds: string[]) => fieldIds.map(id => byId[id])
+);
+export const selectTestFieldForUserExists = createSelector(
+  [
+    (state: RootState) => state.cells.byId,
+    selectById,
+    (_: RootState, cellId: string, __: string) => cellId,
+    (_: RootState, __: string, username: string) => username
+  ],
+  (
+    byCellId: ByIdState<ICell>,
+    byFieldId: ByIdState<IField>,
+    cellId: string,
+    username: string
+  ) =>
+    (byCellId[cellId] as ICodeCell).testingCodeIds.filter(
+      fieldId =>
+        (byFieldId[fieldId] as ITestCodeField).createdBy === username &&
+        (byFieldId[fieldId] as ITestCodeField).verified
+    ).length > 0
+);
+export const selectUnverifiedTestFieldForUserExists = createSelector(
+  [
+    (state: RootState) => state.cells.byId,
+    selectById,
+    (_: RootState, cellId: string, __: string) => cellId,
+    (_: RootState, __: string, username: string) => username
+  ],
+  (
+    byCellId: ByIdState<ICell>,
+    byFieldId: ByIdState<IField>,
+    cellId: string,
+    username: string
+  ) =>
+    (byCellId[cellId] as ICodeCell).testingCodeIds.filter(
+      fieldId =>
+        (byFieldId[fieldId] as ITestCodeField)?.createdBy === username &&
+        !(byFieldId[fieldId] as ITestCodeField)?.verified
+    ).length !== 0
 );
 export const selectStudentSolutionField = createSelector(
   [

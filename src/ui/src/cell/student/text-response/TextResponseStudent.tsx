@@ -24,16 +24,17 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
   setSubmit,
   onAnswerChanges
 }: TextResponseStudentProps) => {
-  const codeConfigOptions = options.submitted
-    ? readonlyAdjustableHeightCodeOptions
-    : adjustableHeightCodeOptions;
+  const codeConfigOptions =
+    options.submitted || options.showSolution
+      ? readonlyAdjustableHeightCodeOptions
+      : adjustableHeightCodeOptions;
   return (
     <>
       <TextResponseComponent
         exerciseObject={{
           solution: solution,
           metadata: {
-            showSolution: options.showSolution && options.submitted,
+            showSolution: options.showSolution,
             markdownEditorConfig: {
               jupyter: true,
               markdownConfig: MarkdownConfig,

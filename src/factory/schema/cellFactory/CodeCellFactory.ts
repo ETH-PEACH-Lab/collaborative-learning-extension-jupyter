@@ -16,6 +16,9 @@ export default class CodeCellFactory extends CellFactory {
     return {
       ...this._createCell(fieldCreation),
       type: 'code-cell',
+      metadata: {
+        testingMode: 'tests'
+      },
       startingCodeId: fieldCreation('code'),
       solutionCodeId: fieldCreation('code'),
       testingCodeIds: []

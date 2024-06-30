@@ -1,14 +1,16 @@
 import React from 'react';
 export type TabProps = {
-  _id?: string;
-  _index?: number;
-  _isActive?: boolean;
-  _setActiveTab?: (index: number) => void;
   children: React.ReactNode;
   label: string;
   hide?: boolean;
   className?: string;
   classNameContent?: string;
+} & TabsManageableProps;
+export type TabsManageableProps = {
+  _id?: string;
+  _index?: number;
+  _isActive?: boolean;
+  _setActiveTab?: (index: number) => void;
 };
 export const Tab: React.FC<TabProps> = (props: TabProps) => {
   return (

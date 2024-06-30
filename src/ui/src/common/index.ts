@@ -4,5 +4,6 @@ export * from './content';
 export * from './grouping';
 export * from './markdown';
 export * from './sanitize-html';
+export * from './student-selection';
 export * from './tabs';
 export * from './toolbar';

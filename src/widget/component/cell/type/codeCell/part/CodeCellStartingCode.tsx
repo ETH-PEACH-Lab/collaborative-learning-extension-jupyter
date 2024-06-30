@@ -23,7 +23,6 @@ export function CodeCellStartingCode({
   const startingCode = useSelector((state: RootState) =>
     selectField(state, (selectCell(state, cellId) as ICodeCell).startingCodeId)
   ) as ICodeField;
-
   if (startingCode === undefined) {
     return <></>;
   }
