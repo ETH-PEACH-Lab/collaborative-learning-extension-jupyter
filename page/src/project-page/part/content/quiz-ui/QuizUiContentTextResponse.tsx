@@ -13,7 +13,7 @@ export const QuizUiContentTextResponse: React.FC = () => {
   const [splitMode, setSplitMode] = useState<boolean>(false);
   return (
     <>
-      <h3 className="text-center mt-2">Text response exercise</h3>
+      <h3 className="text-center mt-4">Text response exercise</h3>
       <p>
         The text response component integrates both the Monaco code editor and a
         markdown renderer. It offers various editing modes, including
@@ -23,7 +23,7 @@ export const QuizUiContentTextResponse: React.FC = () => {
       <div className="mt-4">
         <MarkdownComponent src="**Example**: What is the importance of consistency in interface design?"></MarkdownComponent>
       </div>
-      <div className="mt-2">
+      <div className="mt-4">
         <TextResponseComponent
           initialAnswer={{ answer: { src: answer } }}
           onAnswerChanges={(answer: ITextResponseAnswer) =>
@@ -31,23 +31,16 @@ export const QuizUiContentTextResponse: React.FC = () => {
           }
           exerciseObject={{
             metadata: {
-              showSolution: showSolution,
               markdownEditorConfig: {
                 jupyter: jupyter,
                 tabs: tabs,
                 alignVertical: splitMode
               }
-            },
-            solution:
-              'Consistency in interface design is crucial because it helps users develop a ' +
-              'predictable mental model of how the system works, reducing the learning curve and minimizing errors. ' +
-              'When design elements such as buttons, icons, and navigation patterns are consistent across the interface, ' +
-              'users can easily transfer their knowledge from one part of the system to another, leading to a more intuitive ' +
-              'and efficient user experience.'
+            }
           }}
         ></TextResponseComponent>
       </div>
-      <div className="flex justify-end gap-2 mt-2">
+      <div className="flex justify-end gap-2 mt-4">
         <select
           defaultValue={'jupyter'}
           className="select text-left select-bordered"

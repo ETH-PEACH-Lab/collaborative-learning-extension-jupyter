@@ -7,5 +7,5 @@ import {
 export const AssertionCodeOutput: React.FC<KernelOutputContainerProps> = (
   props: KernelOutputContainerProps
 ) => {
-  return <KernelOutputContainer {...props} className="ml-9 mt-2" />;
+  return <KernelOutputContainer {...props} className="ml-9 mt-4" />;
 };

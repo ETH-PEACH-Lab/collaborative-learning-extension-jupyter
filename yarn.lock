@@ -8077,7 +8077,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-json-view-lite: ^1.4.0
-    react-quiz-ui: ^0.3.9
+    react-quiz-ui: ^0.4.0
     react-redux: ^9.1.2
     rehype-mathjax: ^6.0.0
     remark-math: ^6.0.0
@@ -16139,9 +16139,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-quiz-ui@npm:^0.3.9":
-  version: 0.3.9
-  resolution: "react-quiz-ui@npm:0.3.9"
+"react-quiz-ui@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "react-quiz-ui@npm:0.4.0"
   dependencies:
     "@monaco-editor/react": ^4.6.0
     monaco-editor: ^0.47.0
@@ -16152,7 +16152,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.4.5
-  checksum: 84cdc760c60b1c21386a013b9a4423494c4c76a2da4254ff720bd607c09ca684f99e96eaac4b161007e0d790aa3d88e8be9c493bfbce9326bce124b747fb891a
+  checksum: f2ab39a73ff059c3ab637cee8bd2c6ac354e965fc46716b095e754af07db2aea45f0bd5fcd4576e0cc62da9820dd34fe32abea35e7564fa33f65dfad8a47efe4
   languageName: node
   linkType: hard
 

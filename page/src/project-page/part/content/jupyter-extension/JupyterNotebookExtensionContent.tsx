@@ -14,8 +14,8 @@ export const JupyterNotebookExtensionContent: React.FC = () => {
         the students.
       </p>
       <MultipleChoiceExample />
-      <h3 className="text-center mt-2">Live Peer Testing</h3>
-      <p className=" mt-2">
+      <h3 className="text-center mt-4">Live Peer Testing</h3>
+      <p className=" mt-4">
         Live Peer Testing is an approach that allows students and instructors to
         collaboratively write and share tests in real time to assess the
         correctness of the code. Students can easily add and customize test

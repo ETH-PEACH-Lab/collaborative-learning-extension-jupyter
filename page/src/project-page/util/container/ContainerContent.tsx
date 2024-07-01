@@ -5,5 +5,5 @@ export type ContainerContentProps = {
 export const ContainerContent: React.FC<ContainerContentProps> = ({
   children
 }: ContainerContentProps) => {
-  return <div className="mt-2 text-left">{children}</div>;
+  return <div className="mt-4 text-left">{children}</div>;
 };

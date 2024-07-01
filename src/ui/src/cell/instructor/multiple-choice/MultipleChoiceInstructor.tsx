@@ -12,7 +12,7 @@ export const MultipleChoiceInstructor: React.FC<
   return (
     <>
       {children}
-      <RightAlignedToolbar className="mt-2">
+      <RightAlignedToolbar className="mt-4">
         <BaseButton icon={addIcon.svgstr} onClick={addMultipleChoiceOption} />
       </RightAlignedToolbar>
     </>

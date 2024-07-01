@@ -1,6 +1,7 @@
 export * from './button';
 export * from './code';
 export * from './content';
+export * from './feedback';
 export * from './grouping';
 export * from './markdown';
 export * from './sanitize-html';

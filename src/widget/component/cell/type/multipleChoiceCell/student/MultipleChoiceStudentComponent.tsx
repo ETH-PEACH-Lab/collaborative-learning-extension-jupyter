@@ -44,13 +44,14 @@ export const MultipleChoiceStudentComponent = (
   ) as IMultipleChoiceItem[];
 
   const studentSolutionDistribution = items.map(option => {
+    const filteredStudentSolutions = studentSolutions.filter(
+      solution => solution.src.length > 0 && solution.src.includes(option.id)
+    );
     return (
-      (100 *
-        studentSolutions.filter(
-          solution =>
-            solution.src.length > 0 && solution.src.includes(option.id)
-        ).length) /
-      (studentSolutions.length === 0 ? 1 : studentSolutions.length)
+      (100 * filteredStudentSolutions.length) /
+      (filteredStudentSolutions.length === 0
+        ? 1
+        : filteredStudentSolutions.length)
     );
   });
 

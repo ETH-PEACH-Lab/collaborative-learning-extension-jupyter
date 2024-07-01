@@ -8,8 +8,9 @@ import {
   selectTestFieldForUserExists
 } from '../../../../../../state/slice/yjs/fieldSlice';
 import { DocModelContext, IDocModelContext } from '../../../../../context';
-import { Coding } from '../../../../../../ui';
+import { Coding, Feedback } from '../../../../../../ui';
 import { selectCell } from '../../../../../../state';
+import { InstructorComment } from '../../../../../../ui/src/common/feedback/InstructorComment';
 type CodeCellStudentCodeProps = {
   cellId: string;
   isInstructor: boolean;
@@ -56,22 +57,23 @@ export function CodeCellStudentCode({
       {metadata.testingMode === 'one-test-required' &&
       !testFieldForStudentExists &&
       !showSolution ? (
-        <div className="alert rounded-none border border-[#AAA]">
-          Please provide a verified test first before continuing coding
-        </div>
+        <Feedback feedbackAsMarkdown="Please provide a verified test first before continuing coding" />
       ) : (
         <></>
       )}
       {showSolution ? (
-        <div className="pl-4">
-          <Coding.DiffCode
-            originalLabel="Solution"
-            modifiedLabel="Your Code"
-            language={studentCode.language}
-            original={solutionField.src}
-            modified={studentCode.src}
-          />
-        </div>
+        <>
+          <div className="pl-4">
+            <Coding.DiffCode
+              originalLabel="Solution"
+              modifiedLabel="Your Code"
+              language={studentCode.language}
+              original={solutionField.src}
+              modified={studentCode.src}
+            />
+          </div>
+          <InstructorComment comment={studentCode.comment} />
+        </>
       ) : (
         <>
           {testFieldForStudentExists ? (

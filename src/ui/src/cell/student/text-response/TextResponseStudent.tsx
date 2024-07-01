@@ -5,7 +5,8 @@ import {
   adjustableHeightCodeOptions,
   readonlyAdjustableHeightCodeOptions
 } from 'react-quiz-ui';
-import { MarkdownConfig, SubmitButton } from '../../../common';
+import { Feedback, MarkdownConfig, SubmitButton } from '../../../common';
+import { InstructorComment } from '../../../common/feedback/InstructorComment';
 type TextResponseStudentProps = {
   options: {
     showSolution?: boolean;
@@ -13,6 +14,7 @@ type TextResponseStudentProps = {
   };
   answer: string;
   solution: string;
+  comment?: string;
 
   onAnswerChanges: (answer: ITextResponseAnswer) => void;
   setSubmit: (submitted: boolean) => void;
@@ -20,6 +22,7 @@ type TextResponseStudentProps = {
 export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
   options,
   answer,
+  comment,
   solution,
   setSubmit,
   onAnswerChanges
@@ -32,9 +35,7 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
     <>
       <TextResponseComponent
         exerciseObject={{
-          solution: solution,
           metadata: {
-            showSolution: options.showSolution,
             markdownEditorConfig: {
               jupyter: true,
               markdownConfig: MarkdownConfig,
@@ -45,8 +46,15 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
         initialAnswer={{ answer: { src: answer } }}
         onAnswerChanges={onAnswerChanges}
       ></TextResponseComponent>
+      {options.showSolution && (
+        <Feedback
+          feedbackAsMarkdown={'Solution: ' + solution}
+          className="mt-4"
+        />
+      )}
+      {options.showSolution && <InstructorComment comment={comment} />}
       <SubmitButton
-        className="mt-2"
+        className="mt-4"
         finalized={options.showSolution}
         showBadgeOnSubmitted={true}
         submitted={options.submitted}

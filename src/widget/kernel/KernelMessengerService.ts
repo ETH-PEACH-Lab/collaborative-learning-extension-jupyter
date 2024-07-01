@@ -143,7 +143,20 @@ export class KernelMessengerService {
             referenceId: execution.assertionCodeId,
             outputs: [
               this._executionOutputHelper.onError(
-                'No asserts were found in the test code'
+                'No asserts were found in the assertion code'
+              )
+            ]
+          })
+        );
+        return resolve(false);
+      }
+      if (!this._isMeaningfulAssertion(src)) {
+        store.dispatch(
+          setKernelExecutionResult({
+            referenceId: execution.assertionCodeId,
+            outputs: [
+              this._executionOutputHelper.onError(
+                'The assertion code contains a meaningless assertion'
               )
             ]
           })
@@ -178,6 +191,47 @@ export class KernelMessengerService {
       };
     });
   }
+  private _isMeaningfulAssertion(assertion: string) {
+    if (
+      assertion.includes('==') ||
+      assertion.includes('!=') ||
+      assertion.includes('>=') ||
+      assertion.includes('<=') ||
+      assertion.includes('>') ||
+      assertion.includes('<')
+    ) {
+      const assertRegex = /assert\s+[^;]+/g;
+      const matches = assertion.match(assertRegex) ?? [];
+      for (let i = 0; i < matches.length; i++) {
+        const parts = matches[i].split(/==|!=|>=|<=|>|</);
+        const leftPart = parts[0]
+          .replace('assert', '')
+          .replace(/^["'](.+(?=["']$))["']$/, '"')
+          .trim();
+        const rightPart = parts[1]
+          .replace(/^["'](.+(?=["']$))["']$/, '"')
+          .trim();
+        try {
+          const leftPartValue = eval(leftPart);
+          const rightPartValue = eval(rightPart);
+          if (leftPartValue === rightPartValue) {
+            return false;
+          }
+        } catch {
+          if (leftPart === rightPart) {
+            return false;
+          }
+        }
+        if (leftPart === 'None' || rightPart === 'None') {
+          return false;
+        }
+
+        return true;
+      }
+    }
+    return true;
+  }
+
   private _extractSrc(execution: IKernelExecution): string {
     const codeCell = store.getState().cells.byId[execution.cellId] as ICodeCell;
     const fields: ICodeField[] = [];

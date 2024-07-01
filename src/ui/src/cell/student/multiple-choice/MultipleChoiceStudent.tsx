@@ -51,7 +51,7 @@ export const MultipleChoiceStudent: React.FC<MultipleChoiceStudentProps> = ({
         initialAnswer={{ answer: answer }}
       ></MultipleChoiceComponent>
       <SubmitButton
-        className="mt-2"
+        className="mt-4"
         finalized={options.showSolution}
         showBadgeOnSubmitted={true}
         submitted={options.submitted}

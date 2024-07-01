@@ -12,7 +12,7 @@ export const Content: React.FC<CellProps> = ({
   return (
     <div
       className={
-        'relative transition-all ease-in-out duration-300 group mt-2 ' +
+        'relative transition-all ease-in-out duration-300 group mt-4 ' +
         className +
         (borderOnHover
           ? ' focus-within:border-solid hover:border-solid hover:focus-within:border-base-300 focus-within:border-base-300 ' +

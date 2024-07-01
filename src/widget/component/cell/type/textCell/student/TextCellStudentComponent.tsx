@@ -45,18 +45,21 @@ const TextCellStudentComponent = (props: TextCellStudentComponentProps) => {
     return <></>;
   }
   return (
-    <TextResponseStudent
-      answer={studentSolution.src}
-      onAnswerChanges={setStudentSolution}
-      options={{
-        showSolution: showSolution,
-        submitted: studentSolution.submitted
-      }}
-      setSubmit={(submitted: boolean) =>
-        changeField({ ...studentSolution, submitted })
-      }
-      solution={solutionField.src}
-    ></TextResponseStudent>
+    <>
+      <TextResponseStudent
+        answer={studentSolution.src}
+        onAnswerChanges={setStudentSolution}
+        options={{
+          showSolution: showSolution,
+          submitted: studentSolution.submitted
+        }}
+        setSubmit={(submitted: boolean) =>
+          changeField({ ...studentSolution, submitted })
+        }
+        comment={studentSolution.comment}
+        solution={solutionField.src}
+      ></TextResponseStudent>
+    </>
   );
 };
 

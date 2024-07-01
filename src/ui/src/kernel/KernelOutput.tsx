@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { JsonView, defaultStyles } from 'react-json-view-lite';
-import { SanitizeHTML } from '../common';
+import { Feedback, SanitizeHTML } from '../common';
 import { KernelOutputObject } from './type/KernelOutputObject';
 
 const OutputComponents: {
@@ -27,12 +27,10 @@ const OutputComponents: {
     </div>
   ),
   default: ({ output }) => (
-    <div
-      className="alert alert-base-200 rounded-none border border-[#d6d8db]"
-      style={{ whiteSpace: 'pre-wrap' }}
-    >
-      {output as string}
-    </div>
+    <Feedback
+      feedbackAsMarkdown={output as string}
+      className="whitespace-pre-wrap"
+    />
   )
 };
 type KernelOutputProps = {
