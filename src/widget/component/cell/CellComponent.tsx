@@ -23,7 +23,7 @@ export function CellComponent(props: CellComponentProps) {
     (state: RootState) => selectCell(state, props.cellId).type
   );
   const cellVisibility = useSelector(
-    (state: RootState) => selectCell(state, props.cellId).visible
+    (state: RootState) => selectCell(state, props.cellId).metadata.visible
   );
   const isInstructor = useSelector((state: RootState) =>
     selectGroups(state)

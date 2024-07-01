@@ -11,13 +11,17 @@ export default class MultipleChoiceCellFactory extends CellFactory {
   public createSpecific(
     fieldCreation: (type: FieldType) => string
   ): IMultipleChoiceCell {
+    const temp = this._createCell(fieldCreation);
     return {
-      ...this._createCell(fieldCreation),
+      ...temp,
       type: 'multiple-choice-cell',
       solutionOptions: [],
       options: [],
-      multi: false,
-      random: false
+      metadata: {
+        ...temp.metadata,
+        multi: false,
+        random: false
+      }
     };
   }
 }

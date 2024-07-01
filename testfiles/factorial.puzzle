@@ -1,17 +1,39 @@
 {
   "cells": {
-    "allIds": [
-      "51c3d333-505d-42b3-b4df-d2e88d7756ed",
-      "6637b553-e305-4cc6-a670-89c21716aa80",
-      "1fa4a887-9c8a-4920-8cbd-25044fb05d97"
-    ],
     "byId": {
+      "6637b553-e305-4cc6-a670-89c21716aa80": {
+        "id": "6637b553-e305-4cc6-a670-89c21716aa80",
+        "options": [
+          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6",
+          "dcd8596e-2777-461d-9597-5ff738feb737",
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ],
+        "studentSolutionIds": [
+          "ae1c8882-497c-4f7a-9491-c4154c714dfd",
+          "0a030a59-a04a-4d56-b0ef-81daddae77b5",
+          "95a7501b-6f63-4489-99c5-b06e4d3529e4",
+          "aa7fd629-2b3f-4305-955d-9d6f3e16209c"
+        ],
+        "descriptionId": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4",
+        "documentId": "09b4994d-801e-489e-9f58-e6dca4401d44",
+        "metadata": {
+          "visible": true,
+          "random": false,
+          "multi": false,
+          "showSolution": false
+        },
+        "type": "multiple-choice-cell",
+        "solutionOptions": [
+          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
+        ]
+      },
       "1fa4a887-9c8a-4920-8cbd-25044fb05d97": {
-        "showSolution": true,
-        "id": "1fa4a887-9c8a-4920-8cbd-25044fb05d97",
-        "visible": true,
-        "documentId": "ca51dead-e994-4763-aba2-d041929fc309",
         "descriptionId": "90a292c2-d270-4eaa-aa00-e63ef5f96149",
+        "id": "1fa4a887-9c8a-4920-8cbd-25044fb05d97",
+        "metadata": {
+          "showSolution": false,
+          "visible": true
+        },
         "studentSolutionIds": [
           "2573a988-2200-4c69-8a92-8dd6a70753c1",
           "734978b4-1def-4de9-8909-6616ab2ff21f",
@@ -24,13 +46,21 @@
           "b3e4c435-ce2a-46ef-914a-1775bb583dff",
           "d2c67a46-3550-4007-a89e-44497cc185fc"
         ],
+        "type": "text-cell",
         "solutionId": "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00",
-        "type": "text-cell"
+        "documentId": "a71ed913-9204-4e41-b24c-75663fe4c7da"
       },
       "51c3d333-505d-42b3-b4df-d2e88d7756ed": {
-        "documentId": "99163812-345d-4f9e-a7e1-e5c925297a63",
-        "type": "code-cell",
-        "showSolution": false,
+        "startingCodeId": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
+        "descriptionId": "064fa4e4-338c-40b9-b39f-2e04da03f2c4",
+        "id": "51c3d333-505d-42b3-b4df-d2e88d7756ed",
+        "testingCodeIds": [
+          "ce32a577-db8d-47e1-86d5-babaa21d4d2d",
+          "bb87559e-3c1d-4416-93e5-f2c75d1341aa",
+          "9c9389e9-fa48-48e4-af8a-7f2a26439cae",
+          "2bb28441-426a-4021-815f-b0922c2b5cc4"
+        ],
+        "solutionCodeId": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
         "studentSolutionIds": [
           "82caec78-ae23-46e3-a62c-0f27f9af6579",
           "27cc648b-ddc0-465f-8cb2-d86435ade87b",
@@ -42,49 +72,20 @@
           "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12",
           "dd246c1d-3b0f-4f65-b068-020d564616be"
         ],
-        "startingCodeId": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
-        "id": "51c3d333-505d-42b3-b4df-d2e88d7756ed",
-        "visible": true,
-        "descriptionId": "064fa4e4-338c-40b9-b39f-2e04da03f2c4",
+        "type": "code-cell",
+        "documentId": "ea608245-d8b2-40bd-b277-ed70a0559e44",
         "metadata": {
-          "testingMode": "one-test-required"
-        },
-        "solutionCodeId": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
-        "testingCodeIds": [
-          "ce32a577-db8d-47e1-86d5-babaa21d4d2d",
-          "bb87559e-3c1d-4416-93e5-f2c75d1341aa",
-          "9c9389e9-fa48-48e4-af8a-7f2a26439cae",
-          "2bb28441-426a-4021-815f-b0922c2b5cc4"
-        ]
-      },
-      "6637b553-e305-4cc6-a670-89c21716aa80": {
-        "visible": true,
-        "randomOrder": false,
-        "showEvaluation": true,
-        "id": "6637b553-e305-4cc6-a670-89c21716aa80",
-        "options": [
-          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6",
-          "dcd8596e-2777-461d-9597-5ff738feb737",
-          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-        ],
-        "descriptionId": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4",
-        "documentId": "dd365b5e-7f8c-4515-b80d-ce0fe3a898e5",
-        "multi": false,
-        "solutionOptions": [
-          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
-        ],
-        "studentSolutionIds": [
-          "ae1c8882-497c-4f7a-9491-c4154c714dfd",
-          "0a030a59-a04a-4d56-b0ef-81daddae77b5",
-          "95a7501b-6f63-4489-99c5-b06e4d3529e4",
-          "aa7fd629-2b3f-4305-955d-9d6f3e16209c"
-        ],
-        "parentId": false,
-        "random": false,
-        "type": "multiple-choice-cell",
-        "showSolution": true
+          "testingMode": "one-test-required",
+          "visible": true,
+          "showSolution": true
+        }
       }
-    }
+    },
+    "allIds": [
+      "51c3d333-505d-42b3-b4df-d2e88d7756ed",
+      "6637b553-e305-4cc6-a670-89c21716aa80",
+      "1fa4a887-9c8a-4920-8cbd-25044fb05d97"
+    ]
   },
   "fields": {
     "allIds": [
@@ -125,515 +126,515 @@
       "2bb28441-426a-4021-815f-b0922c2b5cc4"
     ],
     "byId": {
-      "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d": {
-        "comment": "",
-        "id": "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d",
-        "createdBy": "e44934b9abd546b78b41908a05e135f2",
-        "src": "",
-        "grade": -1.0,
-        "submitted": false,
-        "language": "python",
-        "type": "code-solution"
-      },
-      "0d44f4f9-dd35-4c40-a36d-31e3d8093064": {
-        "grade": -1.0,
-        "type": "code-solution",
-        "language": "python",
-        "id": "0d44f4f9-dd35-4c40-a36d-31e3d8093064",
-        "comment": "",
-        "src": "",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "submitted": false
-      },
-      "ce32a577-db8d-47e1-86d5-babaa21d4d2d": {
-        "name": "factorial(2)",
-        "type": "test-code",
-        "verified": true,
-        "src": "assert factorial(2) == 2",
-        "id": "ce32a577-db8d-47e1-86d5-babaa21d4d2d",
-        "createdBy": "06357e968abf495f9679abaadf966701",
-        "language": "python"
-      },
-      "ae1c8882-497c-4f7a-9491-c4154c714dfd": {
-        "createdBy": "06357e968abf495f9679abaadf966701",
-        "submitted": true,
-        "comment": "",
-        "grade": -1.0,
-        "src": [
-          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-        ],
-        "id": "ae1c8882-497c-4f7a-9491-c4154c714dfd",
-        "type": "multiple-choice-solution"
-      },
-      "32571122-15bd-4858-86fe-3303404406a6": {
-        "language": "python",
-        "type": "code-solution",
-        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
-        "src": "",
-        "grade": -1.0,
-        "comment": "",
-        "submitted": false,
-        "id": "32571122-15bd-4858-86fe-3303404406a6"
-      },
-      "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12": {
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "id": "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12",
-        "src": "    if (n == 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
-        "comment": "",
-        "language": "python",
-        "grade": -1.0,
-        "type": "code-solution",
-        "submitted": false
-      },
-      "aa7fd629-2b3f-4305-955d-9d6f3e16209c": {
-        "src": [],
-        "id": "aa7fd629-2b3f-4305-955d-9d6f3e16209c",
-        "grade": -1.0,
-        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
-        "type": "multiple-choice-solution",
-        "comment": "",
-        "submitted": false
-      },
-      "d6c90312-23ff-4ebe-9954-0b9dfe220691": {
-        "id": "d6c90312-23ff-4ebe-9954-0b9dfe220691",
-        "src": "",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "grade": -1.0,
-        "type": "text-solution",
-        "submitted": false,
-        "comment": ""
-      },
-      "4954e6c7-078d-436c-bf60-71e44c1602e9": {
-        "type": "multiple-choice-solution",
-        "createdBy": "06357e968abf495f9679abaadf966701",
-        "grade": -1.0,
-        "comment": "",
-        "id": "4954e6c7-078d-436c-bf60-71e44c1602e9",
-        "src": [
-          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-        ],
-        "submitted": false
-      },
-      "ca7aa775-c1c2-45c5-b81e-de5178e68fb4": {
-        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
-        "grade": -1.0,
-        "submitted": false,
-        "src": "",
-        "id": "ca7aa775-c1c2-45c5-b81e-de5178e68fb4",
-        "type": "code-solution",
-        "language": "python",
-        "comment": ""
-      },
-      "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d": {
-        "language": "python",
-        "id": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
-        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\"",
-        "type": "code"
-      },
-      "0e38258c-6bbf-49b6-8c91-f744643fcc8f": {
-        "comment": "",
-        "src": "",
-        "language": "python",
-        "submitted": true,
-        "grade": -1.0,
-        "type": "code-solution",
-        "id": "0e38258c-6bbf-49b6-8c91-f744643fcc8f",
-        "createdBy": "06357e968abf495f9679abaadf966701"
-      },
-      "e82f1132-bc79-4090-9173-09af4dd3d566": {
-        "type": "code-solution",
-        "submitted": false,
-        "comment": "",
-        "language": "python",
-        "src": "",
-        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
-        "grade": -1.0,
-        "id": "e82f1132-bc79-4090-9173-09af4dd3d566"
-      },
-      "82caec78-ae23-46e3-a62c-0f27f9af6579": {
-        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
-        "submitted": false,
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "language": "python",
-        "type": "code-solution",
-        "comment": "Looks good to me. ",
-        "id": "82caec78-ae23-46e3-a62c-0f27f9af6579",
-        "grade": -1.0
-      },
-      "82b51f5f-7811-4ca4-93b8-e9f61afe5855": {
-        "grade": -1.0,
-        "id": "82b51f5f-7811-4ca4-93b8-e9f61afe5855",
-        "language": "python",
-        "type": "code-solution",
-        "comment": "",
-        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
-        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
-        "submitted": false
-      },
-      "55a1c286-cc9a-4256-a869-a612ab45a594": {
-        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
-        "src": "",
-        "id": "55a1c286-cc9a-4256-a869-a612ab45a594",
-        "comment": "",
-        "grade": -1.0,
-        "submitted": false,
-        "type": "text-solution"
-      },
-      "37c0e430-bfd9-49de-8319-cc9d9ad19cf5": {
-        "grade": -1.0,
-        "submitted": false,
-        "src": "sdad",
-        "comment": "",
-        "id": "37c0e430-bfd9-49de-8319-cc9d9ad19cf5",
-        "type": "text-solution",
-        "createdBy": "06357e968abf495f9679abaadf966701"
-      },
-      "73092a3b-6ff9-457f-9e93-3e676d0996fb": {
-        "type": "multiple-choice-solution",
-        "comment": "",
-        "submitted": false,
-        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
-        "src": [],
-        "id": "73092a3b-6ff9-457f-9e93-3e676d0996fb",
-        "grade": -1.0
-      },
-      "27cc648b-ddc0-465f-8cb2-d86435ade87b": {
-        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
-        "comment": "",
-        "id": "27cc648b-ddc0-465f-8cb2-d86435ade87b",
-        "grade": -1.0,
-        "language": "python",
-        "src": "",
-        "type": "code-solution",
-        "submitted": false
-      },
-      "aef6080e-2b13-4573-9122-a5a6e9c771bd": {
-        "comment": "",
-        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
-        "type": "code-solution",
-        "src": "",
-        "id": "aef6080e-2b13-4573-9122-a5a6e9c771bd",
-        "language": "python",
-        "grade": -1.0,
-        "submitted": false
-      },
-      "7f01c784-6c56-4730-94cc-5597b549c6f7": {
-        "submitted": false,
-        "type": "multiple-choice-solution",
-        "grade": -1.0,
-        "src": [],
-        "id": "7f01c784-6c56-4730-94cc-5597b549c6f7",
-        "createdBy": "e44934b9abd546b78b41908a05e135f2",
-        "comment": ""
-      },
-      "b168083d-efe3-4e92-aba0-38167d55079b": {
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "id": "b168083d-efe3-4e92-aba0-38167d55079b",
-        "src": [],
-        "submitted": false,
-        "type": "multiple-choice-solution",
-        "grade": -1.0,
-        "comment": ""
-      },
-      "c4684fb1-dc53-46f5-b0e9-b84d9a7bf684": {
-        "type": "multiple-choice-solution",
-        "submitted": false,
-        "comment": "",
-        "src": [
-          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-        ],
-        "id": "c4684fb1-dc53-46f5-b0e9-b84d9a7bf684",
-        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
-        "grade": -1.0
-      },
-      "7614f829-8cad-4fac-9e37-480814844c4b": {
-        "src": [
-          "dcd8596e-2777-461d-9597-5ff738feb737"
-        ],
-        "id": "7614f829-8cad-4fac-9e37-480814844c4b",
-        "grade": -1.0,
-        "comment": "",
-        "submitted": true,
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "type": "multiple-choice-solution"
-      },
-      "e0aa62d4-7f62-49f7-b78b-565326aad40b": {
-        "id": "e0aa62d4-7f62-49f7-b78b-565326aad40b",
-        "src": "",
-        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
-        "type": "text-solution",
-        "grade": -1.0,
-        "comment": "",
-        "submitted": false
-      },
-      "26886c96-25af-4afd-8937-c9c1e9a39f09": {
-        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
-        "submitted": true,
-        "src": "test",
-        "grade": -1.0,
-        "comment": "",
-        "id": "26886c96-25af-4afd-8937-c9c1e9a39f09",
-        "type": "text-solution"
-      },
-      "20915ede-b1ce-4d0f-bdc5-2ac973049219": {
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "src": "$a*b*x + b*x +c = 0$",
-        "id": "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-      },
-      "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d": {
-        "language": "python",
-        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
-        "submitted": false,
-        "comment": "",
-        "id": "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d",
-        "src": "",
-        "type": "code-solution",
-        "grade": -1.0
-      },
-      "0794146c-8b57-482b-b0a2-5baa812ec849": {
-        "src": "",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "type": "test-code",
-        "language": "python",
-        "verified": false,
-        "id": "0794146c-8b57-482b-b0a2-5baa812ec849",
-        "name": ""
-      },
-      "0a030a59-a04a-4d56-b0ef-81daddae77b5": {
-        "type": "multiple-choice-solution",
-        "submitted": true,
-        "id": "0a030a59-a04a-4d56-b0ef-81daddae77b5",
-        "comment": "",
-        "src": [
-          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
-        ],
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "grade": -1.0
-      },
-      "ff1eda50-3094-47a4-b450-49da5e519992": {
-        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
-        "comment": "",
-        "src": [
-          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
-        ],
-        "submitted": false,
-        "id": "ff1eda50-3094-47a4-b450-49da5e519992",
-        "grade": -1.0,
-        "type": "multiple-choice-solution"
-      },
-      "333f30b3-c134-4b1e-a261-e30bada51b81": {
-        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
-        "id": "333f30b3-c134-4b1e-a261-e30bada51b81",
-        "submitted": true,
-        "src": [
-          "dcd8596e-2777-461d-9597-5ff738feb737"
-        ],
-        "type": "multiple-choice-solution",
-        "comment": "",
-        "grade": -1.0
-      },
-      "dcd8596e-2777-461d-9597-5ff738feb737": {
-        "src": "$a*x^2+b*x+c = 0$",
-        "id": "dcd8596e-2777-461d-9597-5ff738feb737",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab"
-      },
-      "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2": {
-        "src": "",
-        "verified": false,
-        "type": "test-code",
-        "language": "python",
-        "name": "",
-        "id": "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2",
-        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516"
-      },
-      "0722bd18-ebc9-4829-8749-a43feeb51566": {
-        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
-        "comment": "",
-        "id": "0722bd18-ebc9-4829-8749-a43feeb51566",
-        "src": [],
-        "submitted": false,
-        "grade": -1.0,
-        "type": "multiple-choice-solution"
-      },
-      "9c6039db-5d0b-4c98-9e0b-bf8af921c86b": {
-        "comment": "",
-        "createdBy": "e44934b9abd546b78b41908a05e135f2",
-        "grade": -1.0,
-        "submitted": false,
-        "src": "dssddssdssdadsd",
-        "type": "text-solution",
-        "id": "9c6039db-5d0b-4c98-9e0b-bf8af921c86b"
-      },
       "dd246c1d-3b0f-4f65-b068-020d564616be": {
-        "submitted": true,
-        "grade": -1.0,
-        "src": "return n",
-        "type": "code-solution",
-        "language": "python",
         "comment": "that is not correct! ",
         "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
-        "id": "dd246c1d-3b0f-4f65-b068-020d564616be"
-      },
-      "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00": {
-        "type": "markdown",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "src": "The **R\u00fctli Oath** is the legendary oath taken at the foundation of the Old Swiss Confederacy (traditionally dated to _1307_) by the representatives of the three founding cantons, Uri, Schwyz and Unterwalden, It is named after the site of the oath taking, the R\u00fctli, a meadow above Lake Uri near Seelisberg",
-        "id": "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00"
-      },
-      "9c9389e9-fa48-48e4-af8a-7f2a26439cae": {
-        "verified": true,
-        "id": "9c9389e9-fa48-48e4-af8a-7f2a26439cae",
-        "src": "assert 'test' == \"test\"",
-        "type": "test-code",
+        "id": "dd246c1d-3b0f-4f65-b068-020d564616be",
         "language": "python",
-        "name": "saddd",
-        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7"
-      },
-      "2bb28441-426a-4021-815f-b0922c2b5cc4": {
-        "language": "python",
-        "verified": false,
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "id": "2bb28441-426a-4021-815f-b0922c2b5cc4",
-        "name": "test",
-        "src": "assert 2 == 2",
-        "type": "test-code"
-      },
-      "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f": {
-        "language": "python",
-        "id": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
-        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
-        "type": "code"
-      },
-      "90a292c2-d270-4eaa-aa00-e63ef5f96149": {
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "src": "## History of Switzerland\r\nWhat is the R\u00fctli Oath?",
-        "type": "markdown",
-        "id": "90a292c2-d270-4eaa-aa00-e63ef5f96149"
-      },
-      "2573a988-2200-4c69-8a92-8dd6a70753c1": {
-        "comment": "Your Submission looks good! Thanks for participating!",
-        "type": "text-solution",
-        "src": "## R\u00fctli Oath ",
+        "grade": -1.0,
         "submitted": true,
-        "id": "2573a988-2200-4c69-8a92-8dd6a70753c1",
-        "grade": -1.0,
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab"
-      },
-      "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf": {
-        "id": "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf",
-        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
-        "type": "text-solution",
-        "comment": "",
-        "submitted": false,
-        "grade": -1.0,
-        "src": ""
-      },
-      "d2c67a46-3550-4007-a89e-44497cc185fc": {
-        "type": "text-solution",
-        "src": "test",
-        "grade": -1.0,
-        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
-        "submitted": true,
-        "comment": "interesting",
-        "id": "d2c67a46-3550-4007-a89e-44497cc185fc"
-      },
-      "829849e5-75aa-408c-9ed8-91fa775564f4": {
-        "verified": false,
-        "language": "python",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "type": "test-code",
-        "id": "829849e5-75aa-408c-9ed8-91fa775564f4",
-        "src": "",
-        "name": ""
-      },
-      "b3e4c435-ce2a-46ef-914a-1775bb583dff": {
-        "type": "text-solution",
-        "src": "dssaddsddadedsadsdsdadadadasdsdasddasddsaasadasddsdaddaddasds",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "grade": -1.0,
-        "id": "b3e4c435-ce2a-46ef-914a-1775bb583dff",
-        "submitted": true,
-        "comment": ""
-      },
-      "dcb5f760-45a6-4a85-9e27-c776a5a5ece4": {
-        "type": "markdown",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "id": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4",
-        "src": "## Quadratic equation\r\nSelect the correct formulas"
-      },
-      "c8d3d7de-3935-4051-9ac8-20f9998b0f25": {
-        "src": "",
-        "id": "c8d3d7de-3935-4051-9ac8-20f9998b0f25",
-        "createdBy": "06357e968abf495f9679abaadf966701",
-        "type": "test-code",
-        "name": "",
-        "verified": false,
-        "language": "python"
-      },
-      "95a7501b-6f63-4489-99c5-b06e4d3529e4": {
-        "grade": -1.0,
-        "submitted": false,
-        "createdBy": "e44934b9abd546b78b41908a05e135f2",
-        "comment": "",
-        "id": "95a7501b-6f63-4489-99c5-b06e4d3529e4",
-        "src": [],
-        "type": "multiple-choice-solution"
-      },
-      "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6": {
-        "src": "$a^2*x+b*x+c = 0$",
-        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
-        "id": "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
+        "src": "return n",
+        "type": "code-solution"
       },
       "734978b4-1def-4de9-8909-6616ab2ff21f": {
-        "id": "734978b4-1def-4de9-8909-6616ab2ff21f",
         "submitted": false,
         "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
         "type": "text-solution",
         "src": "",
         "comment": "Your Solution looks nice",
+        "id": "734978b4-1def-4de9-8909-6616ab2ff21f",
         "grade": -1.0
       },
-      "bb87559e-3c1d-4416-93e5-f2c75d1341aa": {
+      "95a7501b-6f63-4489-99c5-b06e4d3529e4": {
+        "id": "95a7501b-6f63-4489-99c5-b06e4d3529e4",
+        "createdBy": "e44934b9abd546b78b41908a05e135f2",
+        "submitted": false,
+        "src": [],
+        "comment": "",
+        "grade": -1.0,
+        "type": "multiple-choice-solution"
+      },
+      "27cc648b-ddc0-465f-8cb2-d86435ade87b": {
+        "src": "",
+        "type": "code-solution",
+        "grade": -1.0,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "comment": "",
         "language": "python",
-        "type": "test-code",
-        "src": "assert '1' == \"1\"",
+        "id": "27cc648b-ddc0-465f-8cb2-d86435ade87b",
+        "submitted": false
+      },
+      "bb87559e-3c1d-4416-93e5-f2c75d1341aa": {
         "name": "dads",
-        "verified": true,
         "id": "bb87559e-3c1d-4416-93e5-f2c75d1341aa",
-        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7"
+        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
+        "language": "python",
+        "src": "assert '1' == \"1\"",
+        "verified": true,
+        "type": "test-code"
+      },
+      "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6": {
+        "id": "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "$a^2*x+b*x+c = 0$"
+      },
+      "d6c90312-23ff-4ebe-9954-0b9dfe220691": {
+        "submitted": false,
+        "src": "",
+        "type": "text-solution",
+        "grade": -1.0,
+        "comment": "",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "id": "d6c90312-23ff-4ebe-9954-0b9dfe220691"
+      },
+      "2573a988-2200-4c69-8a92-8dd6a70753c1": {
+        "submitted": true,
+        "id": "2573a988-2200-4c69-8a92-8dd6a70753c1",
+        "grade": -1.0,
+        "src": "## R\u00fctli Oath ",
+        "type": "text-solution",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "comment": "Your Submission looks good! Thanks for participating!"
+      },
+      "829849e5-75aa-408c-9ed8-91fa775564f4": {
+        "language": "python",
+        "name": "",
+        "id": "829849e5-75aa-408c-9ed8-91fa775564f4",
+        "src": "",
+        "verified": false,
+        "type": "test-code",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
+      },
+      "ca7aa775-c1c2-45c5-b81e-de5178e68fb4": {
+        "language": "python",
+        "id": "ca7aa775-c1c2-45c5-b81e-de5178e68fb4",
+        "comment": "",
+        "submitted": false,
+        "type": "code-solution",
+        "grade": -1.0,
+        "src": "",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a"
+      },
+      "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf": {
+        "id": "e3e22cd7-4b5d-48de-8cd1-3cbfb83dcccf",
+        "grade": -1.0,
+        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
+        "type": "text-solution",
+        "submitted": false,
+        "src": "",
+        "comment": ""
+      },
+      "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "The **R\u00fctli Oath** is the legendary oath taken at the foundation of the Old Swiss Confederacy (traditionally dated to _1307_) by the representatives of the three founding cantons, Uri, Schwyz and Unterwalden, It is named after the site of the oath taking, the R\u00fctli, a meadow above Lake Uri near Seelisberg",
+        "type": "markdown",
+        "id": "ff1b1e7d-c0dc-4bff-a171-f8ef0ba86a00"
+      },
+      "dcd8596e-2777-461d-9597-5ff738feb737": {
+        "src": "$a*x^2+b*x+c = 0$",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "id": "dcd8596e-2777-461d-9597-5ff738feb737"
+      },
+      "aa7fd629-2b3f-4305-955d-9d6f3e16209c": {
+        "grade": -1.0,
+        "id": "aa7fd629-2b3f-4305-955d-9d6f3e16209c",
+        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
+        "comment": "",
+        "src": [],
+        "type": "multiple-choice-solution",
+        "submitted": false
+      },
+      "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d": {
+        "src": "def factorial(n):\r\n    \"\"\"\r\n    Calculate the factorial of a non-negative integer n.\r\n    \"\"\"",
+        "id": "4ef7db0c-ffed-4f47-82c4-f44d2b1bc52d",
+        "language": "python",
+        "type": "code"
+      },
+      "7614f829-8cad-4fac-9e37-480814844c4b": {
+        "type": "multiple-choice-solution",
+        "submitted": true,
+        "src": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ],
+        "grade": -1.0,
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "comment": "",
+        "id": "7614f829-8cad-4fac-9e37-480814844c4b"
+      },
+      "2bb28441-426a-4021-815f-b0922c2b5cc4": {
+        "type": "test-code",
+        "name": "test",
+        "src": "assert 2 == 2",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "language": "python",
+        "id": "2bb28441-426a-4021-815f-b0922c2b5cc4",
+        "verified": false
+      },
+      "e0aa62d4-7f62-49f7-b78b-565326aad40b": {
+        "comment": "",
+        "src": "",
+        "type": "text-solution",
+        "grade": -1.0,
+        "submitted": false,
+        "id": "e0aa62d4-7f62-49f7-b78b-565326aad40b",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0"
+      },
+      "37c0e430-bfd9-49de-8319-cc9d9ad19cf5": {
+        "comment": "",
+        "src": "sdad",
+        "submitted": false,
+        "grade": -1.0,
+        "id": "37c0e430-bfd9-49de-8319-cc9d9ad19cf5",
+        "type": "text-solution",
+        "createdBy": "06357e968abf495f9679abaadf966701"
+      },
+      "26886c96-25af-4afd-8937-c9c1e9a39f09": {
+        "grade": -1.0,
+        "submitted": true,
+        "type": "text-solution",
+        "src": "test",
+        "id": "26886c96-25af-4afd-8937-c9c1e9a39f09",
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "comment": ""
+      },
+      "20915ede-b1ce-4d0f-bdc5-2ac973049219": {
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "id": "20915ede-b1ce-4d0f-bdc5-2ac973049219",
+        "src": "$a*b*x + b*x +c = 0$"
+      },
+      "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f": {
+        "type": "code",
+        "id": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f",
+        "language": "python",
+        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)"
+      },
+      "dcb5f760-45a6-4a85-9e27-c776a5a5ece4": {
+        "id": "dcb5f760-45a6-4a85-9e27-c776a5a5ece4",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "type": "markdown",
+        "src": "## Quadratic equation\r\nSelect the correct formulas"
+      },
+      "333f30b3-c134-4b1e-a261-e30bada51b81": {
+        "grade": -1.0,
+        "id": "333f30b3-c134-4b1e-a261-e30bada51b81",
+        "submitted": true,
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "comment": "",
+        "type": "multiple-choice-solution",
+        "src": [
+          "dcd8596e-2777-461d-9597-5ff738feb737"
+        ]
       },
       "c019188a-b934-4f22-b9f3-d22a55f7d790": {
-        "language": "python",
-        "submitted": false,
+        "grade": -1.0,
         "src": "",
         "id": "c019188a-b934-4f22-b9f3-d22a55f7d790",
         "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a",
+        "comment": "",
+        "language": "python",
+        "submitted": false,
+        "type": "code-solution"
+      },
+      "55a1c286-cc9a-4256-a869-a612ab45a594": {
+        "comment": "",
+        "grade": -1.0,
+        "submitted": false,
+        "src": "",
+        "type": "text-solution",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "id": "55a1c286-cc9a-4256-a869-a612ab45a594"
+      },
+      "ff1eda50-3094-47a4-b450-49da5e519992": {
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "type": "multiple-choice-solution",
+        "id": "ff1eda50-3094-47a4-b450-49da5e519992",
+        "grade": -1.0,
+        "src": [
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ],
+        "comment": "",
+        "submitted": false
+      },
+      "32571122-15bd-4858-86fe-3303404406a6": {
+        "id": "32571122-15bd-4858-86fe-3303404406a6",
+        "submitted": false,
+        "comment": "",
+        "language": "python",
         "type": "code-solution",
         "grade": -1.0,
+        "src": "",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a"
+      },
+      "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2": {
+        "id": "7fc14f95-3377-4ca2-acb2-eb71fa9ad9f2",
+        "src": "",
+        "type": "test-code",
+        "name": "",
+        "verified": false,
+        "language": "python",
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516"
+      },
+      "ae1c8882-497c-4f7a-9491-c4154c714dfd": {
+        "submitted": true,
+        "comment": "",
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "grade": -1.0,
+        "type": "multiple-choice-solution",
+        "src": [
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ],
+        "id": "ae1c8882-497c-4f7a-9491-c4154c714dfd"
+      },
+      "b168083d-efe3-4e92-aba0-38167d55079b": {
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "grade": -1.0,
+        "id": "b168083d-efe3-4e92-aba0-38167d55079b",
+        "src": [],
+        "submitted": false,
+        "comment": "",
+        "type": "multiple-choice-solution"
+      },
+      "9c6039db-5d0b-4c98-9e0b-bf8af921c86b": {
+        "submitted": false,
+        "type": "text-solution",
+        "id": "9c6039db-5d0b-4c98-9e0b-bf8af921c86b",
+        "grade": -1.0,
+        "createdBy": "e44934b9abd546b78b41908a05e135f2",
+        "src": "dssddssdssdadsd",
         "comment": ""
       },
-      "96b676ef-9d8f-485f-aade-782405ee298e": {
+      "064fa4e4-338c-40b9-b39f-2e04da03f2c4": {
+        "src": "## Factorial\r\nAdd the missing code to the function such that it calculates the factorial of ``n``",
+        "id": "064fa4e4-338c-40b9-b39f-2e04da03f2c4",
+        "type": "markdown"
+      },
+      "82caec78-ae23-46e3-a62c-0f27f9af6579": {
+        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
+        "grade": -1.0,
+        "language": "python",
+        "comment": "Looks good to me. ",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "submitted": false,
+        "type": "code-solution",
+        "id": "82caec78-ae23-46e3-a62c-0f27f9af6579"
+      },
+      "73092a3b-6ff9-457f-9e93-3e676d0996fb": {
+        "id": "73092a3b-6ff9-457f-9e93-3e676d0996fb",
+        "comment": "",
+        "createdBy": "bc424d4b77ff41a984338c273da9eabe",
+        "submitted": false,
+        "type": "multiple-choice-solution",
+        "src": [],
+        "grade": -1.0
+      },
+      "aef6080e-2b13-4573-9122-a5a6e9c771bd": {
+        "language": "python",
+        "type": "code-solution",
+        "comment": "",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
+        "id": "aef6080e-2b13-4573-9122-a5a6e9c771bd",
+        "grade": -1.0,
+        "src": "",
+        "submitted": false
+      },
+      "9c9389e9-fa48-48e4-af8a-7f2a26439cae": {
         "verified": true,
-        "src": "assert 2 == 2",
-        "name": "Test",
-        "id": "96b676ef-9d8f-485f-aade-782405ee298e",
+        "src": "assert 'test' == \"test\"",
+        "name": "saddd",
+        "type": "test-code",
+        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
+        "language": "python",
+        "id": "9c9389e9-fa48-48e4-af8a-7f2a26439cae"
+      },
+      "96b676ef-9d8f-485f-aade-782405ee298e": {
         "language": "python",
         "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "id": "96b676ef-9d8f-485f-aade-782405ee298e",
+        "name": "Test",
+        "verified": true,
+        "src": "assert 2 == 2",
         "type": "test-code"
       },
-      "064fa4e4-338c-40b9-b39f-2e04da03f2c4": {
-        "type": "markdown",
-        "id": "064fa4e4-338c-40b9-b39f-2e04da03f2c4",
-        "src": "## Factorial\r\nAdd the missing code to the function such that it calculates the factorial of ``n``"
-      },
       "9953d713-f97e-47c2-834c-b996de84f2a0": {
-        "createdBy": "e44934b9abd546b78b41908a05e135f2",
+        "type": "test-code",
         "id": "9953d713-f97e-47c2-834c-b996de84f2a0",
+        "src": "",
+        "createdBy": "e44934b9abd546b78b41908a05e135f2",
+        "name": "",
+        "verified": false,
+        "language": "python"
+      },
+      "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12": {
+        "submitted": false,
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
         "language": "python",
+        "type": "code-solution",
+        "grade": -1.0,
+        "id": "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12",
+        "src": "    if (n == 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
+        "comment": ""
+      },
+      "c4684fb1-dc53-46f5-b0e9-b84d9a7bf684": {
+        "comment": "",
+        "submitted": false,
+        "type": "multiple-choice-solution",
+        "createdBy": "89e094d74b02453f9e46eb7f4b45e61a",
+        "id": "c4684fb1-dc53-46f5-b0e9-b84d9a7bf684",
+        "grade": -1.0,
+        "src": [
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ]
+      },
+      "4954e6c7-078d-436c-bf60-71e44c1602e9": {
+        "src": [
+          "20915ede-b1ce-4d0f-bdc5-2ac973049219"
+        ],
+        "comment": "",
+        "submitted": false,
+        "grade": -1.0,
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "type": "multiple-choice-solution",
+        "id": "4954e6c7-078d-436c-bf60-71e44c1602e9"
+      },
+      "d2c67a46-3550-4007-a89e-44497cc185fc": {
+        "type": "text-solution",
+        "submitted": true,
+        "grade": -1.0,
+        "createdBy": "2ba6d465399044b6a14ffeb483ae7ec7",
+        "id": "d2c67a46-3550-4007-a89e-44497cc185fc",
+        "comment": "interesting",
+        "src": "test"
+      },
+      "ce32a577-db8d-47e1-86d5-babaa21d4d2d": {
+        "language": "python",
+        "type": "test-code",
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "src": "assert factorial(2) == 2",
+        "id": "ce32a577-db8d-47e1-86d5-babaa21d4d2d",
+        "name": "factorial(2)",
+        "verified": true
+      },
+      "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d": {
+        "submitted": false,
+        "language": "python",
+        "grade": -1.0,
+        "src": "",
+        "comment": "",
+        "id": "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d",
+        "type": "code-solution",
+        "createdBy": "e44934b9abd546b78b41908a05e135f2"
+      },
+      "b3e4c435-ce2a-46ef-914a-1775bb583dff": {
+        "submitted": true,
+        "grade": -1.0,
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "type": "text-solution",
+        "comment": "",
+        "id": "b3e4c435-ce2a-46ef-914a-1775bb583dff",
+        "src": "dssaddsddadedsadsdsdadadadasdsdasddasddsaasadasddsdaddaddasds"
+      },
+      "90a292c2-d270-4eaa-aa00-e63ef5f96149": {
+        "src": "## History of Switzerland\r\nWhat is the R\u00fctli Oath?",
+        "type": "markdown",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "id": "90a292c2-d270-4eaa-aa00-e63ef5f96149"
+      },
+      "82b51f5f-7811-4ca4-93b8-e9f61afe5855": {
+        "language": "python",
+        "comment": "",
+        "createdBy": "fbf3b34ec84143a1a3a8488fdd989516",
+        "grade": -1.0,
+        "src": "    if (n <= 0):\r\n        return 1;\r\n    return n * factorial(n-1)",
+        "type": "code-solution",
+        "id": "82b51f5f-7811-4ca4-93b8-e9f61afe5855",
+        "submitted": false
+      },
+      "c8d3d7de-3935-4051-9ac8-20f9998b0f25": {
+        "type": "test-code",
+        "verified": false,
+        "id": "c8d3d7de-3935-4051-9ac8-20f9998b0f25",
+        "language": "python",
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "name": "",
+        "src": ""
+      },
+      "0794146c-8b57-482b-b0a2-5baa812ec849": {
+        "language": "python",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
         "src": "",
         "name": "",
         "verified": false,
+        "id": "0794146c-8b57-482b-b0a2-5baa812ec849",
         "type": "test-code"
+      },
+      "0722bd18-ebc9-4829-8749-a43feeb51566": {
+        "comment": "",
+        "type": "multiple-choice-solution",
+        "grade": -1.0,
+        "id": "0722bd18-ebc9-4829-8749-a43feeb51566",
+        "createdBy": "abf90e0ae6af4d30b6bb5b32d3270af0",
+        "src": [],
+        "submitted": false
+      },
+      "7f01c784-6c56-4730-94cc-5597b549c6f7": {
+        "submitted": false,
+        "type": "multiple-choice-solution",
+        "id": "7f01c784-6c56-4730-94cc-5597b549c6f7",
+        "comment": "",
+        "grade": -1.0,
+        "createdBy": "e44934b9abd546b78b41908a05e135f2",
+        "src": []
+      },
+      "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d": {
+        "grade": -1.0,
+        "comment": "",
+        "submitted": false,
+        "language": "python",
+        "id": "a2ae4dc4-9cdb-4c9f-8e52-cb7adf6cda3d",
+        "type": "code-solution",
+        "src": "",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a"
+      },
+      "e82f1132-bc79-4090-9173-09af4dd3d566": {
+        "src": "",
+        "submitted": false,
+        "grade": -1.0,
+        "id": "e82f1132-bc79-4090-9173-09af4dd3d566",
+        "comment": "",
+        "type": "code-solution",
+        "language": "python",
+        "createdBy": "68bbfd07f4474d23a2117ea7ab135b9a"
+      },
+      "0e38258c-6bbf-49b6-8c91-f744643fcc8f": {
+        "comment": "",
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "language": "python",
+        "id": "0e38258c-6bbf-49b6-8c91-f744643fcc8f",
+        "type": "code-solution",
+        "grade": -1.0,
+        "src": "",
+        "submitted": true
+      },
+      "0d44f4f9-dd35-4c40-a36d-31e3d8093064": {
+        "type": "code-solution",
+        "grade": -1.0,
+        "comment": "",
+        "submitted": false,
+        "language": "python",
+        "createdBy": "78a5f2a745ba404db8dd6a3aeec083ab",
+        "src": "",
+        "id": "0d44f4f9-dd35-4c40-a36d-31e3d8093064"
+      },
+      "0a030a59-a04a-4d56-b0ef-81daddae77b5": {
+        "src": [
+          "1f5ef829-6a84-4c4c-a5ee-a5b6a183b0e6"
+        ],
+        "comment": "",
+        "id": "0a030a59-a04a-4d56-b0ef-81daddae77b5",
+        "grade": -1.0,
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "submitted": true,
+        "type": "multiple-choice-solution"
       }
     }
   }

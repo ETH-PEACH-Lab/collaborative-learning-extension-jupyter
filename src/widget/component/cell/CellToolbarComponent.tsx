@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState, selectCell, selectGroups } from '../../../state';
 import { DocModelContext, IDocModelContext } from '../../context';
 import { Toolbar, ToolbarButton, ToolbarToggle } from '../../../ui';
-import { InstructorsGroupName } from '../../../types';
+import { ICell, InstructorsGroupName } from '../../../types';
 
 type CellToolbarComponentProps = {
   index: number;
@@ -23,7 +23,7 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
   );
   const cell = useSelector((state: RootState) =>
     selectCell(state, props.cellId)
-  );
+  ) as ICell;
   const { deleteCell, swapCellPosition, changeCell } = useContext(
     DocModelContext
   ) as IDocModelContext;
@@ -33,15 +33,23 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
         <>
           <Toolbar showOnHover={true}>
             <ToolbarToggle
-              checked={cell.showSolution}
+              checked={cell.metadata.showSolution}
               onChange={checked =>
-                changeCell({ ...cell, showSolution: checked })
+                changeCell({
+                  ...cell,
+                  metadata: { ...cell.metadata, showSolution: checked }
+                })
               }
               label="Show Solution"
             />
             <ToolbarToggle
-              checked={cell.visible}
-              onChange={checked => changeCell({ ...cell, visible: checked })}
+              checked={cell.metadata.visible}
+              onChange={checked =>
+                changeCell({
+                  ...cell,
+                  metadata: { ...cell.metadata, visible: checked }
+                })
+              }
               label="Visibility"
             />
             <ToolbarButton

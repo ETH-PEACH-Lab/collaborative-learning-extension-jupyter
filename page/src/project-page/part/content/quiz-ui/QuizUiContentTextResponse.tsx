@@ -7,7 +7,6 @@ import {
 
 export const QuizUiContentTextResponse: React.FC = () => {
   const [answer, setAnswer] = useState<string>('');
-  const [showSolution, setShowSolution] = useState<boolean>(false);
   const [jupyter, setJupyter] = useState<boolean>(true);
   const [tabs, setTabs] = useState<boolean>(false);
   const [splitMode, setSplitMode] = useState<boolean>(false);
@@ -72,12 +71,6 @@ export const QuizUiContentTextResponse: React.FC = () => {
             Split mode
           </option>
         </select>
-        <button
-          className={'btn btn-sm self-center'}
-          onClick={() => setShowSolution(!showSolution)}
-        >
-          {showSolution ? 'Hide' : 'Show'} Solution
-        </button>
       </div>
     </>
   );

@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AssertionCodeTab,
   CellDescription,
   Coding,
   Content,
   ContentBody,
-  ToolbarToggle
+  ToolbarToggle,
+  defineDiffTheme
 } from '../../../../../../src/ui';
+import { useMonaco } from '@monaco-editor/react';
 
 export const CodingExample: React.FC = () => {
   const [showSolution, setShowSolution] = useState(false);
   const [testingMode, setTestingMode] = useState('tests');
+  const monaco = useMonaco();
+  useEffect(() => {
+    if (monaco) {
+      setTimeout(() => {
+        defineDiffTheme(monaco);
+        monaco?.editor.setTheme('diff-theme');
+      });
+    }
+  }, [testingMode, monaco]);
   return (
     <Content>
       <ContentBody>

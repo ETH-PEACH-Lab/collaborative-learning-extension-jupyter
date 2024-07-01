@@ -2,23 +2,29 @@ import { YObject } from './main.types';
 
 export type CellType = 'text-cell' | 'code-cell' | 'multiple-choice-cell';
 
+export type Cell = ICell | ICodeCell | ITextCell | IMultipleChoiceCell;
+export type CellMetadata = {
+  showSolution: boolean;
+  visible: boolean;
+};
 export interface ICell extends YObject {
   type: CellType;
-  visible: boolean;
   descriptionId: string;
   studentSolutionIds: string[];
-  showSolution: boolean;
+  metadata: CellMetadata;
   documentId?: string;
-  [key: string]: any;
 }
+export type TestingMode = 'tests' | 'one-test-required' | 'no-tests';
+
+export type CodeCellMetadata = {
+  testingMode: TestingMode;
+} & CellMetadata;
 
 export interface ICodeCell extends ICell {
   startingCodeId: string;
   solutionCodeId: string;
   testingCodeIds: string[];
-  metadata: {
-    testingMode: 'tests' | 'no-tests' | 'one-test-required';
-  };
+  metadata: CodeCellMetadata;
   type: 'code-cell';
 }
 export interface ITextCell extends ICell {
@@ -26,10 +32,14 @@ export interface ITextCell extends ICell {
   solutionId: string;
 }
 
+export type MultipleChoiceCellMetadata = {
+  multi: boolean;
+  random: boolean;
+} & CellMetadata;
+
 export interface IMultipleChoiceCell extends ICell {
   options: string[];
   solutionOptions: string[];
   type: 'multiple-choice-cell';
-  multi: boolean;
-  random: boolean;
+  metadata: MultipleChoiceCellMetadata;
 }

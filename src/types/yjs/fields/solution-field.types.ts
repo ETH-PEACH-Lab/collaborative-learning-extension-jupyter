@@ -1,5 +1,9 @@
 import { IField, Language } from '../field.types';
 
+export type SolutionField =
+  | ICodeSolution
+  | ITextSolution
+  | IMultipleChoiceSolution;
 export type SolutionType =
   | 'code-solution'
   | 'text-solution'

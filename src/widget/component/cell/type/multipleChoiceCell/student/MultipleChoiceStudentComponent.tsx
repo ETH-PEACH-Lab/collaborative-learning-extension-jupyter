@@ -67,9 +67,9 @@ export const MultipleChoiceStudentComponent = (
         onAnswerChanges={setStudentSolution}
         items={items}
         options={{
-          multi: cell.multi,
-          random: cell.random,
-          showSolution: cell.showSolution,
+          multi: cell.metadata.multi,
+          random: cell.metadata.random,
+          showSolution: cell.metadata.showSolution,
           submitted: studentSelection.submitted,
           distributionPerItem: studentSolutionDistribution
         }}

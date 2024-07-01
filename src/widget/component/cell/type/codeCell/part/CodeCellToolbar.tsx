@@ -49,14 +49,15 @@ export const CodeCellToolbar: React.FC<CodeCellToolbarProps> = ({
     KernelContext
   ) as IKernelContext;
   const solutionCodeId = useSelector(
-    (state: RootState) => selectCell(state, cellId).solutionCodeId
+    (state: RootState) =>
+      (selectCell(state, cellId) as ICodeCell).solutionCodeId
   ) as string;
   const studentSolutionIds = useSelector(
     (state: RootState) =>
       (selectCell(state, cellId) as ICodeCell).studentSolutionIds
   );
   const showSolution = useSelector(
-    (state: RootState) => selectCell(state, cellId).showSolution
+    (state: RootState) => selectCell(state, cellId).metadata.showSolution
   );
   const username = useSelector(
     (state: RootState) => state.user.identity?.username

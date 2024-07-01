@@ -29,7 +29,7 @@ const TextCellStudentComponent = (props: TextCellStudentComponentProps) => {
     selectStudentSolutionField(state, props.cellId, username)
   ) as ITextSolution;
   const showSolution = useSelector(
-    (state: RootState) => selectCell(state, props.cellId).showSolution
+    (state: RootState) => selectCell(state, props.cellId).metadata.showSolution
   );
   const solutionField = useSelector((state: RootState) =>
     selectField(

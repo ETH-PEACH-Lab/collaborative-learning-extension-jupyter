@@ -26,7 +26,7 @@ export function CodeCellStudentCode({
     return <></>;
   }
   const showSolution = useSelector(
-    (state: RootState) => selectCell(state, cellId).showSolution
+    (state: RootState) => selectCell(state, cellId).metadata.showSolution
   );
   const username = useSelector(
     (state: RootState) => state.user.identity?.username

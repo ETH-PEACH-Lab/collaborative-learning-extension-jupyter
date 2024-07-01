@@ -1,6 +1,6 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { ICell, ICodeCell, IField, ITestCodeField } from '../../../types';
+import { Cell, ICodeCell, IField, ITestCodeField } from '../../../types';
 import {
   AddDispatch,
   AllIdsDispatch,
@@ -11,7 +11,7 @@ import {
   UpdatePropertyDispatch
 } from 'yjs-normalized';
 
-const initialState: INormalizedState<ICell> = {
+const initialState: INormalizedState<Cell> = {
   byId: {},
   allIds: []
 };
@@ -19,7 +19,7 @@ const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
-    addCell(state, action: PayloadAction<AddDispatch<ICell>>) {
+    addCell(state, action: PayloadAction<AddDispatch<Cell>>) {
       state.byId[action.payload.item.id] = action.payload.item;
       state.byId[action.payload.item.id].documentId =
         action.payload.documentIdentifier;
@@ -29,7 +29,7 @@ const cellsSlice = createSlice({
       delete state.byId[action.payload.id];
       state.allIds = state.allIds.filter(id => id !== action.payload.id);
     },
-    setCells(state, action: PayloadAction<RootDispatch<ICell>>) {
+    setCells(state, action: PayloadAction<RootDispatch<Cell>>) {
       state.byId = action.payload.state.byId;
       action.payload.state.allIds.forEach(
         id => (state.byId[id].documentId = action.payload.documentIdentifier)
@@ -37,7 +37,7 @@ const cellsSlice = createSlice({
       state.allIds = action.payload.state.allIds;
     },
     updateCellProperty(state, action: PayloadAction<UpdatePropertyDispatch>) {
-      state.byId[action.payload.id][action.payload.key as keyof ICell] =
+      state.byId[action.payload.id][action.payload.key as keyof Cell] =
         action.payload.value;
     },
     updateCellsAllIds(state, action: PayloadAction<AllIdsDispatch>) {
@@ -65,11 +65,11 @@ export const selectCellIds: (state: RootState, docId: string) => string[] =
   );
 
 const selectById = (state: RootState) =>
-  (state.cells as INormalizedState<ICell>).byId;
+  (state.cells as INormalizedState<Cell>).byId;
 
 export const selectCell = createSelector(
   [selectById, (_: RootState, cellId: string) => cellId],
-  (byId: ByIdState<ICell>, cellId: string) => byId[cellId]
+  (byId: ByIdState<Cell>, cellId: string) => byId[cellId]
 );
 
 export const selectVerifiedTestFieldsIds = createSelector(
@@ -80,7 +80,7 @@ export const selectVerifiedTestFieldsIds = createSelector(
     (_: RootState, __: string, username: string) => username
   ],
   (
-    byCellId: ByIdState<ICell>,
+    byCellId: ByIdState<Cell>,
     byFieldId: ByIdState<IField>,
     cellId: string,
     username: string

@@ -48,7 +48,7 @@ export default function MultipleChoiceInstructorComponent(
   });
   const onCorrectAnswerChange = (optionId: string, correct: boolean) => {
     if (correct) {
-      if (cell.multi) {
+      if (cell.metadata.multi) {
         changeCell({
           ...cell,
           solutionOptions: [...cell.solutionOptions, optionId]
@@ -74,7 +74,7 @@ export default function MultipleChoiceInstructorComponent(
       optionId={option.id}
       onSelectionChange={onCorrectAnswerChange}
       studentDistribution={studentSolutionDistribution[index]}
-      options={{ multi: cell.multi, randomOrder: cell.random }}
+      options={cell.metadata}
       remove={() => removeMultipleChoiceOption(props.cellId, option.id)}
       swapPosition={(from, to) =>
         swapPositionOfMultipleChoiceOption(props.cellId, from, to)
@@ -89,13 +89,23 @@ export default function MultipleChoiceInstructorComponent(
       <MultipleChoiceInstructorConfigContainer label="Configuration">
         <MultipleChoiceInstructorConfigItem
           label="Multi Selection"
-          onChange={value => changeCell({ ...cell, multi: value })}
-          value={cell.multi}
+          onChange={value =>
+            changeCell({
+              ...cell,
+              metadata: { ...cell.metadata, multi: value }
+            })
+          }
+          value={cell.metadata.multi}
         />
         <MultipleChoiceInstructorConfigItem
           label="Random Order"
-          onChange={value => changeCell({ ...cell, random: value })}
-          value={cell.random}
+          onChange={value =>
+            changeCell({
+              ...cell,
+              metadata: { ...cell.metadata, random: value }
+            })
+          }
+          value={cell.metadata.random}
         />
       </MultipleChoiceInstructorConfigContainer>
       {Items}

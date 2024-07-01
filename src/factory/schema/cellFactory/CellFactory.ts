@@ -15,8 +15,10 @@ export default abstract class CellFactory extends Factory<CellType, ICell> {
       type: this.identifier,
       descriptionId: fieldCreation('markdown'),
       studentSolutionIds: [],
-      visible: false,
-      showSolution: false
+      metadata: {
+        visible: false,
+        showSolution: false
+      }
     };
   }
 }

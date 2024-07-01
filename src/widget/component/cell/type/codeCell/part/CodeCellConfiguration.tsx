@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, selectCell } from '../../../../../../state';
 import { Indicator } from '../../../../../../ui';
-import { ICodeCell } from '../../../../../../types';
+import { ICodeCell, TestingMode } from '../../../../../../types';
 import { DocModelContext, IDocModelContext } from '../../../../../context';
 type CodeCellConfigurationProps = {
   cellId: string;
@@ -22,7 +22,10 @@ export const CodeCellConfiguration: React.FC<CodeCellConfigurationProps> = ({
         onChange={event => {
           changeCell({
             ...codeCell,
-            metadata: { ...codeCell.metadata, testingMode: event.target.value }
+            metadata: {
+              ...codeCell.metadata,
+              testingMode: event.target.value as TestingMode
+            }
           });
         }}
       >

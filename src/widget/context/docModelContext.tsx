@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 import React from 'react';
-import { IField, FieldType, SolutionType, ICell } from '../../types/';
+import { FieldType, SolutionType, Cell, Field } from '../../types/';
 
 type DocModelContextProviderProps = {
   children: React.ReactNode;
-  changeCell: (cell: ICell) => void;
-  changeField: (field: IField) => void;
+  changeCell: (cell: Cell) => void;
+  changeField: (field: Field) => void;
   deleteCell: (id: string) => void;
 
   addFieldToPropertyArray: (
@@ -74,11 +74,11 @@ export const DocModelContextProvider = (
 };
 
 export interface IDocModelContext {
-  changeCell: (cell: ICell) => void;
+  changeCell: (cell: Cell) => void;
   deleteCell: (id: string) => void;
   swapCellPosition: (fromIndex: number, toIndex: number) => void;
 
-  changeField: (field: IField) => void;
+  changeField: (field: Field) => void;
 
   addStudentSolutionField(cellId: string, solutionType: SolutionType): void;
 

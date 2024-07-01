@@ -13,10 +13,12 @@ export default class CodeCellFactory extends CellFactory {
   protected createSpecific(
     fieldCreation: (type: FieldType) => string
   ): ICodeCell {
+    const temp = this._createCell(fieldCreation);
     return {
-      ...this._createCell(fieldCreation),
+      ...temp,
       type: 'code-cell',
       metadata: {
+        ...temp.metadata,
         testingMode: 'tests'
       },
       startingCodeId: fieldCreation('code'),

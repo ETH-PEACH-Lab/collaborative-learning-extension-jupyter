@@ -1,5 +1,11 @@
+import { IMultipleChoiceItem } from 'react-quiz-ui';
 import { IField, Language } from '../field.types';
 
+export type SrcField =
+  | IMarkdownField
+  | ICodeField
+  | ITestCodeField
+  | IMultipleChoiceItem;
 export type SrcFieldType =
   | 'markdown'
   | 'code'

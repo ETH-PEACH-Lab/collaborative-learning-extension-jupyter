@@ -1,4 +1,3 @@
-import { DocumentChange, YDocument } from '@jupyter/ydoc';
 import {
   ICell,
   IField,
@@ -15,12 +14,13 @@ import FieldFactoryService from '../../services/FieldFactoryService';
 import CellFactoryService from '../../services/CellFactoryService';
 import { KernelMessengerService } from '../../widget/kernel/KernelMessengerService';
 import { RootObserver } from 'yjs-normalized';
+import { DocumentChange, YDocument } from '@jupyter/ydoc';
 
 export class PuzzleYDoc extends YDocument<DocumentChange> {
   constructor() {
     super();
-    const cells = this.ydoc.getMap('cells');
-    const fields = this.ydoc.getMap('fields');
+    const cells = this.ydoc.getMap('cells') as any;
+    const fields = this.ydoc.getMap('fields') as any;
 
     this._cellsMaintainer = new CellsMaintainer(
       cells,
