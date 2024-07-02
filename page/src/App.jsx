@@ -4,6 +4,7 @@ import { AbstractContent } from './project-page/part/content/AbstractContent';
 import { QuizUiContent } from './project-page/part/content/quiz-ui/QuizUiContent';
 import { YjsNormalizedContent } from './project-page/part/content/YjsNormalizedContent';
 import { UserFeedbackContent } from './project-page/part/content/UserFeedbackContent';
+import { JupyterHubContent } from './project-page/part/content/JupyterHubContent';
 import { JupyterNotebookExtensionContent } from './project-page/part/content/jupyter-extension/JupyterNotebookExtensionContent';
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
         >
           <JupyterNotebookExtensionContent />
         </ProjectPage.Page>
-        <ProjectPage.Page containerSize="md" grey header="User Feedback Data">
+        <ProjectPage.Page containerSize="md" grey header="JupyterHub Setup">
+          <JupyterHubContent />
+        </ProjectPage.Page>
+        <ProjectPage.Page containerSize="md" header="User Feedback Data">
           <UserFeedbackContent />
         </ProjectPage.Page>
       </ProjectPage>

@@ -39,7 +39,7 @@ export const ProjectPageHeader: React.FC<ProjectPageHeaderProps> = () => {
       </h4>
       <h4>ETH Zurich</h4>
       <h4>2024</h4>
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="flex justify-center gap-4 mt-4 flex-col md:flex-row">
         <BadgeLink href="" label="Thesis">
           <PDFIcon />
         </BadgeLink>
@@ -58,6 +58,12 @@ export const ProjectPageHeader: React.FC<ProjectPageHeaderProps> = () => {
         <BadgeLink
           href="https://github.com/ETH-PEACH-Lab/yjs-normalized"
           label="Normalized Yjs"
+        >
+          <GitHubIcon />
+        </BadgeLink>
+        <BadgeLink
+          href="https://github.com/ETH-PEACH-Lab/jupyterhub-docker"
+          label="JupyterHub"
         >
           <GitHubIcon />
         </BadgeLink>

@@ -15,8 +15,8 @@ export const AbstractContent: React.FC = () => {
       students to collaboratively write and assess their code. During
       development, we extracted core functionality into separate libraries to
       enhance reusability, including a React quiz UI component library and a Yjs
-      extension for handling normalized data. Last but not least, we evaluated
-      the prototype and reached out for user feedback.
+      extension for handling normalized data. Lastly, we evaluated the prototype on a multi-user JupyterHub 
+      setup and gathered user feedback.
     </p>
   );
 };

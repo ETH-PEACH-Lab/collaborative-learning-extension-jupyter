@@ -13,8 +13,8 @@ export const YjsNormalizedContent: React.FC<null> = () => {
         structure. This flat, database-like approach benefits Yjs applications
         with nested or relational data by enhancing consistency and simplicity.
       </p>
-      <div className="mt-4 flex flex-row items-start">
-        <div className="flex-1">
+      <div className="mt-4 flex flex-col items-start md:flex-row">
+        <div className="flex-grow w-full">
           Not normalized structure:
           <CodeComponent
             src='{
@@ -43,7 +43,7 @@ export const YjsNormalizedContent: React.FC<null> = () => {
           ></CodeComponent>
         </div>
         <p className="text-xl p-2 self-center">→</p>
-        <div className="flex-1">
+        <div className="flex-grow w-full">
           Normalized structure:
           <CodeComponent
             src='{
