@@ -6,5 +6,5 @@ import svgr from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/collaborative-learning-extension-jupyter',
-  plugins: [react(), svg({ defaultImport: 'raw' }),svgr()]
+  plugins: [react(), svg({ defaultImport: 'raw' }), svgr()]
 });
