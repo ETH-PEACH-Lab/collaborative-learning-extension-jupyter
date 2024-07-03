@@ -15,11 +15,11 @@ export const QuizUiContentCoding: React.FC = () => {
       <h3 className="text-center mt-4">Coding exercise / diff view</h3>
       <p>
         The coding component encapsulates the Monaco code editor and allows to
-        include a starting code snippet. In addition the library provides a diff
-        view, which enables students to compare their code with the master
+        include a starting code snippet. In addition, the library provides a
+        diff view, which enables students to compare their code with the master
         solution.
       </p>
-      <div className="mt-4">
+      <div className="m-4">
         <MarkdownComponent src="**Example**: In this exercise, you will write a Python function to compute the multiplication of two given non-negative integer."></MarkdownComponent>
       </div>
       <div className="mt-4">

@@ -12,11 +12,11 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
   const [multi, setMulti] = useState<boolean>(false);
   return (
     <>
-      <h3 className="text-center 4">Multiple Choice exercise</h3>
+      <h3 className="text-center mt-4">Multiple Choice exercise</h3>
       The multiple choice exercises includes key features such as randomizing
       the order of questions, disabling user input, and showing evaluations for
       immediate feedback. It supports both radio buttons for single-answer
-      questions and checkboxes for multiple-answer questions, catering to
+      questions and checkboxes for multiple-answer questions, suitable for
       various question types.
       <div className="mt-4">
         <MarkdownComponent src="**Example**: Which of the following are primary goals of Human-Computer Interaction (HCI)?"></MarkdownComponent>

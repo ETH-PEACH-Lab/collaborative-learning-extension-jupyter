@@ -5,13 +5,12 @@ export const JupyterNotebookExtensionContent: React.FC = () => {
   return (
     <>
       <p>
-        Instructors have the functionality to be able to create programming
-        exercises, multiple-choice questionnaires, and text-response
-        questionnaires. They can spontaneously modify them during class. Any
-        modifications to an existing exercise or the creation of a new one are
-        (eventually) synced to the students. Furthermore, instructors can
-        monitor the progress of the class in real-time and provide feedback to
-        the students.
+        Instructors are able to create programming exercises, multiple-choice
+        questionnaires, and text-response questionnaires. They can spontaneously
+        modify them during class. Any modifications to an existing exercise or
+        the creation of a new one are (eventually) synced to the students.
+        Furthermore, instructors can monitor the progress of the class in
+        real-time and provide feedback to the students.
       </p>
       <MultipleChoiceExample />
       <h3 className="text-center mt-4">Live Peer Testing</h3>

@@ -26,7 +26,7 @@ export const CodingExample: React.FC = () => {
         <div className="pt-4 pb-4">
           <CellDescription
             isInstructor={false}
-            src="Provide code to calculate factorial of n, where is n a natural number, if n <= 0 return 1"
+            src="Provide code to calculate factorial of n, where is n a natural number"
             onChange={() => {}}
           />
         </div>

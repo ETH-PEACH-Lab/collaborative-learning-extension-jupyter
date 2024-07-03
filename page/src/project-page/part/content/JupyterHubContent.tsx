@@ -9,8 +9,8 @@ export const JupyterHubContent: React.FC = () => {
         open-source platform designed to provide multi-user access to
         JupyterLab. It enables us to offer a scalable, shared computing
         environment where multiple users can interact with Jupyter notebooks
-        simultaneously. Following figure demonstrates the architecture behind
-        our setup.
+        simultaneously. The following figure demonstrates the architecture
+        behind our setup.
       </p>
       <ImgUrl className="w-full md:w-[75%] m-auto my-8" />
       <p>

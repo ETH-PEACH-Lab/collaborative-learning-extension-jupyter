@@ -27,9 +27,11 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
       disabled={disabled}
     >
       {hasLabel && <span>{label}</span>}
-      <span className="group-hover:opacity-100 opacity-0 absolute top-0 text-xs mt-[-30px] bg-base-100 p-1 transition-opacity ease-in-out border-base-200 border min-w-max">
-        {hoverHint}
-      </span>
+      {hoverHint && (
+        <span className="group-hover:opacity-100 opacity-0 absolute top-0 text-xs mt-[-30px] bg-base-100 p-1 transition-opacity ease-in-out border-base-200 border min-w-max">
+          {hoverHint}
+        </span>
+      )}
       <ReactSVG src={icon}></ReactSVG>
     </button>
   ) : (
