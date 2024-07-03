@@ -56,3 +56,12 @@ export const Third: Story = {
   },
   render: Template.render
 };
+
+export const Fifth: Story = {
+  name: 'Hover example',
+  args: {
+    ...Template.args,
+    hoverHint: 'Add Test'
+  },
+  render: Template.render
+};

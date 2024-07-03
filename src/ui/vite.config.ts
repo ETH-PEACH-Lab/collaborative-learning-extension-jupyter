@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import svg from 'vite-svg-loader';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   build: {
@@ -13,5 +13,5 @@ export default defineConfig({
     sourcemap: true, // Generates source maps for debugging.
     emptyOutDir: true // Clears the output directory before building.
   },
-  plugins: [dts(), svg({ defaultImport: 'raw' })] // Uses the 'vite-plugin-dts' plugin for generating TypeScript declaration files (d.ts).
+  plugins: [dts(), svgr({ include: './node_modules/**/* .svg' })] // Uses the 'vite-plugin-dts' plugin for generating TypeScript declaration files (d.ts).
 });

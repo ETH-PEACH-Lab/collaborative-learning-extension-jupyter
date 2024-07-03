@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   CodeComponent,
   adjustableHeightCodeOptions,
   readonlyAdjustableHeightCodeOptions
 } from 'react-quiz-ui';
+import { defineDiffTheme } from './DiffCode';
+import { Monaco } from '@monaco-editor/react';
 export type CodeProps = {
   src: string;
   language: string;
@@ -11,6 +13,7 @@ export type CodeProps = {
   onChange?: (code: string) => void;
 };
 export const Code: React.FC<CodeProps> = (props: CodeProps) => {
+  const m = useRef<Monaco | null>(null);
   return (
     <CodeComponent
       language={props.language}
@@ -19,7 +22,15 @@ export const Code: React.FC<CodeProps> = (props: CodeProps) => {
       config={{
         options: props.readonly
           ? readonlyAdjustableHeightCodeOptions
-          : adjustableHeightCodeOptions
+          : adjustableHeightCodeOptions,
+        theme: 'diff-theme'
+      }}
+      beforeMount={monaco => {
+        defineDiffTheme(monaco);
+        m.current = monaco;
+      }}
+      onMount={_ => {
+        m.current?.editor.setTheme('diff-theme');
       }}
     />
   );

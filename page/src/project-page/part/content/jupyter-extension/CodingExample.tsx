@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AssertionCodeTab,
   CellDescription,
   Coding,
   Content,
   ContentBody,
-  ToolbarToggle,
-  defineDiffTheme
+  Toolbar,
+  ToolbarToggle
 } from '../../../../../../src/ui';
-import { useMonaco } from '@monaco-editor/react';
 
 export const CodingExample: React.FC = () => {
   const [showSolution, setShowSolution] = useState(false);
   const [testingMode, setTestingMode] = useState('tests');
-  const monaco = useMonaco();
-  useEffect(() => {
-    if (monaco) {
-      setTimeout(() => {
-        defineDiffTheme(monaco);
-        monaco?.editor.setTheme('diff-theme');
-      });
-    }
-  }, [testingMode, monaco]);
+
   return (
     <Content>
+      <Toolbar showOnHover>
+        <ToolbarToggle
+          checked={showSolution}
+          onChange={setShowSolution}
+          label="Show Solution"
+        ></ToolbarToggle>
+      </Toolbar>
       <ContentBody>
         <div className="pt-4 pb-4">
           <CellDescription
@@ -140,11 +138,6 @@ export const CodingExample: React.FC = () => {
                 Tests are deactivated
               </option>
             </select>
-            <ToolbarToggle
-              checked={showSolution}
-              onChange={setShowSolution}
-              label="Show Solution"
-            ></ToolbarToggle>
           </Coding.Toolbar>
         </Coding>
       </ContentBody>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactSVG } from 'react-svg';
 
 type BaseButtonProps = {
   label?: string;
@@ -21,7 +22,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       disabled={disabled}
     >
       {label ? (icon ? label + ' ' : label) : ''}{' '}
-      {icon && <span dangerouslySetInnerHTML={{ __html: icon }}></span>}
+      {icon && <ReactSVG src={icon}></ReactSVG>}
     </button>
   );
 };

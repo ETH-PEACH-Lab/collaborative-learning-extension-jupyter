@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jupyterlab/ui-components": "^4.2.3",
     "collab_learning_extension": "file:../../collaborative-learning-extension-jupyter",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
