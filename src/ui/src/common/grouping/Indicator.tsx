@@ -4,18 +4,29 @@ type IndicatorProps = {
   label?: string;
   className?: string;
   children: React.ReactNode;
+  toolbar?: React.ReactNode;
 };
-export const Indicator = ({ label, className, children }: IndicatorProps) => {
+export const Indicator = ({
+  label,
+  className,
+  children,
+  toolbar
+}: IndicatorProps) => {
   return label ? (
-    <Content className={'indicator w-full pt-3 pb-3 ' + className}>
+    <Content className={'indicator w-full pb-3 grid ' + className}>
+      {toolbar}
       {label && (
         <div className="indicator-item indicator-center badge text-center">
           {label}
         </div>
       )}
-      <ContentBody>{children}</ContentBody>
+
+      <ContentBody className="pt-3">{children}</ContentBody>
     </Content>
   ) : (
-    <ContentBody className={className}>{children}</ContentBody>
+    <ContentBody className={className}>
+      {toolbar}
+      {children}
+    </ContentBody>
   );
 };

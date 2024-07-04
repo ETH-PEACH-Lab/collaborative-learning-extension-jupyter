@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   RootState,
   selectCell,
-  selectVerifiedTestFieldsIds
+  selectVerifiedTestFieldsIds,
+  store
 } from '../../../../../../state';
 import { ICodeCell } from '../../../../../../types';
 import { AssertionCode } from '../../../../../../ui';
@@ -18,6 +19,7 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
   isInstructor,
   onTabChange
 }: CodeCellAssertionCodeProps) => {
+  const [onlyFaulty, setOnlyFaulty] = useState(false);
   const username = useSelector(
     (state: RootState) => state.user.identity?.username
   ) as string;
@@ -28,14 +30,26 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
     (state: RootState) => (selectCell(state, cellId) as ICodeCell).metadata
   );
   const AssertionCodeTabs = assertionCodesIds.map(assertionCodeId => {
-    return <CodeCellAssertionTab assertionCodeId={assertionCodeId} />;
+    return store.getState().kernelTestResult.byId[assertionCodeId]?.result &&
+      onlyFaulty ? (
+      <></>
+    ) : (
+      <CodeCellAssertionTab assertionCodeId={assertionCodeId} />
+    );
   });
 
   return metadata.testingMode === 'no-tests' ? (
     <></>
   ) : (
-    <AssertionCode onTabChange={onTabChange} isInstructor={isInstructor}>
-      {AssertionCodeTabs}
-    </AssertionCode>
+    <>
+      <AssertionCode
+        onTabChange={onTabChange}
+        isInstructor={isInstructor}
+        onlyFaulty={onlyFaulty}
+        setOnlyFaulty={setOnlyFaulty}
+      >
+        {AssertionCodeTabs}
+      </AssertionCode>
+    </>
   );
 };

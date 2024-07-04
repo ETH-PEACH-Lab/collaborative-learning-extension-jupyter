@@ -13,41 +13,38 @@ export type TabsManageableProps = {
   _setActiveTab?: (index: number) => void;
 };
 export const Tab: React.FC<TabProps> = (props: TabProps) => {
-  return (
+  return !props.hide ? (
     <>
-      {' '}
-      {!props.hide && (
-        <>
-          <input
-            type="radio"
-            name={props._id}
-            role="tab"
-            className={
-              'inline-block tab ' +
-              (props._isActive ? 'tab-active' : '') +
-              ' ' +
-              props.className
-            }
-            aria-label={props.label}
-            style={{
-              width: '100%',
-              wordBreak: 'break-all',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              overflow: 'hidden'
-            }}
-            onClick={() =>
-              props._setActiveTab && props._setActiveTab(props._index ?? 0)
-            }
-          />
-          <div
-            role="tabpanel"
-            className={'tab-content bg-base-100 ' + props.classNameContent}
-          >
-            {props.children}
-          </div>
-        </>
-      )}
+      <input
+        type="radio"
+        name={props._id}
+        role="tab"
+        className={
+          'inline-block tab ' +
+          (props._isActive ? 'tab-active' : '') +
+          ' ' +
+          props.className
+        }
+        aria-label={props.label}
+        style={{
+          width: '100%',
+          wordBreak: 'break-all',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden'
+        }}
+        onClick={() =>
+          props._setActiveTab && props._setActiveTab(props._index ?? 0)
+        }
+      />
+      <div
+        role="tabpanel"
+        className={'tab-content bg-base-100 ' + props.classNameContent}
+      >
+        {props.children}
+      </div>
     </>
+  ) : (
+    <></>
   );
 };

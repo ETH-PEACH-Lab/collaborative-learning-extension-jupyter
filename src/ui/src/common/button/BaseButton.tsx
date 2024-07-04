@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactSVG } from 'react-svg';
+import { SVG } from '../../icon';
 
 type BaseButtonProps = {
   label?: string;
@@ -21,8 +21,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       className={'btn btn-light btn-sm ' + className}
       disabled={disabled}
     >
-      {label ? (icon ? label + ' ' : label) : ''}{' '}
-      {icon && <ReactSVG src={icon}></ReactSVG>}
+      {label ? (icon ? label + ' ' : label) : ''} {icon && <SVG icon={icon} />}
     </button>
   );
 };

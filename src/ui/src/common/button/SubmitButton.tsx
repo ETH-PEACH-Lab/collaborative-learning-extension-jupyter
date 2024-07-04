@@ -1,13 +1,12 @@
 import React, { useId } from 'react';
-import { RightAlignedToolbar } from '../toolbar';
-import { BaseButton } from './BaseButton';
+import { ToolbarButton } from '../content';
+import { submitIcon } from '../../icon';
 
 type SubmitButtonProps = {
   onSubmit: () => void;
   submitted?: boolean;
   showBadgeOnSubmitted?: boolean;
   finalized?: boolean;
-  iconSubmit?: string;
   labelSubmit?: string;
   className?: string;
 };
@@ -16,29 +15,24 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
   submitted = false,
   showBadgeOnSubmitted = false,
   finalized = false,
-  labelSubmit = 'Submit',
-  iconSubmit,
-  className = ''
+  labelSubmit = 'Submit'
 }: SubmitButtonProps) => {
   const id = useId();
   return (
     <>
-      <RightAlignedToolbar className={className}>
-        {showBadgeOnSubmitted && submitted && (
-          <span className="badge badge-success mr-4">Submitted</span>
-        )}
-        <BaseButton
-          className="rounded-none"
-          onClick={() =>
-            (
-              document.getElementById('modal-' + id) as HTMLDialogElement
-            ).showModal()
-          }
-          disabled={submitted || finalized}
-          label={labelSubmit}
-          icon={iconSubmit}
-        />
-      </RightAlignedToolbar>
+      {showBadgeOnSubmitted && submitted && (
+        <span className="badge badge-success mr-4">Submitted</span>
+      )}
+      <ToolbarButton
+        icon={submitIcon.svgstr}
+        onClick={() =>
+          (
+            document.getElementById('modal-' + id) as HTMLDialogElement
+          ).showModal()
+        }
+        disabled={submitted || finalized}
+        label={labelSubmit}
+      />
       <dialog id={'modal-' + id} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Submission</h3>

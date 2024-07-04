@@ -204,10 +204,14 @@ export class KernelMessengerService {
       const matches = assertion.match(assertRegex) ?? [];
       for (let i = 0; i < matches.length; i++) {
         const parts = matches[i].split(/==|!=|>=|<=|>|</);
+        if (parts.length < 2) {
+          return false;
+        }
         const leftPart = parts[0]
           .replace('assert', '')
           .replace(/^["'](.+(?=["']$))["']$/, '"')
           .trim();
+
         const rightPart = parts[1]
           .replace(/^["'](.+(?=["']$))["']$/, '"')
           .trim();

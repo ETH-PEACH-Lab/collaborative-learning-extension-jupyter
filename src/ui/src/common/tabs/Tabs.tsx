@@ -28,12 +28,17 @@ export const Tabs: React.FC<TabsProps> = ({
     setActiveTab(index);
   };
   const tabCount = React.Children.count(children);
-  if (tabCount < activeTab + 1) {
+
+  if (tabCount < activeTab + 1 && tabCount > 1) {
     _setActiveTab(activeTab - 1);
     onTabChange && onTabChange(activeTab - 1);
     if (activeTab % pageSize === 0 && page > 0 && activeTab) {
       setPage(page - 1);
     }
+  }
+  if (tabCount === 1) {
+    _setActiveTab(0);
+    onTabChange && onTabChange(0);
   }
   const paginatedChildren = paginate(
     React.Children.toArray(children) as ReactElement<TabProps>[],

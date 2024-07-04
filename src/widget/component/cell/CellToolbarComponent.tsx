@@ -59,6 +59,8 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
                 const newPos = props.index - 1;
                 swapCellPosition(props.index, newPos);
               }}
+              hoverHint="Move up"
+              hoverHintDown
             />
             <ToolbarButton
               disabled={allIdsLength - 1 === props.index}
@@ -67,12 +69,16 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
                 const newPos = props.index + 1;
                 swapCellPosition(props.index, newPos);
               }}
+              hoverHint="Move down"
+              hoverHintDown
             />
             <ToolbarButton
               icon={deleteIcon.svgstr}
               onClick={() => {
                 deleteCell(props.cellId);
               }}
+              hoverHint="Delete"
+              hoverHintDown
             />
           </Toolbar>
         </>

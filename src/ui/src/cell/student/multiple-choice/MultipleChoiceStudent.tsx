@@ -4,7 +4,7 @@ import {
   IMultipleChoiceItem,
   MultipleChoiceComponent
 } from 'react-quiz-ui';
-import { MarkdownConfig, SubmitButton } from '../../../common';
+import { MarkdownConfig, SubmitButton, Toolbar } from '../../../common';
 
 type MultipleChoiceStudentProps = {
   options: {
@@ -50,13 +50,14 @@ export const MultipleChoiceStudent: React.FC<MultipleChoiceStudentProps> = ({
         onAnswerChanges={onAnswerChanges}
         initialAnswer={{ answer: answer }}
       ></MultipleChoiceComponent>
-      <SubmitButton
-        className="mt-4"
-        finalized={options.showSolution}
-        showBadgeOnSubmitted={true}
-        submitted={options.submitted}
-        onSubmit={() => setSubmit(true)}
-      />
+      <Toolbar className="mt-4" showOnHover={false}>
+        <SubmitButton
+          finalized={options.showSolution}
+          showBadgeOnSubmitted={true}
+          submitted={options.submitted}
+          onSubmit={() => setSubmit(true)}
+        />
+      </Toolbar>
     </>
   );
 };

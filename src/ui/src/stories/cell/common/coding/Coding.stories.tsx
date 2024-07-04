@@ -47,7 +47,7 @@ export const Primary: Story = {
           readonly={false}
           onChange={fn()}
         />
-        <Coding.AssertionCode>
+        <Coding.AssertionCode onlyFaulty={false} setOnlyFaulty={fn()}>
           <AssertionCodeTab label="test" success>
             <AssertionCodeTab.CodeName
               name="test"

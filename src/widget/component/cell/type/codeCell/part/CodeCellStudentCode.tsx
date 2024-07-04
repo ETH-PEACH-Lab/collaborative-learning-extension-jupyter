@@ -76,7 +76,8 @@ export function CodeCellStudentCode({
         </>
       ) : (
         <>
-          {testFieldForStudentExists ? (
+          {metadata.testingMode !== 'one-test-required' ||
+          testFieldForStudentExists ? (
             <Coding.StudentCode
               language={studentCode.language}
               src={studentCode.src}

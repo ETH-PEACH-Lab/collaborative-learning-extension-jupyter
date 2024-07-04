@@ -105,11 +105,13 @@ export const CodeCellToolbar: React.FC<CodeCellToolbarProps> = ({
                 showSolution ||
                 (!isInstructor && studentCodeField.submitted)
               }
+              hoverHint="Add test"
               icon={addIcon.svgstr}
               onClick={() => addTestCodeField(cellId)}
             />
             <ToolbarButton
               hide={assertionCode?.verified || assertionCodesIds.length === 0}
+              hoverHint="Verify test"
               icon={checkIcon.svgstr}
               disabled={
                 assertionCode?.name === undefined ||
@@ -126,6 +128,7 @@ export const CodeCellToolbar: React.FC<CodeCellToolbarProps> = ({
               }
             />
             <ToolbarButton
+              hoverHint="Run all tests"
               hide={assertionCodesIds.length < 2}
               icon={runAllIcon.svgstr}
               onClick={() =>
@@ -139,6 +142,7 @@ export const CodeCellToolbar: React.FC<CodeCellToolbarProps> = ({
               }
             />
             <ToolbarButton
+              hoverHint="Run test"
               hide={!assertionCode?.verified || assertionCodesIds.length === 0}
               icon={runIcon.svgstr}
               onClick={() =>
@@ -150,6 +154,7 @@ export const CodeCellToolbar: React.FC<CodeCellToolbarProps> = ({
               }
             />
             <ToolbarButton
+              hoverHint="Delete test"
               hide={
                 (!isInstructor &&
                   assertionCode?.createdBy !== username &&

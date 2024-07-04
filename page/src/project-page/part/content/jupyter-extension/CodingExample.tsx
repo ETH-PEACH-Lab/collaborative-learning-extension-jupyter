@@ -10,6 +10,7 @@ import {
 } from '../../../../../../src/ui';
 
 export const CodingExample: React.FC = () => {
+  const [onlyFaulty, setOnlyFaulty] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [testingMode, setTestingMode] = useState('tests');
 
@@ -76,8 +77,11 @@ export const CodingExample: React.FC = () => {
             />
           )}
           {(testingMode === 'tests' || testingMode === 'one-test-required') && (
-            <Coding.AssertionCode>
-              <AssertionCodeTab label="factorial(1)" success>
+            <Coding.AssertionCode
+              onlyFaulty={onlyFaulty}
+              setOnlyFaulty={setOnlyFaulty}
+            >
+              <AssertionCodeTab label="factorial(1)" success hide={onlyFaulty}>
                 <AssertionCodeTab.Code
                   src="assert factorial(1) == 1"
                   language="python"
@@ -97,7 +101,7 @@ export const CodingExample: React.FC = () => {
                   objects={[{ output: 'Assertion error', type: 'error' }]}
                 ></AssertionCodeTab.Output>
               </AssertionCodeTab>
-              <AssertionCodeTab label="factorial(3)" success>
+              <AssertionCodeTab label="factorial(3)" success hide={onlyFaulty}>
                 <AssertionCodeTab.Code
                   src="assert factorial(3) == 6"
                   language="python"
@@ -106,7 +110,7 @@ export const CodingExample: React.FC = () => {
                 ></AssertionCodeTab.Code>
                 <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
               </AssertionCodeTab>
-              <AssertionCodeTab label="factorial(4)" success>
+              <AssertionCodeTab label="factorial(4)" success hide={onlyFaulty}>
                 <AssertionCodeTab.Code
                   src="assert factorial(4) == 24"
                   language="python"

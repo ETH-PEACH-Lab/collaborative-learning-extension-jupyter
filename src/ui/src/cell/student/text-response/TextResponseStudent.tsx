@@ -5,7 +5,12 @@ import {
   adjustableHeightCodeOptions,
   readonlyAdjustableHeightCodeOptions
 } from 'react-quiz-ui';
-import { Feedback, MarkdownConfig, SubmitButton } from '../../../common';
+import {
+  Feedback,
+  MarkdownConfig,
+  SubmitButton,
+  Toolbar
+} from '../../../common';
 import { InstructorComment } from '../../../common/feedback/InstructorComment';
 type TextResponseStudentProps = {
   options: {
@@ -53,13 +58,14 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
         />
       )}
       {options.showSolution && <InstructorComment comment={comment} />}
-      <SubmitButton
-        className="mt-4"
-        finalized={options.showSolution}
-        showBadgeOnSubmitted={true}
-        submitted={options.submitted}
-        onSubmit={() => setSubmit(true)}
-      />
+      <Toolbar className="mt-4" showOnHover={false}>
+        <SubmitButton
+          finalized={options.showSolution}
+          showBadgeOnSubmitted={true}
+          submitted={options.submitted}
+          onSubmit={() => setSubmit(true)}
+        />
+      </Toolbar>
     </>
   );
 };

@@ -53,6 +53,8 @@ export const MultipleChoiceInstructorItem: React.FC<
             const newPos = index - 1;
             swapPosition(index, newPos);
           }}
+          hoverHint="Move item up"
+          hoverHintDown
         ></ToolbarButton>
         <ToolbarButton
           hide={options.randomOrder}
@@ -62,10 +64,14 @@ export const MultipleChoiceInstructorItem: React.FC<
             const newPos = index + 1;
             swapPosition(index, newPos);
           }}
+          hoverHint="Move item down"
+          hoverHintDown
         ></ToolbarButton>
         <ToolbarButton
           icon={deleteIcon.svgstr}
           onClick={remove}
+          hoverHint="Delete item"
+          hoverHintDown
         ></ToolbarButton>
       </Toolbar>
       <ContentBody>
