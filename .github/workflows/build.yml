@@ -34,7 +34,9 @@ jobs:
       run: |
         set -eux
         jlpm run test
-
+    - name: Install dependencies in ui
+      run: npm install
+      working-directory: ./src/ui
     - name: Build the extension
       run: |
         set -eux
@@ -42,7 +44,6 @@ jobs:
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "collab_learning_extension.*OK"
-
     - name: Package the extension
       run: |
         set -eux
