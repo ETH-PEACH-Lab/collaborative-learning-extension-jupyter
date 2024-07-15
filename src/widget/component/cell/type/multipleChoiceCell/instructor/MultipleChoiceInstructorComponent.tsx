@@ -36,17 +36,22 @@ export default function MultipleChoiceInstructorComponent(
     selectFields(state, cell.studentSolutionIds)
   ) as IMultipleChoiceItem[];
 
-  const studentSolutionDistribution = useMemo(()=>options.map(option => {
-    const filteredStudentSolutions = studentSolutions.filter(
-      solution => solution.src.length > 0 && solution.src.includes(option.id)
-    );
-    return (
-      (100 * filteredStudentSolutions.length) /
-      (filteredStudentSolutions.length === 0
-        ? 1
-        : filteredStudentSolutions.length)
-    );
-  }),[options,studentSolutions]);
+  const studentSolutionDistribution = useMemo(
+    () =>
+      options.map(option => {
+        const filteredStudentSolutions = studentSolutions.filter(
+          solution =>
+            solution.src.length > 0 && solution.src.includes(option.id)
+        );
+        return (
+          (100 * filteredStudentSolutions.length) /
+          (filteredStudentSolutions.length === 0
+            ? 1
+            : filteredStudentSolutions.length)
+        );
+      }),
+    [options, studentSolutions]
+  );
   const onCorrectAnswerChange = (optionId: string, correct: boolean) => {
     if (correct) {
       if (cell.metadata.multi) {
@@ -75,7 +80,10 @@ export default function MultipleChoiceInstructorComponent(
       optionId={option.id}
       onSelectionChange={onCorrectAnswerChange}
       studentDistribution={studentSolutionDistribution[index]}
-      options={{multi: cell.metadata.multi, randomOrder: cell.metadata.random}}
+      options={{
+        multi: cell.metadata.multi,
+        randomOrder: cell.metadata.random
+      }}
       remove={() => removeMultipleChoiceOption(props.cellId, option.id)}
       swapPosition={(from, to) =>
         swapPositionOfMultipleChoiceOption(props.cellId, from, to)
@@ -103,7 +111,7 @@ export default function MultipleChoiceInstructorComponent(
           onChange={value =>
             changeCell({
               ...cell,
-              metadata: { ...cell.metadata, random: value}
+              metadata: { ...cell.metadata, random: value }
             })
           }
           value={cell.metadata.random}
