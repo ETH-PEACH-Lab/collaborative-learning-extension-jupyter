@@ -1,0 +1,53 @@
+{
+  "cells": {
+    "byId": {
+      "7d504679-aed1-4428-95b3-a8cae8da0ccb": {
+        "studentSolutionIds": [
+          "f4549fd0-83dd-461c-8fcd-6ecb74026347"
+        ],
+        "solutionId": "26f04713-5dfd-4e9a-961c-432acddc2e54",
+        "documentId": "62f5b25a-57b4-48b6-8bba-70b7678a0edc",
+        "type": "text-cell",
+        "descriptionId": "49f981c9-5532-4eba-8851-7ef20e6bae9a",
+        "metadata": {
+          "showSolution": false,
+          "visible": true
+        },
+        "id": "7d504679-aed1-4428-95b3-a8cae8da0ccb"
+      }
+    },
+    "allIds": [
+      "7d504679-aed1-4428-95b3-a8cae8da0ccb"
+    ]
+  },
+  "fields": {
+    "byId": {
+      "26f04713-5dfd-4e9a-961c-432acddc2e54": {
+        "src": "Seven",
+        "id": "26f04713-5dfd-4e9a-961c-432acddc2e54",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "type": "markdown"
+      },
+      "f4549fd0-83dd-461c-8fcd-6ecb74026347": {
+        "comment": "nice try",
+        "type": "text-solution",
+        "grade": -1.0,
+        "id": "f4549fd0-83dd-461c-8fcd-6ecb74026347",
+        "src": "Six",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "submitted": true
+      },
+      "49f981c9-5532-4eba-8851-7ef20e6bae9a": {
+        "id": "49f981c9-5532-4eba-8851-7ef20e6bae9a",
+        "src": "### How many members has the Swiss federal counsil?",
+        "type": "markdown",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
+      }
+    },
+    "allIds": [
+      "49f981c9-5532-4eba-8851-7ef20e6bae9a",
+      "26f04713-5dfd-4e9a-961c-432acddc2e54",
+      "f4549fd0-83dd-461c-8fcd-6ecb74026347"
+    ]
+  }
+}
