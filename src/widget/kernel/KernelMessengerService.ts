@@ -226,9 +226,6 @@ export class KernelMessengerService {
             return false;
           }
         }
-        if (leftPart === 'None' || rightPart === 'None') {
-          return false;
-        }
 
         return true;
       }
