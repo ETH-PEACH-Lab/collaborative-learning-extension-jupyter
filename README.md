@@ -1,7 +1,7 @@
 # collab_learning_extension
 
 [![Github Actions Status](https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter/workflows/Build/badge.svg)](https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ETH-PEACH-Lab/collaborative-learning-extension-jupyter/main?urlpath=lab)
-A Collaborative Learning Extension for Jupyter Notebook. 
+A Collaborative Learning Extension for Jupyter Notebook.
 
 A product page can be found [here](https://eth-peach-lab.github.io/collaborative-learning-extension-jupyter/)
 
