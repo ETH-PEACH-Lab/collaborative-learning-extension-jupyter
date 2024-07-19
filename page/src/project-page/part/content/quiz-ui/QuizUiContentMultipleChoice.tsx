@@ -34,7 +34,7 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
               multi: multi,
               showEvaluation: showEvaluation,
               random: randomizedOrder,
-              disabled: showEvaluation,
+              disabled: showEvaluation
             }
           }}
           initialAnswer={{ answer: answer }}
