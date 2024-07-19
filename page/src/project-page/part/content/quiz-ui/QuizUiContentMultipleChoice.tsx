@@ -33,7 +33,8 @@ export const QuizUiContentMultipleChoice: React.FC = () => {
             metadata: {
               multi: multi,
               showEvaluation: showEvaluation,
-              random: randomizedOrder
+              random: randomizedOrder,
+              disabled: showEvaluation,
             }
           }}
           initialAnswer={{ answer: answer }}
