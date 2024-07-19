@@ -31,7 +31,7 @@ const Template = {
       random: false,
       showSolution: false,
       submitted: false,
-      distributionPerItem: [0, 0, 0]
+      distributionPerItem: { id0: 0, id1: 0, id2: 0 }
     }
   },
   render: args => {
@@ -52,7 +52,7 @@ export const Primary: Story = {
     answer: ['id1'],
     options: {
       submitted: true,
-      distributionPerItem: [100, 0, 0]
+      distributionPerItem: { id0: 100, id1: 0, id2: 0 }
     }
   },
   render: Template.render
@@ -66,7 +66,7 @@ export const Secondary: Story = {
       showSolution: true,
       submitted: true,
       multi: true,
-      distributionPerItem: [100, 0, 0]
+      distributionPerItem: { id0: 100, id1: 0, id2: 0 }
     }
   },
   render: Template.render
@@ -80,7 +80,7 @@ export const Forth: Story = {
     options: {
       showSolution: true,
       submitted: true,
-      distributionPerItem: [40, 30, 30]
+      distributionPerItem: { id0: 40, id1: 30, id2: 30 }
     }
   },
   render: args => {

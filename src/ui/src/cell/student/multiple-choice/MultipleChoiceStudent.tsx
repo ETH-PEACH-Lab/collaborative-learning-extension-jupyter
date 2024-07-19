@@ -12,7 +12,7 @@ type MultipleChoiceStudentProps = {
     random?: boolean;
     showSolution?: boolean;
     submitted?: boolean;
-    distributionPerItem: number[];
+    distributionPerItem: Record<string, number>;
   };
   items: IMultipleChoiceItem[];
   solutionOptions: string[];

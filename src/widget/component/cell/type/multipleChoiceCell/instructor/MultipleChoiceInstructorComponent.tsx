@@ -40,11 +40,13 @@ export default function MultipleChoiceInstructorComponent(
     () =>
       options.map(option => {
         const filteredStudentSolutions = studentSolutions.filter(
-          solution =>
-            solution.src.length > 0 && solution.src.includes(option.id)
+          solution => solution.src.length > 0
         );
         return (
-          (100 * filteredStudentSolutions.length) /
+          (100 *
+            filteredStudentSolutions.filter(solution =>
+              solution.src.includes(option.id)
+            ).length) /
           (filteredStudentSolutions.length === 0
             ? 1
             : filteredStudentSolutions.length)

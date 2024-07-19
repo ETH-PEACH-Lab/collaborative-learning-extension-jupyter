@@ -131,8 +131,12 @@ export const MultipleChoiceExample: React.FC = () => {
               random: random,
               showSolution: showSolution,
               submitted: submit,
-              distributionPerItem: items.map(item =>
-                answer.includes(String(item.id)) ? 100 : 0
+              distributionPerItem: items.reduce<Record<string, number>>(
+                (acc, item) => {
+                  acc[item.id] = answer.includes(String(item.id)) ? 100 : 0;
+                  return acc;
+                },
+                {}
               )
             }}
             setSubmit={value => setSubmit(value)}

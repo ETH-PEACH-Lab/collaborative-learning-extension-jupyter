@@ -1,126 +1,299 @@
 {
   "cells": {
-    "allIds": [
-      "7d504679-aed1-4428-95b3-a8cae8da0ccb",
-      "ca6dc1a3-47b7-42f9-8e26-4fabca910d17"
-    ],
     "byId": {
-      "ca6dc1a3-47b7-42f9-8e26-4fabca910d17": {
-        "options": [
-          "1615cffb-7b59-4aef-aa1b-089ae39c417e",
-          "35542f7d-e6ca-4275-986f-83ed38ee31bf",
-          "8262c08f-9344-4fdd-8b44-f96132ac13f5"
-        ],
-        "type": "multiple-choice-cell",
+      "20e6a676-f8a0-4f49-a943-9f0fcb649ad4": {
         "solutionOptions": [
-          "1615cffb-7b59-4aef-aa1b-089ae39c417e"
+          "8852fa5f-20ce-4b11-8451-ef7de368cba0"
         ],
-        "studentSolutionIds": [
-          "52223281-e2e4-46cb-9a42-e0daa1ed4838"
-        ],
-        "id": "ca6dc1a3-47b7-42f9-8e26-4fabca910d17",
-        "descriptionId": "4f8815f7-3094-4e15-8de0-e0b096107f92",
-        "documentId": "e7731c01-3b2c-42bb-af53-ad5ba5350934",
+        "descriptionId": "df3e1a68-b9a8-4ee5-acf8-748c937803db",
         "metadata": {
           "showSolution": true,
-          "random": false,
-          "multi": false,
-          "visible": true
-        }
+          "multi": true,
+          "visible": true,
+          "random": true
+        },
+        "options": [
+          "8852fa5f-20ce-4b11-8451-ef7de368cba0",
+          "7bdbcfe9-685f-4229-ad29-d42f8bb9cf84",
+          "00e63830-7e97-46da-abd3-0fde8cb54909",
+          "1b4f3c18-f850-4526-96fc-918ad4c94238"
+        ],
+        "type": "multiple-choice-cell",
+        "documentId": "e53cb094-78f5-491d-9403-1a5b395d8609",
+        "studentSolutionIds": [
+          "eb9eeae6-a221-4d8e-ba38-004bddfa7e7b",
+          "1574c560-bae9-49b9-9c0e-6e85ac2ffcd0"
+        ],
+        "id": "20e6a676-f8a0-4f49-a943-9f0fcb649ad4"
       },
       "7d504679-aed1-4428-95b3-a8cae8da0ccb": {
         "descriptionId": "49f981c9-5532-4eba-8851-7ef20e6bae9a",
+        "id": "7d504679-aed1-4428-95b3-a8cae8da0ccb",
         "studentSolutionIds": [
           "f4549fd0-83dd-461c-8fcd-6ecb74026347",
-          "eb66d787-5317-4f91-811d-0f5cec8cb170"
+          "eb66d787-5317-4f91-811d-0f5cec8cb170",
+          "26859d45-08ce-4ea8-8657-90f86e6186e4"
         ],
+        "documentId": "e7731c01-3b2c-42bb-af53-ad5ba5350934",
         "metadata": {
           "visible": true,
           "showSolution": true
         },
-        "type": "text-cell",
-        "documentId": "e7731c01-3b2c-42bb-af53-ad5ba5350934",
         "solutionId": "26f04713-5dfd-4e9a-961c-432acddc2e54",
-        "id": "7d504679-aed1-4428-95b3-a8cae8da0ccb"
+        "type": "text-cell"
+      },
+      "eaafce46-6461-4be8-a8ec-e0e4267833e4": {
+        "options": [
+          "f962b25a-f174-40ab-84c1-51be5189b7c6",
+          "e9c8f14e-e9aa-466b-821d-34785a0d5d6a"
+        ],
+        "type": "multiple-choice-cell",
+        "metadata": {
+          "random": false,
+          "visible": true,
+          "multi": false,
+          "showSolution": false
+        },
+        "solutionOptions": [],
+        "studentSolutionIds": [
+          "2060f115-1a62-4437-97bf-a437935902b4",
+          "79f5a543-a8db-4df0-b9ab-f7d7a5f4594b"
+        ],
+        "id": "eaafce46-6461-4be8-a8ec-e0e4267833e4",
+        "documentId": "6f67a037-bceb-44b5-982e-36269f7fbba3",
+        "descriptionId": "bb5d978c-ade6-438d-94f6-d62e361231f4"
+      },
+      "2c5c1e67-7793-4265-90c8-a1595f546d6b": {
+        "type": "multiple-choice-cell",
+        "id": "2c5c1e67-7793-4265-90c8-a1595f546d6b",
+        "solutionOptions": [
+          "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5"
+        ],
+        "metadata": {
+          "showSolution": false,
+          "visible": true,
+          "multi": true,
+          "random": false
+        },
+        "options": [
+          "a2b8a0b8-4397-453d-9437-bb0a81235156",
+          "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5",
+          "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0",
+          "e7bb7635-041d-437d-a512-7cbfe2d40b58"
+        ],
+        "studentSolutionIds": [
+          "7fd72e5e-026e-4317-a194-212053b1b939",
+          "03b240b2-7c1c-47bc-8d02-0fe6b3b728be"
+        ],
+        "documentId": "6f67a037-bceb-44b5-982e-36269f7fbba3",
+        "descriptionId": "46444f55-3000-4973-8cd8-74c221323a55"
       }
-    }
+    },
+    "allIds": [
+      "7d504679-aed1-4428-95b3-a8cae8da0ccb",
+      "20e6a676-f8a0-4f49-a943-9f0fcb649ad4",
+      "2c5c1e67-7793-4265-90c8-a1595f546d6b",
+      "eaafce46-6461-4be8-a8ec-e0e4267833e4"
+    ]
   },
   "fields": {
+    "byId": {
+      "bb5d978c-ade6-438d-94f6-d62e361231f4": {
+        "type": "markdown",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "src": "fdsffsdf",
+        "id": "bb5d978c-ade6-438d-94f6-d62e361231f4"
+      },
+      "f962b25a-f174-40ab-84c1-51be5189b7c6": {
+        "src": "dassdadsdsdds",
+        "id": "f962b25a-f174-40ab-84c1-51be5189b7c6",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0": {
+        "id": "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0",
+        "src": "ddddsddsd",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "df3e1a68-b9a8-4ee5-acf8-748c937803db": {
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "id": "df3e1a68-b9a8-4ee5-acf8-748c937803db",
+        "type": "markdown",
+        "src": "dfsfdsffdfssdadadasdsdasdsdadaasdasddddadadasdddasddadsaddsd"
+      },
+      "03b240b2-7c1c-47bc-8d02-0fe6b3b728be": {
+        "submitted": false,
+        "src": [
+          "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0",
+          "e7bb7635-041d-437d-a512-7cbfe2d40b58"
+        ],
+        "id": "03b240b2-7c1c-47bc-8d02-0fe6b3b728be",
+        "type": "multiple-choice-solution",
+        "grade": -1.0,
+        "comment": "",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "8852fa5f-20ce-4b11-8451-ef7de368cba0": {
+        "id": "8852fa5f-20ce-4b11-8451-ef7de368cba0",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "src": "dsdaddds"
+      },
+      "1574c560-bae9-49b9-9c0e-6e85ac2ffcd0": {
+        "src": [],
+        "grade": -1.0,
+        "comment": "",
+        "id": "1574c560-bae9-49b9-9c0e-6e85ac2ffcd0",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "submitted": false,
+        "type": "multiple-choice-solution"
+      },
+      "eb66d787-5317-4f91-811d-0f5cec8cb170": {
+        "src": "",
+        "comment": "",
+        "id": "eb66d787-5317-4f91-811d-0f5cec8cb170",
+        "type": "text-solution",
+        "submitted": false,
+        "createdBy": "06357e968abf495f9679abaadf966701",
+        "grade": -1.0
+      },
+      "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5": {
+        "id": "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5",
+        "src": "dsaddsddd",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "2060f115-1a62-4437-97bf-a437935902b4": {
+        "id": "2060f115-1a62-4437-97bf-a437935902b4",
+        "comment": "",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "submitted": false,
+        "grade": -1.0,
+        "type": "multiple-choice-solution",
+        "src": []
+      },
+      "e9c8f14e-e9aa-466b-821d-34785a0d5d6a": {
+        "src": "dsadsdasdsd",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "id": "e9c8f14e-e9aa-466b-821d-34785a0d5d6a"
+      },
+      "26f04713-5dfd-4e9a-961c-432acddc2e54": {
+        "type": "markdown",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "src": "Seven",
+        "id": "26f04713-5dfd-4e9a-961c-432acddc2e54"
+      },
+      "49f981c9-5532-4eba-8851-7ef20e6bae9a": {
+        "src": "### How many members has the Swiss federal counsil?",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "type": "markdown",
+        "id": "49f981c9-5532-4eba-8851-7ef20e6bae9a"
+      },
+      "79f5a543-a8db-4df0-b9ab-f7d7a5f4594b": {
+        "submitted": false,
+        "src": [],
+        "id": "79f5a543-a8db-4df0-b9ab-f7d7a5f4594b",
+        "type": "multiple-choice-solution",
+        "comment": "",
+        "grade": -1.0,
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "46444f55-3000-4973-8cd8-74c221323a55": {
+        "src": "ererererewrrerwr",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "id": "46444f55-3000-4973-8cd8-74c221323a55",
+        "type": "markdown"
+      },
+      "f4549fd0-83dd-461c-8fcd-6ecb74026347": {
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "comment": "nice try",
+        "submitted": true,
+        "grade": -1.0,
+        "src": "Six",
+        "id": "f4549fd0-83dd-461c-8fcd-6ecb74026347",
+        "type": "text-solution"
+      },
+      "1b4f3c18-f850-4526-96fc-918ad4c94238": {
+        "src": "assdadsda",
+        "id": "1b4f3c18-f850-4526-96fc-918ad4c94238",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
+      },
+      "26859d45-08ce-4ea8-8657-90f86e6186e4": {
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "comment": "",
+        "grade": -1.0,
+        "id": "26859d45-08ce-4ea8-8657-90f86e6186e4",
+        "submitted": false,
+        "type": "text-solution",
+        "src": ""
+      },
+      "a2b8a0b8-4397-453d-9437-bb0a81235156": {
+        "id": "a2b8a0b8-4397-453d-9437-bb0a81235156",
+        "src": "dasddsadsdsd",
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6"
+      },
+      "e7bb7635-041d-437d-a512-7cbfe2d40b58": {
+        "createdBy": "2e4b3923f4824d618260ede2645a3fc6",
+        "id": "e7bb7635-041d-437d-a512-7cbfe2d40b58",
+        "src": "sdaadsadssdsddsssdds"
+      },
+      "00e63830-7e97-46da-abd3-0fde8cb54909": {
+        "src": "asdasddasds",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "id": "00e63830-7e97-46da-abd3-0fde8cb54909"
+      },
+      "eb9eeae6-a221-4d8e-ba38-004bddfa7e7b": {
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "grade": -1.0,
+        "id": "eb9eeae6-a221-4d8e-ba38-004bddfa7e7b",
+        "submitted": false,
+        "type": "multiple-choice-solution",
+        "comment": "",
+        "src": [
+          "7bdbcfe9-685f-4229-ad29-d42f8bb9cf84",
+          "8852fa5f-20ce-4b11-8451-ef7de368cba0"
+        ]
+      },
+      "7fd72e5e-026e-4317-a194-212053b1b939": {
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "type": "multiple-choice-solution",
+        "id": "7fd72e5e-026e-4317-a194-212053b1b939",
+        "submitted": false,
+        "src": [
+          "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5",
+          "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0"
+        ],
+        "comment": "",
+        "grade": -1.0
+      },
+      "7bdbcfe9-685f-4229-ad29-d42f8bb9cf84": {
+        "src": "dasdadsd",
+        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
+        "id": "7bdbcfe9-685f-4229-ad29-d42f8bb9cf84"
+      }
+    },
     "allIds": [
       "49f981c9-5532-4eba-8851-7ef20e6bae9a",
       "26f04713-5dfd-4e9a-961c-432acddc2e54",
       "f4549fd0-83dd-461c-8fcd-6ecb74026347",
       "eb66d787-5317-4f91-811d-0f5cec8cb170",
-      "4f8815f7-3094-4e15-8de0-e0b096107f92",
-      "1615cffb-7b59-4aef-aa1b-089ae39c417e",
-      "35542f7d-e6ca-4275-986f-83ed38ee31bf",
-      "8262c08f-9344-4fdd-8b44-f96132ac13f5",
-      "52223281-e2e4-46cb-9a42-e0daa1ed4838"
-    ],
-    "byId": {
-      "1615cffb-7b59-4aef-aa1b-089ae39c417e": {
-        "src": "sadsda",
-        "id": "1615cffb-7b59-4aef-aa1b-089ae39c417e",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      },
-      "49f981c9-5532-4eba-8851-7ef20e6bae9a": {
-        "src": "### How many members has the Swiss federal counsil?",
-        "id": "49f981c9-5532-4eba-8851-7ef20e6bae9a",
-        "type": "markdown",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      },
-      "eb66d787-5317-4f91-811d-0f5cec8cb170": {
-        "type": "text-solution",
-        "src": "",
-        "id": "eb66d787-5317-4f91-811d-0f5cec8cb170",
-        "createdBy": "06357e968abf495f9679abaadf966701",
-        "submitted": false,
-        "comment": "",
-        "grade": -1.0
-      },
-      "35542f7d-e6ca-4275-986f-83ed38ee31bf": {
-        "src": "dasds",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "id": "35542f7d-e6ca-4275-986f-83ed38ee31bf"
-      },
-      "52223281-e2e4-46cb-9a42-e0daa1ed4838": {
-        "comment": "",
-        "id": "52223281-e2e4-46cb-9a42-e0daa1ed4838",
-        "grade": -1.0,
-        "submitted": false,
-        "src": [
-          "1615cffb-7b59-4aef-aa1b-089ae39c417e",
-          "8262c08f-9344-4fdd-8b44-f96132ac13f5"
-        ],
-        "type": "multiple-choice-solution",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      },
-      "26f04713-5dfd-4e9a-961c-432acddc2e54": {
-        "id": "26f04713-5dfd-4e9a-961c-432acddc2e54",
-        "type": "markdown",
-        "src": "Seven",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      },
-      "4f8815f7-3094-4e15-8de0-e0b096107f92": {
-        "id": "4f8815f7-3094-4e15-8de0-e0b096107f92",
-        "src": "Multiple Choice",
-        "type": "markdown",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      },
-      "f4549fd0-83dd-461c-8fcd-6ecb74026347": {
-        "submitted": true,
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd",
-        "grade": -1.0,
-        "src": "Six",
-        "type": "text-solution",
-        "id": "f4549fd0-83dd-461c-8fcd-6ecb74026347",
-        "comment": "nice try"
-      },
-      "8262c08f-9344-4fdd-8b44-f96132ac13f5": {
-        "id": "8262c08f-9344-4fdd-8b44-f96132ac13f5",
-        "src": "asddsadd",
-        "createdBy": "e25264935e8b4fe6ae2c1f659dc1d0cd"
-      }
-    }
+      "df3e1a68-b9a8-4ee5-acf8-748c937803db",
+      "8852fa5f-20ce-4b11-8451-ef7de368cba0",
+      "7bdbcfe9-685f-4229-ad29-d42f8bb9cf84",
+      "00e63830-7e97-46da-abd3-0fde8cb54909",
+      "1b4f3c18-f850-4526-96fc-918ad4c94238",
+      "eb9eeae6-a221-4d8e-ba38-004bddfa7e7b",
+      "26859d45-08ce-4ea8-8657-90f86e6186e4",
+      "1574c560-bae9-49b9-9c0e-6e85ac2ffcd0",
+      "46444f55-3000-4973-8cd8-74c221323a55",
+      "e7bb7635-041d-437d-a512-7cbfe2d40b58",
+      "a2b8a0b8-4397-453d-9437-bb0a81235156",
+      "a5f0cf07-bed1-4fc0-9efb-e5de5e9418b5",
+      "1d5ca195-f17b-46d8-b1a7-dbfb3d387ab0",
+      "7fd72e5e-026e-4317-a194-212053b1b939",
+      "03b240b2-7c1c-47bc-8d02-0fe6b3b728be",
+      "bb5d978c-ade6-438d-94f6-d62e361231f4",
+      "2060f115-1a62-4437-97bf-a437935902b4",
+      "f962b25a-f174-40ab-84c1-51be5189b7c6",
+      "e9c8f14e-e9aa-466b-821d-34785a0d5d6a",
+      "79f5a543-a8db-4df0-b9ab-f7d7a5f4594b"
+    ]
   }
 }

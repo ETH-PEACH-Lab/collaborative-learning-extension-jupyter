@@ -43,17 +43,23 @@ export const MultipleChoiceStudentComponent = (
     selectFields(state, cell.studentSolutionIds)
   ) as IMultipleChoiceItem[];
 
-  const studentSolutionDistribution = items.map(option => {
-    const filteredStudentSolutions = studentSolutions.filter(
-      solution => solution.src.length > 0 && solution.src.includes(option.id)
-    );
-    return (
-      (100 * filteredStudentSolutions.length) /
-      (filteredStudentSolutions.length === 0
-        ? 1
-        : filteredStudentSolutions.length)
-    );
-  });
+  const studentSolutionDistribution = items.reduce<Record<string, number>>(
+    (acc, option) => {
+      const filteredStudentSolutions = studentSolutions.filter(
+        solution => solution.src.length > 0
+      );
+      acc[option.id] =
+        (100 *
+          filteredStudentSolutions.filter(solution =>
+            solution.src.includes(option.id)
+          ).length) /
+        (filteredStudentSolutions.length === 0
+          ? 1
+          : filteredStudentSolutions.length);
+      return acc;
+    },
+    {}
+  );
 
   if (studentSelection === undefined) {
     addStudentSolutionField(props.cellId, 'multiple-choice-solution');
