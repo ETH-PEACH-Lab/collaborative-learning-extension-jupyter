@@ -1,22 +1,45 @@
-import { createContext } from 'react';
-import { IKernelExecution } from '../../types/app/kernel.types';
+import { createContext, useCallback } from 'react';
+import {
+  IKernelAssertionExecution,
+  IKernelExecution
+} from '../../types/app/kernel.types';
 import React from 'react';
+import { KernelMessengerService } from '../kernel/KernelMessengerService';
+import { ISessionContext } from '@jupyterlab/apputils';
 type KernelContextProviderProps = {
   children: React.ReactNode;
-  executeTest: (execution: IKernelExecution) => void;
-  executeCode: (execution: IKernelExecution) => void;
-  verifyTest: (execution: IKernelExecution) => void;
+  kernelMessengerService: KernelMessengerService;
+  session: ISessionContext;
 };
 export const KernelContext = createContext<IKernelContext | null>(null);
-export const KernelContextProvider = (props: KernelContextProviderProps) => {
+export const KernelContextProvider = ({
+  children,
+  kernelMessengerService,
+  session
+}: KernelContextProviderProps) => {
+  const value = {
+    executeTest: useCallback(
+      (execution: IKernelAssertionExecution) =>
+        kernelMessengerService.executeTest(execution, session),
+      [kernelMessengerService, session]
+    ),
+    executeCode: useCallback(
+      (execution: IKernelExecution) =>
+        kernelMessengerService.executeCode(execution, session),
+      [kernelMessengerService, session]
+    ),
+    verifyTest: useCallback(
+      (execution: IKernelAssertionExecution) =>
+        kernelMessengerService.verifyTest(execution, session),
+      [kernelMessengerService, session]
+    )
+  };
   return (
-    <KernelContext.Provider value={{ ...props }}>
-      {props.children}
-    </KernelContext.Provider>
+    <KernelContext.Provider value={value}>{children}</KernelContext.Provider>
   );
 };
 export interface IKernelContext {
-  executeTest: (execution: IKernelExecution) => void;
+  executeTest: (execution: IKernelAssertionExecution) => void;
   executeCode: (execution: IKernelExecution) => void;
-  verifyTest: (execution: IKernelExecution) => void;
+  verifyTest: (execution: IKernelAssertionExecution) => void;
 }

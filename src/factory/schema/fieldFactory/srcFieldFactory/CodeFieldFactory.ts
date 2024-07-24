@@ -5,10 +5,10 @@ export default class CodeFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
     return 'code';
   }
-  protected createSpecific(): ICodeField {
+  protected createSpecific(defaultSrc?: string): ICodeField {
     return {
       ...this.createField(),
-      src: '',
+      src: defaultSrc ?? '',
       type: 'code',
       language: 'python'
     };

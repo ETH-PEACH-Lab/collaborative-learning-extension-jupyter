@@ -11,7 +11,6 @@ import { DocModelContextProvider } from './context/docModelContext';
 import FooterComponent from './component/FooterComponent';
 import { KernelContextProvider } from './context/kernelContext';
 import { KernelMessengerService } from './kernel/KernelMessengerService';
-import { IKernelExecution } from '../types/app/kernel.types';
 import { Provider } from 'react-redux';
 import { store } from '../state/store';
 /**
@@ -21,40 +20,10 @@ export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
       <Provider store={store}>
-        <DocModelContextProvider
-          changeField={this._model.changeField.bind(this._model)}
-          deleteCell={this._model.deleteCell.bind(this._model)}
-          addFieldToPropertyArray={this._model.addFieldToPropertyArray.bind(
-            this._model
-          )}
-          removeFieldFromPropertyArray={this._model.removeFieldFromPropertyArray.bind(
-            this._model
-          )}
-          changeCell={this._model.changeCell.bind(this._model)}
-          swapCellPosition={this._model.swapCellPosition.bind(this._model)}
-          swapInPropertyArray={this._model.swapInPropertyArray.bind(
-            this._model
-          )}
-        >
+        <DocModelContextProvider model={this._model}>
           <KernelContextProvider
-            executeCode={(execution: IKernelExecution) =>
-              KernelMessengerService.instance.executeCode(
-                execution,
-                this._sessionContext
-              )
-            }
-            executeTest={(execution: IKernelExecution) =>
-              KernelMessengerService.instance.executeTest(
-                execution,
-                this._sessionContext
-              )
-            }
-            verifyTest={(execution: IKernelExecution) =>
-              KernelMessengerService.instance.verifyTest(
-                execution,
-                this._sessionContext
-              )
-            }
+            kernelMessengerService={KernelMessengerService.instance}
+            session={this._sessionContext}
           >
             <TopBarComponent hide={this._model.jupyterHubSetup} />
             <CellContainerComponent
@@ -90,7 +59,6 @@ export class PuzzlePanel extends ReactWidget {
     Signal.clearData(this);
     super.dispose();
   }
-
   private _model: PuzzleDocModel;
   private _sessionContext: ISessionContext;
 }

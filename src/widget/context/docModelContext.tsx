@@ -1,74 +1,85 @@
-import { createContext } from 'react';
+import { createContext, useCallback } from 'react';
 import React from 'react';
-import { FieldType, SolutionType, Cell, Field } from '../../types/';
+import { SolutionType, Cell, Field, ICell } from '../../types/';
+import { PuzzleDocModel } from '../../model/puzzleYDoc/PuzzleDocModel';
 
 type DocModelContextProviderProps = {
   children: React.ReactNode;
-  changeCell: (cell: Cell) => void;
-  changeField: (field: Field) => void;
-  deleteCell: (id: string) => void;
-
-  addFieldToPropertyArray: (
-    cellId: string,
-    propertyName: string,
-    fieldType: FieldType
-  ) => void;
-  removeFieldFromPropertyArray: (
-    cellId: string,
-    propertyName: string,
-    fieldId: string
-  ) => void;
-  swapCellPosition: (fromIndex: number, toIndex: number) => void;
-  swapInPropertyArray: (
-    cellId: string,
-    propertyName: string,
-    fromIndex: number,
-    toIndex: number
-  ) => void;
+  model: PuzzleDocModel;
 };
 export const DocModelContext = createContext<IDocModelContext | null>(null);
 
-export const DocModelContextProvider = (
-  props: DocModelContextProviderProps
-) => {
+export const DocModelContextProvider = ({
+  children,
+  model
+}: DocModelContextProviderProps) => {
   const addTestCodeField = (cellId: string) =>
-    props.addFieldToPropertyArray(cellId, 'testingCodeIds', 'test-code');
+    model.addFieldToPropertyArray(cellId, 'testingCodeIds', 'test-code');
 
   const removeTestCodeField = (cellId: string, id: string) =>
-    props.removeFieldFromPropertyArray(cellId, 'testingCodeIds', id);
+    model.removeFieldFromPropertyArray(cellId, 'testingCodeIds', id);
 
   const addStudentSolutionField = (
     cellId: string,
     solutionType: SolutionType
   ) => {
-    props.addFieldToPropertyArray(cellId, 'studentSolutionIds', solutionType);
+    model.addFieldToPropertyArray(cellId, 'studentSolutionIds', solutionType);
   };
   const addMultipleChoiceOption = (cellId: string) => {
-    props.addFieldToPropertyArray(cellId, 'options', 'multiple-choice-item');
+    model.addFieldToPropertyArray(cellId, 'options', 'multiple-choice-item');
   };
   const removeMultipleChoiceOption = (cellId: string, id: string) => {
-    props.removeFieldFromPropertyArray(cellId, 'options', id);
+    model.removeFieldFromPropertyArray(cellId, 'options', id);
   };
   const swapPositionOfMultipleChoiceOption = (
     cellId: string,
     fromIndex: number,
     toIndex: number
   ) => {
-    props.swapInPropertyArray(cellId, 'options', fromIndex, toIndex);
+    model.swapInPropertyArray(cellId, 'options', fromIndex, toIndex);
+  };
+  const value = {
+    changeField: useCallback(
+      (field: Field) => model.changeField(field),
+      [model]
+    ),
+    changeCell: useCallback((cell: ICell) => model.changeCell(cell), [model]),
+    deleteCell: useCallback((id: string) => model.deleteCell(id), []),
+    swapCellPosition: useCallback(
+      (fromIndex: number, toIndex: number) =>
+        model.swapCellPosition(fromIndex, toIndex),
+      [model]
+    ),
+    addStudentSolutionField: useCallback(
+      (cellId: string, solutionType: SolutionType) =>
+        addStudentSolutionField(cellId, solutionType),
+      [model]
+    ),
+    addTestCodeField: useCallback(
+      (cellId: string) => addTestCodeField(cellId),
+      [model]
+    ),
+    removeTestCodeField: useCallback(
+      (cellId: string, id: string) => removeTestCodeField(cellId, id),
+      [model]
+    ),
+    addMultipleChoiceOption: useCallback(
+      (cellId: string) => addMultipleChoiceOption(cellId),
+      [model]
+    ),
+    removeMultipleChoiceOption: useCallback(
+      (cellId: string, id: string) => removeMultipleChoiceOption(cellId, id),
+      [model]
+    ),
+    swapPositionOfMultipleChoiceOption: useCallback(
+      (cellId: string, fromIndex: number, toIndex: number) =>
+        swapPositionOfMultipleChoiceOption(cellId, fromIndex, toIndex),
+      [model]
+    )
   };
   return (
-    <DocModelContext.Provider
-      value={{
-        ...props,
-        addStudentSolutionField,
-        addTestCodeField,
-        removeTestCodeField,
-        addMultipleChoiceOption,
-        removeMultipleChoiceOption,
-        swapPositionOfMultipleChoiceOption
-      }}
-    >
-      {props.children}
+    <DocModelContext.Provider value={value}>
+      {children}
     </DocModelContext.Provider>
   );
 };

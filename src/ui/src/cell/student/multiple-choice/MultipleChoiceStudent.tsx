@@ -50,7 +50,7 @@ export const MultipleChoiceStudent: React.FC<MultipleChoiceStudentProps> = ({
         onAnswerChanges={onAnswerChanges}
         initialAnswer={{ answer: answer }}
       ></MultipleChoiceComponent>
-      <Toolbar className="mt-4" showOnHover={false}>
+      <Toolbar className="my-4" showOnHover={false}>
         <SubmitButton
           finalized={options.showSolution}
           showBadgeOnSubmitted={true}

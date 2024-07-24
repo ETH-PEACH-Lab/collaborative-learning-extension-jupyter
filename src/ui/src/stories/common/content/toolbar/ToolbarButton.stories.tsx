@@ -1,12 +1,7 @@
 import { type Meta } from '@storybook/react';
 import React from 'react';
 import { addIcon } from '@jupyterlab/ui-components';
-import {
-  Content,
-  ContentBody,
-  Toolbar,
-  ToolbarButton
-} from '../../../../common/content';
+import { ToolbarButton } from '../../../../common/content';
 import { DeepStoryObj } from '../../../StoryObj';
 
 type CodingComponentPropsAndCustomArgs = React.ComponentProps<
@@ -60,39 +55,4 @@ export const Third: Story = {
     hide: true
   },
   render: Template.render
-};
-
-export const Fifth: Story = {
-  name: 'Hover up example',
-  args: {
-    ...Template.args,
-    hoverHint: 'Add Test'
-  },
-  render: args => {
-    return (
-      <Content>
-        <ContentBody>
-          <Toolbar showOnHover={false}>{Template.render(args)}</Toolbar>
-        </ContentBody>
-      </Content>
-    );
-  }
-};
-
-export const Sixth: Story = {
-  name: 'Hover down example',
-  args: {
-    ...Template.args,
-    hoverHint: 'Add Test',
-    hoverHintDown: true
-  },
-  render: args => {
-    return (
-      <Content>
-        <ContentBody>
-          <Toolbar showOnHover={false}>{Template.render(args)}</Toolbar>
-        </ContentBody>
-      </Content>
-    );
-  }
 };

@@ -1,5 +1,5 @@
 import { ICodeCell, ICodeField, ICodeSolution } from '../../../../../../types';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../../state/store';
 import {
@@ -7,10 +7,23 @@ import {
   selectStudentSolutionField,
   selectTestFieldForUserExists
 } from '../../../../../../state/slice/yjs/fieldSlice';
-import { DocModelContext, IDocModelContext } from '../../../../../context';
-import { Coding, Feedback } from '../../../../../../ui';
-import { selectCell } from '../../../../../../state';
+import {
+  DocModelContext,
+  IDocModelContext,
+  IKernelContext,
+  KernelContext
+} from '../../../../../context';
+import {
+  Coding,
+  CompilingKernelOutputContainer,
+  Feedback
+} from '../../../../../../ui';
+import {
+  selectCell,
+  selectKernelExecutionResult
+} from '../../../../../../state';
 import { InstructorComment } from '../../../../../../ui/src/common/feedback/InstructorComment';
+import { useTriggerCompiling } from '../hooks/useTriggerCompiling';
 type CodeCellStudentCodeProps = {
   cellId: string;
   isInstructor: boolean;
@@ -19,12 +32,15 @@ export function CodeCellStudentCode({
   cellId,
   isInstructor
 }: CodeCellStudentCodeProps) {
-  const { addStudentSolutionField, changeField } = useContext(
-    DocModelContext
-  ) as IDocModelContext;
   if (isInstructor) {
     return <></>;
   }
+  const [triggerCompiling, isCompiling] = useTriggerCompiling();
+  const { addStudentSolutionField, changeField } = useContext(
+    DocModelContext
+  ) as IDocModelContext;
+  const { executeCode } = useContext(KernelContext) as IKernelContext;
+
   const showSolution = useSelector(
     (state: RootState) => selectCell(state, cellId).metadata.showSolution
   );
@@ -47,6 +63,20 @@ export function CodeCellStudentCode({
   const metadata = useSelector(
     (state: RootState) => (selectCell(state, cellId) as ICodeCell).metadata
   );
+  const kernelOutputs = useSelector((state: RootState) =>
+    selectKernelExecutionResult(state, studentCode?.id)
+  );
+  const trigger = () =>
+    triggerCompiling(
+      studentCode.id,
+      () => executeCode({ codeBodyId: studentCode.id, cellId: cellId }),
+      1000
+    );
+  useEffect(() => {
+    if (studentCode !== undefined) {
+      trigger();
+    }
+  }, []);
   if (studentCode === undefined) {
     addStudentSolutionField(cellId, 'code-solution');
     return <></>;
@@ -79,6 +109,7 @@ export function CodeCellStudentCode({
           {metadata.testingMode !== 'one-test-required' ||
           testFieldForStudentExists ? (
             <Coding.StudentCode
+              className="relative"
               language={studentCode.language}
               src={studentCode.src}
               readonly={
@@ -86,8 +117,20 @@ export function CodeCellStudentCode({
                   !testFieldForStudentExists) ||
                 studentCode.submitted
               }
-              onChange={value => changeField({ ...studentCode, src: value })}
-            />
+              onChange={value => {
+                if (studentCode.src !== value) {
+                  changeField({ ...studentCode, src: value });
+                  trigger();
+                }
+              }}
+            >
+              <CompilingKernelOutputContainer
+                isCompiling={isCompiling}
+                objects={kernelOutputs?.outputs ?? []}
+                className="animate-fadein mt-2"
+                classNameCompilingHint="absolute top-0 right-0 mr-4"
+              ></CompilingKernelOutputContainer>
+            </Coding.StudentCode>
           ) : (
             <></>
           )}

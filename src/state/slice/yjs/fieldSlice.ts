@@ -1,5 +1,11 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
-import { ICell, ICodeCell, IField, ITestCodeField } from '../../../types';
+import {
+  Field,
+  ICell,
+  ICodeCell,
+  IField,
+  ITestCodeField
+} from '../../../types';
 import { RootState } from '../../store';
 import { removeKernelExecutionResult } from '../app';
 import {
@@ -19,21 +25,37 @@ const fieldsSlice = createSlice({
   initialState,
   reducers: {
     addField(state, action: PayloadAction<AddDispatch<IField>>) {
-      state.byId[action.payload.item.id] = action.payload.item;
-      state.allIds.push(action.payload.item.id);
+      const { id } = action.payload.item;
+      state.byId = { ...state.byId, [id]: { ...action.payload.item } };
+      if (!state.allIds.includes(id)) {
+        state.allIds = [...state.allIds, id];
+      }
     },
     deleteField(state, action: PayloadAction<DeleteDispatch>) {
-      delete state.byId[action.payload.id];
-      state.allIds = state.allIds.filter(id => id !== action.payload.id);
-      removeKernelExecutionResult(action.payload.id);
-    },
-    updateFieldProperty(state, action: PayloadAction<UpdatePropertyDispatch>) {
-      state.byId[action.payload.id][action.payload.key as keyof IField] =
-        action.payload.value;
+      const { id } = action.payload;
+      const restById = { ...state.byId };
+      delete restById[id];
+      state.byId = restById;
+      state.allIds = state.allIds.filter(existingId => existingId !== id);
+      removeKernelExecutionResult(id);
     },
     setFields(state, action: PayloadAction<RootDispatch<IField>>) {
-      state.byId = action.payload.state.byId;
-      state.allIds = action.payload.state.allIds;
+      state.byId = { ...state.byId, ...action.payload.state.byId };
+      state.allIds = Array.from(
+        new Set([...state.allIds, ...action.payload.state.allIds])
+      );
+    },
+    updateFieldProperty(state, action: PayloadAction<UpdatePropertyDispatch>) {
+      const { id, key, value } = action.payload;
+      if (state.byId[id]) {
+        state.byId = {
+          ...state.byId,
+          [id]: {
+            ...state.byId[id],
+            [key as keyof Field]: value
+          }
+        };
+      }
     },
     updateFieldsAllIds(state, action: PayloadAction<AllIdsDispatch>) {
       state.allIds = action.payload.ids;

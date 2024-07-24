@@ -17,7 +17,7 @@ export const TopBarComponent: React.FC<TopBarComponentProps> = ({ hide }) => {
   const dispatch = useDispatch();
 
   return !hide ? (
-    <div className="form-control items-end">
+    <div className="form-control items-end animate-fadein">
       <label className="label cursor-pointer">
         <span className="label-text mr-2">Instructor</span>
         <input

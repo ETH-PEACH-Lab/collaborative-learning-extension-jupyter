@@ -6,10 +6,10 @@ export default class MultipleChoiceItemFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
     return 'multiple-choice-item';
   }
-  protected createSpecific(): IMultipleChoiceItem {
+  protected createSpecific(defaultSrc?: string): IMultipleChoiceItem {
     return {
       ...this.createField(),
-      src: ''
+      src: defaultSrc ?? ''
     };
   }
 }

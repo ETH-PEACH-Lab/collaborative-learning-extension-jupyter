@@ -11,7 +11,7 @@ export default class CodeCellFactory extends CellFactory {
   }
 
   protected createSpecific(
-    fieldCreation: (type: FieldType) => string
+    fieldCreation: (type: FieldType, defaultSrc?: string) => string
   ): ICodeCell {
     const temp = this._createCell(fieldCreation);
     return {
@@ -21,8 +21,14 @@ export default class CodeCellFactory extends CellFactory {
         ...temp.metadata,
         testingMode: 'tests'
       },
-      startingCodeId: fieldCreation('code'),
-      solutionCodeId: fieldCreation('code'),
+      startingCodeId: fieldCreation(
+        'code',
+        '# Provide a basic skeleton code for the learners to start with'
+      ),
+      solutionCodeId: fieldCreation(
+        'code',
+        '# Provide a reference solution here. The solution code is used for verifying the test cases. \n # Starting code and solution code are concatenated during execution'
+      ),
       testingCodeIds: []
     };
   }

@@ -5,11 +5,13 @@ export class CodeSolutionFieldFactory extends SolutionFieldFactory {
   public get identifier(): FieldType {
     return 'code-solution';
   }
-  protected createSpecific(): ICodeSolution {
+  protected createSpecific(defaultSrc?: string): ICodeSolution {
     return {
       ...this.createField(),
       language: 'python',
-      src: '',
+      src:
+        defaultSrc ??
+        '# Add your solution here, beware of the starting code and indented blocks',
       type: 'code-solution'
     };
   }

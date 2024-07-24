@@ -38,7 +38,8 @@ export const YjsNormalizedContent: React.FC<null> = () => {
               options: {
                 ...readonlyAdjustableHeightCodeOptions,
                 contextmenu: false
-              }
+              },
+              theme: 'diff-theme'
             }}
           ></CodeComponent>
         </div>

@@ -1,11 +1,13 @@
 import { type Meta } from '@storybook/react';
 import React from 'react';
 import { DeepStoryObj } from '../../../StoryObj';
-import { AssertionCodeTab, Coding } from '../../../../cell';
+import { AssertionCode, AssertionCodeCollapse, Coding } from '../../../../cell';
 import { fn } from '@storybook/test';
-import { ToolbarButton } from '../../../../common';
-import { checkIcon, deleteIcon, runIcon } from '@jupyterlab/ui-components';
-import { runAllIcon } from '../../../../icon';
+import { BaseButton, ToolbarButton } from '../../../../common';
+import { submitIcon } from '../../../../icon';
+import { AssertionCodeContent } from '../../../../cell/common/coding/part/assertion/content/AssertionCodeContent';
+import { AssertionCodeName } from '../../../../cell/common/coding/part/assertion/name/AssertionCodeName';
+import { runIcon } from '@jupyterlab/ui-components';
 
 type AssertionCodeNameAndCustomArgs = React.ComponentProps<typeof Coding>;
 
@@ -47,71 +49,93 @@ export const Primary: Story = {
           readonly={false}
           onChange={fn()}
         />
-        <Coding.AssertionCode onlyFaulty={false} setOnlyFaulty={fn()}>
-          <AssertionCodeTab label="test" success>
-            <AssertionCodeTab.CodeName
+        <Coding.AssertionCode>
+          <AssertionCode.Collapse tabIndex={0}>
+            <AssertionCodeCollapse.Name
+              name="testssssssssssssssssssssssssssssssssssssssss sssssssssssssssssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+              onNameChange={fn()}
+              editing={false}
+              success
+            >
+              <AssertionCodeName.Toolbar>
+                <BaseButton
+                  onClick={fn()}
+                  icon={runIcon.svgstr}
+                  label="Run"
+                ></BaseButton>
+              </AssertionCodeName.Toolbar>
+            </AssertionCodeCollapse.Name>
+            <AssertionCodeCollapse.Content>
+              <AssertionCodeContent.Code
+                src="assert 1 = 1"
+                language="python"
+                readonly={true}
+                onChange={fn()}
+              />
+              <AssertionCodeContent.Output
+                objects={[]}
+              ></AssertionCodeContent.Output>
+            </AssertionCodeCollapse.Content>
+          </AssertionCode.Collapse>
+          <AssertionCode.Collapse tabIndex={1}>
+            <AssertionCodeCollapse.Name
               name="test"
               onNameChange={fn()}
-            ></AssertionCodeTab.CodeName>
-            <AssertionCodeTab.Code
-              src="assert 2 == 2"
-              language="python"
-              readonly={true}
-              onChange={fn()}
-            ></AssertionCodeTab.Code>
-            <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-          </AssertionCodeTab>
-          <AssertionCodeTab label="test2" success={false}>
-            <AssertionCodeTab.CodeName
-              name="test2"
+              editing={false}
+              success={false}
+            >
+              <AssertionCodeName.Toolbar>
+                <BaseButton
+                  onClick={fn()}
+                  icon={runIcon.svgstr}
+                  label="Run"
+                ></BaseButton>
+              </AssertionCodeName.Toolbar>
+            </AssertionCodeCollapse.Name>
+            <AssertionCodeCollapse.Content>
+              <AssertionCodeContent.Code
+                src="assert 1 = 1"
+                language="python"
+                readonly={true}
+                onChange={fn()}
+              />
+              <AssertionCodeContent.Output
+                objects={[]}
+              ></AssertionCodeContent.Output>
+            </AssertionCodeCollapse.Content>
+          </AssertionCode.Collapse>
+          <AssertionCode.Collapse tabIndex={2}>
+            <AssertionCodeCollapse.Name
+              name="test"
               onNameChange={fn()}
-            ></AssertionCodeTab.CodeName>
-            <AssertionCodeTab.Code
-              src="assert 1 = 1"
-              language="python"
-              readonly={true}
-              onChange={fn()}
-            ></AssertionCodeTab.Code>
-            <AssertionCodeTab.Output
-              objects={[{ output: 'Syntax Error', type: 'error' }]}
-            ></AssertionCodeTab.Output>
-          </AssertionCodeTab>
-          <AssertionCodeTab label="test3" success>
-            <AssertionCodeTab.CodeName
-              name="test2"
-              onNameChange={fn()}
-            ></AssertionCodeTab.CodeName>
-            <AssertionCodeTab.Code
-              src="assert 1 == 1"
-              language="python"
-              readonly={true}
-              onChange={fn()}
-            ></AssertionCodeTab.Code>
-            <AssertionCodeTab.Output
-              objects={[{ output: 'Syntax Error', type: 'error' }]}
-            ></AssertionCodeTab.Output>
-          </AssertionCodeTab>
+              editing={true}
+            >
+              <AssertionCodeName.Toolbar>
+                <BaseButton
+                  onClick={fn()}
+                  icon={runIcon.svgstr}
+                  label="Run"
+                ></BaseButton>
+              </AssertionCodeName.Toolbar>
+            </AssertionCodeCollapse.Name>
+            <AssertionCodeCollapse.Content>
+              <AssertionCodeContent.Code
+                src="assert 1 = 1"
+                language="python"
+                readonly={false}
+                onChange={fn()}
+              />
+              <AssertionCodeContent.Output
+                objects={[]}
+              ></AssertionCodeContent.Output>
+            </AssertionCodeCollapse.Content>
+          </AssertionCode.Collapse>
         </Coding.AssertionCode>
         <Coding.Toolbar>
           <ToolbarButton
-            icon={checkIcon.svgstr}
+            icon={submitIcon.svgstr}
             onClick={fn()}
-            label="Verify"
-          ></ToolbarButton>
-          <ToolbarButton
-            icon={runAllIcon.svgstr}
-            onClick={fn()}
-            label="Run all"
-          ></ToolbarButton>
-          <ToolbarButton
-            icon={runIcon.svgstr}
-            onClick={fn()}
-            label="Run"
-          ></ToolbarButton>
-          <ToolbarButton
-            icon={deleteIcon.svgstr}
-            onClick={fn()}
-            label="Delete"
+            label="Submit"
           ></ToolbarButton>
         </Coding.Toolbar>
       </Coding>

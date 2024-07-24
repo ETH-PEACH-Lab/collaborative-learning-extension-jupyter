@@ -4,6 +4,7 @@ import { KernelMessage } from '@jupyterlab/services';
 import { IOPubMessageType } from '@jupyterlab/services/lib/kernel/messages';
 import { ISignal, Signal } from '@lumino/signaling';
 import {
+  IKernelAssertionExecution,
   IKernelExecution,
   IKernelOutput,
   IKernelTestVerified
@@ -30,18 +31,17 @@ export class KernelMessengerService {
     execution: IKernelExecution,
     sessionContext: ISessionContext | null
   ): void {
-    store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
     this._executeCode(execution, sessionContext).then(outputs =>
       store.dispatch(
         setKernelExecutionResult({
-          referenceId: execution.assertionCodeId,
+          referenceId: execution.codeBodyId,
           outputs
         })
       )
     );
   }
   executeTest(
-    execution: IKernelExecution,
+    execution: IKernelAssertionExecution,
     sessionContext: ISessionContext | null
   ) {
     store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
@@ -49,13 +49,14 @@ export class KernelMessengerService {
       store.dispatch(
         setKernelTestResult({
           referenceId: execution.assertionCodeId,
-          result: successful
+          result: successful,
+          cellId: execution.cellId
         })
       )
     );
   }
   verifyTest(
-    execution: IKernelExecution,
+    execution: IKernelAssertionExecution,
     sessionContext: ISessionContext | null
   ): void {
     store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
@@ -64,13 +65,15 @@ export class KernelMessengerService {
         this._verifiedTestSignal.emit(<IKernelTestVerified>{
           referenceId: execution.assertionCodeId
         });
+      } else {
+        store.dispatch(
+          setKernelTestResult({
+            referenceId: execution.assertionCodeId,
+            result: successful,
+            cellId: execution.cellId
+          })
+        );
       }
-      store.dispatch(
-        setKernelTestResult({
-          referenceId: execution.assertionCodeId,
-          result: successful
-        })
-      );
     });
   }
   private _executeCode = (
@@ -83,7 +86,7 @@ export class KernelMessengerService {
         return;
       }
       const future = sessionContext.session?.kernel?.requestExecute({
-        code: this._extractSrc(execution)
+        code: this._extractExecutionSrc(execution)
       });
       future.onIOPub = (msg: KernelMessage.IIOPubMessage<IOPubMessageType>) => {
         const msgType = msg.header.msg_type;
@@ -128,11 +131,11 @@ export class KernelMessengerService {
     });
   };
   private _executeTest(
-    execution: IKernelExecution,
+    execution: IKernelAssertionExecution,
     sessionContext: ISessionContext | null
   ): Promise<boolean> {
     return new Promise<boolean>((resolve, _) => {
-      const src = this._extractSrc(execution);
+      const src = this._extractAssertionExecutionSrc(execution);
       if (
         !src.includes('assert') ||
         !sessionContext ||
@@ -230,20 +233,36 @@ export class KernelMessengerService {
         return true;
       }
     }
+    if (assertion.match(/^assert\s+True.*$/g)) {
+      return false;
+    }
     return true;
   }
 
-  private _extractSrc(execution: IKernelExecution): string {
+  private _extractAssertionExecutionSrc(
+    execution: IKernelAssertionExecution
+  ): string {
+    const assertionField = store.getState().fields.byId[
+      execution.assertionCodeId
+    ] as ICodeField;
+    if (!assertionField) {
+      return '';
+    }
+    return [this._extractExecutionSrc(execution), assertionField.src].join(
+      '\r\n'
+    );
+  }
+  private _extractExecutionSrc(execution: IKernelExecution): string {
     const codeCell = store.getState().cells.byId[execution.cellId] as ICodeCell;
+    if (!codeCell) {
+      return '';
+    }
     const fields: ICodeField[] = [];
     fields.push(
       store.getState().fields.byId[codeCell.startingCodeId] as ICodeField
     );
     fields.push(
       store.getState().fields.byId[execution.codeBodyId] as ICodeField
-    );
-    fields.push(
-      store.getState().fields.byId[execution.assertionCodeId] as ICodeField
     );
     return fields.map(field => field.src).join('\r\n');
   }

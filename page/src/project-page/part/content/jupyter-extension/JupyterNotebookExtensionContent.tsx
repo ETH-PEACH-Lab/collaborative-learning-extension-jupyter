@@ -26,6 +26,18 @@ export const JupyterNotebookExtensionContent: React.FC = () => {
         cases.
       </p>
       <CodingExample />
+      <p className="mt-4">
+        Note: Buttons related to code execution are disabled. To see the
+        extension in action, start a Binder environment{' '}
+        <a
+          href="https://mybinder.org/v2/gh/ETH-PEACH-Lab/collaborative-learning-extension-jupyter/main?urlpath=lab"
+          target="_blank"
+          rel="noreferrer"
+        >
+          here
+        </a>
+        .
+      </p>
     </>
   );
 };

@@ -33,7 +33,10 @@ export const QuizUiContentTextResponse: React.FC = () => {
               markdownEditorConfig: {
                 jupyter: jupyter,
                 tabs: tabs,
-                alignVertical: splitMode
+                alignVertical: splitMode,
+                codeConfig: {
+                  theme: 'diff-theme'
+                }
               }
             }
           }}

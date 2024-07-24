@@ -16,7 +16,10 @@ import { KernelMessengerService } from '../../widget/kernel/KernelMessengerServi
 import { RootObserver } from 'yjs-normalized';
 import { DocumentChange, YDocument } from '@jupyter/ydoc';
 
-export class PuzzleYDoc extends YDocument<DocumentChange> {
+export type PuzzleDocChange = DocumentChange & {
+  contentChanged: boolean;
+};
+export class PuzzleYDoc extends YDocument<PuzzleDocChange> {
   constructor() {
     super();
     const cells = this.ydoc.getMap('cells') as any;
@@ -31,18 +34,30 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
       fields,
       this.transact.bind(this)
     );
-    this._cellsObserver = new CellsObserver(cells, this.ydoc.guid);
-    this._fieldsObserver = new FieldsObserver(fields);
+    this._cellsObserver = new CellsObserver(
+      cells,
+      this._onChange.bind(this),
+      this.ydoc.guid
+    );
+    this._fieldsObserver = new FieldsObserver(
+      fields,
+      this._onChange.bind(this)
+    );
 
     KernelMessengerService.instance.verifiedTestSignal.connect(
       (_, verification: IKernelTestVerified) => {
         const clone = this._fieldsMaintainer.getObjectAsJson(
           verification.referenceId
         ) as ITestCodeField;
-        clone.verified = true;
-        this._fieldsMaintainer.changeObject(clone);
+        this._fieldsMaintainer.changeObject({
+          ...clone,
+          verified: true
+        } as ITestCodeField);
       }
     );
+    this.ydoc.on('update', (update: Uint8Array) => {
+      console.debug('Received update: ', update);
+    });
   }
 
   readonly version: string = '1.0.0';
@@ -67,8 +82,10 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
   addCell(identifier: CellType, createdBy: string): void {
     this.transact(() => {
       this._cellsMaintainer.addObject(
-        CellFactoryService.instance.create(identifier, (type: FieldType) =>
-          this.fieldCreation(type, createdBy)
+        CellFactoryService.instance.create(
+          identifier,
+          (type: FieldType, defaultSrc?: string) =>
+            this._fieldCreation(type, createdBy, defaultSrc)
         )
       );
     });
@@ -79,6 +96,7 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
     });
   }
   changeCell(cell: ICell): void {
+    delete cell.documentId;
     this._cellsMaintainer.changeObject(cell);
   }
   swapCellPosition(fromIndex: number, toIndex: number): void {
@@ -97,7 +115,7 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
       this._cellsMaintainer.addToPropertyArray(
         cellId,
         propertyName,
-        this.fieldCreation(fieldType, createdBy)
+        this._fieldCreation(fieldType, createdBy)
       );
     });
   }
@@ -128,13 +146,18 @@ export class PuzzleYDoc extends YDocument<DocumentChange> {
       toIndex
     );
   }
-  private fieldCreation(type: FieldType, createdBy: string): string {
-    const field = FieldFactoryService.instance.create(type, (type: FieldType) =>
-      this.fieldCreation(type, createdBy)
-    );
+  private _fieldCreation(
+    type: FieldType,
+    createdBy: string,
+    defaultSrc?: string
+  ): string {
+    const field = FieldFactoryService.instance.create(type, defaultSrc);
     field.createdBy = createdBy;
     this._fieldsMaintainer.addObject(field);
     return field.id;
+  }
+  private _onChange(): void {
+    this._changed.emit({ contentChanged: true });
   }
   private _cellsMaintainer: CellsMaintainer;
   private _fieldsMaintainer: FieldsMaintainer;

@@ -19,8 +19,7 @@ export default function CodeCell({ cellId }: CodeCellProps) {
   const isInstructor = useSelector((state: RootState) =>
     selectGroups(state)
   ).includes(InstructorsGroupName);
-  const [assertionCodeIndex, setAssertionCodeIndex] = useState(0);
-  const [codeIndex, setCodeIndex] = useState(0);
+  const [selectedCodeIndex, setSelectedCodeIndex] = useState('');
   return (
     <Coding>
       {isInstructor && (
@@ -37,19 +36,14 @@ export default function CodeCell({ cellId }: CodeCellProps) {
       <CodeCellSolutionCode
         cellId={cellId}
         isInstructor={isInstructor}
-        onCodeTabChange={setCodeIndex}
+        onCodeTabChange={setSelectedCodeIndex}
       ></CodeCellSolutionCode>
       <CodeCellAssertionCode
         cellId={cellId}
         isInstructor={isInstructor}
-        onTabChange={index => setAssertionCodeIndex(index)}
+        instructorCodeId={selectedCodeIndex}
       ></CodeCellAssertionCode>
-      <CodeCellToolbar
-        cellId={cellId}
-        isInstructor={isInstructor}
-        codeIndex={codeIndex}
-        assertionIndex={assertionCodeIndex}
-      />
+      <CodeCellToolbar cellId={cellId} isInstructor={isInstructor} />
     </Coding>
   );
 }

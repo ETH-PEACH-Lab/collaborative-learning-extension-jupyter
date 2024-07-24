@@ -16,7 +16,7 @@ export default function FooterComponent(props: FooterComponentProps) {
     .map(factory => (
       <button
         type="button"
-        className="btn join-item grow"
+        className="btn join-item grow hover:bg-base-300 border-solid border-[1px] border-base-300"
         onClick={() => props.addCell(factory.id)}
       >
         {factory.name}
@@ -24,6 +24,10 @@ export default function FooterComponent(props: FooterComponentProps) {
     ));
 
   return (
-    <>{isInstructor && <div className="join flex mt-4">{cellButtons}</div>}</>
+    <>
+      {isInstructor && (
+        <div className="join flex my-4 mx-2 animate-fadein">{cellButtons}</div>
+      )}
+    </>
   );
 }

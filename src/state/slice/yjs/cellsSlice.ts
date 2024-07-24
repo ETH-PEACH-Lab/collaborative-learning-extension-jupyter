@@ -1,6 +1,6 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { Cell, ICodeCell, IField, ITestCodeField } from '../../../types';
+import { Cell, ICell, ICodeCell, IField, ITestCodeField } from '../../../types';
 import {
   AddDispatch,
   AllIdsDispatch,
@@ -20,25 +20,49 @@ const cellsSlice = createSlice({
   initialState,
   reducers: {
     addCell(state, action: PayloadAction<AddDispatch<Cell>>) {
-      state.byId[action.payload.item.id] = action.payload.item;
-      state.byId[action.payload.item.id].documentId =
-        action.payload.documentIdentifier;
-      state.allIds.push(action.payload.item.id);
+      const { id } = action.payload.item;
+      state.byId = {
+        ...state.byId,
+        [id]: {
+          ...action.payload.item,
+          documentId: action.payload.documentIdentifier
+        }
+      };
+      if (!state.allIds.includes(id)) {
+        state.allIds = [...state.allIds, id];
+      }
     },
     deleteCell(state, action: PayloadAction<DeleteDispatch>) {
-      delete state.byId[action.payload.id];
-      state.allIds = state.allIds.filter(id => id !== action.payload.id);
+      const { id } = action.payload;
+      const restById = { ...state.byId };
+      delete restById[id];
+      state.byId = restById;
+      state.allIds = state.allIds.filter(existingId => existingId !== id);
     },
     setCells(state, action: PayloadAction<RootDispatch<Cell>>) {
-      state.byId = action.payload.state.byId;
-      action.payload.state.allIds.forEach(
-        id => (state.byId[id].documentId = action.payload.documentIdentifier)
+      const newById = { ...state.byId, ...action.payload.state.byId };
+      const newAllIds = Array.from(
+        new Set([...state.allIds, ...action.payload.state.allIds])
       );
-      state.allIds = action.payload.state.allIds;
+
+      Object.keys(action.payload.state.byId).forEach(id => {
+        newById[id].documentId = action.payload.documentIdentifier;
+      });
+
+      state.byId = newById;
+      state.allIds = newAllIds;
     },
     updateCellProperty(state, action: PayloadAction<UpdatePropertyDispatch>) {
-      state.byId[action.payload.id][action.payload.key as keyof Cell] =
-        action.payload.value;
+      const { id, key, value } = action.payload;
+      if (state.byId[id]) {
+        state.byId = {
+          ...state.byId,
+          [id]: {
+            ...state.byId[id],
+            [key as keyof Cell]: value
+          }
+        };
+      }
     },
     updateCellsAllIds(state, action: PayloadAction<AllIdsDispatch>) {
       state.allIds = action.payload.ids;
@@ -54,15 +78,7 @@ export const {
   updateCellsAllIds
 } = cellsSlice.actions;
 
-export const selectCellIds: (state: RootState, docId: string) => string[] =
-  createSelector(
-    [
-      (state: RootState, _: string) => state,
-      (_: RootState, docId: string) => docId
-    ],
-    (state: RootState, docId: string) =>
-      state.cells.allIds.filter(id => state.cells.byId[id].documentId === docId)
-  );
+export const selectCellIds = (state: RootState) => state.cells.allIds;
 
 const selectById = (state: RootState) =>
   (state.cells as INormalizedState<Cell>).byId;
@@ -70,6 +86,18 @@ const selectById = (state: RootState) =>
 export const selectCell = createSelector(
   [selectById, (_: RootState, cellId: string) => cellId],
   (byId: ByIdState<Cell>, cellId: string) => byId[cellId]
+);
+
+export const selectVisibleCellExists = createSelector(
+  [
+    (state: RootState) => state.cells.allIds,
+    (state: RootState, _: string) => state.cells.byId,
+    (_: RootState, docId: string) => docId
+  ],
+  (allIds: string[], byId: ByIdState<ICell>, docId: string) =>
+    allIds.some(
+      id => byId[id].metadata.visible && byId[id].documentId === docId
+    )
 );
 
 export const selectVerifiedTestFieldsIds = createSelector(
@@ -85,10 +113,17 @@ export const selectVerifiedTestFieldsIds = createSelector(
     cellId: string,
     username: string
   ) =>
-    (byCellId[cellId] as ICodeCell).testingCodeIds.filter(
-      fieldId =>
-        (byFieldId[fieldId] as ITestCodeField)?.verified ||
-        byFieldId[fieldId]?.createdBy === username
-    )
+    (byCellId[cellId] as ICodeCell).testingCodeIds
+      .filter(
+        fieldId =>
+          (byFieldId[fieldId] as ITestCodeField)?.verified ||
+          byFieldId[fieldId]?.createdBy === username
+      )
+      .sort(a =>
+        !(byFieldId[a] as ITestCodeField).verified &&
+        byFieldId[a].createdBy === username
+          ? -1
+          : 1
+      )
 );
 export default cellsSlice.reducer;

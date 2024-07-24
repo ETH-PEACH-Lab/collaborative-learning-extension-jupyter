@@ -1,8 +1,8 @@
 import { type Meta } from '@storybook/react';
 import React from 'react';
 import { fn } from '@storybook/test';
-import { AssertionCodeName } from '../../../../../cell';
 import { DeepStoryObj } from '../../../../StoryObj';
+import { AssertionCodeName } from '../../../../../cell/common/coding/part/assertion/name/AssertionCodeName';
 
 type AssertionCodeNameAndCustomArgs = React.ComponentProps<
   typeof AssertionCodeName

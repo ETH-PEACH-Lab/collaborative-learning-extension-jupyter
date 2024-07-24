@@ -7,16 +7,16 @@
     overflow-y: scroll;
 }
 h1{
-    font-size: 2.5rem;
+    font-size: 1.8rem;
 }
 h2{
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 h3{
-    font-size: 1.75rem;
+    font-size: 1.4rem;
 }
 h4{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 .radio:disabled {
   opacity: 0.8;
@@ -31,12 +31,15 @@ h4{
     display: none;
   }
 ul {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
   list-style-type: disc;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
   unicode-bidi: isolate;
+}
+a{
+  @apply underline text-blue-400
 }

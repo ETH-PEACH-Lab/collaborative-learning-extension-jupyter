@@ -13,7 +13,6 @@ export const ProjectPageHeader: React.FC<ProjectPageHeaderProps> = () => {
         Author:{' '}
         <a
           target="_blank"
-          className="hover:underline text-blue-400"
           href="https://www.linkedin.com/in/pascal-linder-student/"
         >
           Pascal Linder
@@ -21,26 +20,21 @@ export const ProjectPageHeader: React.FC<ProjectPageHeaderProps> = () => {
       </h4>
       <h4>
         Supervised by:{' '}
-        <a
-          target="_blank"
-          className="hover:underline text-blue-400"
-          href="https://www.aprilwang.me/"
-        >
+        <a target="_blank" href="https://www.aprilwang.me/">
           April Wang
         </a>
         ,{' '}
-        <a
-          target="_blank"
-          className="hover:underline text-blue-400"
-          href="https://people.inf.ethz.ch/dkomm/"
-        >
+        <a target="_blank" href="https://people.inf.ethz.ch/dkomm/">
           Dennis Komm
         </a>
       </h4>
       <h4>ETH Zurich</h4>
       <h4>2024</h4>
       <div className="flex justify-center gap-4 mt-4 flex-col md:flex-row">
-        <BadgeLink href="" label="Thesis">
+        <BadgeLink
+          href="https://github.com/ETH-PEACH-Lab/collaborative-learning-extension-jupyter/blob/main/doc/thesis.pdf"
+          label="Thesis"
+        >
           <PDFIcon />
         </BadgeLink>
         <BadgeLink

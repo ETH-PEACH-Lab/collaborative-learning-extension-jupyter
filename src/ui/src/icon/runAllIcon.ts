@@ -1,5 +1,4 @@
 import { LabIcon } from '@jupyterlab/ui-components';
-
 export const runAllIcon = new LabIcon({
   name: 'code:run-all',
   svgstr:

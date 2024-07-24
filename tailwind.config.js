@@ -6,7 +6,17 @@ module.exports = {
     './src/widget/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      keyframes: {
+        fadein: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      },
+      animation: {
+        fadein: 'fadein 0.32s ease-in-out'
+      }
+    }
   },
   daisyui: {
     themes: [

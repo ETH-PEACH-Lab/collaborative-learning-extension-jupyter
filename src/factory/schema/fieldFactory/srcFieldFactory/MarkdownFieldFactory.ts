@@ -5,7 +5,7 @@ export default class MarkdownFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
     return 'markdown';
   }
-  protected createSpecific(): IMarkdownField {
-    return { ...this.createField(), src: '', type: 'markdown' };
+  protected createSpecific(defaultSrc?: string): IMarkdownField {
+    return { ...this.createField(), src: defaultSrc ?? '', type: 'markdown' };
   }
 }

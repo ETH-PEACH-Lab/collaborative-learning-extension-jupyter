@@ -39,7 +39,7 @@ export const CodeCellConfiguration: React.FC<CodeCellConfigurationProps> = ({
           value="one-test-required"
           disabled={codeCell.metadata.testingMode === 'one-test-required'}
         >
-          Tests are active and one test per student is required
+          Each student must verify one test before coding is allowed.
         </option>
         <option
           value="no-tests"

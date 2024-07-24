@@ -70,7 +70,11 @@ export const MultipleChoiceStudentComponent = (
     <>
       <MultipleChoiceStudent
         answer={studentSelection.src}
-        onAnswerChanges={setStudentSolution}
+        onAnswerChanges={answer => {
+          if (studentSelection.src !== answer.answer) {
+            setStudentSolution(answer);
+          }
+        }}
         items={items}
         options={{
           multi: cell.metadata.multi,

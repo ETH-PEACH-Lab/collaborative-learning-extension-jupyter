@@ -33,7 +33,7 @@ function App() {
         <ProjectPage.Page containerSize="md" grey header="JupyterHub Setup">
           <JupyterHubContent />
         </ProjectPage.Page>
-        <ProjectPage.Page containerSize="md" header="User Feedback Data">
+        <ProjectPage.Page containerSize="md" header="User Feedback">
           <UserFeedbackContent />
         </ProjectPage.Page>
       </ProjectPage>

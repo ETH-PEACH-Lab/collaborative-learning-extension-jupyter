@@ -2,16 +2,15 @@ import CodeFieldFactory from '../factory/schema/fieldFactory/srcFieldFactory/Cod
 import MarkdownFieldFactory from '../factory/schema/fieldFactory/srcFieldFactory/MarkdownFieldFactory';
 import MultipleChoiceItemFieldFactory from '../factory/schema/fieldFactory/srcFieldFactory/MultipleChoiceItemFieldFactory';
 import TestCodeFieldFactory from '../factory/schema/fieldFactory/srcFieldFactory/TestCodeFieldFactory';
-import FactorySerivce from './FactoryService';
 import FieldFactory from '../factory/schema/fieldFactory/FieldFactory';
-import { FieldType, IField } from '../types';
+import { FieldType } from '../types';
 import { CodeSolutionFieldFactory } from '../factory/schema/fieldFactory/solutionFieldFactory/CodeSolutionFieldFactory';
 import { MultipleChoiceSolutionFieldFactory } from '../factory/schema/fieldFactory/solutionFieldFactory/MultipleChoiceSolutionFieldFactory';
 import TextSolutionFieldFactory from '../factory/schema/fieldFactory/solutionFieldFactory/TextSolutionFieldFactory';
+import FactoryService from './FactoryService';
 
-export default class FieldFactoryService extends FactorySerivce<
+export default class FieldFactoryService extends FactoryService<
   FieldType,
-  IField,
   FieldFactory
 > {
   private static _instance: FieldFactoryService = new FieldFactoryService();
@@ -33,5 +32,8 @@ export default class FieldFactoryService extends FactorySerivce<
       new MultipleChoiceSolutionFieldFactory(),
       new TextSolutionFieldFactory()
     );
+  }
+  create(type: FieldType, defaultSrc?: string) {
+    return this.findFactory(type).create(defaultSrc);
   }
 }

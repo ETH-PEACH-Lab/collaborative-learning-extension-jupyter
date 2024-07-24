@@ -7,8 +7,10 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, selectCell, selectGroups } from '../../../state';
 import { DocModelContext, IDocModelContext } from '../../context';
-import { Toolbar, ToolbarButton, ToolbarToggle } from '../../../ui';
+import { Toolbar, ToolbarButton } from '../../../ui';
 import { ICell, InstructorsGroupName } from '../../../types';
+import { showIcon } from '../../../ui/src/icon/showIcon';
+import { hideIcon } from '../../../ui/src/icon/hideIcon';
 
 type CellToolbarComponentProps = {
   index: number;
@@ -32,26 +34,37 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
       {isInstructor && (
         <>
           <Toolbar showOnHover={true}>
-            <ToolbarToggle
-              checked={cell.metadata.showSolution}
-              onChange={checked =>
+            <ToolbarButton
+              onClick={() =>
                 changeCell({
                   ...cell,
-                  metadata: { ...cell.metadata, showSolution: checked }
+                  metadata: {
+                    ...cell.metadata,
+                    visible: !cell.metadata.visible
+                  }
                 })
               }
-              label="Show Solution"
+              icon={cell.metadata.visible ? hideIcon.svgstr : showIcon.svgstr}
+              label={(cell.metadata.visible ? 'Hide' : 'Show') + ' Exercise'}
             />
-            <ToolbarToggle
-              checked={cell.metadata.visible}
-              onChange={checked =>
+            <ToolbarButton
+              onClick={() =>
                 changeCell({
                   ...cell,
-                  metadata: { ...cell.metadata, visible: checked }
+                  metadata: {
+                    ...cell.metadata,
+                    showSolution: !cell.metadata.showSolution
+                  }
                 })
               }
-              label="Visibility"
+              icon={
+                cell.metadata.showSolution ? hideIcon.svgstr : showIcon.svgstr
+              }
+              label={
+                (cell.metadata.showSolution ? 'Hide' : 'Show') + ' Solution'
+              }
             />
+
             <ToolbarButton
               disabled={props.index === 0}
               icon={moveUpIcon.svgstr}
@@ -77,6 +90,7 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
               onClick={() => {
                 deleteCell(props.cellId);
               }}
+              className="fill-svg-within-red"
               hoverHint="Delete"
               hoverHintDown
             />

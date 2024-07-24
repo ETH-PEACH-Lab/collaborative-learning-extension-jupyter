@@ -11,11 +11,11 @@ export const CodingIndicator: React.FC<CodingIndicatorProps> = ({
   children
 }: CodingIndicatorProps) => {
   return label ? (
-    <Content className={'indicator w-full pb-1 ' + className}>
+    <Content className={'indicator w-full pb-1 '}>
       <span className="indicator-item indicator-center badge">{label}</span>
-      <ContentBody>{children}</ContentBody>
+      <ContentBody className={className}>{children}</ContentBody>
     </Content>
   ) : (
-    <ContentBody>{children}</ContentBody>
+    <ContentBody className={className}>{children}</ContentBody>
   );
 };

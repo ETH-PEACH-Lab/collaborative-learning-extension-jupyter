@@ -14,9 +14,8 @@ import {
   UserInformation
 } from '../../types';
 
-import { PuzzleYDoc } from './PuzzleYDoc';
+import { PuzzleDocChange, PuzzleYDoc } from './PuzzleYDoc';
 
-import { DocumentChange } from '@jupyter/ydoc';
 import { setUserInformation, store } from '../../state';
 export namespace PuzzleDocModel {
   export interface IOptions extends DocumentRegistry.IModelOptions<PuzzleYDoc> {
@@ -101,7 +100,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   /**
    * The shared document model.
    */
-  readonly sharedModel: PuzzleYDoc = PuzzleYDoc.create();
+  readonly sharedModel: PuzzleYDoc;
 
   /**
    * The client ID from the document
@@ -211,8 +210,12 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   }
   private _onSharedModelChanged = (
     _: PuzzleYDoc,
-    changes: DocumentChange
+    changes: PuzzleDocChange
   ): void => {
+    if (changes.contentChanged) {
+      this.contentChanged.emit(void 0);
+      this.dirty = true;
+    }
     if (changes.stateChange) {
       changes.stateChange.forEach(value => {
         if (value.name === 'dirty') {
@@ -243,7 +246,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   private _collaborationEnabled: boolean;
 
   private _stateChanged = new Signal<this, IChangedArgs<any>>(this);
-  contentChanged: ISignal<this, void> = new Signal<this, void>(this);
+  contentChanged: Signal<this, void> = new Signal<this, void>(this);
   private _userInformation: UserInformation;
   private _jupyterHubSetup: boolean;
 }

@@ -16,15 +16,26 @@ const kernelExecutionResultSlice = createSlice({
       state,
       action: PayloadAction<IKernelExecutionResult>
     ) {
-      state.byId[action.payload.referenceId] = action.payload;
-      if (state.allIds.find(id => id !== action.payload.referenceId)) {
-        state.allIds.push(action.payload.referenceId);
+      const { referenceId } = action.payload;
+
+      state.byId = {
+        ...state.byId,
+        [referenceId]: action.payload
+      };
+
+      if (!state.allIds.includes(referenceId)) {
+        state.allIds = [...state.allIds, referenceId];
       }
     },
     removeKernelExecutionResult(state, action: PayloadAction<string>) {
-      if (state.byId[action.payload]) {
-        delete state.byId[action.payload];
-        state.allIds = state.allIds.filter(id => id !== action.payload);
+      const idToRemove = action.payload;
+
+      if (state.byId[idToRemove]) {
+        const restById = { ...state.byId };
+        delete restById[idToRemove];
+        state.byId = restById;
+
+        state.allIds = state.allIds.filter(id => id !== idToRemove);
       }
     }
   }

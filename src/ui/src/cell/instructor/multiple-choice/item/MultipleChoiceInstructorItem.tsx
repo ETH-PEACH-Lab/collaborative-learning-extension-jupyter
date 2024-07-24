@@ -80,6 +80,7 @@ export const MultipleChoiceInstructorItem: React.FC<
             <MarkdownEditor
               src={content}
               onChange={onItemContentChange}
+              codeConfig={{ theme: 'diff-theme' }}
             ></MarkdownEditor>
           </div>
           <label className="label">

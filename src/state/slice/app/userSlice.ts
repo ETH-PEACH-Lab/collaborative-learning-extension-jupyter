@@ -18,11 +18,14 @@ const userSlice = createSlice({
       );
     },
     setToInstructor(state) {
-      state.groups = [...state.groups, InstructorsGroupName];
+      if (!state.groups.includes(InstructorsGroupName)) {
+        state.groups = [...state.groups, InstructorsGroupName];
+      }
     },
     setUserInformation(state, action: PayloadAction<UserInformation>) {
-      state.identity = action.payload.identity;
-      state.groups = action.payload.groups;
+      const { identity, groups } = action.payload;
+      state.identity = identity;
+      state.groups = [...groups];
     }
   }
 });

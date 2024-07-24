@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { IKernelTestResult } from '../../../types';
 import { RootState } from '../../store';
 import { INormalizedState } from 'yjs-normalized';
@@ -13,13 +13,24 @@ const kernelTestResultSlice = createSlice({
   initialState,
   reducers: {
     setKernelTestResult(state, action: PayloadAction<IKernelTestResult>) {
-      state.byId[action.payload.referenceId] = action.payload;
-      state.allIds.push(action.payload.referenceId);
+      const { referenceId } = action.payload;
+      state.byId = {
+        ...state.byId,
+        [referenceId]: action.payload
+      };
+
+      if (!state.allIds.includes(referenceId)) {
+        state.allIds = [...state.allIds, referenceId];
+      }
     },
     removeKernelTestResult(state, action: PayloadAction<string>) {
-      if (state.byId[action.payload]) {
-        delete state.byId[action.payload];
-        state.allIds = state.allIds.filter(id => id !== action.payload);
+      const idToRemove = action.payload;
+
+      if (state.byId[idToRemove]) {
+        const restById = { ...state.byId };
+        delete restById[idToRemove];
+        state.byId = restById;
+        state.allIds = state.allIds.filter(id => id !== idToRemove);
       }
     }
   }
@@ -32,4 +43,11 @@ export const selectKernelTestResult = (
   referenceId: string
 ): IKernelTestResult | undefined => state.kernelTestResult.byId[referenceId];
 
+export const selectNumberOfSuccessfulTests = createSelector(
+  [(state: RootState) => state, (_: RootState, cellId: string) => cellId],
+  (state: RootState, cellId: string) =>
+    state.kernelTestResult.allIds
+      .map(id => state.kernelTestResult.byId[id])
+      .filter(result => result.cellId === cellId && result.result).length
+);
 export default kernelTestResultSlice.reducer;

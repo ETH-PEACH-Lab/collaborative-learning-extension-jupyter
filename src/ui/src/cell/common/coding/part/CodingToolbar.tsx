@@ -9,7 +9,9 @@ export const CodingToolbar: React.FC<CodingToolbarProps> = ({
 }: CodingToolbarProps) => {
   return (
     <ContentBody>
-      <Toolbar showOnHover={false}>{children}</Toolbar>
+      <Toolbar showOnHover={false} className="mb-4">
+        {children}
+      </Toolbar>
     </ContentBody>
   );
 };

@@ -73,6 +73,7 @@ export default function MultipleChoiceInstructorComponent(
   };
   const Items = options.map((option, index) => (
     <MultipleChoiceInstructorItem
+      key={option.id}
       content={option.src}
       index={index}
       selected={cell.solutionOptions.includes(option.id)}

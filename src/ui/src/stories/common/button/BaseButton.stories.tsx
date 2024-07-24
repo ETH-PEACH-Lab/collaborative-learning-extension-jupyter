@@ -62,3 +62,25 @@ export const Forth: Story = {
   },
   render: Template.render
 };
+export const Fifth: Story = {
+  name: 'Hover up example',
+  args: {
+    ...Template.args,
+    label: 'Add',
+    icon: addIcon.svgstr,
+    hoverHint: 'Add Test'
+  },
+  render: Template.render
+};
+
+export const Sixth: Story = {
+  name: 'Hover down example',
+  args: {
+    ...Template.args,
+    label: 'Add',
+    icon: addIcon.svgstr,
+    hoverHint: 'Add Test',
+    hoverHintDown: true
+  },
+  render: Template.render
+};

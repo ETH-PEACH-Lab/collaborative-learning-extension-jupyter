@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toolbar, ToolbarButton } from '../../../common';
+import { BaseButton } from '../../../common';
 import { addIcon } from '@jupyterlab/ui-components';
 
 type MultipleChoiceInstructorProps = {
@@ -12,13 +12,14 @@ export const MultipleChoiceInstructor: React.FC<
   return (
     <>
       {children}
-      <Toolbar className="mt-4" showOnHover={false}>
-        <ToolbarButton
-          icon={addIcon.svgstr}
+      <div className="flex justify-around">
+        <BaseButton
           onClick={addMultipleChoiceOption}
-          hoverHint="Add Item"
-        />
-      </Toolbar>
+          label="Add Option"
+          icon={addIcon.svgstr}
+          className="my-4"
+        ></BaseButton>
+      </div>
     </>
   );
 };

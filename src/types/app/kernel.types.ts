@@ -14,8 +14,10 @@ export interface IKernelOutput {
 }
 export interface IKernelExecution {
   cellId: string;
-  assertionCodeId: string;
   codeBodyId: string;
+}
+export interface IKernelAssertionExecution extends IKernelExecution {
+  assertionCodeId: string;
 }
 export interface IKernelTestVerified {
   referenceId: string;
@@ -23,4 +25,5 @@ export interface IKernelTestVerified {
 export interface IKernelTestResult {
   referenceId: string;
   result: boolean;
+  cellId: string;
 }

@@ -48,7 +48,11 @@ const TextCellStudentComponent = (props: TextCellStudentComponentProps) => {
     <>
       <TextResponseStudent
         answer={studentSolution.src}
-        onAnswerChanges={setStudentSolution}
+        onAnswerChanges={answer => {
+          if (answer.answer.src !== studentSolution.src) {
+            setStudentSolution(answer);
+          }
+        }}
         options={{
           showSolution: showSolution,
           submitted: studentSolution.submitted

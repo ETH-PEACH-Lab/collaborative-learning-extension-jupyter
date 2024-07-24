@@ -58,7 +58,7 @@ export const TextResponseStudent: React.FC<TextResponseStudentProps> = ({
         />
       )}
       {options.showSolution && <InstructorComment comment={comment} />}
-      <Toolbar className="mt-4" showOnHover={false}>
+      <Toolbar className="my-4" showOnHover={false}>
         <SubmitButton
           finalized={options.showSolution}
           showBadgeOnSubmitted={true}

@@ -8,11 +8,16 @@ export default class TextCellFactory extends CellFactory {
   public get identifier(): CellType {
     return 'text-cell';
   }
-  public createSpecific(fieldCreation: (type: FieldType) => string): ITextCell {
+  public createSpecific(
+    fieldCreation: (type: FieldType, defaultSrc?: string) => string
+  ): ITextCell {
     return {
       ...this._createCell(fieldCreation),
       type: 'text-cell',
-      solutionId: fieldCreation('markdown')
+      solutionId: fieldCreation(
+        'markdown',
+        '#### Solution here \n - **Markdown** *format* is `supported`'
+      )
     };
   }
 }

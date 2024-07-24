@@ -5,14 +5,12 @@ export type TabsProps = {
   children: ReactElement<TabProps> | ReactElement<TabProps>[];
   className?: string;
   classNamePrevButton?: string;
-  onTabChange?: (index: number) => void;
 };
 export const Tabs: React.FC<TabsProps> = ({
   pageSize = 6,
   children,
   className,
-  classNamePrevButton,
-  onTabChange
+  classNamePrevButton
 }: TabsProps) => {
   const id = useId();
   const [activeTab, setActiveTab] = React.useState(0);
@@ -22,23 +20,18 @@ export const Tabs: React.FC<TabsProps> = ({
     if (activeTab === index) {
       return;
     }
-    if (onTabChange !== undefined) {
-      onTabChange(index);
-    }
     setActiveTab(index);
   };
   const tabCount = React.Children.count(children);
 
   if (tabCount < activeTab + 1 && tabCount > 1) {
     _setActiveTab(activeTab - 1);
-    onTabChange && onTabChange(activeTab - 1);
     if (activeTab % pageSize === 0 && page > 0 && activeTab) {
       setPage(page - 1);
     }
   }
   if (tabCount === 1) {
     _setActiveTab(0);
-    onTabChange && onTabChange(0);
   }
   const paginatedChildren = paginate(
     React.Children.toArray(children) as ReactElement<TabProps>[],

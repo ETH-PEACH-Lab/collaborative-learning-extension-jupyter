@@ -52,7 +52,7 @@ export const QuizUiContentCoding: React.FC = () => {
     return n * m;"
             config={{
               options: readonlyAdjustableHeightCodeOptions,
-              theme: 'light'
+              theme: 'diff-theme'
             }}
             modified="def multiplication(n,m):
   # Your code here

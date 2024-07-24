@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  AssertionCodeTab,
+  AssertionCodeCollapse,
+  AssertionCodeName,
   CellDescription,
   Coding,
   Content,
@@ -8,6 +9,9 @@ import {
   Toolbar,
   ToolbarToggle
 } from '../../../../../../src/ui';
+import { AssertionCodeContent } from '../../../../../../src/ui/src/cell/common/coding/part/assertion/content/AssertionCodeContent';
+import { CodingAssertionCodeNameToolbar } from './CodingAssertionCodeNameToolbar';
+import { CodingAssertionTopToolbar } from './CodingAssertionTopToolbar';
 
 export const CodingExample: React.FC = () => {
   const [onlyFaulty, setOnlyFaulty] = useState(false);
@@ -27,7 +31,7 @@ export const CodingExample: React.FC = () => {
         <div className="pt-4 pb-4">
           <CellDescription
             isInstructor={false}
-            src="Provide code to calculate factorial of n, where is n a natural number"
+            src="Provide code to calculate factorial of n, where n is a non-negative integer."
             onChange={() => {}}
           />
         </div>
@@ -43,7 +47,7 @@ export const CodingExample: React.FC = () => {
             <Coding.DiffCode
               language="python"
               modified="# Your code here
-    if n == 0 or n == 1:
+    if n == 1:
         return 1
     else:
         result = 1
@@ -52,7 +56,7 @@ export const CodingExample: React.FC = () => {
         return result"
               modifiedLabel="Your Code"
               original="# Your code here
-    if n <= 0 or n == 1:
+    if n == 0 or n == 1:
         return 1
     else:
         result = 1
@@ -64,7 +68,7 @@ export const CodingExample: React.FC = () => {
           ) : (
             <Coding.StudentCode
               src="# Your code here
-    if n == 0 or n == 1:
+    if n == 1:
         return 1
     else:
         result = 1
@@ -77,48 +81,88 @@ export const CodingExample: React.FC = () => {
             />
           )}
           {(testingMode === 'tests' || testingMode === 'one-test-required') && (
-            <Coding.AssertionCode
-              onlyFaulty={onlyFaulty}
-              setOnlyFaulty={setOnlyFaulty}
-            >
-              <AssertionCodeTab label="factorial(1)" success hide={onlyFaulty}>
-                <AssertionCodeTab.Code
-                  src="assert factorial(1) == 1"
-                  language="python"
-                  readonly={true}
-                  onChange={() => {}}
-                ></AssertionCodeTab.Code>
-                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-              </AssertionCodeTab>
-              <AssertionCodeTab label="factorial(-1)" success={false}>
-                <AssertionCodeTab.Code
-                  src="assert factorial(-1) == 1"
-                  language="python"
-                  readonly={true}
-                  onChange={() => {}}
-                ></AssertionCodeTab.Code>
-                <AssertionCodeTab.Output
-                  objects={[{ output: 'Assertion error', type: 'error' }]}
-                ></AssertionCodeTab.Output>
-              </AssertionCodeTab>
-              <AssertionCodeTab label="factorial(3)" success hide={onlyFaulty}>
-                <AssertionCodeTab.Code
-                  src="assert factorial(3) == 6"
-                  language="python"
-                  readonly={true}
-                  onChange={() => {}}
-                ></AssertionCodeTab.Code>
-                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-              </AssertionCodeTab>
-              <AssertionCodeTab label="factorial(4)" success hide={onlyFaulty}>
-                <AssertionCodeTab.Code
-                  src="assert factorial(4) == 24"
-                  language="python"
-                  readonly={true}
-                  onChange={() => {}}
-                ></AssertionCodeTab.Code>
-                <AssertionCodeTab.Output objects={[]}></AssertionCodeTab.Output>
-              </AssertionCodeTab>
+            <Coding.AssertionCode>
+              <CodingAssertionTopToolbar
+                onlyFaulty={onlyFaulty}
+                setOnlyFaulty={setOnlyFaulty}
+              ></CodingAssertionTopToolbar>
+              <AssertionCodeCollapse tabIndex={0}>
+                <AssertionCodeCollapse.Name
+                  name="Test 3"
+                  onNameChange={() => {}}
+                  editing={true}
+                  success={undefined}
+                >
+                  <AssertionCodeName.Toolbar>
+                    <CodingAssertionCodeNameToolbar></CodingAssertionCodeNameToolbar>
+                  </AssertionCodeName.Toolbar>
+                </AssertionCodeCollapse.Name>
+                <AssertionCodeCollapse.Content>
+                  <AssertionCodeContent.Code
+                    src="assert factorial(2) == 2"
+                    language="python"
+                    readonly={true}
+                    onChange={() => {}}
+                  ></AssertionCodeContent.Code>
+                  <AssertionCodeContent.Output
+                    objects={[]}
+                  ></AssertionCodeContent.Output>
+                </AssertionCodeCollapse.Content>
+              </AssertionCodeCollapse>
+              {!onlyFaulty ? (
+                <AssertionCodeCollapse tabIndex={1}>
+                  <AssertionCodeCollapse.Name
+                    name="Test 1"
+                    onNameChange={() => {}}
+                    editing={false}
+                    success={true}
+                  >
+                    <AssertionCodeName.Toolbar>
+                      <CodingAssertionCodeNameToolbar
+                        verified
+                      ></CodingAssertionCodeNameToolbar>
+                    </AssertionCodeName.Toolbar>
+                  </AssertionCodeCollapse.Name>
+                  <AssertionCodeCollapse.Content>
+                    <AssertionCodeContent.Code
+                      src="assert factorial(1) == 1"
+                      language="python"
+                      readonly={true}
+                      onChange={() => {}}
+                    ></AssertionCodeContent.Code>
+                    <AssertionCodeContent.Output
+                      objects={[]}
+                    ></AssertionCodeContent.Output>
+                  </AssertionCodeCollapse.Content>
+                </AssertionCodeCollapse>
+              ) : (
+                <></>
+              )}
+              <AssertionCodeCollapse tabIndex={2}>
+                <AssertionCodeCollapse.Name
+                  name="Test 2"
+                  onNameChange={() => {}}
+                  editing={false}
+                  success={false}
+                >
+                  <AssertionCodeName.Toolbar>
+                    <CodingAssertionCodeNameToolbar
+                      verified
+                    ></CodingAssertionCodeNameToolbar>
+                  </AssertionCodeName.Toolbar>
+                </AssertionCodeCollapse.Name>
+                <AssertionCodeCollapse.Content>
+                  <AssertionCodeContent.Code
+                    src="assert factorial(0) == 0"
+                    language="python"
+                    readonly={true}
+                    onChange={() => {}}
+                  ></AssertionCodeContent.Code>
+                  <AssertionCodeContent.Output
+                    objects={[{ output: 'Assertion Error', type: 'error' }]}
+                  ></AssertionCodeContent.Output>
+                </AssertionCodeCollapse.Content>
+              </AssertionCodeCollapse>
             </Coding.AssertionCode>
           )}
           <Coding.Toolbar>
@@ -136,7 +180,7 @@ export const CodingExample: React.FC = () => {
                 value="one-test-required"
                 disabled={testingMode === 'one-test-required'}
               >
-                Tests are active and one test per student is required
+                Each student must verify one test before coding is allowed.
               </option>
               <option value="no-tests" disabled={testingMode === 'no-tests'}>
                 Tests are deactivated

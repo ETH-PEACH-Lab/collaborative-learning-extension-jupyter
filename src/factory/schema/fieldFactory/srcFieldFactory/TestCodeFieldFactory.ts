@@ -5,10 +5,10 @@ export default class TestCodeFieldFactory extends FieldFactory {
   public get identifier(): FieldType {
     return 'test-code';
   }
-  protected createSpecific(): ITestCodeField {
+  protected createSpecific(defaultSrc?: string): ITestCodeField {
     return {
       ...this.createField(),
-      src: '',
+      src: defaultSrc ?? 'assert ',
       type: 'test-code',
       language: 'python',
       name: '',

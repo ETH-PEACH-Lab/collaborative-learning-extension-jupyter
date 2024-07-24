@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 export type TabProps = {
   children: React.ReactNode;
   label: string;
@@ -11,8 +11,14 @@ export type TabsManageableProps = {
   _index?: number;
   _isActive?: boolean;
   _setActiveTab?: (index: number) => void;
+  onActiveTab?: () => void;
 };
 export const Tab: React.FC<TabProps> = (props: TabProps) => {
+  useEffect(() => {
+    if (props._isActive) {
+      props.onActiveTab && props.onActiveTab();
+    }
+  }, [props._isActive]);
   return !props.hide ? (
     <>
       <input
@@ -33,15 +39,16 @@ export const Tab: React.FC<TabProps> = (props: TabProps) => {
           textOverflow: 'ellipsis',
           overflow: 'hidden'
         }}
-        onClick={() =>
-          props._setActiveTab && props._setActiveTab(props._index ?? 0)
-        }
+        onClick={() => {
+          props._setActiveTab && props._setActiveTab(props._index ?? 0);
+        }}
       />
       <div
         role="tabpanel"
         className={'tab-content bg-base-100 ' + props.classNameContent}
       >
-        {props.children}
+        {' '}
+        {props._isActive && props.children}
       </div>
     </>
   ) : (

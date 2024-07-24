@@ -19,8 +19,7 @@ export default meta;
 type Story = DeepStoryObj<typeof meta>;
 const Template = {
   args: {
-    tabCount: 1,
-    onTabChange: fn()
+    tabCount: 1
   },
   render: args => {
     const items = Array.from(Array(args.tabCount).keys()).map(n => {
@@ -33,7 +32,7 @@ const Template = {
       <Tabs {...args}>
         {items.map((item, index) => {
           return (
-            <Tab key={index} label={item.label}>
+            <Tab key={index} label={item.label} onActiveTab={fn}>
               {item.content}
             </Tab>
           );

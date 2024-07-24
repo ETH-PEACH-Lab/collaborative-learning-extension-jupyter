@@ -41,3 +41,12 @@ export const Secondary: Story = {
   },
   render: Template.render
 };
+
+export const Third: Story = {
+  name: 'Border example',
+  args: {
+    ...Template.args,
+    border: true
+  },
+  render: Template.render
+};

@@ -5,11 +5,11 @@ export default class TextSolutionFieldFactory extends SolutionFieldFactory {
   public get identifier(): FieldType {
     return 'text-solution';
   }
-  protected createSpecific(): ITextSolution {
+  protected createSpecific(defaultSrc?: string): ITextSolution {
     return {
       ...this.createField(),
       type: 'text-solution',
-      src: ''
+      src: defaultSrc ?? '### Your Solution here \n (supports **markdown**)'
     };
   }
 }
