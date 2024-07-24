@@ -8,6 +8,7 @@ export type AssertionCodeNameProps = {
   editing?: boolean;
   success?: boolean;
   onNameChange: (name: string) => void;
+  onEnterDown: () => void;
   children: React.ReactNode;
 };
 export const AssertionCodeName: React.FC<AssertionCodeNameProps> & {
@@ -17,6 +18,7 @@ export const AssertionCodeName: React.FC<AssertionCodeNameProps> & {
   editing,
   success,
   onNameChange: onChangeName,
+  onEnterDown,
   children
 }: AssertionCodeNameProps) => {
   const truncatedName = name.length > 30 ? name.substring(0, 20) + '...' : name;
@@ -36,6 +38,11 @@ export const AssertionCodeName: React.FC<AssertionCodeNameProps> & {
             value={name}
             onChange={event => onChangeName(event.target.value)}
             onClick={event => event.stopPropagation()}
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                onEnterDown();
+              }
+            }}
           />
         ) : (
           <>{truncatedName}</>

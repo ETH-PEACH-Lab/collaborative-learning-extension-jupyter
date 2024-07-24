@@ -40,6 +40,7 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
   const { addTestCodeField } = useContext(DocModelContext) as IDocModelContext;
   const { executeTest } = useContext(KernelContext) as IKernelContext;
   const [onlyFaulty, setOnlyFaulty] = useState(false);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
   const username = useSelector(
     (state: RootState) => state.user.identity?.username
   ) as string;
@@ -89,13 +90,16 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
     (assertionCodeId, index) => (
       <CodeCellAssertionCollapse
         key={assertionCodeId}
-        tabIndex={page * pageSize + index}
+        tabIndex={index}
         assertionCodeId={assertionCodeId}
         cellId={cellId}
         studentCodeId={studentCodeFieldId}
         solutionCodeId={solutionCodeFieldId}
         instructorSelectedCodeId={instructorCodeId}
         isInstructor={isInstructor}
+        onEnterDown={tabIndex => setActiveTabIndex(tabIndex)}
+        onActive={tabIndex => setActiveTabIndex(tabIndex)}
+        activeTabIndex={activeTabIndex}
       />
     )
   );
@@ -126,7 +130,10 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
           onlyFaulty={onlyFaulty}
           page={page}
           setOnlyFaulty={setOnlyFaulty}
-          setPage={setPage}
+          setPage={page => {
+            setPage(page);
+            setActiveTabIndex(page * pageSize);
+          }}
           totalPages={totalPages}
         />
         <AssertionCode>{AssertionCodeTabsSlice}</AssertionCode>
@@ -138,6 +145,7 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
             onClick={() => {
               addTestCodeField(cellId);
               setPage(0);
+              setActiveTabIndex(activeTabIndex + 1);
             }}
             label="Add Test Case"
             icon={addIcon.svgstr}

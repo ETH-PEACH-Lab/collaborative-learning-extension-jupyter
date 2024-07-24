@@ -14,6 +14,7 @@ export type CodeProps = {
   border?: boolean;
   className?: string;
   onChange?: (code: string, referenceId?: string) => void;
+  focused?: boolean;
 };
 export const Code: React.FC<CodeProps> = (props: CodeProps) => {
   const m = useRef<Monaco | null>(null);
@@ -42,6 +43,7 @@ export const Code: React.FC<CodeProps> = (props: CodeProps) => {
         onMount={_ => {
           m.current?.editor.setTheme('diff-theme');
         }}
+        focused={props.focused}
       />
     </div>
   );

@@ -86,10 +86,11 @@ export const CodingExample: React.FC = () => {
                 onlyFaulty={onlyFaulty}
                 setOnlyFaulty={setOnlyFaulty}
               ></CodingAssertionTopToolbar>
-              <AssertionCodeCollapse tabIndex={0}>
+              <AssertionCodeCollapse tabIndex={0} id="product-page">
                 <AssertionCodeCollapse.Name
                   name="Test 3"
                   onNameChange={() => {}}
+                  onEnterDown={() => {}}
                   editing={true}
                   success={undefined}
                 >
@@ -110,8 +111,9 @@ export const CodingExample: React.FC = () => {
                 </AssertionCodeCollapse.Content>
               </AssertionCodeCollapse>
               {!onlyFaulty ? (
-                <AssertionCodeCollapse tabIndex={1}>
+                <AssertionCodeCollapse tabIndex={1} id="product-page">
                   <AssertionCodeCollapse.Name
+                    onEnterDown={() => {}}
                     name="Test 1"
                     onNameChange={() => {}}
                     editing={false}
@@ -138,10 +140,11 @@ export const CodingExample: React.FC = () => {
               ) : (
                 <></>
               )}
-              <AssertionCodeCollapse tabIndex={2}>
+              <AssertionCodeCollapse tabIndex={2} id="product-page">
                 <AssertionCodeCollapse.Name
                   name="Test 2"
                   onNameChange={() => {}}
+                  onEnterDown={() => {}}
                   editing={false}
                   success={false}
                 >

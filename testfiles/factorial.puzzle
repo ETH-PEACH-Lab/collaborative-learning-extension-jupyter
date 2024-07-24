@@ -66,7 +66,12 @@
           "08985122-54a2-4963-a54d-d1dd71e3d0ce",
           "b5e6b665-b05b-408b-b06a-5b7726815452",
           "31daf272-82a2-46ba-acb3-ea7a11082017",
-          "aa9b0274-17bd-408a-baa9-9b7a1a9e1b25"
+          "aa9b0274-17bd-408a-baa9-9b7a1a9e1b25",
+          "c065e507-7bb1-45f6-ad90-e8099cbf7623",
+          "c233e0c1-2f61-46cf-b9b9-fe16cc4f7d0a",
+          "a9d63bf6-121b-4abe-a58a-83da9689d4b3",
+          "14c7ca2f-881a-4434-acf1-cb90f6b990c1",
+          "e081c93e-1370-47cd-bcd6-83894d633e76"
         ],
         "metadata": {
           "testingMode": "tests",
@@ -138,6 +143,15 @@
         "language": "python",
         "type": "code",
         "id": "cfdd90b5-3f77-431c-9d39-6b67ae8f6e6f"
+      },
+      "e081c93e-1370-47cd-bcd6-83894d633e76": {
+        "id": "e081c93e-1370-47cd-bcd6-83894d633e76",
+        "type": "test-code",
+        "language": "python",
+        "verified": false,
+        "name": "ffff",
+        "src": "assert ",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
       },
       "5eebc165-4ceb-466d-9907-e87ed9560069": {
         "createdBy": "a3c9b61ee7624c74aa436af5267dca42",
@@ -409,6 +423,15 @@
         "comment": "",
         "src": []
       },
+      "a9d63bf6-121b-4abe-a58a-83da9689d4b3": {
+        "src": "assert factorial(3) == factorial(2) * 3",
+        "type": "test-code",
+        "language": "python",
+        "verified": true,
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "name": "ddd",
+        "id": "a9d63bf6-121b-4abe-a58a-83da9689d4b3"
+      },
       "3bfa2cd2-61a1-4da2-aa3b-7ff1c3d35a12": {
         "type": "code-solution",
         "comment": "",
@@ -628,6 +651,15 @@
         "id": "ff1eda50-3094-47a4-b450-49da5e519992",
         "submitted": false
       },
+      "14c7ca2f-881a-4434-acf1-cb90f6b990c1": {
+        "id": "14c7ca2f-881a-4434-acf1-cb90f6b990c1",
+        "verified": true,
+        "src": "assert factorial(0) == 1",
+        "language": "python",
+        "type": "test-code",
+        "name": "dd",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
       "55a1c286-cc9a-4256-a869-a612ab45a594": {
         "id": "55a1c286-cc9a-4256-a869-a612ab45a594",
         "type": "text-solution",
@@ -655,6 +687,15 @@
         "src": "assert factorial(0) == 1",
         "language": "python",
         "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
+      "c233e0c1-2f61-46cf-b9b9-fe16cc4f7d0a": {
+        "name": "bla",
+        "id": "c233e0c1-2f61-46cf-b9b9-fe16cc4f7d0a",
+        "type": "test-code",
+        "language": "python",
+        "verified": true,
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": "assert 1 == factorial(1)"
       },
       "6a1264cc-f8cc-4136-96a2-e0b8036c3c5d": {
         "src": "",
@@ -855,6 +896,15 @@
         "type": "code-solution",
         "language": "python",
         "comment": "that is not correct! "
+      },
+      "c065e507-7bb1-45f6-ad90-e8099cbf7623": {
+        "src": "assert factorial(0) == 1",
+        "createdBy": "7263597190614b339002409c69b2eace",
+        "id": "c065e507-7bb1-45f6-ad90-e8099cbf7623",
+        "type": "test-code",
+        "name": "test",
+        "language": "python",
+        "verified": true
       }
     },
     "allIds": [
@@ -917,7 +967,12 @@
       "dfe5e5f9-00e8-42ec-b319-90e5903e3ddf",
       "a44ae475-b9bc-4d99-b01c-9f239855c581",
       "bfaf9d9b-fbbc-4c4a-8837-aeab82dc1c8e",
-      "aa9b0274-17bd-408a-baa9-9b7a1a9e1b25"
+      "aa9b0274-17bd-408a-baa9-9b7a1a9e1b25",
+      "c065e507-7bb1-45f6-ad90-e8099cbf7623",
+      "c233e0c1-2f61-46cf-b9b9-fe16cc4f7d0a",
+      "a9d63bf6-121b-4abe-a58a-83da9689d4b3",
+      "14c7ca2f-881a-4434-acf1-cb90f6b990c1",
+      "e081c93e-1370-47cd-bcd6-83894d633e76"
     ]
   }
 }

@@ -50,8 +50,9 @@ export const Primary: Story = {
           onChange={fn()}
         />
         <Coding.AssertionCode>
-          <AssertionCode.Collapse tabIndex={0}>
+          <AssertionCode.Collapse tabIndex={0} id="test">
             <AssertionCodeCollapse.Name
+              onEnterDown={fn()}
               name="testssssssssssssssssssssssssssssssssssssssss sssssssssssssssssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
               onNameChange={fn()}
               editing={false}
@@ -77,8 +78,9 @@ export const Primary: Story = {
               ></AssertionCodeContent.Output>
             </AssertionCodeCollapse.Content>
           </AssertionCode.Collapse>
-          <AssertionCode.Collapse tabIndex={1}>
+          <AssertionCode.Collapse tabIndex={1} id="test">
             <AssertionCodeCollapse.Name
+              onEnterDown={fn()}
               name="test"
               onNameChange={fn()}
               editing={false}
@@ -104,11 +106,12 @@ export const Primary: Story = {
               ></AssertionCodeContent.Output>
             </AssertionCodeCollapse.Content>
           </AssertionCode.Collapse>
-          <AssertionCode.Collapse tabIndex={2}>
+          <AssertionCode.Collapse tabIndex={2} id="test">
             <AssertionCodeCollapse.Name
               name="test"
               onNameChange={fn()}
               editing={true}
+              onEnterDown={fn()}
             >
               <AssertionCodeName.Toolbar>
                 <BaseButton

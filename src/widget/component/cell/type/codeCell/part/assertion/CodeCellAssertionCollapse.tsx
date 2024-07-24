@@ -27,6 +27,9 @@ export type CodeCellAssertionCollapseProps = {
   assertionCodeId: string;
   isInstructor: boolean;
   tabIndex: number;
+  activeTabIndex: number;
+  onEnterDown: (tabIndex: number) => void;
+  onActive: (tabIndex: number) => void;
 };
 export const CodeCellAssertionCollapse: React.FC<
   CodeCellAssertionCollapseProps
@@ -37,7 +40,10 @@ export const CodeCellAssertionCollapse: React.FC<
   studentCodeId,
   instructorSelectedCodeId,
   isInstructor,
-  tabIndex
+  tabIndex,
+  activeTabIndex,
+  onEnterDown,
+  onActive
 }: CodeCellAssertionCollapseProps) => {
   const { changeField, removeTestCodeField } = useContext(
     DocModelContext
@@ -62,12 +68,18 @@ export const CodeCellAssertionCollapse: React.FC<
     return <></>;
   }
   return (
-    <AssertionCodeCollapse tabIndex={tabIndex}>
+    <AssertionCodeCollapse
+      tabIndex={tabIndex}
+      id={cellId}
+      checked={activeTabIndex === tabIndex}
+      onActive={() => onActive(tabIndex)}
+    >
       <AssertionCodeCollapse.Name
         success={success}
         editing={!assertionCode.verified}
         name={assertionCode.name}
         onNameChange={name => changeField({ ...assertionCode, name })}
+        onEnterDown={() => onEnterDown(tabIndex)}
       >
         <>
           <BaseButton
@@ -106,15 +118,20 @@ export const CodeCellAssertionCollapse: React.FC<
         </>
       </AssertionCodeCollapse.Name>
       <AssertionCodeCollapse.Content>
-        <AssertionCodeContent.Code
-          src={assertionCode.src}
-          language={assertionCode.language}
-          readonly={assertionCode.verified}
-          onChange={src => changeField({ ...assertionCode, src })}
-        />
-        <AssertionCodeContent.Output
-          objects={result?.outputs ? result?.outputs : []}
-        />
+        {tabIndex === activeTabIndex && (
+          <>
+            <AssertionCodeContent.Code
+              src={assertionCode.src}
+              language={assertionCode.language}
+              readonly={assertionCode.verified}
+              onChange={src => changeField({ ...assertionCode, src })}
+              focused={!assertionCode.verified}
+            />
+            <AssertionCodeContent.Output
+              objects={result?.outputs ? result?.outputs : []}
+            />
+          </>
+        )}
       </AssertionCodeCollapse.Content>
     </AssertionCodeCollapse>
   );

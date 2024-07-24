@@ -19,6 +19,7 @@ type CodeCellSolutionStudentTabProps = {
   cellId: string;
   studentSolutionId: string;
   isCompiling: boolean;
+  triggerCompiling: (codeBodyId: string) => void;
 } & TabsManageableProps;
 export const CodeCellSolutionStudentTab: React.FC<
   CodeCellSolutionStudentTabProps
@@ -41,6 +42,7 @@ export const CodeCellSolutionStudentTab: React.FC<
           readonly={true}
           language={studentSolutionField.language}
           src={studentSolutionField.src}
+          onChange={() => props.triggerCompiling(props.studentSolutionId)}
         />
         <CompilingKernelOutputContainer
           isCompiling={props.isCompiling}

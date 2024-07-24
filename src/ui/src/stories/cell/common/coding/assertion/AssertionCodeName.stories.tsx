@@ -20,7 +20,8 @@ type Story = DeepStoryObj<typeof meta>;
 const Template = {
   args: {
     name: 'Assert 1 == 1',
-    onNameChange: fn()
+    onNameChange: fn(),
+    onEnterDown: fn()
   },
   render: args => {
     return <AssertionCodeName {...args} />;
@@ -31,6 +32,15 @@ export const Primary: Story = {
   name: 'Base example',
   args: {
     ...Template.args
+  },
+  render: Template.render
+};
+
+export const Secondary: Story = {
+  name: 'Editing example',
+  args: {
+    ...Template.args,
+    editing: true
   },
   render: Template.render
 };

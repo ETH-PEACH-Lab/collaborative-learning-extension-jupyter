@@ -89,6 +89,7 @@ export function CodeCellSolutionCode({
             trigger(id);
           }}
           isCompiling={isCompiling}
+          triggerCompiling={trigger}
         />
       );
     })
