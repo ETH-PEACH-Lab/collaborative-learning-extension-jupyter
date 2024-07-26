@@ -1,6 +1,6 @@
 {
     "name": "collab_learning_extension",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "description": "A Collaborative Learning Extension for Jupyter Notebook",
     "keywords": [
         "jupyter",
