@@ -1,0 +1,178 @@
+{
+  "cells": {
+    "byId": {
+      "9c4dccbf-9c62-4937-984e-364396394f4a": {
+        "solutionCodeId": "8f1c3fdb-a83f-4128-ab4a-7551243e51d3",
+        "id": "9c4dccbf-9c62-4937-984e-364396394f4a",
+        "testingCodeIds": [
+          "60655db5-df4a-45af-9e68-60c62f709404"
+        ],
+        "studentSolutionIds": [
+          "1e53dfb2-a5b5-41fa-972e-c51ccd8e06a1"
+        ],
+        "startingCodeId": "227b6f19-6aa3-4281-a933-904f84a57277",
+        "descriptionId": "e16ae7dc-565a-4a09-ac96-31d7a08781d9",
+        "type": "code-cell",
+        "metadata": {
+          "testingMode": "tests",
+          "showSolution": true,
+          "visible": true
+        }
+      },
+      "1e4a6da6-01fa-4e2c-bbc9-4e2b4143b133": {
+        "type": "multiple-choice-cell",
+        "solutionOptions": [],
+        "metadata": {
+          "visible": true,
+          "showSolution": false,
+          "random": false,
+          "multi": false
+        },
+        "options": [
+          "e8547f9b-8d73-4af8-a6bf-ed54d34cd825",
+          "e628e3cc-ddee-48fd-ba9e-cd4f19f7fd5e",
+          "3e11d38b-3031-44f3-b180-c20fda43ce4d",
+          "10ead135-182b-4b11-bf34-8e64dd474d79"
+        ],
+        "studentSolutionIds": [
+          "1570c8e5-b428-4fb3-bc4b-1d33360e3702"
+        ],
+        "descriptionId": "d6077128-3f90-4698-92fc-3d98fb109106",
+        "id": "1e4a6da6-01fa-4e2c-bbc9-4e2b4143b133"
+      },
+      "1581b9f2-fc76-4d8f-8702-5ffb76b97f7a": {
+        "descriptionId": "6be7c272-809e-4e99-831a-945c67c49db7",
+        "type": "text-cell",
+        "id": "1581b9f2-fc76-4d8f-8702-5ffb76b97f7a",
+        "studentSolutionIds": [
+          "b43f5c93-637f-4366-8724-13eea19e6b57"
+        ],
+        "solutionId": "af63e21a-5f5e-40d6-a94e-e5fcf89bdf00",
+        "metadata": {
+          "showSolution": true,
+          "visible": true
+        }
+      }
+    },
+    "allIds": [
+      "1581b9f2-fc76-4d8f-8702-5ffb76b97f7a",
+      "1e4a6da6-01fa-4e2c-bbc9-4e2b4143b133",
+      "9c4dccbf-9c62-4937-984e-364396394f4a"
+    ]
+  },
+  "fields": {
+    "allIds": [
+      "6be7c272-809e-4e99-831a-945c67c49db7",
+      "af63e21a-5f5e-40d6-a94e-e5fcf89bdf00",
+      "b43f5c93-637f-4366-8724-13eea19e6b57",
+      "d6077128-3f90-4698-92fc-3d98fb109106",
+      "e628e3cc-ddee-48fd-ba9e-cd4f19f7fd5e",
+      "3e11d38b-3031-44f3-b180-c20fda43ce4d",
+      "1570c8e5-b428-4fb3-bc4b-1d33360e3702",
+      "e8547f9b-8d73-4af8-a6bf-ed54d34cd825",
+      "10ead135-182b-4b11-bf34-8e64dd474d79",
+      "e16ae7dc-565a-4a09-ac96-31d7a08781d9",
+      "227b6f19-6aa3-4281-a933-904f84a57277",
+      "8f1c3fdb-a83f-4128-ab4a-7551243e51d3",
+      "1e53dfb2-a5b5-41fa-972e-c51ccd8e06a1",
+      "60655db5-df4a-45af-9e68-60c62f709404"
+    ],
+    "byId": {
+      "1570c8e5-b428-4fb3-bc4b-1d33360e3702": {
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": [],
+        "type": "multiple-choice-solution",
+        "grade": -1.0,
+        "id": "1570c8e5-b428-4fb3-bc4b-1d33360e3702",
+        "submitted": false,
+        "comment": ""
+      },
+      "60655db5-df4a-45af-9e68-60c62f709404": {
+        "id": "60655db5-df4a-45af-9e68-60c62f709404",
+        "name": "factorial(0)",
+        "verified": true,
+        "type": "test-code",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "language": "python",
+        "src": "assert factorial(0) == 1"
+      },
+      "1e53dfb2-a5b5-41fa-972e-c51ccd8e06a1": {
+        "language": "python",
+        "id": "1e53dfb2-a5b5-41fa-972e-c51ccd8e06a1",
+        "comment": "",
+        "grade": -1.0,
+        "type": "code-solution",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "submitted": true,
+        "src": "    # Add your solution here, beware of the starting code and indented blocks\r\n    if(n <= 1):\r\n        return 1\r\n    return factorial(n - 1) * n;"
+      },
+      "10ead135-182b-4b11-bf34-8e64dd474d79": {
+        "src": "Implementation",
+        "id": "10ead135-182b-4b11-bf34-8e64dd474d79",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
+      "e16ae7dc-565a-4a09-ac96-31d7a08781d9": {
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": "## Factorial\nAdd the missing code to the function such that it calculates the factorial of ``n``, where ``n`` is a natural number",
+        "id": "e16ae7dc-565a-4a09-ac96-31d7a08781d9",
+        "type": "markdown"
+      },
+      "8f1c3fdb-a83f-4128-ab4a-7551243e51d3": {
+        "src": "    if (n == 0):\n        return 1;\n    return n * factorial(n-1)",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "language": "python",
+        "id": "8f1c3fdb-a83f-4128-ab4a-7551243e51d3",
+        "type": "code"
+      },
+      "af63e21a-5f5e-40d6-a94e-e5fcf89bdf00": {
+        "type": "markdown",
+        "id": "af63e21a-5f5e-40d6-a94e-e5fcf89bdf00",
+        "src": "Feedback in user interface design is crucial because it helps users understand the system\u2019s response to their actions, ensuring they feel confident and in control. It confirms actions, prevents errors, guides users, enhances satisfaction, and aids learning. Example: In an online form, real-time validation (e.g., highlighting an incorrectly formatted email address) prevents errors. Upon submission, a loading icon and success message (\"Thank you for registering!\") confirm that the form was processed correctly. This immediate feedback improves usability and user satisfaction by making interactions clear and reassuring.",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
+      "b43f5c93-637f-4366-8724-13eea19e6b57": {
+        "submitted": true,
+        "src": "Feedback informs users about their actions' success or failure. For instance, a button that changes color and shows a message after submission confirms the action, improving user confidence and experience.",
+        "grade": -1.0,
+        "type": "text-solution",
+        "id": "b43f5c93-637f-4366-8724-13eea19e6b57",
+        "comment": "Good answer",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
+      "6be7c272-809e-4e99-831a-945c67c49db7": {
+        "type": "markdown",
+        "id": "6be7c272-809e-4e99-831a-945c67c49db7",
+        "src": "# HCI Question \nExplain the importance of feedback in user interface design. Provide an **example** of how feedback enhances user experience.",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      },
+      "227b6f19-6aa3-4281-a933-904f84a57277": {
+        "id": "227b6f19-6aa3-4281-a933-904f84a57277",
+        "type": "code",
+        "src": "def factorial(n):\r\n    # Calculate the factorial of a non-negative integer n.",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "language": "python"
+      },
+      "3e11d38b-3031-44f3-b180-c20fda43ce4d": {
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": "Evaluation",
+        "id": "3e11d38b-3031-44f3-b180-c20fda43ce4d"
+      },
+      "d6077128-3f90-4698-92fc-3d98fb109106": {
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": "# HCI Multiple Choice Question\nWhich stage of the HCI design process involves creating prototypes to test with users?",
+        "id": "d6077128-3f90-4698-92fc-3d98fb109106",
+        "type": "markdown"
+      },
+      "e8547f9b-8d73-4af8-a6bf-ed54d34cd825": {
+        "id": "e8547f9b-8d73-4af8-a6bf-ed54d34cd825",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b",
+        "src": "Analysis"
+      },
+      "e628e3cc-ddee-48fd-ba9e-cd4f19f7fd5e": {
+        "id": "e628e3cc-ddee-48fd-ba9e-cd4f19f7fd5e",
+        "src": "Design",
+        "createdBy": "241de6f59ed94bfdbf9a8c2e6d56799b"
+      }
+    }
+  }
+}

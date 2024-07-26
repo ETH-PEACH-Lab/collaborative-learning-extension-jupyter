@@ -75,7 +75,7 @@ export const CodeCellAssertionCode: React.FC<CodeCellAssertionCodeProps> = ({
           onlyFaulty
         )
     );
-  }, [assertionCodesIds, onlyFaulty]);
+  }, [assertionCodesIds.length, onlyFaulty]);
 
   const totalPages = useMemo(
     () => calculateTotalPages(filteredAssertionCodes.length, pageSize),

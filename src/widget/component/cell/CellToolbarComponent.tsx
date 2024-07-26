@@ -5,7 +5,12 @@ import {
 } from '@jupyterlab/ui-components';
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, selectCell, selectGroups } from '../../../state';
+import {
+  RootState,
+  selectCell,
+  selectCellsWithDocId,
+  selectGroups
+} from '../../../state';
 import { DocModelContext, IDocModelContext } from '../../context';
 import { Toolbar, ToolbarButton } from '../../../ui';
 import { ICell, InstructorsGroupName } from '../../../types';
@@ -15,16 +20,21 @@ import { hideIcon } from '../../../ui/src/icon/hideIcon';
 type CellToolbarComponentProps = {
   index: number;
   cellId: string;
+  documentId: string;
 };
-export function CellToolbarComponent(props: CellToolbarComponentProps) {
+export function CellToolbarComponent({
+  cellId,
+  documentId,
+  index
+}: CellToolbarComponentProps) {
   const isInstructor = useSelector((state: RootState) =>
     selectGroups(state)
   ).includes(InstructorsGroupName);
   const allIdsLength = useSelector(
-    (state: RootState) => state.cells.allIds.length
+    (state: RootState) => selectCellsWithDocId(state, documentId).length
   );
   const cell = useSelector((state: RootState) =>
-    selectCell(state, props.cellId)
+    selectCell(state, cellId)
   ) as ICell;
   const { deleteCell, swapCellPosition, changeCell } = useContext(
     DocModelContext
@@ -66,21 +76,21 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
             />
 
             <ToolbarButton
-              disabled={props.index === 0}
+              disabled={index === 0}
               icon={moveUpIcon.svgstr}
               onClick={() => {
-                const newPos = props.index - 1;
-                swapCellPosition(props.index, newPos);
+                const newPos = index - 1;
+                swapCellPosition(index, newPos);
               }}
               hoverHint="Move up"
               hoverHintDown
             />
             <ToolbarButton
-              disabled={allIdsLength - 1 === props.index}
+              disabled={allIdsLength - 1 === index}
               icon={moveDownIcon.svgstr}
               onClick={() => {
-                const newPos = props.index + 1;
-                swapCellPosition(props.index, newPos);
+                const newPos = index + 1;
+                swapCellPosition(index, newPos);
               }}
               hoverHint="Move down"
               hoverHintDown
@@ -88,7 +98,7 @@ export function CellToolbarComponent(props: CellToolbarComponentProps) {
             <ToolbarButton
               icon={deleteIcon.svgstr}
               onClick={() => {
-                deleteCell(props.cellId);
+                deleteCell(cellId);
               }}
               className="fill-svg-within-red"
               hoverHint="Delete"

@@ -17,9 +17,6 @@ type CellComponentProps = {
 };
 
 export function CellComponent({ cellId, index, docId }: CellComponentProps) {
-  const documentId = useSelector(
-    (state: RootState) => selectCell(state, cellId).documentId
-  );
   const cellDescriptionId = useSelector(
     (state: RootState) => selectCell(state, cellId).descriptionId
   );
@@ -32,9 +29,9 @@ export function CellComponent({ cellId, index, docId }: CellComponentProps) {
   const isInstructor = useSelector((state: RootState) =>
     selectGroups(state)
   ).includes(InstructorsGroupName);
-  return (cellVisibility || isInstructor) && documentId === docId ? (
+  return cellVisibility || isInstructor ? (
     <Content className="ml-2 mr-2 animate-fadein" borderOnHover={true}>
-      <CellToolbarComponent cellId={cellId} index={index} />
+      <CellToolbarComponent cellId={cellId} index={index} documentId={docId} />
       <ContentBody>
         <div className="mb-2">
           <CellMarkdownDescriptionComponent fieldId={cellDescriptionId} />

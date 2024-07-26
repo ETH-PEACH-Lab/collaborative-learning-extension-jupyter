@@ -12,6 +12,7 @@ import {
 import ExecutionOutputHelper from './ExecutionOutputHelper';
 import {
   removeKernelExecutionResult,
+  removeKernelTestResult,
   setKernelExecutionResult,
   setKernelTestResult,
   store
@@ -45,6 +46,7 @@ export class KernelMessengerService {
     sessionContext: ISessionContext | null
   ) {
     store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
+    store.dispatch(removeKernelTestResult(execution.assertionCodeId));
     this._executeTest(execution, sessionContext).then(successful =>
       store.dispatch(
         setKernelTestResult({
@@ -60,6 +62,7 @@ export class KernelMessengerService {
     sessionContext: ISessionContext | null
   ): void {
     store.dispatch(removeKernelExecutionResult(execution.assertionCodeId));
+    store.dispatch(removeKernelTestResult(execution.assertionCodeId));
     this._executeTest(execution, sessionContext).then(successful => {
       if (successful) {
         this._verifiedTestSignal.emit(<IKernelTestVerified>{

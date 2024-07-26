@@ -4,6 +4,7 @@ import cellsSlice from './slice/yjs/cellsSlice';
 import userSlice from './slice/app/userSlice';
 import kernelExecutionResultSlice from './slice/app/kernelExecutionResultSlice';
 import kernelTestResultSlice from './slice/app/kernelTestResultSlice';
+import { fieldDeletionMiddleware } from './slice/yjs/listenerMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +13,9 @@ export const store = configureStore({
     user: userSlice,
     kernelExecutionResult: kernelExecutionResultSlice,
     kernelTestResult: kernelTestResultSlice
-  }
+  },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().prepend(fieldDeletionMiddleware.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

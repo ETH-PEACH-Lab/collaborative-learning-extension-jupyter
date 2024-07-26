@@ -7,7 +7,6 @@ import {
   ITestCodeField
 } from '../../../types';
 import { RootState } from '../../store';
-import { removeKernelExecutionResult } from '../app';
 import {
   AddDispatch,
   AllIdsDispatch,
@@ -34,10 +33,10 @@ const fieldsSlice = createSlice({
     deleteField(state, action: PayloadAction<DeleteDispatch>) {
       const { id } = action.payload;
       const restById = { ...state.byId };
+
       delete restById[id];
       state.byId = restById;
       state.allIds = state.allIds.filter(existingId => existingId !== id);
-      removeKernelExecutionResult(id);
     },
     setFields(state, action: PayloadAction<RootDispatch<IField>>) {
       state.byId = { ...state.byId, ...action.payload.state.byId };
@@ -62,6 +61,7 @@ const fieldsSlice = createSlice({
     }
   }
 });
+
 export const {
   addField,
   deleteField,

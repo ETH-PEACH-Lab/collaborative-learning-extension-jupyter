@@ -87,7 +87,15 @@ export const selectCell = createSelector(
   [selectById, (_: RootState, cellId: string) => cellId],
   (byId: ByIdState<Cell>, cellId: string) => byId[cellId]
 );
-
+export const selectCellsWithDocId = createSelector(
+  [
+    (state: RootState) => state.cells.allIds,
+    (state: RootState, _: string) => state.cells.byId,
+    (_: RootState, docId: string) => docId
+  ],
+  (allIds: string[], byId: ByIdState<ICell>, docId: string) =>
+    allIds.filter(cell => byId[cell].documentId === docId)
+);
 export const selectVisibleCellExists = createSelector(
   [
     (state: RootState) => state.cells.allIds,

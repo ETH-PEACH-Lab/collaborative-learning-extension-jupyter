@@ -2,8 +2,8 @@ import React from 'react';
 import { CellComponent } from './cell/CellComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
-import { selectCellIds } from '../../state/slice/yjs/cellsSlice';
 import { NoVisibleCellsHintComponent } from './NoVisibleCellsHintComponent';
+import { selectCellsWithDocId } from '../../state';
 
 type CellContainerComponentProps = {
   docId: string;
@@ -11,7 +11,9 @@ type CellContainerComponentProps = {
 export const CellContainerComponent: React.FC<CellContainerComponentProps> = ({
   docId
 }: CellContainerComponentProps) => {
-  const cellIds = useSelector((state: RootState) => selectCellIds(state));
+  const cellIds = useSelector((state: RootState) =>
+    selectCellsWithDocId(state, docId)
+  );
   return (
     <>
       {cellIds?.map((id, index) => (
