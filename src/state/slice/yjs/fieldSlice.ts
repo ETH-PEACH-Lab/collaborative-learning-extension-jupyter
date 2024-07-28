@@ -4,6 +4,7 @@ import {
   ICell,
   ICodeCell,
   IField,
+  IStudentSolution,
   ITestCodeField
 } from '../../../types';
 import { RootState } from '../../store';
@@ -80,6 +81,13 @@ export const selectFields = createSelector(
   [selectById, (_: RootState, fieldIds: string[]) => fieldIds],
   (byId: ByIdState<IField>, fieldIds: string[]) => fieldIds.map(id => byId[id])
 );
+export const selectNumberOfStudentSolutionSubmissions = createSelector(
+  [selectById, (_: RootState, fieldIds: string[]) => fieldIds],
+  (byId: ByIdState<IField>, fieldIds: string[]) =>
+    fieldIds.filter(fieldId => (byId[fieldId] as IStudentSolution).submitted)
+      .length
+);
+
 export const selectTestFieldForUserExists = createSelector(
   [
     (state: RootState) => state.cells.byId,

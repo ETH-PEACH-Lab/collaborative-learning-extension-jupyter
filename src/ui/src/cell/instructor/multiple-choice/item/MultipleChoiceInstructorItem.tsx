@@ -43,7 +43,7 @@ export const MultipleChoiceInstructorItem: React.FC<
   remove
 }: MultipleChoiceInstructorItemProps) => {
   return (
-    <Content>
+    <Content className="animate-slideIn">
       <Toolbar showOnHover={false}>
         <ToolbarButton
           hide={options.randomOrder}

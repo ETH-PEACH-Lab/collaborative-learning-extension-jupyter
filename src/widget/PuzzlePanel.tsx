@@ -13,6 +13,7 @@ import { KernelContextProvider } from './context/kernelContext';
 import { KernelMessengerService } from './kernel/KernelMessengerService';
 import { Provider } from 'react-redux';
 import { store } from '../state/store';
+import { DndContext } from '@dnd-kit/core';
 /**
  * Widget that contains the main view of the PuzzleWidget.
  */
@@ -20,18 +21,22 @@ export class PuzzlePanel extends ReactWidget {
   protected render() {
     return (
       <Provider store={store}>
-        <DocModelContextProvider model={this._model}>
-          <KernelContextProvider
-            kernelMessengerService={KernelMessengerService.instance}
-            session={this._sessionContext}
-          >
-            <TopBarComponent hide={this._model.jupyterHubSetup} />
-            <CellContainerComponent
-              docId={this._model.docId}
-            ></CellContainerComponent>
-            <FooterComponent addCell={this._model.addCell.bind(this._model)} />
-          </KernelContextProvider>
-        </DocModelContextProvider>
+        <DndContext>
+          <DocModelContextProvider model={this._model}>
+            <KernelContextProvider
+              kernelMessengerService={KernelMessengerService.instance}
+              session={this._sessionContext}
+            >
+              <TopBarComponent hide={this._model.jupyterHubSetup} />
+              <CellContainerComponent
+                docId={this._model.docId}
+              ></CellContainerComponent>
+              <FooterComponent
+                addCell={this._model.addCell.bind(this._model)}
+              />
+            </KernelContextProvider>
+          </DocModelContextProvider>
+        </DndContext>
       </Provider>
     );
   }

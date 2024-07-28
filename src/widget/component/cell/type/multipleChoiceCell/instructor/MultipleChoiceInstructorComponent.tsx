@@ -1,7 +1,10 @@
 import React, { useContext, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, selectCell, selectFields } from '../../../../../../state';
-import { IMultipleChoiceCell } from '../../../../../../types';
+import {
+  IMultipleChoiceCell,
+  IMultipleChoiceSolution
+} from '../../../../../../types';
 import { DocModelContext, IDocModelContext } from '../../../../../context';
 import { IMultipleChoiceItem } from 'react-quiz-ui';
 import {
@@ -34,7 +37,7 @@ export default function MultipleChoiceInstructorComponent(
 
   const studentSolutions = useSelector((state: RootState) =>
     selectFields(state, cell.studentSolutionIds)
-  ) as IMultipleChoiceItem[];
+  ) as IMultipleChoiceSolution[];
 
   const studentSolutionDistribution = useMemo(
     () =>

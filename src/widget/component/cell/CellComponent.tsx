@@ -10,6 +10,7 @@ import TextCell from './type/textCell/TextCell';
 import { Content, ContentBody } from '../../../ui';
 import { selectGroups } from '../../../state';
 import { InstructorsGroupName } from '../../../types';
+import { SubmissionCounterComponent } from './common/SubmissionCounterComponent';
 type CellComponentProps = {
   cellId: string;
   index: number;
@@ -31,6 +32,7 @@ export function CellComponent({ cellId, index, docId }: CellComponentProps) {
   ).includes(InstructorsGroupName);
   return cellVisibility || isInstructor ? (
     <Content className="ml-2 mr-2 animate-fadein" borderOnHover={true}>
+      <SubmissionCounterComponent cellId={cellId} />
       <CellToolbarComponent cellId={cellId} index={index} documentId={docId} />
       <ContentBody>
         <div className="mb-2">

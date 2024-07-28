@@ -11,10 +11,15 @@ module.exports = {
         fadein: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' }
+        },
+        flip: {
+          '0%': { marginBottom: '-50px', marginTop: '50px', opacity: '0' },
+          '100%': { marginLeft: '0', marginRight: '0', opacity: '1' }
         }
       },
       animation: {
-        fadein: 'fadein 0.32s ease-in-out'
+        fadein: 'fadein 0.32s ease-in-out',
+        slideIn: 'flip 0.32s ease-in-out both'
       }
     }
   },
